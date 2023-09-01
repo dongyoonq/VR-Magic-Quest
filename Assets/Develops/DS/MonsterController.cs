@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class MonsterController : MonoBehaviour
 {
+    [SerializeField]
     private MonsterData monsterData;
     public UnityEvent passiveEvent;
     public UnityEvent activeEvent;
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
+    MonsterData.MonsterInfo monsterInfo;
 
     private IEnumerator PlayerBehaveRoutine()
     {
@@ -28,5 +30,12 @@ public class MonsterController : MonoBehaviour
     public void GetCommand(IEnumerator command)
     {
         commandQueue.Enqueue(command);
+    }
+
+    public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
+    {
+        monsterInfo = monsterData.MonsterType[monsterNumber];
+        monsterData.SynchronizeAI(monsterInfo);
+        GameManager.Resource.Instantiate(monsterInfo.monster, spawnPosition, Quaternion.identity, true);
     }
 }

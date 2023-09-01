@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MonsterData;
 
 public class MonsterPerception : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MonsterPerception : MonoBehaviour
 
     }
 
+    private MonsterController monsterController;
     private BasicState currentState;
     private IEnumerator basicAI;
     private IEnumerator advancedAI;
@@ -32,6 +34,13 @@ public class MonsterPerception : MonoBehaviour
         StopCoroutine(advancedAIRoutine);
         yield return StartCoroutine(CollapseRoutine());
         GameManager.Resource.Destroy(gameObject);
+    }
+
+    public void SpotEnemy(Transform enemyTransform)
+    {
+        currentState = BasicState.Alert;
+        monsterController.transform.position = enemyTransform.position;
+        monsterController.transform.parent = enemyTransform;
     }
 
     private IEnumerator CollapseRoutine()

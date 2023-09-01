@@ -34,7 +34,7 @@ public class MonsterController : MonoBehaviour
 
     public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
     {
-        monsterInfo = monsterData.MonsterType[monsterNumber];
+        monsterInfo = monsterData.MonsterInfo[monsterNumber];
         monsterData.SynchronizeAI(monsterInfo);
         GameManager.Resource.Instantiate(monsterInfo.monster, spawnPosition, Quaternion.identity, true);
     }

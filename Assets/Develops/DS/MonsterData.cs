@@ -17,16 +17,10 @@ public class MonsterData : ScriptableObject
         
     }
 
-    public void SynchronizeAI(MonsterInfo monsterInfo)
+    public void SynchronizeAI(ref MonsterInfo monsterInfo)
     {
-        //monsterInfo.monsterBasicAI = 
-    }
-
-    //TODO: AI 종류 저장 방식은 나중에 더 고민해 볼 것.
-    private IEnumerator TestRoutine()
-    {
-        yield return null;
-        Debug.Log("TestSuccess");
+        MonsterAI monsterAI = new MonsterAI();
+        monsterInfo.monsterBasicAI = monsterAI.BasicMonsterBehaviourRoutine();
     }
 
     [Serializable]
@@ -34,16 +28,40 @@ public class MonsterData : ScriptableObject
     {
         public string monsterName;
         public GameObject monster;
+        public IEnumerator monsterBasicAI;
         public IEnumerator monsterAdvancedAI;
         public bool isEliteMonster;
         public float attackRange;
         public float moveSpeed;
 
-        public IEnumerator monsterBasicAI()
+
+    }
+
+    public class MonsterAI : MonoBehaviour
+    {
+        public IEnumerator BasicMonsterBehaviourRoutine()
         {
+            MonsterPerception perception = GetComponent<MonsterPerception>();
+            while (perception.CurrentState != MonsterPerception.BasicState.Collapse)
+            {
+                switch (perception.CurrentState)
+                {
+                    case MonsterPerception.BasicState.Alert:
+                        break;
+                    case MonsterPerception.BasicState.Chase:
+                        break;
+                    case MonsterPerception.BasicState.Combat:
+                        break;
+                    case MonsterPerception.BasicState.Flee:
+                        break;
+                    case MonsterPerception.BasicState.Collapse:
+                        break;
+                    default:
+                        break;
+                }
+                yield return null;
+            }
             yield return null;
         }
     }
-
-    
 }

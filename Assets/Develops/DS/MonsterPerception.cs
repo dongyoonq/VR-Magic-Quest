@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MonsterData;
 
 public class MonsterPerception : MonoBehaviour
 {
-    enum BasicState
+    public enum BasicState
     {
         Idle,
         Alert,
@@ -21,7 +20,9 @@ public class MonsterPerception : MonoBehaviour
     }
 
     private MonsterController monsterController;
+    private MonsterData.MonsterInfo monsterInfo;
     private BasicState currentState;
+    public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
     private IEnumerator basicAI;
     private IEnumerator advancedAI;
 
@@ -47,5 +48,12 @@ public class MonsterPerception : MonoBehaviour
     {
         // 죽는 애니메이션
         yield return null;
+    }
+
+    public void ActivateMonster(MonsterData.MonsterInfo monsterInfo)
+    {
+        this.monsterInfo = monsterInfo;
+        currentState = BasicState.Idle;
+        StartCoroutine(MakeDecisionRoutine());
     }
 }

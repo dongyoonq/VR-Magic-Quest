@@ -5,14 +5,14 @@ public class FireBeam : Skill
 {
     public override void CastingSpell(Player player, float correctValue, Transform createTrans)
     {
+        player.isSkillUsed = true;
+
         Vector3 direction = createTrans.up;
-
         Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createTrans.position, Quaternion.LookRotation(direction), createTrans, true);
-
-        skill.StartCoroutine(AttackJudgement(skill, createTrans));
+        skill.StartCoroutine(AttackJudgement(player, skill, createTrans));
     }
 
-    IEnumerator AttackJudgement(Skill skill, Transform createTrans)
+    IEnumerator AttackJudgement(Player player, Skill skill, Transform createTrans)
     {
         float time = 0f;
         float hitIntervalTime = 1f;
@@ -32,6 +32,7 @@ public class FireBeam : Skill
             yield return null;
         }
 
+        player.isSkillUsed = false;
         GameManager.Resource.Destroy(skill);
     }
 }

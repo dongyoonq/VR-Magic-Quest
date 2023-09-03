@@ -19,5 +19,17 @@ namespace Rito.InventorySystem
         {
             return new PortionItem(this);
         }
+
+        public override void UseItem()
+        {
+            base.UseItem();
+
+            Vector3 createVector = Camera.main.transform.position;
+            Vector3 forward = new Vector3(0, 0, 1);
+            createVector = Camera.main.transform.TransformDirection(createVector);
+            createVector += forward;
+
+            Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+        }
     }
 }

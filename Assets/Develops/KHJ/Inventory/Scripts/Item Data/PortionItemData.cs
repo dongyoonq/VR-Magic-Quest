@@ -25,9 +25,8 @@ namespace Rito.InventorySystem
             base.UseItem();
 
             Vector3 createVector = Camera.main.transform.position;
-            Vector3 forward = new Vector3(0, 0, 1);
             createVector = Camera.main.transform.TransformDirection(createVector);
-            createVector += forward;
+            createVector += new Vector3(0, 0, 1);
 
             Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
         }

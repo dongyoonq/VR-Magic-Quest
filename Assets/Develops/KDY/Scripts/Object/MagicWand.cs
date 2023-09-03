@@ -47,7 +47,7 @@ public class MagicWand : XRGrabInteractable
 
     private void Update()
     {
-        if (isMoving)
+        if (isMoving && !owner.isSkillUsed)
         {
             UpdateMovement();
         }
@@ -82,6 +82,9 @@ public class MagicWand : XRGrabInteractable
 
     protected override void OnActivated(ActivateEventArgs args)
     {
+        if (owner.isSkillUsed)
+            return;
+
         vfx.gameObject.SetActive(true);
         vfx.Clear();
 
@@ -92,6 +95,9 @@ public class MagicWand : XRGrabInteractable
 
     protected override void OnDeactivated(DeactivateEventArgs args)
     {
+        if (owner.isSkillUsed)
+            return;
+
         vfx.gameObject.SetActive(false);
 
         base.OnDeactivated(args);
@@ -117,7 +123,8 @@ public class MagicWand : XRGrabInteractable
 
     private void EndMovement()
     {
-        isMoving = false;
+        if (!isMoving)
+            return;
 
         // Create The Gesture From The Position List
         Point[] pointArray = new Point[positionList.Count];
@@ -161,6 +168,8 @@ public class MagicWand : XRGrabInteractable
                 OnRecognized?.Invoke(result.GestureClass, result.Score);
             }
         }
+
+        isMoving = false;
     }
 
     private void UpdateMovement()

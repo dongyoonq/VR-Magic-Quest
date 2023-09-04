@@ -7,12 +7,19 @@ public class MonsterController : MonoBehaviour
 {
     [SerializeField]
     private MonsterData monsterData;
+    [SerializeField]
+    private int testSpawnMonsterNumber;
     private MonsterPerception monsterPerception;
-    public UnityEvent passiveEvent;
-    public UnityEvent activeEvent;
+    public UnityEvent passiveEvent = new UnityEvent();
+    public UnityEvent activeEvent = new UnityEvent();
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
 
-    private IEnumerator PlayerBehaveRoutine()
+    private void Start()
+    {
+        SpawnMonster(testSpawnMonsterNumber, transform.position + (-transform.forward *5f));
+    }
+
+    private IEnumerator MonsterBehaveRoutine()
     {
         yield return null;
         while (true)
@@ -34,9 +41,10 @@ public class MonsterController : MonoBehaviour
 
     public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
     {
-        MonsterData.MonsterInfo monsterInfo = monsterData.MonsterSpecies[monsterNumber];
-        monsterData.SynchronizeAI(ref monsterInfo);
-        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monster, spawnPosition, Quaternion.identity, true).GetComponent<MonsterPerception>();
-        monsterPerception.ActivateMonster(monsterInfo);
+        MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
+        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPosition, Quaternion.identity, true).GetComponent<MonsterPerception>();
+        monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
+        monsterPerception.ActivateMonster(this, monsterInfo);
+        StartCoroutine(MonsterBehaveRoutine());
     }
 }

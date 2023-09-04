@@ -9,5 +9,6 @@ public interface IGimmickHolder
         get;
         set;
     }
+
     public IEnumerator GimmickRoutine();
 }

@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static EnumType;
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Data/Tag")]
 public class MonsterData : ScriptableObject
@@ -12,54 +13,42 @@ public class MonsterData : ScriptableObject
     [SerializeField]
     private MonsterInfo[] monsterType;
     public MonsterInfo[] MonsterType { get { return monsterType; } }
-    public Dictionary<Tag, UnityAction> monsterAdvancedAI = new Dictionary<Tag, UnityAction>();
-
-    public enum Tag
-    {
-        Melee,
-        LongRange,
-        Defensive,
-        Aggresive,
-        SpellCaster,
-        Gimmick,
-        Elite,
-        LastBoss
-    }
+    public Dictionary<MonsterTag, UnityAction> monsterAdvancedAI = new Dictionary<MonsterTag, UnityAction>();
 
 #if UNITY_EDITOR
     private void OnEnable()
     {
-        if (!monsterAdvancedAI.ContainsKey(Tag.Melee))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Melee))
         {
-            monsterAdvancedAI.Add(Tag.Melee, (() => MeleeTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.Melee, (() => MeleeTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.LongRange))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.LongRange))
         {
-            monsterAdvancedAI.Add(Tag.LongRange, (() => LongRangeTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.LongRange, (() => LongRangeTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.Defensive))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Guard))
         {
-            monsterAdvancedAI.Add(Tag.Defensive, (() => DefensiveTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.Guard, (() => GuardTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.Aggresive))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Aggresive))
         {
-            monsterAdvancedAI.Add(Tag.Aggresive, (() => AggressiveTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.Aggresive, (() => AggressiveTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.SpellCaster))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.SpellCaster))
         {
-            monsterAdvancedAI.Add(Tag.SpellCaster, (() => SpellCasterTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.SpellCaster, (() => SpellCasterTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.Gimmick))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Gimmick))
         {
-            monsterAdvancedAI.Add(Tag.Gimmick, (() => GimmickTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.Gimmick, (() => GimmickTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.Elite))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Elite))
         {
-            monsterAdvancedAI.Add(Tag.Elite, (() => EliteTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.Elite, (() => EliteTypeMonsterBehaviour()));
         }
-        if (!monsterAdvancedAI.ContainsKey(Tag.LastBoss))
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.LastBoss))
         {
-            monsterAdvancedAI.Add(Tag.LastBoss, (() => LastBossTypeMonsterBehaviour()));
+            monsterAdvancedAI.Add(MonsterTag.LastBoss, (() => LastBossTypeMonsterBehaviour()));
         }
     }
 #endif
@@ -67,9 +56,9 @@ public class MonsterData : ScriptableObject
     public void SynchronizeAI(ref MonsterInfo monsterInfo, MonsterPerception monsterPerception)
     {
 #if UNITY_EDITOR
-        if (monsterAdvancedAI.Count != Enum.GetValues(typeof(Tag)).Length)
+        if (monsterAdvancedAI.Count != Enum.GetValues(typeof(MonsterTag)).Length)
         {
-            foreach (Tag tag in Enum.GetValues(typeof(Tag)))
+            foreach (MonsterTag tag in Enum.GetValues(typeof(MonsterTag)))
             {
                 if (!monsterAdvancedAI.ContainsKey(tag))
                 {
@@ -78,47 +67,20 @@ public class MonsterData : ScriptableObject
             }
         }
 #endif
-        monsterInfo.monsterBasicAI = BasicMonsterBehaviourRoutine(monsterPerception);
-        monsterInfo.monsterAdvancedAI = AdvancedMonsterBehaviourRoutine(monsterInfo, monsterPerception);
-    }
-
-    private IEnumerator BasicMonsterBehaviourRoutine(MonsterPerception monsterPerception)
-    {
-        yield return null;
-        //MonsterPerception perception = GetComponent<MonsterPerception>();
-        //while (perception.CurrentState != MonsterPerception.BasicState.Collapse)
-        //{
-        //    switch (perception.CurrentState)
-        //    {
-        //        case MonsterPerception.BasicState.Alert:
-        //            break;
-        //        case MonsterPerception.BasicState.Chase:
-        //            break;
-        //        case MonsterPerception.BasicState.Combat:
-        //            break;
-        //        case MonsterPerception.BasicState.Flee:
-        //            break;
-        //        case MonsterPerception.BasicState.Collapse:
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    yield return null;
-        //    perception.Test();
-        //}
-        //yield return null;
+        monsterInfo.monsterAIRoutine = AdvancedMonsterBehaviourRoutine(monsterInfo, monsterPerception);
     }
 
     private IEnumerator AdvancedMonsterBehaviourRoutine(MonsterInfo monsterInfo, MonsterPerception monsterPerception)
     {
         UnityEvent advancedAI = new UnityEvent();
-        foreach (Tag tag in monsterInfo.monsterTag)
+        foreach (MonsterTag tag in monsterInfo.monsterTag)
         {
             monsterAdvancedAI.TryGetValue(tag, out UnityAction action);
             advancedAI.AddListener(action);
             yield return null;
         }
-        while (monsterPerception.CurrentState != MonsterPerception.BasicState.Collapse)
+        Vector3 guardPosition = monsterPerception.transform.position;
+        while (monsterPerception.CurrentState != BasicState.Collapse)
         {
             advancedAI?.Invoke();
             yield return null;
@@ -136,9 +98,9 @@ public class MonsterData : ScriptableObject
 
     }
 
-    private void DefensiveTypeMonsterBehaviour()
+    private void GuardTypeMonsterBehaviour()
     {
-
+        
     }
 
     private void AggressiveTypeMonsterBehaviour()
@@ -171,10 +133,10 @@ public class MonsterData : ScriptableObject
     {
         public string monsterName;
         public GameObject monsterPrefab;
-        public Tag[] monsterTag;
-        public IEnumerator monsterBasicAI;
-        public IEnumerator monsterAdvancedAI;
-        public bool isEliteMonster;
+        public MonsterTag[] monsterTag;
+        public IEnumerator monsterAIRoutine;
+        public int healthPoint;
+        public float detectRange;
         public float attackRange;
         public float moveSpeed;
 

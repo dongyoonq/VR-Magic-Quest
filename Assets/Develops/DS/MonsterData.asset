@@ -13,17 +13,24 @@ MonoBehaviour:
   m_Name: MonsterData
   m_EditorClassIdentifier: 
   monsterType:
-  - monsterName: a
+  - monsterName: Lich
     monsterPrefab: {fileID: 4004797075960537236, guid: 8ddd8858bb83c1d468c4e6b92e78efd5,
       type: 3}
-    monsterTag: 
-    isEliteMonster: 0
+    monsterTag: 00000000
+    healthPoint: 0
     attackRange: 0
     moveSpeed: 0
-  - monsterName: b
+  - monsterName: Golem
     monsterPrefab: {fileID: 4004797075960537236, guid: 8ddd8858bb83c1d468c4e6b92e78efd5,
       type: 3}
     monsterTag: 
-    isEliteMonster: 0
+    healthPoint: 0
+    attackRange: 0
+    moveSpeed: 0
+  - monsterName: Skeleton
+    monsterPrefab: {fileID: 4004797075960537236, guid: 8ddd8858bb83c1d468c4e6b92e78efd5,
+      type: 3}
+    monsterTag: 
+    healthPoint: 0
     attackRange: 0
     moveSpeed: 0

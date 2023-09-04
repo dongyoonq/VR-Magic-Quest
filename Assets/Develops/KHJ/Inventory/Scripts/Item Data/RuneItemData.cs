@@ -7,7 +7,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item_Rune", menuName = "Inventory System/Item Data/Rune", order = 4)]
 public class RuneItemData : CountableItemData
 {
+    [Serializable]
+    public class Rune
+    {
+        public string ID;
 
+
+    }
 
     public override Item CreateItem()
     {
@@ -21,6 +27,6 @@ public class RuneItemData : CountableItemData
         Vector3 createVector = Camera.main.transform.position;
         createVector += Camera.main.transform.forward * 1.5f;
 
-        Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+        Instantiate<GameObject>(Data.DropItemPrefab, createVector, Camera.main.transform.rotation);
     }
 }

@@ -1667,7 +1667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132849559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 62.33, z: 0}
+  m_LocalPosition: {x: 0, y: 62.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17638,6 +17638,9 @@ MonoBehaviour:
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
   - {fileID: 11400000, guid: 2c097e9cfb22a0347b33cf57c5249a3f, type: 2}
+  - {fileID: 11400000, guid: 7aea4756547a5c34b9db76de2da6e350, type: 2}
+  - {fileID: 11400000, guid: 86f453e19c6548143ab62a355c4ffc60, type: 2}
+  - {fileID: 11400000, guid: f2ad1486a1dda7d4791e356abd62adac, type: 2}
   hp: 0
 --- !u!114 &1773150596
 MonoBehaviour:
@@ -27741,7 +27744,7 @@ MonoBehaviour:
   recognitionThreshold: 0.75
   newPositionThresholdDistance: 0.05
   creationMode: 0
-  newGestureName: Teleport
+  newGestureName: Z
 --- !u!54 &7017698682795361289
 Rigidbody:
   m_ObjectHideFlags: 0

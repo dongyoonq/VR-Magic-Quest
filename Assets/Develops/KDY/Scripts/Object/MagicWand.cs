@@ -14,7 +14,6 @@ public class MagicWand : XRGrabInteractable
 {
     private const string gesturefileLocation = "/Editors/RecognizeData/";
 
-    public GameObject linePrefab;
     public TrailRenderer vfx;
     public Transform movementSource;
     public UnityEvent<string, float> OnRecognized;
@@ -199,6 +198,8 @@ public class MagicWand : XRGrabInteractable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
+        /* Fire Beam Gizmo
         Gizmos.DrawRay(movementSource.position, movementSource.up);
+        */
     }
 }

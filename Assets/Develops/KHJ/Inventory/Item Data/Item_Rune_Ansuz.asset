@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 3
   _name: Ansuz
   _tooltip: "\uC548\uC218\uC988 \uB8EC, \uC544\uC2A4 \uC2E0"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 53d0b57f36d57494caaaacdce40ea121, type: 3}
+  _dropItemPrefab: {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33,
+    type: 3}
   _maxAmount: 99

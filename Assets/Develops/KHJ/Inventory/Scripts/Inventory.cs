@@ -69,7 +69,7 @@ public class Inventory : MonoBehaviour
 
     // 초기 수용 한도
     [SerializeField, Range(8, 64)]
-    private int _initalCapacity = 32;
+    private int _initalCapacity = 64;
 
     // 최대 수용 한도(아이템 배열 크기)
     [SerializeField, Range(8, 64)]
@@ -454,29 +454,6 @@ public class Inventory : MonoBehaviour
 
         // 두 슬롯 정보 갱신
         UpdateSlot(indexA, indexB);
-    }
-
-    /// <summary> 셀 수 있는 아이템의 수량 나누기(A -> B 슬롯으로) </summary>
-    public void SeparateAmount(int indexA, int indexB, int amount)
-    {
-        // amount : 나눌 목표 수량
-
-        if(!IsValidIndex(indexA)) return;
-        if(!IsValidIndex(indexB)) return;
-
-        Item _itemA = _items[indexA];
-        Item _itemB = _items[indexB];
-
-        CountableItem _ciA = _itemA as CountableItem;
-
-        // 조건 : A 슬롯 - 셀 수 있는 아이템 / B 슬롯 - Null
-        // 조건에 맞는 경우, 복제하여 슬롯 B에 추가
-        if (_ciA != null && _itemB == null)
-        {
-            _items[indexB] = _ciA.SeperateAndClone(amount);
-
-            UpdateSlot(indexA, indexB);
-        }
     }
 
     /// <summary> 해당 슬롯의 아이템 사용 </summary>

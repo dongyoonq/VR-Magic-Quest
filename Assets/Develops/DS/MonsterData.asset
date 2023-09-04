@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece506fd3f684e44181996ddb20ae56e, type: 3}
   m_Name: MonsterData
   m_EditorClassIdentifier: 
-  monsterInfo:
-  - monsterName: 
-    monster: {fileID: 0}
+  monsterType:
+  - monsterName: a
+    monsterPrefab: {fileID: 4004797075960537236, guid: 8ddd8858bb83c1d468c4e6b92e78efd5,
+      type: 3}
+    monsterTag: 
+    isEliteMonster: 0
+    attackRange: 0
+    moveSpeed: 0
+  - monsterName: b
+    monsterPrefab: {fileID: 4004797075960537236, guid: 8ddd8858bb83c1d468c4e6b92e78efd5,
+      type: 3}
+    monsterTag: 
+    isEliteMonster: 0
     attackRange: 0
     moveSpeed: 0

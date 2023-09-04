@@ -28,11 +28,13 @@ public class MonsterPerception : MonoBehaviour
 
     public IEnumerator MakeDecisionRoutine()
     {
+        basicAI = monsterInfo.monsterBasicAI;
+        advancedAI = monsterInfo.monsterAdvancedAI;
         Coroutine basicAIRoutine = StartCoroutine(basicAI);
-        Coroutine advancedAIRoutine = StartCoroutine(advancedAI);
+        //Coroutine advancedAIRoutine = StartCoroutine(advancedAI);
         yield return new WaitUntil(() => currentState == BasicState.Collapse);
         StopCoroutine(basicAIRoutine);
-        StopCoroutine(advancedAIRoutine);
+        //StopCoroutine(advancedAIRoutine);
         yield return StartCoroutine(CollapseRoutine());
         GameManager.Resource.Destroy(gameObject);
     }
@@ -54,6 +56,13 @@ public class MonsterPerception : MonoBehaviour
     {
         this.monsterInfo = monsterInfo;
         currentState = BasicState.Idle;
+        basicAI = monsterInfo.monsterBasicAI;
+        //advancedAI = monsterInfo.monsterAdvancedAI;
         StartCoroutine(MakeDecisionRoutine());
+    }
+
+    public void Test()
+    {
+        Debug.Log("Test");
     }
 }

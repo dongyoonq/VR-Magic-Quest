@@ -17640,7 +17640,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c097e9cfb22a0347b33cf57c5249a3f, type: 2}
   - {fileID: 11400000, guid: 7aea4756547a5c34b9db76de2da6e350, type: 2}
   - {fileID: 11400000, guid: 86f453e19c6548143ab62a355c4ffc60, type: 2}
+  - {fileID: 11400000, guid: 0a1db17e7844f2e408c39ba447f92db3, type: 2}
   - {fileID: 11400000, guid: f2ad1486a1dda7d4791e356abd62adac, type: 2}
+  - {fileID: 11400000, guid: 2d5121643bc4e25429ce5a9fe825bc67, type: 2}
   hp: 0
 --- !u!114 &1773150596
 MonoBehaviour:
@@ -27734,8 +27736,6 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  linePrefab: {fileID: 1538093764612905454, guid: 19db33716c8ab154c9ed05f02aa2bb81,
-    type: 3}
   vfx: {fileID: 72539921}
   movementSource: {fileID: 132849560}
   OnRecognized:

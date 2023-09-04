@@ -7,5 +7,6 @@ public class EnumType
         Lightning,
         Venom,
         Gravity,
+        Teleport,
     }
 }

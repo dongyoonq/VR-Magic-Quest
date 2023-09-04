@@ -4,18 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 날짜 : 2021-04-13 PM 7:47:35
-// 작성자 : Rito
-
-namespace Rito
+/// <summary> 인벤토리 UI 위에 띄울 작은 팝업들 관리 </summary>
+public class InventoryPopupUI : MonoBehaviour
 {
-    /// <summary> 인벤토리 UI 위에 띄울 작은 팝업들 관리 </summary>
-    public class InventoryPopupUI : MonoBehaviour
-    {
-        /***********************************************************************
-        *                               Fields
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Fields
+    ***********************************************************************/
+    #region .
         // 1. 아이템 버리기 확인 팝업
         [Header("Confirmation Popup")]
         [SerializeField] private GameObject _confirmationPopupObject;
@@ -42,10 +37,10 @@ namespace Rito
         private int _maxAmount;
 
         #endregion
-        /***********************************************************************
-        *                               Unity Events
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Unity Events
+    ***********************************************************************/
+    #region .
         private void Awake()
         {
             InitUIEvents();
@@ -81,10 +76,10 @@ namespace Rito
         }
 
         #endregion
-        /***********************************************************************
-        *                               Public Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Public Methods
+    ***********************************************************************/
+    #region .
         /// <summary> 확인/취소 팝업 띄우기 </summary>
         public void OpenConfirmationPopup(Action okCallback, string itemName)
         {
@@ -104,10 +99,10 @@ namespace Rito
         }
 
         #endregion
-        /***********************************************************************
-        *                               Private Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Private Methods
+    ***********************************************************************/
+    #region .
         private void InitUIEvents()
         {
             // 1. 확인 취소 팝업
@@ -199,5 +194,4 @@ namespace Rito
 
         #endregion
 
-    }
 }

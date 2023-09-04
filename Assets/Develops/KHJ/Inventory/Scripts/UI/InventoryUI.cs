@@ -38,17 +38,12 @@ using UnityEngine.EventSystems;
     - InvertMouse(bool) : 마우스 좌클릭/우클릭 반전 여부 설정
 */
 
-// 날짜 : 2021-03-07 PM 7:34:31
-// 작성자 : Rito
-
-namespace Rito.InventorySystem
+public class InventoryUI : MonoBehaviour
 {
-    public class InventoryUI : MonoBehaviour
-    {
-        /***********************************************************************
-        *                               Option Fields
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Option Fields
+    ***********************************************************************/
+    #region .
         [Header("Options")]
         [Space]
         [SerializeField] private bool _showTooltip = true;
@@ -70,10 +65,10 @@ namespace Rito.InventorySystem
         [SerializeField] private Toggle _toggleFilterPortions;
 
         #endregion
-        /***********************************************************************
-        *                               Private Fields
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Private Fields
+    ***********************************************************************/
+    #region .
 
         /// <summary> 연결된 인벤토리 </summary>
         private Inventory _inventory;
@@ -90,10 +85,10 @@ namespace Rito.InventorySystem
         private FilterOption _currentFilterOption = FilterOption.All;
 
         #endregion
-        /***********************************************************************
-        *                               Unity Events
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Unity Events
+    ***********************************************************************/
+    #region .
         private void Awake()
         {
             InitSlots();
@@ -102,10 +97,10 @@ namespace Rito.InventorySystem
         }
 
         #endregion
-        /***********************************************************************
-        *                               Init Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Init Methods
+    ***********************************************************************/
+    #region .
 
         private void InitSlots()
         {
@@ -148,10 +143,10 @@ namespace Rito.InventorySystem
         }
 
         #endregion
-        /***********************************************************************
-        *                               Public Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Public Methods
+    ***********************************************************************/
+    #region .
 
         /// <summary> 인벤토리 참조 등록 (인벤토리에서 직접 호출) </summary>
         public void SetInventoryReference(Inventory inventory)
@@ -226,5 +221,4 @@ namespace Rito.InventorySystem
             }
         }
         #endregion
-    }
 }

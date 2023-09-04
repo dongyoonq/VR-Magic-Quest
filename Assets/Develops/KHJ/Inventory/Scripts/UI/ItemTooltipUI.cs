@@ -4,18 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 날짜 : 2021-04-01 PM 8:33:22
-// 작성자 : Rito
-
-namespace Rito.InventorySystem
+/// <summary> 슬롯 내의 아이템 아이콘에 마우스를 올렸을 때 보이는 툴팁 </summary>
+public class ItemTooltipUI : MonoBehaviour
 {
-    /// <summary> 슬롯 내의 아이템 아이콘에 마우스를 올렸을 때 보이는 툴팁 </summary>
-    public class ItemTooltipUI : MonoBehaviour
-    {
-        /***********************************************************************
-        *                           Inspector Option Fields
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                           Inspector Option Fields
+    ***********************************************************************/
+    #region .
         [SerializeField]
         private Text _titleText;   // 아이템 이름 텍스트
 
@@ -23,10 +18,10 @@ namespace Rito.InventorySystem
         private Text _contentText; // 아이템 설명 텍스트
 
         #endregion
-        /***********************************************************************
-        *                               Private Fields
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Private Fields
+    ***********************************************************************/
+    #region .
         private RectTransform _rt;
         private CanvasScaler _canvasScaler;
 
@@ -36,10 +31,10 @@ namespace Rito.InventorySystem
         private static readonly Vector2 RightBottom = new Vector2(1f, 0f);
 
         #endregion
-        /***********************************************************************
-        *                               Unity Events
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Unity Events
+    ***********************************************************************/
+    #region .
         private void Awake()
         {
             Init();
@@ -47,10 +42,10 @@ namespace Rito.InventorySystem
         }
 
         #endregion
-        /***********************************************************************
-        *                               Private Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Private Methods
+    ***********************************************************************/
+    #region .
         private void Init()
         {
             TryGetComponent(out _rt);
@@ -79,10 +74,10 @@ namespace Rito.InventorySystem
         }
 
         #endregion
-        /***********************************************************************
-        *                               Public Methods
-        ***********************************************************************/
-        #region .
+    /***********************************************************************
+    *                               Public Methods
+    ***********************************************************************/
+    #region .
         /// <summary> 툴팁 UI에 아이템 정보 등록 </summary>
         public void SetItemInfo(ItemData data)
         {
@@ -142,5 +137,4 @@ namespace Rito.InventorySystem
         public void Hide() => gameObject.SetActive(false);
 
         #endregion
-    }
 }

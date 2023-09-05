@@ -25,6 +25,7 @@ public class EnumType
         Guard,
         Aggresive,
         SpellCaster,
+        Agile,
         Gimmick,
         Elite,
         LastBoss

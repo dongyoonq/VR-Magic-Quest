@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8486933861224104555}
   - component: {fileID: 8486933861224104556}
   - component: {fileID: 8486933861224104553}
+  - component: {fileID: 1263670340}
   m_Layer: 0
   m_Name: Hagalaz
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.29786012, y: 0.45823205, z: 0.05252771}
   m_Center: {x: 0.00067304075, y: -0.013988711, z: 0.0011071106}
+--- !u!114 &1263670340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486933861224104557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 71aca503af92254408dbeb84f2897592, type: 2}
 --- !u!1001 &8486933862915691018
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8271105284216808226}
   - component: {fileID: 8271105284216808225}
   - component: {fileID: 8271105284216808228}
+  - component: {fileID: 442079121}
   m_Layer: 0
   m_Name: Dagaz
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3429853, y: 0.49983078, z: 0.053575918}
   m_Center: {x: -0.029109776, y: -0.019476801, z: 0.0013039308}
+--- !u!114 &442079121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271105284216808224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 9f26eab824114d245becf51698f54688, type: 2}
 --- !u!1001 &8271105285328550325
 PrefabInstance:
   m_ObjectHideFlags: 0

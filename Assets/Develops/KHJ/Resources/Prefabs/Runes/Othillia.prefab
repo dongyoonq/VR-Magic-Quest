@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7904323106012796330}
   - component: {fileID: 7904323106012796333}
   - component: {fileID: 7904323106012796328}
+  - component: {fileID: 854900262}
   m_Layer: 0
   m_Name: Othillia
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.29023784, y: 0.44128016, z: 0.05357594}
   m_Center: {x: 0.00033504516, y: 0.008331105, z: 0.0013039364}
+--- !u!114 &854900262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7904323106012796332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 1159b3ff37b1e864d97eef222bdf37c5, type: 2}
 --- !u!1001 &7904323104597914467
 PrefabInstance:
   m_ObjectHideFlags: 0

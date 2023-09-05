@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5002723904040131854}
   - component: {fileID: 5002723904040131855}
   - component: {fileID: 5002723904040131848}
+  - component: {fileID: 1098074105}
   m_Layer: 0
   m_Name: Gebo
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25737178, y: 0.4389534, z: 0.04143752}
   m_Center: {x: -0.0030927435, y: -0.016478963, z: 0.0010085059}
+--- !u!114 &1098074105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002723904040131852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: c1517c4dbb619ab44912a41f50735672, type: 2}
 --- !u!1001 &5002723904754056182
 PrefabInstance:
   m_ObjectHideFlags: 0

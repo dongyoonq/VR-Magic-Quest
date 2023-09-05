@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 10
   _name: Hagalaz
   _tooltip: "\uD558\uAE00\uB77C\uC988 \uB8EC,  \uC6B0\uBC15"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: e9d8f25bc33651e43a25f1d7b4ef6780, type: 3}
+  _dropItemPrefab: {fileID: 8486933861224104557, guid: b1b79c74eb521d248b4252294e650c63,
+    type: 3}
   _maxAmount: 99

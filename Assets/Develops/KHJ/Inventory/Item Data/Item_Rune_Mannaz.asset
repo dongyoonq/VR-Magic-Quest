@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 16
   _name: Mannaz
   _tooltip: "\uB9CC\uB098\uC988 \uB8EC, \uB0A8\uC131"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 46a93c041294da54da8d4109069e6be5, type: 3}
+  _dropItemPrefab: {fileID: 3900512688034396307, guid: e4cb8e0b3d0812442a83b9f64e555634,
+    type: 3}
   _maxAmount: 99

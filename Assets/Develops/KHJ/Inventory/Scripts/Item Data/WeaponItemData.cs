@@ -11,9 +11,4 @@ public class WeaponItemData : EquipmentItemData
     public int Damage => _damage;
 
     [SerializeField] private int _damage = 1;
-
-    public override Item CreateItem()
-    {
-        return new WeaponItem(this);
-    }
 }

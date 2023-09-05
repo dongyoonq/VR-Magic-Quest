@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 21
   _name: Sowulo
   _tooltip: "\uC18C\uC70C\uB85C \uB8EC, \uD0DC\uC591"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 1b42e90be029c6447a9569e47755f371, type: 3}
+  _dropItemPrefab: {fileID: 6914735933583471331, guid: 4cf185c6dcb835946bda7bf7d74accd6,
+    type: 3}
   _maxAmount: 99

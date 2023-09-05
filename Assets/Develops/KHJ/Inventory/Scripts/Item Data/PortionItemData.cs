@@ -10,18 +10,21 @@ public class PortionItemData : CountableItemData
     /// <summary> 효과량(회복량 등) </summary>
     public float Value => _value;
     [SerializeField] private float _value;
-    public override Item CreateItem()
+
+    public override bool UseItem()
     {
-        return new PortionItem(this);
-    }
+        if(Amount <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            Amount -= 1;
+            Vector3 createVector = Camera.main.transform.position;
+            createVector += Camera.main.transform.forward * 1.5f;
 
-    public override void UseItem()
-    {
-        base.UseItem();
-
-        Vector3 createVector = Camera.main.transform.position;
-        createVector += Camera.main.transform.forward * 1.5f;
-
-        Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+            Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+            return true;
+        }
     }
 }

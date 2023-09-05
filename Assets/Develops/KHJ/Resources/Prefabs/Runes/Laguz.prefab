@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1301645522222705992}
   - component: {fileID: 1301645522222705993}
   - component: {fileID: 1301645522222705998}
+  - component: {fileID: 1347064719}
   m_Layer: 0
   m_Name: Laguz
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.30978566, y: 0.46979386, z: 0.053575948}
   m_Center: {x: 0.0066358224, y: -0.028531738, z: 0.001303914}
+--- !u!114 &1347064719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301645522222705994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: d40cad4a6c6deaf4a9956ab6ce49e2ac, type: 2}
 --- !u!1001 &1301645521285613366
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,26 +7,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item_Rune", menuName = "Inventory System/Item Data/Rune", order = 4)]
 public class RuneItemData : CountableItemData
 {
-    [Serializable]
-    public class Rune
+    public override bool UseItem()
     {
-        public string ID;
+        if (Amount <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            Amount -= 1;
+            Vector3 createVector = Camera.main.transform.position;
+            createVector += Camera.main.transform.forward * 1.5f;
 
-
-    }
-
-    public override Item CreateItem()
-    {
-        return new RuneItem(this);
-    }
-
-    public override void UseItem()
-    {
-        base.UseItem();
-
-        Vector3 createVector = Camera.main.transform.position;
-        createVector += Camera.main.transform.forward * 1.5f;
-
-        Instantiate<GameObject>(Data.DropItemPrefab, createVector, Camera.main.transform.rotation);
+            Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+            return true;
+        }
     }
 }

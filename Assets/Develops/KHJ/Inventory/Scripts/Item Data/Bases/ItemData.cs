@@ -18,21 +18,16 @@ using UnityEngine.UI;
 
 public abstract class ItemData : ScriptableObject
 {
-    [SerializeField]
-    private Iteminfo[] iteminfos;
-    public Iteminfo[] Iteminfos { get { return iteminfos; } }
-    [Serializable]
-    public class Iteminfo
-    {
-        public int _id;
-        public string _name;    // 아이템 이름
-        public string _tooltip; // 아이템 설명
-        public Sprite _iconSprite; // 아이템 아이콘
-        public GameObject _dropItemPrefab; // 바닥에 떨어질 때 생성할 프리팹
-    }
+    public int ID => _id;
+    public string Name => _name;
+    public string Tooltip => _tooltip;
+    public Sprite IconSprite => _iconSprite;
+    public Item Item => _dropItemPrefab.GetComponent<Item>();
 
-
-    /// <summary> 타입에 맞는 새로운 아이템 생성 </summary>
-    public abstract Item CreateItem();
-    public virtual void UseItem() {}
+    [SerializeField] private int _id;
+    [SerializeField] private string _name;    // 아이템 이름
+    [Multiline]
+    [SerializeField] private string _tooltip; // 아이템 설명
+    [SerializeField] private Sprite _iconSprite; // 아이템 아이콘
+    [SerializeField] protected GameObject _dropItemPrefab; // 바닥에 떨어질 때 생성할 프리팹
 }

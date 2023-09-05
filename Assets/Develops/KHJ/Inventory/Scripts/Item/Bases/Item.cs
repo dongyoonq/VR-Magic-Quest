@@ -10,9 +10,9 @@ using UnityEngine.UI;
         - EquipmentItem : 장비 아이템
         - CountableItem : 수량이 존재하는 아이템
 */
-public abstract class Item
+public abstract class Item : MonoBehaviour
 {
-    public ItemData Data { get; private set; }
+    public ItemData Data;
 
     public Item(ItemData data) => Data = data;
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4411924971584530806}
   - component: {fileID: 4411924971584530801}
   - component: {fileID: 4411924971584530804}
+  - component: {fileID: 19422651}
   m_Layer: 0
   m_Name: Ehwaz
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34608874, y: 0.5037173, z: 0.04755128}
   m_Center: {x: -0.007020086, y: -0.018910304, z: 0.0011573015}
+--- !u!114 &19422651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411924971584530800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 4ac26ec07309395419b2ceb7865265e9, type: 2}
 --- !u!1001 &4411924972051264313
 PrefabInstance:
   m_ObjectHideFlags: 0

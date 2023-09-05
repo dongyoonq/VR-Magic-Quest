@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3926859739586314841}
   - component: {fileID: 3926859739586314842}
   - component: {fileID: 3926859739586314847}
+  - component: {fileID: 318880041}
   m_Layer: 0
   m_Name: Pertho
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.28169662, y: 0.5116205, z: 0.053575918}
   m_Center: {x: -0.0047264025, y: -0.046891823, z: 0.0013039308}
+--- !u!114 &318880041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3926859739586314843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 5fa4cd47b29379e4cb4e633a6b257ecb, type: 2}
 --- !u!1001 &3926859739209315909
 PrefabInstance:
   m_ObjectHideFlags: 0

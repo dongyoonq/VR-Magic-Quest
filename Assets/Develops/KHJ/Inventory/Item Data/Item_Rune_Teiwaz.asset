@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 22
   _name: Teiwaz
   _tooltip: "\uD2F0\uC640\uC988 \uB8EC, \uC2E0 \uD2F0\uB974"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 568fa987ceae3d34597f49191ea720c6, type: 3}
+  _dropItemPrefab: {fileID: 3066446662878091441, guid: 97d083945e8e7ad4db8fc5b02f6210ea,
+    type: 3}
   _maxAmount: 99

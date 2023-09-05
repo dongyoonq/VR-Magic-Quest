@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 14
   _name: Kaunan
   _tooltip: "\uCE74\uC6B0\uB09C \uB8EC, \uADA4\uC591, \uD683\uBD88"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: ffa96e25f136fc54081c53122f997cfd, type: 3}
+  _dropItemPrefab: {fileID: 2972636702054205246, guid: 06282f5e887ab1e4489114baeba8dac8,
+    type: 3}
   _maxAmount: 99

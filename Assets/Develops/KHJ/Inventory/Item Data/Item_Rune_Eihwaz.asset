@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 7
   _name: Ehiwaz
   _tooltip: "\uC5D0\uC774\uD558\uC988 \uB8EC, \uC8FC\uBAA9 \uB098\uBB34"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 903f76b9f6f7ebe40951cf1c328c8523, type: 3}
+  _dropItemPrefab: {fileID: 3798244049454182368, guid: f1cf0b77d901f65419160af376bb97ec,
+    type: 3}
   _maxAmount: 99

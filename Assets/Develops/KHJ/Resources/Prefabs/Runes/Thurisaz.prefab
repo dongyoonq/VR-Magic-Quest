@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1445941700141921560}
   - component: {fileID: 1445941700141921563}
   - component: {fileID: 1445941700141921542}
+  - component: {fileID: 1891994242}
   m_Layer: 0
   m_Name: Thurisaz
   m_TagString: Untagged
@@ -216,6 +217,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.30222905, y: 0.5128156, z: 0.052048624}
   m_Center: {x: -0.0040906295, y: -0.014361158, z: 0.0008667307}
+--- !u!114 &1891994242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445941700141921562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8622f57f050542a1ef0c7b000b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 24a070397ad28a848bd7181b411d0670, type: 2}
 --- !u!1001 &1445941701143356878
 PrefabInstance:
   m_ObjectHideFlags: 0

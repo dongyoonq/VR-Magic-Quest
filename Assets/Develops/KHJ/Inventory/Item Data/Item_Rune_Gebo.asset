@@ -15,6 +15,7 @@ MonoBehaviour:
   _id: 9
   _name: Gebo
   _tooltip: "\uAC8C\uBCF4 \uB8EC, \uC120\uBB3C"
-  _iconSprite: {fileID: 0}
-  _dropItemPrefab: {fileID: 0}
+  _iconSprite: {fileID: 21300000, guid: 62bea552beb969840ad35704f6578ebc, type: 3}
+  _dropItemPrefab: {fileID: 5002723904040131852, guid: 8beb717cffe2d684bb1fbe40ed1eb320,
+    type: 3}
   _maxAmount: 99

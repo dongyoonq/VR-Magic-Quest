@@ -15,7 +15,8 @@ namespace Rito.InventorySystem
 
         public bool Use()
         {
-            // 임시 : 개수 하나 감소
+            Data.UseItem();
+            
             Amount--;
 
             return true;

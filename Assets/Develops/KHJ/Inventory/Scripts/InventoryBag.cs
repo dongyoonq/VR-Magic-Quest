@@ -9,7 +9,7 @@ public class InventoryBag : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("enter something");
-        Item item = other.GetComponent<Item>();
+        Item item = other?.GetComponent<Item>();
         Debug.Log(item);
         Debug.Log(item.Data);
         inventory.Add(item.Data, 1);

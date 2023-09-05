@@ -22,7 +22,6 @@ public abstract class ItemData : ScriptableObject
     public string Name => _name;
     public string Tooltip => _tooltip;
     public Sprite IconSprite => _iconSprite;
-    public Item Item => _dropItemPrefab.GetComponent<Item>();
 
     [SerializeField] private int _id;
     [SerializeField] private string _name;    // 아이템 이름

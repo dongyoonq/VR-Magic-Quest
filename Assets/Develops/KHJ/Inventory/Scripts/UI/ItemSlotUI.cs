@@ -45,7 +45,6 @@ public class ItemSlotUI : MonoBehaviour
 
     private RectTransform _slotRect;
     private RectTransform _iconRect;
-    private RectTransform _highlightRect;
 
     private GameObject _iconGo;
     private GameObject _textGo;

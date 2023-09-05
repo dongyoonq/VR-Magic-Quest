@@ -52,8 +52,6 @@ public class InventoryUI : MonoBehaviour
 
         [Header("Connected Objects")]
         [SerializeField] private RectTransform _contentAreaRT; // 슬롯들이 위치할 영역
-        [SerializeField] private ItemTooltipUI _itemTooltip;   // 아이템 정보를 보여줄 툴팁 UI
-        [SerializeField] private InventoryPopupUI _popup;      // 팝업 UI 관리 객체
 
         [Header("Buttons")]
         [SerializeField] private Button _trimButton;
@@ -197,10 +195,6 @@ public class InventoryUI : MonoBehaviour
             if(itemData != null)
                 switch (_currentFilterOption)
                 {
-                    case FilterOption.Equipment:
-                        isFiltered = (itemData is EquipmentItemData);
-                        break;
-
                     case FilterOption.Portion:
                         isFiltered = (itemData is PortionItemData);
                         break;

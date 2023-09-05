@@ -23,7 +23,7 @@ public abstract class CountableItemData : ItemData
     {
         Amount = Mathf.Clamp(amount, 0, MaxAmount);
     }
-
+        
     public abstract bool UseItem();
 
     /// <summary> 개수 추가 및 최대치 초과량 반환(초과량 없을 경우 0) </summary>

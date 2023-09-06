@@ -19,9 +19,19 @@ public class MonsterVision : MonoBehaviour
         perception = GetComponent<MonsterPerception>();
     }
 
+    public void Gaze()
+    {
+        Debug.Log("Gaze");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // 시야작업과 플레이어 레이어 구분
         perception.SpotEnemy(other.transform);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
     }
 }

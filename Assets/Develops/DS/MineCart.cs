@@ -43,7 +43,6 @@ public class MineCart : MonoBehaviour
             {
                 onSteepTime = 0f;
             }
-            Debug.Log(onSteepTime);
             yield return waitForFixedUpdate;
         }
     }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
-  m_Name: Gravity Falling Skill Data
+  m_Name: Lightning Bolt Skill Data
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
-  skillPrefab: {fileID: 3782673351796976018, guid: 5961066f3c24a0e4190b1f6b71278312,
+  skillPrefab: {fileID: -6139808074013355259, guid: 04d5bb303a0abc240bbb95f4f79abb26,
     type: 3}
-  skillName: Gravity Falling
-  skillTooltip: This is Gravity Rock Falling Skill
-  recognizeGestureName: S
-  damage: 90
+  skillName: Lightning Bolt
+  skillTooltip: This is Lightning Bolt Skill
+  recognizeGestureName: Beam
+  damage: 50
   useMp: 0
-  skillType: 3
-  hitTags: 
+  skillType: 1
+  hitTags: 00000000

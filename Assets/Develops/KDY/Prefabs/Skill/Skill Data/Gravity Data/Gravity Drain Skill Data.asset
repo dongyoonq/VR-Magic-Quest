@@ -20,4 +20,5 @@ MonoBehaviour:
   recognizeGestureName: O
   damage: 50
   useMp: 0
-  skillType: 4
+  skillType: 3
+  hitTags: 

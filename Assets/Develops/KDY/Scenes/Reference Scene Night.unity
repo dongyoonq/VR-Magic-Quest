@@ -17743,12 +17743,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
-  - {fileID: 11400000, guid: 4aa7b701e31d8724e92869e425f77d00, type: 2}
-  - {fileID: 11400000, guid: f7d0c23bff2202246940b8eced0a4c74, type: 2}
-  - {fileID: 11400000, guid: 17ec45e49e5348f47bda3b9c08bcde76, type: 2}
-  - {fileID: 11400000, guid: 7821da7414907db43b7352428bdd1fc3, type: 2}
-  - {fileID: 11400000, guid: 4418e77aafe3624458117c91bd1adeb9, type: 2}
-  - {fileID: 11400000, guid: 791b26c84ceec644b86c8e3bfd62ebcb, type: 2}
+  - {fileID: 11400000, guid: 5e3743708ad00b8428434c223a8b0906, type: 2}
+  - {fileID: 11400000, guid: 76a8fa307b714994a88078a76631e50f, type: 2}
+  - {fileID: 11400000, guid: 002914ddb93a96c44965d1c8c1c5f084, type: 2}
+  - {fileID: 11400000, guid: 4e610505b24bbb94cb64a272a68105af, type: 2}
+  - {fileID: 11400000, guid: dd4af6255603ce74fad501968bb5ebc5, type: 2}
+  - {fileID: 11400000, guid: 3840ed3dd8c08504fbf02c31b813088e, type: 2}
   hp: 0
 --- !u!114 &1773150596
 MonoBehaviour:
@@ -27842,6 +27842,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  linePrefab: {fileID: 0}
   vfx: {fileID: 72539921}
   movementSource: {fileID: 132849560}
   OnRecognized:
@@ -27850,7 +27851,7 @@ MonoBehaviour:
   recognitionThreshold: 0.75
   newPositionThresholdDistance: 0.05
   creationMode: 0
-  newGestureName: Teleport
+  newGestureName: Wave
 --- !u!54 &7017698682795361289
 Rigidbody:
   m_ObjectHideFlags: 0

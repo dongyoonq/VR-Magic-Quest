@@ -12,6 +12,7 @@ public class PortionItem : CountableItem
 
     static int NextFreeUniqueId = 3000;
 
+    /// <summary> 포션 리시버가 받을 string </summary>
     public string PotionType = "Default";
     public GameObject plugObj;
     public ParticleSystem particleSystemLiquid;
@@ -27,6 +28,7 @@ public class PortionItem : CountableItem
     bool m_PlugIn = true;
     Rigidbody m_PlugRb;
     MaterialPropertyBlock m_MaterialPropertyBlock;
+    /// <summary> 포션아이템으로 인식시켜주는 collider </summary>
     private Collider portionCollider;
 
     int m_UniqueId;
@@ -68,9 +70,9 @@ public class PortionItem : CountableItem
         Destroy(m_AudioSource.gameObject);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //포션을 기울이면 뚜껑의 개방 여부에 따라 용액이 흘러나오는 파티클을 실행해줌
         if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && m_PlugIn == false)
         {
             if (particleSystemLiquid.isStopped)
@@ -85,6 +87,7 @@ public class PortionItem : CountableItem
 
             m_AudioSource.pitch = Mathf.Lerp(1.0f, 1.4f, 1.0f - fillRatio);
 
+            //포션 아래쪽에 포션 리시버가 있다면 포션 리시버안의 함수를 실행
             RaycastHit hit;
             if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
             {
@@ -108,6 +111,7 @@ public class PortionItem : CountableItem
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
+    /// <summary> 선택하여 뚜껑을 여는 함수 </summary>
     public void PlugOff()
     {
         if (m_PlugIn)
@@ -117,6 +121,7 @@ public class PortionItem : CountableItem
             m_PlugRb.isKinematic = false;
             m_PlugRb.AddRelativeForce(new Vector3(0, 0, 120));
             popVFX.SetActive(true);
+            //뚜껑을 열고 나서 InventoryBag에 넣는 것을 방지 하기위해 인식부분을 삭제 
             Destroy(portionCollider);
 
             m_PlugIn = false;

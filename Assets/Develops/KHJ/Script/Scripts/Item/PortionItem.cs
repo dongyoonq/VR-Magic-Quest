@@ -15,7 +15,6 @@ public class PortionItem : CountableItem
     public string PotionType = "Default";
     public GameObject plugObj;
     public ParticleSystem particleSystemLiquid;
-    public ParticleSystem particleSystemSplash;
     public float fillAmount = 0.8f;
     public GameObject popVFX;
     [FormerlySerializedAs("meshRenderer")]
@@ -28,6 +27,7 @@ public class PortionItem : CountableItem
     bool m_PlugIn = true;
     Rigidbody m_PlugRb;
     MaterialPropertyBlock m_MaterialPropertyBlock;
+    private Collider portionCollider;
 
     int m_UniqueId;
 
@@ -38,9 +38,6 @@ public class PortionItem : CountableItem
     {
         particleSystemLiquid.Stop();
 
-        if (particleSystemSplash)
-            particleSystemSplash.Stop();
-
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
 
@@ -48,6 +45,8 @@ public class PortionItem : CountableItem
         m_PlugRb = plugObj.GetComponent<Rigidbody>();
         popVFX.SetActive(false);
         m_StartingFillAmount = fillAmount;
+        m_PlugIn = true;
+        portionCollider = GetComponent<Collider>();
     }
 
     void Start()
@@ -118,6 +117,7 @@ public class PortionItem : CountableItem
             m_PlugRb.isKinematic = false;
             m_PlugRb.AddRelativeForce(new Vector3(0, 0, 120));
             popVFX.SetActive(true);
+            Destroy(portionCollider);
 
             m_PlugIn = false;
 

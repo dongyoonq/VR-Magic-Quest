@@ -10,9 +10,12 @@ public class InventoryBag : MonoBehaviour
     {
         Debug.Log("enter something");
         Item item = other?.GetComponent<Item>();
-        Debug.Log(item);
-        Debug.Log(item.Data);
-        inventory.Add(item.Data, 1);
-        Destroy(other.gameObject);
+        if (item != null)
+        {
+            Debug.Log(item);
+            Debug.Log(item.Data);
+            inventory.Add(item.Data, 1);
+            Destroy(other.gameObject);
+        }
     }
 }

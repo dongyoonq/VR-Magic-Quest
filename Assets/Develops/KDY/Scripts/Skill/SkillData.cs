@@ -14,4 +14,5 @@ public class SkillData : ScriptableObject
     [SerializeField] public int damage;
     [SerializeField] public int useMp;
     [SerializeField] public SkillType skillType;
+    [SerializeField] public HitTag[] hitTags;
 }

@@ -8,7 +8,7 @@ public class FireBeam : Skill
         player.isSkillUsed = true;
 
         Vector3 direction = createTrans.up;
-        Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createTrans.position + (createTrans.right * -0.08f), Quaternion.LookRotation(direction), createTrans, true);
+        Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createTrans.position, Quaternion.LookRotation(direction), createTrans, true);
         skill.StartCoroutine(AttackJudgement(player, skill, createTrans));
     }
 

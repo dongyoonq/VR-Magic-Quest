@@ -7,7 +7,6 @@ public class EnumType
         Lightning,
         Venom,
         Gravity,
-        Teleport,
     }
 
     public enum HitTag
@@ -25,7 +24,9 @@ public class EnumType
         LongRange,
         Guard,
         Aggresive,
+        Cautious,
         SpellCaster,
+        Agile,
         Gimmick,
         Elite,
         LastBoss
@@ -37,7 +38,6 @@ public class EnumType
         Alert,
         Chase,
         Combat,
-        Flee,
         Collapse
     }
 

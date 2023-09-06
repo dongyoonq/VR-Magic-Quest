@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEngine.Events;
 using static EnumType;
 
-public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
+public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 {
     private MonsterPerception perception;
-    private int healthPoint;
-    private int attackPoint;
+    private Animator animator;
+    [SerializeField]
+    WaitForSeconds s;
+    private (int healthPoint, int attackPoint, WaitForSeconds waitRecoverTime) stat;
+    public (int healthPoint, int attackPoint, WaitForSeconds waitRecoverTime) Stat { set { stat = value; } }
     private float statusDuration;
     private Dictionary<HitTag, IEnumerator> hitReactions = new Dictionary<HitTag, IEnumerator>();
 
     private void Awake()
     {
         perception = GetComponent<MonsterPerception>();
+        animator = GetComponent<Animator>();
         hitReactions.Add(HitTag.Impact, ImpactHitReactRoutine());
         hitReactions.Add(HitTag.Buff, BuffHitReactRoutine());
         hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
@@ -44,8 +48,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
 
     private IEnumerator ImpactHitReactRoutine()
     {
-        float duration = statusDuration;
-        yield return null;
+        animator.SetTrigger("GetHit");
+        yield return stat.waitRecoverTime;
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -81,8 +85,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
 
     public void TakeDamaged(int damage)
     {
-        healthPoint += -damage;
-        if (healthPoint == 0)
+        stat.healthPoint += -damage;
+        if (stat.healthPoint == 0)
         {
             perception.CurrentState = BasicState.Collapse;
         }

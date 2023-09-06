@@ -118,4 +118,9 @@ public class MonsterPerception : MonoBehaviour
             controller.passiveEvent.AddListener(action);
         }
     }
+
+    public void SynchronizeCombat()
+    {
+        combat.Stat = (monsterInfo.healthPoint, monsterInfo.attackPoint, new WaitForSeconds(0.5f));
+    }
 }

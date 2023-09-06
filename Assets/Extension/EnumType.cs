@@ -23,6 +23,7 @@ public class EnumType
         Melee,
         LongRange,
         Guard,
+        Tenacity,
         Aggresive,
         Cautious,
         SpellCaster,

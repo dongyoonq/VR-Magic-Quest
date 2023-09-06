@@ -20,4 +20,5 @@ MonoBehaviour:
   recognizeGestureName: Beam
   damage: 20
   useMp: 0
-  skillType: 4
+  skillType: 3
+  hitTags: 

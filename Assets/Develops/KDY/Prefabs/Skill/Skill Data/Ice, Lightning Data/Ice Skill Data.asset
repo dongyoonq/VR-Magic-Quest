@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ice Skill Data
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
-  skillPrefab: {fileID: -6720375577060464447, guid: 51a997817e66166459a46538af751168,
+  skillPrefab: {fileID: 854962402661359564, guid: e189783fea04a3c40b82b95fb9de10bb,
     type: 3}
   skillName: Ice Basic
   skillTooltip: This is Ice, Lightning Basic Skill
@@ -21,3 +21,4 @@ MonoBehaviour:
   damage: 50
   useMp: 0
   skillType: 1
+  hitTags: 03000000

@@ -13,10 +13,13 @@ public class MonsterVision : MonoBehaviour
     [SerializeField]
     private MultiAimConstraint upperBodyAim;
     private MonsterPerception perception;
+    private SphereCollider detectRange;
+    public SphereCollider DetectRange {  get { return detectRange; } set { detectRange = value; } }
 
     private void Awake()
     {
         perception = GetComponent<MonsterPerception>();
+        detectRange = GetComponent<SphereCollider>();
     }
 
     public void Gaze()
@@ -32,6 +35,6 @@ public class MonsterVision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        
+        perception.LoseSightOfTarget();
     }
 }

@@ -8,16 +8,19 @@ public class MonsterController : MonoBehaviour
     [SerializeField]
     private MonsterData monsterData;
     [SerializeField]
-    private int testSpawnMonsterNumber;
+    private int spawnMonsterNumber;
     private MonsterPerception monsterPerception;
     public UnityEvent passiveEvent = new UnityEvent();
     public UnityEvent activeEvent = new UnityEvent();
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
     public Coroutine monsterBehaviourRoutine;
+    private Transform spawnPoint;
+    private Collider spawnTriggerCollider;
 
-    private void Start()
+    private void Awake()
     {
-        SpawnMonster(testSpawnMonsterNumber, transform.position + (-transform.forward *5f) + (transform.up * 0.5f));
+        spawnPoint = transform.GetChild(0).transform;
+        spawnTriggerCollider = GetComponentInChildren<Collider>();
     }
 
     private IEnumerator MonsterBehaveRoutine()
@@ -47,5 +50,12 @@ public class MonsterController : MonoBehaviour
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());
+    }
+
+    //TODO: 플레이어 레이어를 제외한 다른 콜리더들은 아예 무시하도록 projectsetting
+    private void OnTriggerEnter(Collider other)
+    {
+        SpawnMonster(spawnMonsterNumber, spawnPoint.position);
+        spawnTriggerCollider.enabled = false;
     }
 }

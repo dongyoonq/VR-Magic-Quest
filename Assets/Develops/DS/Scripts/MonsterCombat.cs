@@ -9,9 +9,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private MonsterPerception perception;
     private Animator animator;
     [SerializeField]
-    WaitForSeconds s;
-    private (int healthPoint, int attackPoint, WaitForSeconds waitRecoverTime) stat;
-    public (int healthPoint, int attackPoint, WaitForSeconds waitRecoverTime) Stat { set { stat = value; } }
+    private (int healthPoint, int attackPoint) stat;
+    public (int healthPoint, int attackPoint) Stat { get { return stat; } set { stat = value; } }
+    private WaitForSeconds waitRecoverTime;
+    public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
     private Dictionary<HitTag, IEnumerator> hitReactions = new Dictionary<HitTag, IEnumerator>();
 
@@ -23,7 +24,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         hitReactions.Add(HitTag.Buff, BuffHitReactRoutine());
         hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
         hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
-        hitReactions.Add(HitTag.Dot, DotHitRoutine());
     }
 
     public void Combat()
@@ -49,7 +49,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private IEnumerator ImpactHitReactRoutine()
     {
         animator.SetTrigger("GetHit");
-        yield return stat.waitRecoverTime;
+        yield return waitRecoverTime;
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -69,18 +69,23 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private IEnumerator MezHitReactRoutine()
     {
         float duration = statusDuration;
-        yield return null;
-    }
-
-    private IEnumerator DotHitRoutine()
-    {
-        float duration = statusDuration;
-        yield return null;
+        yield return new WaitForSeconds(duration);
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
     {
-        yield return null;
+        (int healthPoint, int attackPoint) originalStat = stat;
+        if (improve)
+        {
+            stat.healthPoint = stat.healthPoint *= 2;
+            stat.attackPoint = stat.attackPoint *= 2;
+        }
+        else
+        {
+            stat.healthPoint = stat.healthPoint / 2;
+            stat.attackPoint = stat.attackPoint / 2;
+        }
+        yield return new WaitForSeconds(duration);
     }
 
     public void TakeDamaged(int damage)

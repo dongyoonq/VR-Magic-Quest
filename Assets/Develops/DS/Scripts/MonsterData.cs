@@ -100,7 +100,7 @@ public class MonsterData : ScriptableObject
             }
             else if (tag == MonsterTag.Tenacity)
             {
-                monsterPerception.SynchronizeCombat();
+                monsterPerception.AdjustRecoverTime(0.25f);
             }
             yield return null;
         }

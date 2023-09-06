@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: bf82c6a00dd9f164292b560b6daabe21, type: 2}
-  testSpawnMonsterNumber: 1
+  spawnMonsterNumber: 0
   passiveEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: bf82c6a00dd9f164292b560b6daabe21, type: 2}
-  testSpawnMonsterNumber: 2
+  spawnMonsterNumber: 0
   passiveEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: bf82c6a00dd9f164292b560b6daabe21, type: 2}
-  testSpawnMonsterNumber: 3
+  spawnMonsterNumber: 0
   passiveEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3632,6 +3632,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MineCart
       objectReference: {fileID: 0}
+    - target: {fileID: 807596914036063701, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
         type: 3}
       propertyPath: m_RootOrder
@@ -3640,17 +3645,17 @@ PrefabInstance:
     - target: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.249
+      value: 15.45
       objectReference: {fileID: 0}
     - target: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 33.981
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37.946
+      value: 4.45
       objectReference: {fileID: 0}
     - target: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
         type: 3}
@@ -3689,6 +3694,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5a5a7316f4c5b4cabb0339030782e5, type: 3}
+--- !u!4 &806644406006284929 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 810169413537288789, guid: 4e5a5a7316f4c5b4cabb0339030782e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 806644406006284928}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &849436349444164831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3770,13 +3781,14 @@ GameObject:
   - component: {fileID: 1982002139486670110}
   - component: {fileID: 1982002139487791986}
   - component: {fileID: 1982002139487791987}
+  - component: {fileID: 1982002139487791988}
   m_Layer: 8
-  m_Name: SM_Env_Minetrack_Straight_01
+  m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1982002139485832786
 Transform:
   m_ObjectHideFlags: 0
@@ -3855,6 +3867,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1153107, y: 0.23446023, z: 4.999999}
   m_Center: {x: -2.5, y: 0.11723012, z: 2.4999995}
+--- !u!114 &1982002139487791988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982002139485628876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790438393aebca94382ec2fe44cc5736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cart: {fileID: 806644406006284929}
 --- !u!1001 &2036955769193176565
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static EnumType;
 
 [CreateAssetMenu(fileName = "Skill Data", menuName = "Scriptable Object/Skill Data")]
 public class SkillData : ScriptableObject

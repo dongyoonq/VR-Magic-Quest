@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Ingwaz
   m_EditorClassIdentifier: 
-  _id: 11
-  _name: Ingwaz
-  _tooltip: "\uC789\uACFC\uC988 \uB8EC, \uC2E0 \uC789\uADF8\uBE44"
-  _iconSprite: {fileID: 21300000, guid: db1528ba1dcefb940a93238be49fccfe, type: 3}
-  _dropItemPrefab: {fileID: 5933577049611559985, guid: f60ea0a823af71d4d991ab082c7e7286,
+  id: 9
+  itemName: Ingwaz
+  tooltip: "\uC789\uACFC\uC988 \uB8EC, \uC2E0 \uC789\uADF8\uBE44"
+  iconSprite: {fileID: 21300000, guid: db1528ba1dcefb940a93238be49fccfe, type: 3}
+  dropItemPrefab: {fileID: 5933577049611559985, guid: f60ea0a823af71d4d991ab082c7e7286,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

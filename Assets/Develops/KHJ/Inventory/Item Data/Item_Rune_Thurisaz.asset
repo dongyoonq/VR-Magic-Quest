@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Thurisaz
   m_EditorClassIdentifier: 
-  _id: 23
-  _name: Thurisaz
-  _tooltip: "\uC464\uB9AC\uC0AC\uC988 \uB8EC, \uC2E0 \uD1A0\uB974, \uAC70\uC778"
-  _iconSprite: {fileID: 21300000, guid: c36ee4ebd94862140a0abe5960a62488, type: 3}
-  _dropItemPrefab: {fileID: 1445941700141921562, guid: 68aa3cca2b727c5448fbcf700deaad00,
+  id: 21
+  itemName: Thurisaz
+  tooltip: "\uC464\uB9AC\uC0AC\uC988 \uB8EC, \uC2E0 \uD1A0\uB974, \uAC70\uC778"
+  iconSprite: {fileID: 21300000, guid: c36ee4ebd94862140a0abe5960a62488, type: 3}
+  dropItemPrefab: {fileID: 1445941700141921562, guid: 68aa3cca2b727c5448fbcf700deaad00,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

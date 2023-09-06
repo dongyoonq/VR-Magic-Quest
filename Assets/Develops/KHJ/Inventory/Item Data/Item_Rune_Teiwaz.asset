@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Teiwaz
   m_EditorClassIdentifier: 
-  _id: 22
-  _name: Teiwaz
-  _tooltip: "\uD2F0\uC640\uC988 \uB8EC, \uC2E0 \uD2F0\uB974"
-  _iconSprite: {fileID: 21300000, guid: 568fa987ceae3d34597f49191ea720c6, type: 3}
-  _dropItemPrefab: {fileID: 3066446662878091441, guid: 97d083945e8e7ad4db8fc5b02f6210ea,
+  id: 20
+  itemName: Teiwaz
+  tooltip: "\uD2F0\uC640\uC988 \uB8EC, \uC2E0 \uD2F0\uB974"
+  iconSprite: {fileID: 21300000, guid: 568fa987ceae3d34597f49191ea720c6, type: 3}
+  dropItemPrefab: {fileID: 3066446662878091441, guid: 97d083945e8e7ad4db8fc5b02f6210ea,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

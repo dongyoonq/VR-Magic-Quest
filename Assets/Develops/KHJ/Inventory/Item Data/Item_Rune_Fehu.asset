@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Fehu
   m_EditorClassIdentifier: 
-  _id: 8
-  _name: Fehu
-  _tooltip: "\uD6FC\uD6C4 \uB8EC, \uBD80\uC26C, \uC18C"
-  _iconSprite: {fileID: 21300000, guid: f846f6f182398fd4799dc1ec575919d3, type: 3}
-  _dropItemPrefab: {fileID: 893915794915811787, guid: a3c1287ec52956d409896c00dccf0ca3,
+  id: 6
+  itemName: Fehu
+  tooltip: "\uD6FC\uD6C4 \uB8EC, \uBD80\uADC0, \uC18C"
+  iconSprite: {fileID: 21300000, guid: f846f6f182398fd4799dc1ec575919d3, type: 3}
+  dropItemPrefab: {fileID: 893915794915811787, guid: a3c1287ec52956d409896c00dccf0ca3,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

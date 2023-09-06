@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Laguz
   m_EditorClassIdentifier: 
-  _id: 15
-  _name: Laguz
-  _tooltip: "\uB77C\uAD6C\uC988 \uB8EC, \uBB3C, \uD638\uC218"
-  _iconSprite: {fileID: 21300000, guid: aed5354a0554ee54d86dd30e200f3cbe, type: 3}
-  _dropItemPrefab: {fileID: 1301645522222705994, guid: a5586cb77481c00468106b6ccd00c2bb,
+  id: 13
+  itemName: Laguz
+  tooltip: "\uB77C\uAD6C\uC988 \uB8EC, \uBB3C, \uD638\uC218"
+  iconSprite: {fileID: 21300000, guid: aed5354a0554ee54d86dd30e200f3cbe, type: 3}
+  dropItemPrefab: {fileID: 1301645522222705994, guid: a5586cb77481c00468106b6ccd00c2bb,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

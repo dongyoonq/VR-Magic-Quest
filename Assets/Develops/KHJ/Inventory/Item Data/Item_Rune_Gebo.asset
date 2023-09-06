@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Gebo
   m_EditorClassIdentifier: 
-  _id: 9
-  _name: Gebo
-  _tooltip: "\uAC8C\uBCF4 \uB8EC, \uC120\uBB3C"
-  _iconSprite: {fileID: 21300000, guid: 62bea552beb969840ad35704f6578ebc, type: 3}
-  _dropItemPrefab: {fileID: 5002723904040131852, guid: 8beb717cffe2d684bb1fbe40ed1eb320,
+  id: 7
+  itemName: Gebo
+  tooltip: "\uAC8C\uBCF4 \uB8EC, \uC120\uBB3C"
+  iconSprite: {fileID: 21300000, guid: 62bea552beb969840ad35704f6578ebc, type: 3}
+  dropItemPrefab: {fileID: 5002723904040131852, guid: 8beb717cffe2d684bb1fbe40ed1eb320,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

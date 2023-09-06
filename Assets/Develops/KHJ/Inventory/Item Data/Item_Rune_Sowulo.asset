@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Sowulo
   m_EditorClassIdentifier: 
-  _id: 21
-  _name: Sowulo
-  _tooltip: "\uC18C\uC70C\uB85C \uB8EC, \uD0DC\uC591"
-  _iconSprite: {fileID: 21300000, guid: 1b42e90be029c6447a9569e47755f371, type: 3}
-  _dropItemPrefab: {fileID: 6914735933583471331, guid: 4cf185c6dcb835946bda7bf7d74accd6,
+  id: 19
+  itemName: Sowulo
+  tooltip: "\uC18C\uC70C\uB85C \uB8EC, \uD0DC\uC591"
+  iconSprite: {fileID: 21300000, guid: 1b42e90be029c6447a9569e47755f371, type: 3}
+  dropItemPrefab: {fileID: 6914735933583471331, guid: 4cf185c6dcb835946bda7bf7d74accd6,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

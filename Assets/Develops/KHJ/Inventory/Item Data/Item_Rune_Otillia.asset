@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Otillia
   m_EditorClassIdentifier: 
-  _id: 18
-  _name: Otillia
-  _tooltip: "\uC624\uC300\uB780 \uB8EC, \uC720\uC0B0, \uC790\uC0B0, \uC18C\uC720"
-  _iconSprite: {fileID: 21300000, guid: 217b9d202483ee849bf010a8cf06015e, type: 3}
-  _dropItemPrefab: {fileID: 7904323106012796332, guid: f920a3752877f094cb25bce65856668b,
+  id: 16
+  itemName: Otillia
+  tooltip: "\uC624\uC300\uB780 \uB8EC, \uC720\uC0B0, \uC790\uC0B0, \uC18C\uC720"
+  iconSprite: {fileID: 21300000, guid: 217b9d202483ee849bf010a8cf06015e, type: 3}
+  dropItemPrefab: {fileID: 7904323106012796332, guid: f920a3752877f094cb25bce65856668b,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

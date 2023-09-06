@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
   m_Name: Item_Rune_Ansuz
   m_EditorClassIdentifier: 
-  _id: 3
-  _name: Ansuz
-  _tooltip: "\uC548\uC218\uC988 \uB8EC, \uC544\uC2A4 \uC2E0"
-  _iconSprite: {fileID: 21300000, guid: 53d0b57f36d57494caaaacdce40ea121, type: 3}
-  _dropItemPrefab: {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33,
+  id: 1
+  itemName: Ansuz
+  tooltip: "\uC548\uC218\uC988 \uB8EC, \uC544\uC2A4 \uC2E0"
+  iconSprite: {fileID: 21300000, guid: 53d0b57f36d57494caaaacdce40ea121, type: 3}
+  dropItemPrefab: {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33,
     type: 3}
-  _maxAmount: 99
+  maxAmount: 99

@@ -3,8 +3,7 @@ public class EnumType
     public enum SkillType
     {
         Fire,
-        Ice,
-        Lightning,
+        IceLightning,
         Venom,
         Gravity,
         Teleport,

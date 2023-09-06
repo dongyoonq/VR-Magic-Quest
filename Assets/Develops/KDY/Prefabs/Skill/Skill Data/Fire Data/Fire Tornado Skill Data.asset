@@ -10,9 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
-  m_Name: Test Skill Data 2
+  m_Name: Fire Tornado Skill Data
   m_EditorClassIdentifier: 
   skillSprite: {fileID: 21300000, guid: a6721511441c05a43964dac58584c890, type: 3}
   skillPrefab: {fileID: -4713708766099376336, guid: aeb7526e9f080d343b9816becdf1680c,
     type: 3}
+  skillName: 
+  skillTooltip: This is Fire Tornado Skill
   recognizeGestureName: S
+  damage: 30
+  useMp: 0
+  skillType: 0
+  hitTags: 

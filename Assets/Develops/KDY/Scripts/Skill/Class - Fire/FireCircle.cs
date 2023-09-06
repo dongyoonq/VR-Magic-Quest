@@ -12,7 +12,7 @@ public class FireCircle : Skill
         player.isSkillUsed = true;
 
         createTrans = Camera.main.transform;
-        Vector3 createPos = createTrans.position + (createTrans.forward * 5f);
+        Vector3 createPos = createTrans.position + (createTrans.forward * 5f) + (createTrans.up * -1.5f);
 
         Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.identity, true);
 

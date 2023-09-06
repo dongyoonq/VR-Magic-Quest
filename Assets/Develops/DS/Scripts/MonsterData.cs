@@ -34,6 +34,10 @@ public class MonsterData : ScriptableObject
         {
             monsterAdvancedAI.Add(MonsterTag.Aggresive, (monsterPerception) => AggressiveTypeMonsterBehaviour(monsterPerception));
         }
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Cautious))
+        {
+            monsterAdvancedAI.Add(MonsterTag.Cautious, (monsterPerception) => CautiousTypeMonsterBehaviour(monsterPerception));
+        }
         if (!monsterAdvancedAI.ContainsKey(MonsterTag.SpellCaster))
         {
             monsterAdvancedAI.Add(MonsterTag.SpellCaster, (monsterPerception) => SpellCasterTypeMonsterBehaviour(monsterPerception));
@@ -86,6 +90,10 @@ public class MonsterData : ScriptableObject
             {
                 waitForMakeDecision = new WaitForSeconds(1.5f);
             }
+            else if (tag == MonsterTag.Cautious)
+            {
+                monsterPerception.alertMoveSpeed = monsterInfo.moveSpeed * 0.5f;
+            }
             yield return null;
         }
         Vector3 guardPosition = monsterPerception.transform.position;
@@ -113,6 +121,11 @@ public class MonsterData : ScriptableObject
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
+    {
+
+    }
+
+    private void CautiousTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
 
     }

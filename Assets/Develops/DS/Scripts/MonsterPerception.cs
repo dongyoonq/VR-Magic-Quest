@@ -10,9 +10,19 @@ public class MonsterPerception : MonoBehaviour
     private MonsterData.MonsterInfo monsterInfo;
     private MonsterVision vision;
     private MonsterCombat combat;
+    private MonsterLocomotion locomotion;
     private BasicState currentState;
     public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
     private IEnumerator advancedAI;
+    public float alertMoveSpeed;
+    public float chaseMoveSpeed;
+
+    private void Awake()
+    {
+        vision = GetComponent<MonsterVision>();
+        combat = GetComponent<MonsterCombat>();
+        locomotion = GetComponent<MonsterLocomotion>();
+    }
 
     public IEnumerator MakeDecisionRoutine()
     {
@@ -47,16 +57,17 @@ public class MonsterPerception : MonoBehaviour
         switch (currentState)
         {
             case BasicState.Alert:
+                locomotion.Approach(alertMoveSpeed);
                 vision.Gaze();
                 break;
             case BasicState.Chase:
+                locomotion.Approach(chaseMoveSpeed);
                 vision.Gaze();
+                // locomotion.빠르게 접근
                 break;
             case BasicState.Combat:
                 vision.Gaze();
                 combat.Combat();
-                break;
-            case BasicState.Flee:
                 break;
             case BasicState.Collapse:
                 break;
@@ -88,6 +99,8 @@ public class MonsterPerception : MonoBehaviour
     {
         this.controller = monsterController;
         this.monsterInfo = monsterInfo;
+        alertMoveSpeed = monsterInfo.moveSpeed;
+        chaseMoveSpeed = monsterInfo.moveSpeed;
         currentState = BasicState.Idle;
         SynchronizeController((() => MonsterBasicBehave()), true);
         advancedAI = monsterInfo.monsterAIRoutine;

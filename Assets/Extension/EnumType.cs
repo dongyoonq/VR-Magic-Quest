@@ -24,6 +24,7 @@ public class EnumType
         LongRange,
         Guard,
         Aggresive,
+        Cautious,
         SpellCaster,
         Agile,
         Gimmick,
@@ -37,7 +38,6 @@ public class EnumType
         Alert,
         Chase,
         Combat,
-        Flee,
         Collapse
     }
 

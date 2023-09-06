@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static EnumType;
 
-public class MonsterCombat : MonoBehaviour, IHitReactor, IHitable
+public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHitable*/
 {
     private MonsterPerception perception;
     private int healthPoint;

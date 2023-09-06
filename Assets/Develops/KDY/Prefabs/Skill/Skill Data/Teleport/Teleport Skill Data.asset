@@ -19,4 +19,3 @@ MonoBehaviour:
   skillTooltip: This is Teleport Skill (on Base)
   recognizeGestureName: Teleport
   damage: 0
-  skillType: 5

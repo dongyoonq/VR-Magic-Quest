@@ -8,8 +8,8 @@ using UnityEngine;
 public class PortionItemData : CountableItemData
 {
     /// <summary> 효과량(회복량 등) </summary>
-    public float Value => _value;
-    [SerializeField] private float _value;
+    public float Value => value;
+    [SerializeField] private float value;
 
     public override bool UseItem()
     {
@@ -23,7 +23,7 @@ public class PortionItemData : CountableItemData
             Vector3 createVector = Camera.main.transform.position;
             createVector += Camera.main.transform.forward * 1.5f;
 
-            Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+            Instantiate<GameObject>(dropItemPrefab, createVector, Camera.main.transform.rotation);
             return true;
         }
     }

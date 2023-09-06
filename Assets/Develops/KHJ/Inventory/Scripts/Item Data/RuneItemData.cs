@@ -19,7 +19,7 @@ public class RuneItemData : CountableItemData
             Vector3 createVector = Camera.main.transform.position;
             createVector += Camera.main.transform.forward * 1.5f;
 
-            Instantiate<GameObject>(_dropItemPrefab, createVector, Camera.main.transform.rotation);
+            Instantiate<GameObject>(dropItemPrefab, createVector, Camera.main.transform.rotation);
             return true;
         }
     }

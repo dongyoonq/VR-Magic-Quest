@@ -39,180 +39,150 @@ using UnityEngine.EventSystems;
 */
 
 public class InventoryUI : MonoBehaviour
-{
-    /***********************************************************************
-    *                               Option Fields
-    ***********************************************************************/
-    #region .
-        [Header("Options")]
-        [Space]
-        [SerializeField] private bool _showTooltip = true;
-        [SerializeField] private bool _showHighlight = true;
-        [SerializeField] private bool _showRemovingPopup = true;
-
-        [Header("Connected Objects")]
-        [SerializeField] private RectTransform _contentAreaRT; // 슬롯들이 위치할 영역
-
-        [Header("Buttons")]
-        [SerializeField] private Button _trimButton;
-        [SerializeField] private Button _sortButton;
-
-        [Header("Filter Toggles")]
-        [SerializeField] private Toggle _toggleFilterAll;
-        [SerializeField] private Toggle _toggleFilterEquipments;
-        [SerializeField] private Toggle _toggleFilterPortions;
-
-        #endregion
-    /***********************************************************************
-    *                               Private Fields
-    ***********************************************************************/
-    #region .
-
-        /// <summary> 연결된 인벤토리 </summary>
-        private Inventory _inventory;
-
-        private List<ItemSlotUI> _slotUIList = new List<ItemSlotUI>();
-        private int _leftClick = 0;
-        private int _rightClick = 1;
-
-        /// <summary> 인벤토리 UI 내 아이템 필터링 옵션 </summary>
-        private enum FilterOption
+{ 
+    [Header("Options")]
+    [Space]
+    [SerializeField] private bool showTooltip = true;
+    [SerializeField] private bool showHighlight = true;
+    [SerializeField] private bool showRemovingPopup = true;
+  
+    [Header("Connected Objects")]
+    [SerializeField] private RectTransform contentAreaRT; // 슬롯들이 위치할 영역
+  
+    [Header("Buttons")]
+    [SerializeField] private Button trimButton;
+    [SerializeField] private Button sortButton;
+  
+    [Header("Filter Toggles")]
+    [SerializeField] private Toggle toggleFilterAll;
+    [SerializeField] private Toggle toggleFilterEquipments;
+    [SerializeField] private Toggle toggleFilterPortions;
+  
+    /// <summary> 연결된 인벤토리 </summary>
+    private Inventory inventory;
+  
+    private List<ItemSlotUI> slotUIList = new List<ItemSlotUI>();
+  
+    /// <summary> 인벤토리 UI 내 아이템 필터링 옵션 </summary>
+    private enum FilterOption
+    {
+        All, Equipment, Portion
+    }
+    private FilterOption currentFilterOption = FilterOption.All;
+  
+    private void Awake()
+    {
+        InitSlots();
+        InitButtonEvents();
+        InitToggleEvents();
+    }
+  
+    private void InitSlots()
+    {
+        for (int i = 0; i < contentAreaRT.childCount; i++)
         {
-            All, Equipment, Portion
+            Transform itemSlotTransform = contentAreaRT.GetChild(i);
+            ItemSlotUI itemSlot = itemSlotTransform.gameObject.GetComponent<ItemSlotUI>();
+            itemSlot.SetSlotIndex(i);
+            slotUIList.Add(itemSlot);
         }
-        private FilterOption _currentFilterOption = FilterOption.All;
-
-        #endregion
-    /***********************************************************************
-    *                               Unity Events
-    ***********************************************************************/
-    #region .
-        private void Awake()
+    }
+  
+    private void InitButtonEvents()
+    {
+        trimButton.onClick.AddListener(() => inventory.TrimAll());
+        sortButton.onClick.AddListener(() => inventory.SortAll());
+    }
+  
+    private void InitToggleEvents()
+    {
+        toggleFilterAll.onValueChanged.AddListener(       flag => UpdateFilter(flag, FilterOption.All));
+        toggleFilterEquipments.onValueChanged.AddListener(flag => UpdateFilter(flag, FilterOption.Equipment));
+        toggleFilterPortions.onValueChanged.AddListener(  flag => UpdateFilter(flag, FilterOption.Portion));
+  
+        // Local Method
+        void UpdateFilter(bool flag, FilterOption option)
         {
-            InitSlots();
-            InitButtonEvents();
-            InitToggleEvents();
-        }
-
-        #endregion
-    /***********************************************************************
-    *                               Init Methods
-    ***********************************************************************/
-    #region .
-
-        private void InitSlots()
-        {
-            for (int i = 0; i < _contentAreaRT.childCount; i++)
+            if (flag)
             {
-                Transform itemSlotTransform = _contentAreaRT.GetChild(i);
-                ItemSlotUI itemSlot = itemSlotTransform.gameObject.GetComponent<ItemSlotUI>();
-                itemSlot.SetSlotIndex(i);
-                _slotUIList.Add(itemSlot);
+                currentFilterOption = option;
+                UpdateAllSlotFilters();
             }
         }
-
-        private void InitButtonEvents()
+    }
+  
+    /// <summary> 아이템 사용 </summary>
+    public void TryUseItem(int index)
+    {
+        inventory.Use(index);
+    }
+  
+    /// <summary> 인벤토리 참조 등록 (인벤토리에서 직접 호출) </summary>
+    public void SetInventoryReference(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
+  
+    /// <summary> 슬롯에 아이템 아이콘 등록 </summary>
+    public void SetItemIcon(int index, Sprite icon)
+    {
+        slotUIList[index].SetItem(icon);
+    }
+  
+    /// <summary> 해당 슬롯의 아이템 개수 텍스트 지정 </summary>
+    public void SetItemAmountText(int index, int amount)
+    {
+        // NOTE : amount가 1 이하일 경우 텍스트 미표시
+        slotUIList[index].SetItemAmount(amount);
+    }
+  
+    /// <summary> 해당 슬롯의 아이템 개수 텍스트 지정 </summary>
+    public void HideItemAmountText(int index)
+    {
+        slotUIList[index].SetItemAmount(1);
+    }
+  
+    /// <summary> 슬롯에서 아이템 아이콘 제거, 개수 텍스트 숨기기 </summary>
+    public void RemoveItem(int index)
+    {
+        slotUIList[index].RemoveItem();
+    }
+  
+    /// <summary> 접근 가능한 슬롯 범위 설정 </summary>
+    public void SetAccessibleSlotRange(int accessibleSlotCount)
+    {
+        for (int i = 0; i < slotUIList.Count; i++)
         {
-            _trimButton.onClick.AddListener(() => _inventory.TrimAll());
-            _sortButton.onClick.AddListener(() => _inventory.SortAll());
+            slotUIList[i].SetSlotAccessibleState(i < accessibleSlotCount);
         }
-
-        private void InitToggleEvents()
-        {
-            _toggleFilterAll.onValueChanged.AddListener(       flag => UpdateFilter(flag, FilterOption.All));
-            _toggleFilterEquipments.onValueChanged.AddListener(flag => UpdateFilter(flag, FilterOption.Equipment));
-            _toggleFilterPortions.onValueChanged.AddListener(  flag => UpdateFilter(flag, FilterOption.Portion));
-
-            // Local Method
-            void UpdateFilter(bool flag, FilterOption option)
+    }
+  
+    /// <summary> 특정 슬롯의 필터 상태 업데이트 </summary>
+    public void UpdateSlotFilterState(int index, ItemData itemData)
+    {
+        bool isFiltered = true;
+  
+        // null인 슬롯은 타입 검사 없이 필터 활성화
+        if(itemData != null)
+            switch (currentFilterOption)
             {
-                if (flag)
-                {
-                    _currentFilterOption = option;
-                    UpdateAllSlotFilters();
-                }
+                case FilterOption.Portion:
+                    isFiltered = (itemData is PortionItemData);
+                    break;
             }
-        }
-
-        /// <summary> 아이템 사용 </summary>
-        public void TryUseItem(int index)
+  
+        slotUIList[index].SetItemAccessibleState(isFiltered);
+    }
+  
+    /// <summary> 모든 슬롯 필터 상태 업데이트 </summary>
+    public void UpdateAllSlotFilters()
+    {
+        int capacity = inventory.Capacity;
+  
+        for (int i = 0; i < capacity; i++)
         {
-            _inventory.Use(index);
+            ItemData data = inventory.GetItemData(i);
+            UpdateSlotFilterState(i, data);
         }
-
-        #endregion
-    /***********************************************************************
-    *                               Public Methods
-    ***********************************************************************/
-    #region .
-
-        /// <summary> 인벤토리 참조 등록 (인벤토리에서 직접 호출) </summary>
-        public void SetInventoryReference(Inventory inventory)
-        {
-            _inventory = inventory;
-        }
-
-        /// <summary> 슬롯에 아이템 아이콘 등록 </summary>
-        public void SetItemIcon(int index, Sprite icon)
-        {
-            _slotUIList[index].SetItem(icon);
-        }
-
-        /// <summary> 해당 슬롯의 아이템 개수 텍스트 지정 </summary>
-        public void SetItemAmountText(int index, int amount)
-        {
-            // NOTE : amount가 1 이하일 경우 텍스트 미표시
-            _slotUIList[index].SetItemAmount(amount);
-        }
-
-        /// <summary> 해당 슬롯의 아이템 개수 텍스트 지정 </summary>
-        public void HideItemAmountText(int index)
-        {
-            _slotUIList[index].SetItemAmount(1);
-        }
-
-        /// <summary> 슬롯에서 아이템 아이콘 제거, 개수 텍스트 숨기기 </summary>
-        public void RemoveItem(int index)
-        {
-            _slotUIList[index].RemoveItem();
-        }
-
-        /// <summary> 접근 가능한 슬롯 범위 설정 </summary>
-        public void SetAccessibleSlotRange(int accessibleSlotCount)
-        {
-            for (int i = 0; i < _slotUIList.Count; i++)
-            {
-                _slotUIList[i].SetSlotAccessibleState(i < accessibleSlotCount);
-            }
-        }
-
-        /// <summary> 특정 슬롯의 필터 상태 업데이트 </summary>
-        public void UpdateSlotFilterState(int index, ItemData itemData)
-        {
-            bool isFiltered = true;
-
-            // null인 슬롯은 타입 검사 없이 필터 활성화
-            if(itemData != null)
-                switch (_currentFilterOption)
-                {
-                    case FilterOption.Portion:
-                        isFiltered = (itemData is PortionItemData);
-                        break;
-                }
-
-            _slotUIList[index].SetItemAccessibleState(isFiltered);
-        }
-
-        /// <summary> 모든 슬롯 필터 상태 업데이트 </summary>
-        public void UpdateAllSlotFilters()
-        {
-            int capacity = _inventory.Capacity;
-
-            for (int i = 0; i < capacity; i++)
-            {
-                ItemData data = _inventory.GetItemData(i);
-                UpdateSlotFilterState(i, data);
-            }
-        }
-        #endregion
+    }
 }

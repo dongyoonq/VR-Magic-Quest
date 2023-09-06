@@ -7,119 +7,90 @@ using UnityEngine.EventSystems;
 
 public class ItemSlotUI : MonoBehaviour
 {
-    /***********************************************************************
-    *                               Option Fields
-    ***********************************************************************/
-    #region .
     [Tooltip("슬롯 내에서 아이콘과 슬롯 사이의 여백")]
-    [SerializeField] private float _padding = 1f;
+    [SerializeField] private float padding = 1f;
 
     [Tooltip("아이템 아이콘 이미지")]
-    [SerializeField] private Image _iconImage;
+    [SerializeField] private Image iconImage;
 
     [Tooltip("아이템 개수 텍스트")]
-    [SerializeField] private Text _amountText;
-    #endregion
-    /***********************************************************************
-    *                               Properties
-    ***********************************************************************/
-    #region .
+    [SerializeField] private Text amountText;
+    
     /// <summary> 슬롯의 인덱스 </summary>
     public int Index { get; private set; }
 
     /// <summary> 슬롯이 아이템을 보유하고 있는지 여부 </summary>
-    public bool HasItem => _iconImage.sprite != null;
+    public bool HasItem => iconImage.sprite != null;
 
     /// <summary> 접근 가능한 슬롯인지 여부 </summary>
-    public bool IsAccessible => _isAccessibleSlot && _isAccessibleItem;
+    public bool IsAccessible => isAccessibleSlot && isAccessibleItem;
 
-    public RectTransform SlotRect => _slotRect;
-    public RectTransform IconRect => _iconRect;
+    public RectTransform SlotRect => slotRect;
+    public RectTransform IconRect => iconRect;
 
-    #endregion
-    /***********************************************************************
-    *                               Fields
-    ***********************************************************************/
-    #region .
-    private InventoryUI _inventoryUI;
+    private InventoryUI inventoryUI;
 
-    private RectTransform _slotRect;
-    private RectTransform _iconRect;
+    private RectTransform slotRect;
+    private RectTransform iconRect;
 
-    private GameObject _iconGo;
-    private GameObject _textGo;
+    private GameObject iconGo;
+    private GameObject textGo;
 
-    private Image _slotImage;
+    private Image slotImage;
 
-    private bool _isAccessibleSlot = true; // 슬롯 접근가능 여부
-    private bool _isAccessibleItem = true; // 아이템 접근가능 여부
+    private bool isAccessibleSlot = true; // 슬롯 접근가능 여부
+    private bool isAccessibleItem = true; // 아이템 접근가능 여부
 
     /// <summary> 비활성화된 슬롯의 색상 </summary>
     private static readonly Color InaccessibleSlotColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
     /// <summary> 비활성화된 아이콘 색상 </summary>
     private static readonly Color InaccessibleIconColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-    #endregion
-    /***********************************************************************
-    *                               Unity Events
-    ***********************************************************************/
-    #region .
     private void Awake()
     {
         InitComponents();
         InitValues();
     }
 
-    #endregion
-    /***********************************************************************
-    *                               Private Methods
-    ***********************************************************************/
-    #region .
     private void InitComponents()
     {
-        _inventoryUI = GetComponentInParent<InventoryUI>();
+        inventoryUI = GetComponentInParent<InventoryUI>();
 
         // Rects
-        _slotRect = GetComponent<RectTransform>();
-        _iconRect = _iconImage.rectTransform;
+        slotRect = GetComponent<RectTransform>();
+        iconRect = iconImage.rectTransform;
 
         // Game Objects
-        _iconGo = _iconRect.gameObject;
-        _textGo = _amountText.gameObject;
+        iconGo = iconRect.gameObject;
+        textGo = amountText.gameObject;
 
         // Images
-        _slotImage = GetComponent<Image>();
+        slotImage = GetComponent<Image>();
     }
 
     private void InitValues()
     {
         // 1. Item Icon, Highlight Rect
-        _iconRect.pivot = new Vector2(0.5f, 0.5f); // 피벗은 중앙
-        _iconRect.anchorMin = Vector2.zero;        // 앵커는 Top Left
-        _iconRect.anchorMax = Vector2.one;
+        iconRect.pivot = new Vector2(0.5f, 0.5f); // 피벗은 중앙
+        iconRect.anchorMin = Vector2.zero;        // 앵커는 Top Left
+        iconRect.anchorMax = Vector2.one;
 
         // 패딩 조절
-        _iconRect.offsetMin = Vector2.one * (_padding);
-        _iconRect.offsetMax = Vector2.one * (-_padding);
+        iconRect.offsetMin = Vector2.one * (padding);
+        iconRect.offsetMax = Vector2.one * (-padding);
 
         // 2. Image
-        _iconImage.raycastTarget = false;
+        iconImage.raycastTarget = false;
 
         // 3. Deactivate Icon
         HideIcon();
     }
 
-    private void ShowIcon() => _iconGo.SetActive(true);
-    private void HideIcon() => _iconGo.SetActive(false);
+    private void ShowIcon() => iconGo.SetActive(true);
+    private void HideIcon() => iconGo.SetActive(false);
 
-    private void ShowText() => _textGo.SetActive(true);
-    private void HideText() => _textGo.SetActive(false);
-
-    #endregion
-    /***********************************************************************
-    *                               Public Methods
-    ***********************************************************************/
-    #region .
+    private void ShowText() => textGo.SetActive(true);
+    private void HideText() => textGo.SetActive(false);
 
     public void SetSlotIndex(int index) => Index = index;
 
@@ -127,40 +98,40 @@ public class ItemSlotUI : MonoBehaviour
     public void SetSlotAccessibleState(bool value)
     {
         // 중복 처리는 지양
-        if (_isAccessibleSlot == value) return;
+        if (isAccessibleSlot == value) return;
 
         if (value)
         {
-            _slotImage.color = Color.black;
+            slotImage.color = Color.black;
         }
         else
         {
-            _slotImage.color = InaccessibleSlotColor;
+            slotImage.color = InaccessibleSlotColor;
             HideIcon();
             HideText();
         }
 
-        _isAccessibleSlot = value;
+        isAccessibleSlot = value;
     }
 
     /// <summary> 아이템 활성화/비활성화 여부 설정 </summary>
     public void SetItemAccessibleState(bool value)
     {
         // 중복 처리는 지양
-        if(_isAccessibleItem == value) return;
+        if(isAccessibleItem == value) return;
 
         if (value)
         {
-            _iconImage.color = Color.white;
-            _amountText.color = Color.white;
+            iconImage.color = Color.white;
+            amountText.color = Color.white;
         }
         else
         {
-            _iconImage.color  = InaccessibleIconColor;
-            _amountText.color = InaccessibleIconColor;
+            iconImage.color  = InaccessibleIconColor;
+            amountText.color = InaccessibleIconColor;
         }
 
-        _isAccessibleItem = value;
+        isAccessibleItem = value;
     }
 
     /// <summary> 슬롯에 아이템 등록 </summary>
@@ -170,7 +141,7 @@ public class ItemSlotUI : MonoBehaviour
 
         if (itemSprite != null)
         {
-            _iconImage.sprite = itemSprite;
+            iconImage.sprite = itemSprite;
             ShowIcon();
         }
         else
@@ -182,7 +153,7 @@ public class ItemSlotUI : MonoBehaviour
     /// <summary> 슬롯에서 아이템 제거 </summary>
     public void RemoveItem()
     {
-        _iconImage.sprite = null;
+        iconImage.sprite = null;
         HideIcon();
         HideText();
     }
@@ -190,8 +161,8 @@ public class ItemSlotUI : MonoBehaviour
     /// <summary> 아이템 이미지 투명도 설정 </summary>
     public void SetIconAlpha(float alpha)
     {
-        _iconImage.color = new Color(
-            _iconImage.color.r, _iconImage.color.g, _iconImage.color.b, alpha
+        iconImage.color = new Color(
+            iconImage.color.r, iconImage.color.g, iconImage.color.b, alpha
         );
     }
 
@@ -205,14 +176,13 @@ public class ItemSlotUI : MonoBehaviour
         else
             HideText();
 
-        _amountText.text = amount.ToString();
+        amountText.text = amount.ToString();
 
     }
 
     /// <summary> 슬롯에서 아이템 사용 </summary>
     public void UseItem()
     {
-        _inventoryUI.TryUseItem(Index);
+        inventoryUI.TryUseItem(Index);
     }
-    #endregion
 }

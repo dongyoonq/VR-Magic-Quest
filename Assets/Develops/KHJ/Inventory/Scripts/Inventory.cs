@@ -51,42 +51,32 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    /***********************************************************************
-    *                               Public Properties
-    ***********************************************************************/
-    #region .
     /// <summary> 아이템 수용 한도 </summary>
     public int Capacity { get; private set; }
 
     // /// <summary> 현재 아이템 개수 </summary>
     //public int ItemCount => _itemArray.Count;
 
-    #endregion
-    /***********************************************************************
-    *                               Private Fields
-    ***********************************************************************/
-    #region .
-
     // 초기 수용 한도
     [SerializeField, Range(8, 64)]
-    private int _initalCapacity = 64;
+    private int initalCapacity = 64;
 
     // 최대 수용 한도(아이템 배열 크기)
     [SerializeField, Range(8, 64)]
-    private int _maxCapacity = 64;
+    private int maxCapacity = 64;
 
     [SerializeField]
-    private InventoryUI _inventoryUI; // 연결된 인벤토리 UI
+    private InventoryUI inventoryUI; // 연결된 인벤토리 UI
 
     /// <summary> 아이템 목록 </summary>
     [SerializeField]
-    private ItemData[] _items;
+    private ItemData[] items;
 
     /// <summary> 업데이트 할 인덱스 목록 </summary>
-    private readonly HashSet<int> _indexSetForUpdate = new HashSet<int>();
+    private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
 
     /// <summary> 아이템 데이터 타입별 정렬 가중치 </summary>
-    private readonly static Dictionary<Type, int> _sortWeightDict = new Dictionary<Type, int>
+    private readonly static Dictionary<Type, int> sortWeightDict = new Dictionary<Type, int>
     {
         { typeof(PortionItemData), 10000 },
         /*{ typeof(WeaponItemData),  20000 },
@@ -97,30 +87,25 @@ public class Inventory : MonoBehaviour
     {
         public int Compare(ItemData a, ItemData b)
         {
-            return (a.ID + _sortWeightDict[a.GetType()])
-                 - (b.ID + _sortWeightDict[b.GetType()]);
+            return (a.ID + sortWeightDict[a.GetType()])
+                 - (b.ID + sortWeightDict[b.GetType()]);
         }
     }
-    private static readonly ItemComparer _itemComparer = new ItemComparer();
+    private static readonly ItemComparer itemComparer = new ItemComparer();
 
-    #endregion
-    /***********************************************************************
-    *                               Unity Events
-    ***********************************************************************/
-    #region .
 
     #if UNITY_EDITOR
     private void OnValidate()
     {
-        if(_initalCapacity > _maxCapacity)
-            _initalCapacity = _maxCapacity;
+        if(initalCapacity > maxCapacity)
+            initalCapacity = maxCapacity;
     }
     #endif
     private void Awake()
     {
-        _items = new ItemData[_maxCapacity];
-        Capacity = _initalCapacity;
-        _inventoryUI.SetInventoryReference(this);
+        items = new ItemData[maxCapacity];
+        Capacity = initalCapacity;
+        inventoryUI.SetInventoryReference(this);
     }
 
     private void Start()
@@ -128,11 +113,6 @@ public class Inventory : MonoBehaviour
         UpdateAccessibleStatesAll();
     }
 
-    #endregion
-    /***********************************************************************
-    *                               Private Methods
-    ***********************************************************************/
-    #region .
     /// <summary> 인덱스가 수용 범위 내에 있는지 검사 </summary>
     private bool IsValidIndex(int index)
     {
@@ -143,7 +123,7 @@ public class Inventory : MonoBehaviour
     private int FindEmptySlotIndex(int startIndex = 0)
     {
         for (int i = startIndex; i < Capacity; i++)
-            if (_items[i] == null)
+            if (items[i] == null)
                 return i;
         return -1;
     }
@@ -153,7 +133,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = startIndex; i < Capacity; i++)
         {
-            var current = _items[i];
+            var current = items[i];
             if (current == null)
                 continue;
 
@@ -173,13 +153,13 @@ public class Inventory : MonoBehaviour
     {
         if (!IsValidIndex(index)) return;
 
-        ItemData item = _items[index];
+        ItemData item = items[index];
 
         // 1. 아이템이 슬롯에 존재하는 경우
         if (item != null)
         {
             // 아이콘 등록
-            _inventoryUI.SetItemIcon(index, item.IconSprite);
+            inventoryUI.SetItemIcon(index, item.IconSprite);
 
             // 1-1. 셀 수 있는 아이템
             if (item is CountableItemData ci)
@@ -187,24 +167,24 @@ public class Inventory : MonoBehaviour
                 // 1-1-1. 수량이 0인 경우, 아이템 제거
                 if (ci.IsEmpty)
                 {
-                    _items[index] = null;
+                    items[index] = null;
                     RemoveIcon();
                     return;
                 }
                 // 1-1-2. 수량 텍스트 표시
                 else
                 {
-                    _inventoryUI.SetItemAmountText(index, ci.Amount);
+                    inventoryUI.SetItemAmountText(index, ci.Amount);
                 }
             }
             // 1-2. 셀 수 없는 아이템인 경우 수량 텍스트 제거
             else
             {
-                _inventoryUI.HideItemAmountText(index);
+                inventoryUI.HideItemAmountText(index);
             }
 
             // 슬롯 필터 상태 업데이트
-            _inventoryUI.UpdateSlotFilterState(index, item);
+            inventoryUI.UpdateSlotFilterState(index, item);
         }
         // 2. 빈 슬롯인 경우 : 아이콘 제거
         else
@@ -215,8 +195,8 @@ public class Inventory : MonoBehaviour
         // 로컬 : 아이콘 제거하기
         void RemoveIcon()
         {
-            _inventoryUI.RemoveItem(index);
-            _inventoryUI.HideItemAmountText(index); // 수량 텍스트 숨기기
+            inventoryUI.RemoveItem(index);
+            inventoryUI.HideItemAmountText(index); // 수량 텍스트 숨기기
         }
     }
 
@@ -238,22 +218,17 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    #endregion
-    /***********************************************************************
-    *                               Check & Getter Methods
-    ***********************************************************************/
-    #region .
 
     /// <summary> 해당 슬롯이 아이템을 갖고 있는지 여부 </summary>
     public bool HasItem(int index)
     {
-        return IsValidIndex(index) && _items[index] != null;
+        return IsValidIndex(index) && items[index] != null;
     }
 
     /// <summary> 해당 슬롯이 셀 수 있는 아이템인지 여부 </summary>
     public bool IsCountableItem(int index)
     {
-        return HasItem(index) && _items[index] is CountableItemData;
+        return HasItem(index) && items[index] is CountableItemData;
     }
 
     /// <summary> 
@@ -265,9 +240,9 @@ public class Inventory : MonoBehaviour
     public int GetCurrentAmount(int index)
     {
         if (!IsValidIndex(index)) return -1;
-        if (_items[index] == null) return 0;
+        if (items[index] == null) return 0;
 
-        CountableItemData ci = _items[index] as CountableItemData;
+        CountableItemData ci = items[index] as CountableItemData;
         if (ci == null)
             return 1;
 
@@ -278,30 +253,25 @@ public class Inventory : MonoBehaviour
     public ItemData GetItemData(int index)
     {
         if (!IsValidIndex(index)) return null;
-        if (_items[index] == null) return null;
+        if (items[index] == null) return null;
 
-        return _items[index];
+        return items[index];
     }
 
     /// <summary> 해당 슬롯의 아이템 이름 리턴 </summary>
     public string GetItemName(int index)
     {
         if (!IsValidIndex(index)) return "";
-        if (_items[index] == null) return "";
+        if (items[index] == null) return "";
 
-        return _items[index].Name;
+        return items[index].Name;
     }
 
-    #endregion
-    /***********************************************************************
-    *                               Public Methods
-    ***********************************************************************/
-    #region .
     /// <summary> 인벤토리 UI 연결 </summary>
     public void ConnectUI(InventoryUI inventoryUI)
     {
-        _inventoryUI = inventoryUI;
-        _inventoryUI.SetInventoryReference(this);
+        this.inventoryUI = inventoryUI;
+        this.inventoryUI.SetInventoryReference(this);
     }
 
     /// <summary> 인벤토리에 아이템 추가
@@ -333,7 +303,7 @@ public class Inventory : MonoBehaviour
                     // 기존재 슬롯을 찾은 경우, 양 증가시키고 초과량 존재 시 amount에 초기화
                     else
                     {
-                        CountableItemData ci = _items[index] as CountableItemData;
+                        CountableItemData ci = items[index] as CountableItemData;
                         amount = ci.AddAmountAndGetExcess(amount);
 
                         UpdateSlot(index);
@@ -357,7 +327,7 @@ public class Inventory : MonoBehaviour
                         ci.SetAmount(amount);
 
                         // 슬롯에 추가
-                        _items[index] = ci;
+                        items[index] = ci;
 
                         // 남은 개수 계산
                         amount = (amount > ciData.MaxAmount) ? (amount - ciData.MaxAmount) : 0;
@@ -377,7 +347,7 @@ public class Inventory : MonoBehaviour
                 if (index != -1)
                 {
                     // 아이템을 생성하여 슬롯에 추가
-                    _items[index] = itemData;
+                    items[index] = itemData;
                     amount = 0;
 
                     UpdateSlot(index);
@@ -398,7 +368,7 @@ public class Inventory : MonoBehaviour
                 }
 
                 // 아이템을 생성하여 슬롯에 추가
-                _items[index] = itemData;
+                items[index] = itemData;
 
                 UpdateSlot(index);
             }
@@ -412,18 +382,18 @@ public class Inventory : MonoBehaviour
     {
         if (!IsValidIndex(index)) return;
 
-        _items[index] = null;
-        _inventoryUI.RemoveItem(index);
+        items[index] = null;
+        inventoryUI.RemoveItem(index);
     }
 
     /// <summary> 해당 슬롯의 아이템 사용 </summary>
     public void Use(int index)
     {
         if (!IsValidIndex(index)) return;
-        if (_items[index] == null) return;
+        if (items[index] == null) return;
 
         // 사용 가능한 아이템인 경우
-        if (_items[index] is CountableItemData uItem)
+        if (items[index] is CountableItemData uItem)
         {
             // 아이템 사용
             bool succeeded = uItem.UseItem();
@@ -438,7 +408,7 @@ public class Inventory : MonoBehaviour
     /// <summary> 모든 슬롯 UI에 접근 가능 여부 업데이트 </summary>
     public void UpdateAccessibleStatesAll()
     {
-        _inventoryUI.SetAccessibleSlotRange(Capacity);
+        inventoryUI.SetAccessibleSlotRange(Capacity);
     }
 
     /// <summary> 빈 슬롯 없이 앞에서부터 채우기 </summary>
@@ -454,32 +424,32 @@ public class Inventory : MonoBehaviour
         // j커서가 아이템을 찾으면 아이템을 옮기고, i 커서는 i+1 위치로 이동
         // j커서가 Capacity에 도달하면 루프 즉시 종료
 
-        _indexSetForUpdate.Clear();
+        indexSetForUpdate.Clear();
 
         int i = -1;
-        while (_items[++i] != null) ;
+        while (items[++i] != null) ;
         int j = i;
 
         while (true)
         {
-            while (++j < Capacity && _items[j] == null);
+            while (++j < Capacity && items[j] == null);
 
             if (j == Capacity)
                 break;
 
-            _indexSetForUpdate.Add(i);
-            _indexSetForUpdate.Add(j);
+            indexSetForUpdate.Add(i);
+            indexSetForUpdate.Add(j);
 
-            _items[i] = _items[j];
-            _items[j] = null;
+            items[i] = items[j];
+            items[j] = null;
             i++;
         }
 
-        foreach (var index in _indexSetForUpdate)
+        foreach (var index in indexSetForUpdate)
         {
             UpdateSlot(index);
         }
-        _inventoryUI.UpdateAllSlotFilters();
+        inventoryUI.UpdateAllSlotFilters();
     }
 
     /// <summary> 빈 슬롯 없이 채우면서 아이템 종류별로 정렬하기 </summary>
@@ -487,27 +457,26 @@ public class Inventory : MonoBehaviour
     {
         // 1. Trim
         int i = -1;
-        while (_items[++i] != null) ;
+        while (items[++i] != null) ;
         int j = i;
 
         while (true)
         {
-            while (++j < Capacity && _items[j] == null) ;
+            while (++j < Capacity && items[j] == null) ;
 
             if (j == Capacity)
                 break;
 
-            _items[i] = _items[j];
-            _items[j] = null;
+            items[i] = items[j];
+            items[j] = null;
             i++;
         }
 
         // 2. Sort
-        Array.Sort(_items, 0, i, _itemComparer);
+        Array.Sort(items, 0, i, itemComparer);
 
         // 3. Update
         UpdateAllSlot();
-        _inventoryUI.UpdateAllSlotFilters(); // 필터 상태 업데이트
+        inventoryUI.UpdateAllSlotFilters(); // 필터 상태 업데이트
     }
-    #endregion
 }

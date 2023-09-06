@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: c47f2ee9e2b705c4196e8ceec7dda452
+<<<<<<<< HEAD:Assets/Develops/DS/Scripts/ITrainWheelHolder.cs.meta
+guid: 21945cdc4e42daa49aea1d5b08e236aa
+========
+guid: 89e393cc784ae6a418b64f210a288423
+>>>>>>>> develop:Assets/Develops/KDY/Scripts/Skill/SkillProjectileCollider.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
+  m_Name: Fire Skill Data
+  m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillPrefab: {fileID: 570850853649392679, guid: 0e690cb88bbc61f449e41a599218811e,
+    type: 3}
+  skillName: Fire Basic
+  skillTooltip: This is Fire Basic Skill
+  recognizeGestureName: Wave
+  damage: 50
+  useMp: 0
+  skillType: 0

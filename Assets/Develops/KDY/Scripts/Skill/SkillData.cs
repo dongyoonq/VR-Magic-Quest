@@ -1,5 +1,4 @@
 using UnityEngine;
-using static EnumType;
 
 [CreateAssetMenu(fileName = "Skill Data", menuName = "Scriptable Object/Skill Data")]
 public class SkillData : ScriptableObject
@@ -12,6 +11,4 @@ public class SkillData : ScriptableObject
     [SerializeField, TextArea] public string skillTooltip;
     [SerializeField] public string recognizeGestureName;
     [SerializeField] public int damage;
-    [SerializeField] public int useMp;
-    [SerializeField] public SkillType skillType;
 }

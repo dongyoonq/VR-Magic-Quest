@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class FireCircle : Skill
+public class VenomBinding : Skill
 {
     private bool isDamaged;
 
@@ -12,23 +12,26 @@ public class FireCircle : Skill
         player.isSkillUsed = true;
 
         createTrans = Camera.main.transform;
-        Vector3 createPos = createTrans.position + (createTrans.forward * 6f) + (createTrans.up * -1.5f);
-
+        Vector3 createPos = createTrans.position + (createTrans.forward * 6f) + (createTrans.up * -0.5f);
         Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.identity, true);
 
-        skill.StartCoroutine(AttackJudgement(player, skill));
+        skill.StartCoroutine(AttackJudgement(skill));
+        skill.StartCoroutine(BindingEndRoutine(player, skill));
     }
 
-    IEnumerator AttackJudgement(Player player, Skill skill)
+    IEnumerator AttackJudgement(Skill skill)
     {
         float time = 0f;
 
-        while (time < 3f)
+        while (time < 5f)
         {
             time += Time.deltaTime;
 
             // Monster Binding & Damage
-            Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 3f, LayerMask.GetMask("Monster"));
+            Vector3 ceneter = skill.transform.position;
+            Vector3 boxSzie = new Vector3(2f, 3.5f, 2f);
+            Collider[] colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
+
             foreach (Collider collider in colliders)
             {
                 IHittable hitMonster = collider.GetComponent<IHittable>();
@@ -46,10 +49,18 @@ public class FireCircle : Skill
 
             yield return null;
         }
+    }
 
-        // Todo
+    IEnumerator BindingEndRoutine(Player player, Skill skill)
+    {
+        yield return new WaitForSeconds(2f);
+
         player.isSkillUsed = false;
-        GameManager.Resource.Destroy(skill, 3f);
+
+        yield return new WaitForSeconds(3f);
+
+        if (skill.IsValid())
+            GameManager.Resource.Destroy(skill);
     }
 
     IEnumerator ActiveDamageTimer()
@@ -61,6 +72,6 @@ public class FireCircle : Skill
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 3f);
+        Gizmos.DrawWireCube(transform.position, new Vector3(2f, 3.5f, 2f));
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBasic : Skill
+public class VenomStrike : Skill
 {
     public override void CastingSpell(Player player, float value, Transform createTrans)
     {
@@ -12,9 +12,9 @@ public class FireBasic : Skill
         Vector3 createPos = createTrans.position + (createTrans.forward * 2f);
         Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.LookRotation(createTrans.forward), true);
 
-        SkillProjectileCollider collider = skill.GetComponentInChildren<SkillProjectileCollider>();
-        collider.skillSource = skill;
-        collider.source = player;
+        VenomStrikeCollider v_Collider = skill.GetComponentInChildren<VenomStrikeCollider>();
+        v_Collider.skillSource = skill;
+        v_Collider.source = player;
 
         skill.StartCoroutine(ProjectileMoveRoutine(player, skill));
     }

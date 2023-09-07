@@ -21,18 +21,7 @@ public class GravityBasic : Skill
 
     IEnumerator ProjectileMoveRoutine(Player player, Skill skill)
     {
-        Vector3 start = skill.transform.position;
-        Vector3 end = skill.transform.position + skill.transform.forward * 5f;
-
-        float time = 0f;
-        float duration = 5f;
-
-        while (time < 1f)
-        {
-            skill.transform.position = Vector3.Lerp(start, end, time);
-            time += Time.deltaTime / duration;
-            yield return null;
-        }
+        yield return new WaitForSeconds(4f);
 
         player.isSkillUsed = false;
 

@@ -17703,7 +17703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773150592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.031, y: -0, z: -0.104}
+  m_LocalPosition: {x: -0.031, y: 0, z: -0.104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17743,12 +17743,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
-  - {fileID: 11400000, guid: 5e3743708ad00b8428434c223a8b0906, type: 2}
-  - {fileID: 11400000, guid: 76a8fa307b714994a88078a76631e50f, type: 2}
-  - {fileID: 11400000, guid: 002914ddb93a96c44965d1c8c1c5f084, type: 2}
-  - {fileID: 11400000, guid: 4e610505b24bbb94cb64a272a68105af, type: 2}
-  - {fileID: 11400000, guid: dd4af6255603ce74fad501968bb5ebc5, type: 2}
-  - {fileID: 11400000, guid: 3840ed3dd8c08504fbf02c31b813088e, type: 2}
+  - {fileID: 11400000, guid: 45bc49f98a3fae648b3c2cc8071db58f, type: 2}
+  - {fileID: 11400000, guid: 3f49733dbb1b09e4fadf8877b065809b, type: 2}
+  - {fileID: 11400000, guid: 2038fffaff99c274bba999b94e699701, type: 2}
+  - {fileID: 11400000, guid: a5cbcf279c51a6d4899f4cb60ee6607e, type: 2}
+  - {fileID: 11400000, guid: 259f966927e57ef41963373974589d7f, type: 2}
+  - {fileID: 11400000, guid: 60578b7dcf1e5aa41978f9770ef94357, type: 2}
   hp: 0
 --- !u!114 &1773150596
 MonoBehaviour:

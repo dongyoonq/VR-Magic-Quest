@@ -21,6 +21,8 @@ public class MonsterController : MonoBehaviour
     {
         spawnPoint = transform.GetChild(0).transform;
         spawnTriggerCollider = GetComponentInChildren<Collider>();
+        //Test
+        SpawnMonster(spawnMonsterNumber, spawnPoint.position);
     }
 
     private IEnumerator MonsterBehaveRoutine()
@@ -46,7 +48,7 @@ public class MonsterController : MonoBehaviour
     public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
     {
         MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
-        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPosition, Quaternion.identity, true).GetComponent<MonsterPerception>();
+        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPosition + Vector3.up * 0.5f, Quaternion.identity, true).GetComponent<MonsterPerception>();
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());

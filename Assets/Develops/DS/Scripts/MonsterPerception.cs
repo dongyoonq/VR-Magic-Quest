@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
 using static EnumType;
+using static UnityEngine.GraphicsBuffer;
 
 public class MonsterPerception : MonoBehaviour
 {
@@ -14,7 +16,9 @@ public class MonsterPerception : MonoBehaviour
     private BasicState currentState;
     public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
     private IEnumerator advancedAI;
+    [HideInInspector]
     public float alertMoveSpeed;
+    [HideInInspector]
     public float chaseMoveSpeed;
 
     private void Awake()
@@ -45,6 +49,8 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = BasicState.Idle;
+        controller.transform.parent = null;
+        controller.transform.position = transform.position + transform.forward * 5f;
     }
 
     public void SendCommand(IEnumerator command)
@@ -144,6 +150,11 @@ public class MonsterPerception : MonoBehaviour
     public void SynchronizeVision()
     {
         vision.DetectRange.radius = monsterInfo.detectRange;
+        WeightedTransformArray sourceObject = new WeightedTransformArray();
+        sourceObject.Add(new WeightedTransform(controller.transform, 1f));
+        vision.HeadAim.data.sourceObjects = sourceObject;
+        vision.UpperBodyAIm.data.sourceObjects = sourceObject;
+        vision.RigBuilder.Build();
     }
 
     public void SynchronizeCombat()

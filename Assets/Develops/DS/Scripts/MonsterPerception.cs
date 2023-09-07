@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
 using static EnumType;
+using static UnityEngine.GraphicsBuffer;
 
 public class MonsterPerception : MonoBehaviour
 {
@@ -14,7 +16,9 @@ public class MonsterPerception : MonoBehaviour
     private BasicState currentState;
     public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
     private IEnumerator advancedAI;
+    [HideInInspector]
     public float alertMoveSpeed;
+    [HideInInspector]
     public float chaseMoveSpeed;
 
     private void Awake()
@@ -45,6 +49,8 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = BasicState.Idle;
+        controller.transform.parent = null;
+        controller.transform.position = transform.position + transform.forward * 5f;
     }
 
     public void SendCommand(IEnumerator command)
@@ -56,6 +62,8 @@ public class MonsterPerception : MonoBehaviour
     {
         switch (currentState)
         {
+            case BasicState.Idle:
+                break;
             case BasicState.Alert:
                 locomotion.Approach(alertMoveSpeed);
                 vision.Gaze();
@@ -63,17 +71,35 @@ public class MonsterPerception : MonoBehaviour
             case BasicState.Chase:
                 locomotion.Approach(chaseMoveSpeed);
                 vision.Gaze();
-                // locomotion.빠르게 접근
                 break;
             case BasicState.Combat:
                 vision.Gaze();
                 combat.Combat();
                 break;
-            case BasicState.Collapse:
-                break;
             default:
                 break;
         }
+        // 공격 사거리 이하면 전투, current state가 idle이고 플레이어가 뒤를 보이고 있으면 chase 아니면 alert detectrange보다 멀어지면 idle
+        if (CompareDistanceWithoutHeight(controller.transform.position, transform.position, monsterInfo.attackRange))
+        {
+            if(currentState == BasicState.Idle)
+            {
+                return;
+            }
+            if (CheckBackAttackChance())
+            {
+                currentState = BasicState.Chase;
+            }
+            else
+            {
+                currentState = BasicState.Alert;
+            }
+        }
+        else
+        {
+            currentState = BasicState.Combat;
+        }
+
     }
 
     public IEnumerator MoveRoutine()
@@ -103,6 +129,8 @@ public class MonsterPerception : MonoBehaviour
         chaseMoveSpeed = monsterInfo.moveSpeed;
         currentState = BasicState.Idle;
         SynchronizeController((() => MonsterBasicBehave()), true);
+        SynchronizeVision();
+        SynchronizeCombat();
         advancedAI = monsterInfo.monsterAIRoutine;
         StartCoroutine(MakeDecisionRoutine());
     }
@@ -117,5 +145,50 @@ public class MonsterPerception : MonoBehaviour
         {
             controller.passiveEvent.AddListener(action);
         }
+    }
+
+    public void SynchronizeVision()
+    {
+        vision.DetectRange.radius = monsterInfo.detectRange;
+        WeightedTransformArray sourceObject = new WeightedTransformArray();
+        sourceObject.Add(new WeightedTransform(controller.transform, 1f));
+        vision.HeadAim.data.sourceObjects = sourceObject;
+        vision.UpperBodyAIm.data.sourceObjects = sourceObject;
+        vision.RigBuilder.Build();
+    }
+
+    public void SynchronizeCombat()
+    {
+        combat.Stat = (monsterInfo.healthPoint, monsterInfo.attackPoint);
+        combat.WaitRecoverTime = new WaitForSeconds(0.5f);
+    }
+
+    public void SynchronizeLocomotion()
+    {
+
+    }
+
+    public void AdjustRecoverTime(float adjustingRange)
+    {
+        combat.WaitRecoverTime = new WaitForSeconds(0.5f * adjustingRange);
+    }
+
+    public bool CompareDistanceWithoutHeight(Vector3 pos1, Vector3 pos2, float distance)
+    {
+        float f1 = pos1.x - pos2.x;
+        float f2 = pos1.z - pos2.z;
+        if (f1 * f1 + f2 * f2 > distance * distance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool CheckBackAttackChance()
+    {        
+        return Vector3.Dot(Camera.main.transform.forward, transform.position) <= 0f;
     }
 }

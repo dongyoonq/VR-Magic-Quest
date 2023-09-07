@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class MonsterLocomotion : MonoBehaviour
 {
+    private Transform monsterControllerTransform;
     private CharacterController characterController;
 
     private void Awake()
@@ -13,6 +14,11 @@ public class MonsterLocomotion : MonoBehaviour
     }
 
     public void Approach(float moveSpeed)
+    {
+        
+    }
+
+    private void Rotate()
     {
 
     }
@@ -65,18 +71,4 @@ public class MonsterLocomotion : MonoBehaviour
     //    outofControl = false;
     //    yield return null;
     //}
-
-    private bool CompareDistanceWithoutHeight(Vector3 pos1, Vector3 pos2, float distance)
-    {
-        float f1 = pos1.x - pos2.x;
-        float f2 = pos1.z - pos2.z;
-        if (f1 * f1 + f2 * f2 > distance * distance)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }

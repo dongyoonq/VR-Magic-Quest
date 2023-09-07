@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using static EnumType;
 
 public class MonsterVision : MonoBehaviour
 {
@@ -9,29 +10,42 @@ public class MonsterVision : MonoBehaviour
     [SerializeField]
     private float fieldOfView;
     [SerializeField]
+    private RigBuilder rigBuilder;
+    public RigBuilder RigBuilder { get { return rigBuilder; } }
+    [SerializeField]
     private MultiAimConstraint headAim;
+    public MultiAimConstraint HeadAim { get {  return headAim; } }
     [SerializeField]
     private MultiAimConstraint upperBodyAim;
+    public MultiAimConstraint UpperBodyAIm { get { return upperBodyAim; } }
     private MonsterPerception perception;
+    private SphereCollider detectRange;
+    public SphereCollider DetectRange {  get { return detectRange; } set { detectRange = value; } }
 
     private void Awake()
     {
         perception = GetComponent<MonsterPerception>();
+        detectRange = GetComponent<SphereCollider>();
     }
 
     public void Gaze()
     {
-        Debug.Log("Gaze");
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // 시야작업과 플레이어 레이어 구분
-        perception.SpotEnemy(other.transform);
+        if (other.gameObject.layer == 7 && perception.CurrentState == BasicState.Idle)
+        {
+            perception.SpotEnemy(other.transform);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.layer == 7)
+        {
+            perception.LoseSightOfTarget();
+        }
     }
 }

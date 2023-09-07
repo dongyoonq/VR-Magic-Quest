@@ -18,6 +18,11 @@ public class MonsterLocomotion : MonoBehaviour
         
     }
 
+    private void Rotate()
+    {
+
+    }
+
     //public void Move()
     //{
     //    if (CompareDistanceWithoutHeight(objectivePoint, transform.position, 0.001f))

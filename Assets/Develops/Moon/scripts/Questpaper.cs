@@ -7,5 +7,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Questpaper : MonoBehaviour
 {
-    
+    public Rigidbody rb;
+
+    public void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 }

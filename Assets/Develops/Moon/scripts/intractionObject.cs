@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
-public class intractionObject : MonoBehaviour
+public class intractionObject : DestroyObject
 {
     public Rigidbody objrb;
     public Animator aim;
@@ -16,7 +16,7 @@ public class intractionObject : MonoBehaviour
      
     }
 
-    //하위자식으로 두던가
+    //테스트 용도로 update 만듬
     public void Update()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -25,16 +25,18 @@ public class intractionObject : MonoBehaviour
             
         }
     }
+   //active가 false된 바닥이 맞으면 hitobject함수 돌게끔 사용
     public void OnCollisionEnter(Collision collision)
     {
-        //마법맞으면 중력받아떠러지고
+        
         objrb.useGravity = true;
 
         if (collision.gameObject.layer == 9)
         {
-            hitobj();
+            skillHitObject();
         }
     }
+    //바닥에 닿으면서 크기가 줄어들면서 아래로 내려가게끔수정
     public void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 9)
@@ -44,11 +46,13 @@ public class intractionObject : MonoBehaviour
         }
     }
 
-    public void hitobj()
+    public override void skillHitObject()
     {
+        // 땅바닥이 만들어지는 느낌을 줘야해서 애니메이션 처리함
         aim.SetBool("drop", true);
         ParticleSystem effect = Instantiate(hiteffect, transform.position, Quaternion.identity);
         Destroy(gameObject, 0.5f);
         Destroy(effect.gameObject, 1f);
     }
+
 }

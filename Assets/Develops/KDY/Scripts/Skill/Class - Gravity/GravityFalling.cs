@@ -15,5 +15,17 @@ public class GravityFalling : Skill
         GravityFallingCollider g_Collider = skill.GetComponentInChildren<GravityFallingCollider>();
         g_Collider.skillSource = skill;
         g_Collider.source = player;
+
+        skill.StartCoroutine(FallingRoutine(player, skill));
+    }
+
+    IEnumerator FallingRoutine(Player player, Skill skill)
+    {
+        yield return new WaitForSeconds(4f);
+
+        player.isSkillUsed = false;
+
+        if (skill.IsValid())
+            GameManager.Resource.Destroy(skill.gameObject);
     }
 }

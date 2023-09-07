@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBasic : Skill
+public class VenomBasic : Skill
 {
     public override void CastingSpell(Player player, float value, Transform createTrans)
     {

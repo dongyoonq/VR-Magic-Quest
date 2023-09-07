@@ -7,6 +7,12 @@ public class Door : MonoBehaviour
 {
     [SerializeField] GameObject feDoor;
     public bool interaction;
+    [SerializeField] Quaternion angle;
+
+    public void Update()
+    {
+        angle = transform.rotation;
+    }
     public void UpDoor()
     {
         interaction = true;
@@ -15,6 +21,7 @@ public class Door : MonoBehaviour
     public void DownDoor()
     {
         interaction = false;
+        StartCoroutine(downroutin());
     }
 
     IEnumerator uproutin()
@@ -22,6 +29,14 @@ public class Door : MonoBehaviour
         while (interaction)
         {
             feDoor.GetComponent<Rigidbody>().velocity = new Vector3(0, 3, 0);
+            yield return null;
+        }
+    }
+    IEnumerator downroutin()
+    {
+        while (angle.z>0)
+        {
+            transform.Rotate(0, 0, -30 * Time.deltaTime);
             yield return null;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour
+public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler
 {
     [Tooltip("슬롯 내에서 아이콘과 슬롯 사이의 여백")]
     [SerializeField] private float padding = 1f;
@@ -184,5 +184,10 @@ public class ItemSlotUI : MonoBehaviour
     public void UseItem()
     {
         inventoryUI.TryUseItem(Index);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Enter");
     }
 }

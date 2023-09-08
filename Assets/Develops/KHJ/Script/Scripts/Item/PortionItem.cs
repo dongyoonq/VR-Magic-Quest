@@ -30,6 +30,8 @@ public class PortionItem : CountableItem
     MaterialPropertyBlock m_MaterialPropertyBlock;
     /// <summary> 포션아이템으로 인식시켜주는 collider </summary>
     private Collider portionCollider;
+    /// <summary> 포션이 여러번 인식되지 않게 해주는 bool값 </summary>
+    private bool isPortionDrink;
 
     int m_UniqueId;
 
@@ -49,6 +51,7 @@ public class PortionItem : CountableItem
         m_StartingFillAmount = fillAmount;
         m_PlugIn = true;
         portionCollider = GetComponent<Collider>();
+        isPortionDrink = false;
     }
 
     void Start()
@@ -93,9 +96,10 @@ public class PortionItem : CountableItem
             {
                 PotionReceiver receiver = hit.collider.GetComponent<PotionReceiver>();
 
-                if (receiver != null)
+                if (receiver != null && isPortionDrink == false)
                 {
                     receiver.ReceivePotion(PotionType);
+                    isPortionDrink = true;
                 }
             }
 

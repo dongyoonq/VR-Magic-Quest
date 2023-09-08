@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Fire Dragon Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: a6721511441c05a43964dac58584c890, type: 3}
+  skillSprite: {fileID: 21300000, guid: 58845c7a93a50d5419c2d63e017964ad, type: 3}
   skillPrefab: {fileID: -8507702161791877090, guid: cf3040f241070084e91e3bab62571677,
     type: 3}
   skillName: Fire Dragon
   skillTooltip: This is Fire Dragon Skill
-  recognizeGestureName: Z
+  recognizeGestureName: 
   damage: 80
   useMp: 0
   skillType: 0

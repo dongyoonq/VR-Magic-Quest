@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Gravity Drain Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: 5f1ec5b63c457d9429fe558222b1bfd2, type: 3}
   skillPrefab: {fileID: 1070988710477299041, guid: f33a27435b048d54eab48aa631cc3c90,
     type: 3}
   skillName: Gravity Drain
   skillTooltip: This is Gravity Drain Skill, Monster is drained by this skill
-  recognizeGestureName: O
+  recognizeGestureName: 
   damage: 50
   useMp: 0
   skillType: 3

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Lightning Bolt Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: 35317befb39e4fc4481318346644df81, type: 3}
   skillPrefab: {fileID: -6139808074013355259, guid: 04d5bb303a0abc240bbb95f4f79abb26,
     type: 3}
   skillName: Lightning Bolt
   skillTooltip: This is Lightning Bolt Skill
-  recognizeGestureName: Beam
+  recognizeGestureName: 
   damage: 50
   useMp: 0
   skillType: 1

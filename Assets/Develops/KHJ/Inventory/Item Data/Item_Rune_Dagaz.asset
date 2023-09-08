@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a564189125b37429e2c612bfe720bf, type: 3}
+  m_Name: Item_Rune_Dagaz
+  m_EditorClassIdentifier: 
+  id: 3
+  itemName: Dagaz
+  tooltip: "\uB2E4\uAC00\uC988 \uB8EC, \uB0AE"
+  iconSprite: {fileID: 21300000, guid: 56fa89b048e65a94b9c0a9445e2ef91c, type: 3}
+  dropItemPrefab: {fileID: 8271105284216808224, guid: b3474549bf908024081408fcf03afaeb,
+    type: 3}
+  maxAmount: 99

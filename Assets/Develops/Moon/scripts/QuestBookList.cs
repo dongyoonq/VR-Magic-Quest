@@ -20,8 +20,7 @@ public class QuestBookList : MonoBehaviour
             if (quest != null)
             {
                 Debug.Log(quest.questtitle);
-               GameObject obj = Instantiate(instatebutton, questlistroot.transform.GetChild(0).transform);
-              
+               GameObject obj= Instantiate(instatebutton, questlistroot.transform);
             }
         }
     }

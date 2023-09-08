@@ -15,9 +15,9 @@ MonoBehaviour:
   skillSprite: {fileID: 21300000, guid: 48025fd840e59ee4db8afc712eda600e, type: 3}
   skillPrefab: {fileID: 7081512326646008347, guid: 306a776f73a7a4f49aec03b5bab65fb5,
     type: 3}
-  skillName: 
+  skillName: Fire Tornado
   skillTooltip: This is Fire Tornado Skill
-  recognizeGestureName: S
+  recognizeGestureName: 
   damage: 30
   useMp: 0
   skillType: 0

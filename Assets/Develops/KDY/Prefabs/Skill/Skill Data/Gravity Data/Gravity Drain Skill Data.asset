@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Drain
   skillTooltip: This is Gravity Drain Skill, Monster is drained by this skill
-  recognizeGestureName: O
+  recognizeGestureName: 
   damage: 50
   useMp: 0
   skillType: 3

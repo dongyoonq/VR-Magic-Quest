@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Falling
   skillTooltip: This is Gravity Rock Falling Skill
-  recognizeGestureName: S
+  recognizeGestureName: 
   damage: 90
   useMp: 0
   skillType: 3

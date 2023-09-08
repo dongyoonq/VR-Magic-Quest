@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Distortion
   skillTooltip: This is Gravity Distortion Skill
-  recognizeGestureName: Beam
+  recognizeGestureName: 
   damage: 20
   useMp: 0
   skillType: 3

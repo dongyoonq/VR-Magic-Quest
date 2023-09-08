@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Ground
   skillTooltip: This is Gravity Ground Skill,  Monster Binding Skill
-  recognizeGestureName: Triangle
+  recognizeGestureName: 
   damage: 10
   useMp: 0
   skillType: 3

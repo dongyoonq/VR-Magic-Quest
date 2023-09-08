@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Basic
   skillTooltip: This is Gravity Basic Skill
-  recognizeGestureName: Wave
+  recognizeGestureName: 
   damage: 50
   useMp: 0
   skillType: 3

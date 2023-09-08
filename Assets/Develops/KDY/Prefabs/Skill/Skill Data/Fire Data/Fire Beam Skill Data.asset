@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Fire Beam
   skillTooltip: This is Fire Beam Skill
-  recognizeGestureName: Beam
+  recognizeGestureName: 
   damage: 10
   useMp: 0
   skillType: 0

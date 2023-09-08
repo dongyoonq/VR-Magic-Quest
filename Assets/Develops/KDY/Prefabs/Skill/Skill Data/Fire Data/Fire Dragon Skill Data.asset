@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Fire Dragon
   skillTooltip: This is Fire Dragon Skill
-  recognizeGestureName: Z
+  recognizeGestureName: 
   damage: 80
   useMp: 0
   skillType: 0

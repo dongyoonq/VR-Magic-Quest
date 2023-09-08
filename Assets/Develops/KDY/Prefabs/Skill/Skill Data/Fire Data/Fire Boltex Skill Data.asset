@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Fire Boltex
   skillTooltip: This is Fire Boltex Skill
-  recognizeGestureName: Triangle
+  recognizeGestureName: 
   damage: 10
   useMp: 0
   skillType: 0

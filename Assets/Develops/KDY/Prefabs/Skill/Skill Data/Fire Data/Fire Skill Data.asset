@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Fire Basic
   skillTooltip: This is Fire Basic Skill
-  recognizeGestureName: Wave
+  recognizeGestureName: 
   damage: 50
   useMp: 0
   skillType: 0

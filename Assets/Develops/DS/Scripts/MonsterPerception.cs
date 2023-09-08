@@ -49,8 +49,8 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = BasicState.Idle;
-        controller.transform.parent = null;
-        controller.transform.position = transform.position + transform.forward * 5f;
+        //controller.transform.parent = null;
+        //controller.transform.position = transform.position + transform.forward * 5f;
     }
 
     public void SendCommand(IEnumerator command)
@@ -63,6 +63,7 @@ public class MonsterPerception : MonoBehaviour
         switch (currentState)
         {
             case BasicState.Idle:
+                vision.AvertEye();
                 break;
             case BasicState.Alert:
                 locomotion.Approach(alertMoveSpeed);
@@ -77,15 +78,15 @@ public class MonsterPerception : MonoBehaviour
                 combat.Combat();
                 break;
             default:
+                vision.AvertEye();
                 break;
         }
-        // 공격 사거리 이하면 전투, current state가 idle이고 플레이어가 뒤를 보이고 있으면 chase 아니면 alert detectrange보다 멀어지면 idle
+        if (currentState == BasicState.Idle)
+        {
+            return;
+        }
         if (CompareDistanceWithoutHeight(controller.transform.position, transform.position, monsterInfo.attackRange))
         {
-            if(currentState == BasicState.Idle)
-            {
-                return;
-            }
             if (CheckBackAttackChance())
             {
                 currentState = BasicState.Chase;

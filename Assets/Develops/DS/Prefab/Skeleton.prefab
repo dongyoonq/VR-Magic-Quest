@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff661e3d8e96f0c4e93a194e41cdb7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eyeTransform: {fileID: 8961103670174548110}
   fieldOfView: 120
   rigBuilder: {fileID: 7568793659903889813}
   headAim: {fileID: 1694028260558614262}
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
     m_ConstrainedObject: {fileID: 8961103670174674274}
     m_SourceObjects:
@@ -1763,7 +1764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
     m_ConstrainedObject: {fileID: 8961103670174655910}
     m_SourceObjects:

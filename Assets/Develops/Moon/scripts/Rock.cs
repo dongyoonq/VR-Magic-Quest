@@ -66,7 +66,7 @@ public class Rock : DestroyObject
             float randomnum = Random.Range(-5, 5);
             GameObject obj2 = Instantiate(rockfragment, transform.position, Quaternion.identity);
             obj2.GetComponent<Rigidbody>().AddForce(new Vector3(randomnum, randomnum, randomnum));
-            Debug.Log(randomnum);
+         
             i++;
         }
         yield return null;

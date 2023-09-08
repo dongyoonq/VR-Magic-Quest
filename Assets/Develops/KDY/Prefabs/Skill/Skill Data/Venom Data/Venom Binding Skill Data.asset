@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Venom Binding Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: 6275cbffbb4884140b7c748d6f08d0bf, type: 3}
   skillPrefab: {fileID: 2992283000595716398, guid: 0a5a449f2652c26419d72eef248be67e,
     type: 3}
   skillName: Venom Binding

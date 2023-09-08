@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Fire Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: d4b2cd9adb4374545a4cedd6969d029d, type: 3}
   skillPrefab: {fileID: 7047775200262859125, guid: 82a85774ebdbc57409edee4c7dabe655,
     type: 3}
   skillName: Fire Basic

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Gravity Ground Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
-  skillPrefab: {fileID: -2948115474287384620, guid: 31d8bc51bb762bd4086a30aa3aa6d09d,
+  skillSprite: {fileID: 21300000, guid: 6bab87cdc4afd9441a7de1d01ce0b28d, type: 3}
+  skillPrefab: {fileID: -8030588056602456020, guid: c653e105c03755d4799413cdf6cee741,
     type: 3}
   skillName: Gravity Ground
   skillTooltip: This is Gravity Ground Skill,  Monster Binding Skill

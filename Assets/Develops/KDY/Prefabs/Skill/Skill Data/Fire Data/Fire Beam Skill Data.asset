@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Fire Beam Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: 06ee6b12ec24ff544a3a70e53e919bb2, type: 3}
   skillPrefab: {fileID: 4609051006354486727, guid: 3a82201fea601ec47894017d2e339025,
     type: 3}
   skillName: Fire Beam
   skillTooltip: This is Fire Beam Skill
   recognizeGestureName: Beam
   damage: 10
+  useMp: 0
+  skillType: 0
+  hitTags: 

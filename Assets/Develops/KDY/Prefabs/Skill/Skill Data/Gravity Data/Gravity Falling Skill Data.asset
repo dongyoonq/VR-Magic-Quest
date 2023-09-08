@@ -20,4 +20,5 @@ MonoBehaviour:
   recognizeGestureName: S
   damage: 90
   useMp: 0
-  skillType: 4
+  skillType: 3
+  hitTags: 

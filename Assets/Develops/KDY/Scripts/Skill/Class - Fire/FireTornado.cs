@@ -11,7 +11,7 @@ public class FireTornado : Skill
         player.isSkillUsed = true;
 
         createTrans = Camera.main.transform;
-        Vector3 createPos = createTrans.position + (createTrans.forward * 4f) + (createTrans.up * -2f);
+        Vector3 createPos = createTrans.position + (createTrans.forward * 5f) + (createTrans.up * -1f);
         Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.identity, true);
 
         skill.StartCoroutine(AttackJudgement(player, skill));

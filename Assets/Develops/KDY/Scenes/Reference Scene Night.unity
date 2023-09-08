@@ -17703,7 +17703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773150592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.031, y: -0, z: -0.104}
+  m_LocalPosition: {x: -0.031, y: 0, z: -0.104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17743,12 +17743,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
-  - {fileID: 11400000, guid: 4aa7b701e31d8724e92869e425f77d00, type: 2}
-  - {fileID: 11400000, guid: f7d0c23bff2202246940b8eced0a4c74, type: 2}
-  - {fileID: 11400000, guid: 17ec45e49e5348f47bda3b9c08bcde76, type: 2}
-  - {fileID: 11400000, guid: 7821da7414907db43b7352428bdd1fc3, type: 2}
-  - {fileID: 11400000, guid: 4418e77aafe3624458117c91bd1adeb9, type: 2}
-  - {fileID: 11400000, guid: 791b26c84ceec644b86c8e3bfd62ebcb, type: 2}
+  - {fileID: 11400000, guid: 45bc49f98a3fae648b3c2cc8071db58f, type: 2}
+  - {fileID: 11400000, guid: 3f49733dbb1b09e4fadf8877b065809b, type: 2}
+  - {fileID: 11400000, guid: 2038fffaff99c274bba999b94e699701, type: 2}
+  - {fileID: 11400000, guid: a5cbcf279c51a6d4899f4cb60ee6607e, type: 2}
+  - {fileID: 11400000, guid: 259f966927e57ef41963373974589d7f, type: 2}
+  - {fileID: 11400000, guid: 60578b7dcf1e5aa41978f9770ef94357, type: 2}
   hp: 0
 --- !u!114 &1773150596
 MonoBehaviour:
@@ -27842,6 +27842,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  linePrefab: {fileID: 0}
   vfx: {fileID: 72539921}
   movementSource: {fileID: 132849560}
   OnRecognized:
@@ -27850,7 +27851,7 @@ MonoBehaviour:
   recognitionThreshold: 0.75
   newPositionThresholdDistance: 0.05
   creationMode: 0
-  newGestureName: Teleport
+  newGestureName: Wave
 --- !u!54 &7017698682795361289
 Rigidbody:
   m_ObjectHideFlags: 0

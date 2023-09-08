@@ -22,6 +22,7 @@ public abstract class ItemData : ScriptableObject
     public string Name => itemName;
     public string Tooltip => tooltip;
     public Sprite IconSprite => iconSprite;
+    public GameObject DropItemPrefab => dropItemPrefab;
 
     [SerializeField] private int id;
     [SerializeField] private string itemName;    // 아이템 이름

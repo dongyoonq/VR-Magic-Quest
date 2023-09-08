@@ -5281,7 +5281,7 @@ BoxCollider:
   m_GameObject: {fileID: 369631385643959072}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.04554666, y: 0.05518853, z: 0.0445467}
   m_Center: {x: 0.0028712773, y: 0.025956582, z: 0.0016126551}
@@ -5530,7 +5530,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -5636,6 +5636,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 369631385651091646}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
@@ -5790,7 +5802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1024a7001da4a47a4ce4ca5d2322fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 0}
+  Data: {fileID: 11400000, guid: 04eef8332317ca946adaf6a2a23b00ca, type: 2}
   PotionType: MP
   plugObj: {fileID: 369631385643959072}
   particleSystemLiquid: {fileID: 369631385394762654}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestMonster : MonoBehaviour, IHitable
+public class TestMonster : MonoBehaviour, IHittable
 {
     [SerializeField] int hp;
 

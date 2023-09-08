@@ -60,6 +60,7 @@ public class MonsterVision : MonoBehaviour
         }
     }
 
+    //TODO: 해골 gaze 수치 조절
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 7 && perception.CurrentState == BasicState.Idle)
@@ -68,10 +69,12 @@ public class MonsterVision : MonoBehaviour
             if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
             {
                 RaycastHit hitInfo;
-                Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange.radius, detectLayerMask);
-                if (hitInfo.collider.gameObject.layer == 7)
+                if (Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange.radius, detectLayerMask))
                 {
-                    perception.SpotEnemy(other.transform);
+                    if (hitInfo.collider.gameObject.layer == 7)
+                    {
+                        perception.SpotEnemy(other.transform);
+                    }
                 }
             }           
         }

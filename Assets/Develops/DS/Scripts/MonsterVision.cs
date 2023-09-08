@@ -72,7 +72,7 @@ public class MonsterVision : MonoBehaviour
                 if (hitInfo.collider.gameObject.layer == 7)
                 {
                     perception.SpotEnemy(other.transform);
-                }       
+                }
             }           
         }
     }

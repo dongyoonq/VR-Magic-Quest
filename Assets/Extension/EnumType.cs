@@ -23,6 +23,7 @@ public class EnumType
         Guard,
         Tenacity,
         Aggresive,
+        DynamicallyMove,
         Cautious,
         SpellCaster,
         Agile,

@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78989825bfcc6184c969b84b41e613a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
 --- !u!114 &6242992761753825916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.1
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 20
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

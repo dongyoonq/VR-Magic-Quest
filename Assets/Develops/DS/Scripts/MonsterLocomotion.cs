@@ -5,22 +5,41 @@ using UnityEngine.EventSystems;
 
 public class MonsterLocomotion : MonoBehaviour
 {
-    private Transform monsterControllerTransform;
+    [HideInInspector]
+    public Transform targetTransform;
     private CharacterController characterController;
+    private Animator animator;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        animator.SetFloat("MoveSpeed", 0f);
     }
 
     public void Approach(float moveSpeed)
     {
-        
+        animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
+        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
     }
 
-    private void Rotate()
+    public void SlowDown()
     {
+        animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), 0f, Time.deltaTime * 5f));
+    }
 
+    public void Stop()
+    {
+        animator.SetFloat("MoveSpeed", 0f);
+    }
+
+    public void Turn()
+    {
+        transform.LookAt(targetTransform);
     }
 
     //public void Move()

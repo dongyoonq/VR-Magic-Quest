@@ -49,8 +49,8 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = BasicState.Idle;
-        controller.transform.parent = null;
-        controller.transform.position = transform.position + transform.forward * 5f;
+        //controller.transform.parent = null;
+        //controller.transform.position = transform.position + transform.forward * 5f;
     }
 
     public void SendCommand(IEnumerator command)
@@ -63,29 +63,36 @@ public class MonsterPerception : MonoBehaviour
         switch (currentState)
         {
             case BasicState.Idle:
+                vision.AvertEye();
+                locomotion.SlowDown();
                 break;
             case BasicState.Alert:
                 locomotion.Approach(alertMoveSpeed);
+                locomotion.Turn();
                 vision.Gaze();
                 break;
             case BasicState.Chase:
                 locomotion.Approach(chaseMoveSpeed);
+                locomotion.Turn();
                 vision.Gaze();
                 break;
             case BasicState.Combat:
                 vision.Gaze();
+                locomotion.SlowDown();
+                locomotion.Turn();
                 combat.Combat();
                 break;
             default:
+                vision.AvertEye();
+                locomotion.Stop();
                 break;
         }
-        // 공격 사거리 이하면 전투, current state가 idle이고 플레이어가 뒤를 보이고 있으면 chase 아니면 alert detectrange보다 멀어지면 idle
+        if (currentState == BasicState.Idle)
+        {
+            return;
+        }
         if (CompareDistanceWithoutHeight(controller.transform.position, transform.position, monsterInfo.attackRange))
         {
-            if(currentState == BasicState.Idle)
-            {
-                return;
-            }
             if (CheckBackAttackChance())
             {
                 currentState = BasicState.Chase;
@@ -105,6 +112,12 @@ public class MonsterPerception : MonoBehaviour
     public IEnumerator MoveRoutine()
     {
         yield return null;
+    }
+
+    public void DynamicallyMove()
+    {
+        alertMoveSpeed = Random.Range(monsterInfo.moveSpeed * 0.75f, monsterInfo.moveSpeed);
+        chaseMoveSpeed = Random.Range(monsterInfo.moveSpeed * 0.75f, monsterInfo.moveSpeed);
     }
 
     private IEnumerator CollapseRoutine()
@@ -131,6 +144,7 @@ public class MonsterPerception : MonoBehaviour
         SynchronizeController((() => MonsterBasicBehave()), true);
         SynchronizeVision();
         SynchronizeCombat();
+        SynchronizeLocomotion();
         advancedAI = monsterInfo.monsterAIRoutine;
         StartCoroutine(MakeDecisionRoutine());
     }
@@ -165,7 +179,7 @@ public class MonsterPerception : MonoBehaviour
 
     public void SynchronizeLocomotion()
     {
-
+        locomotion.targetTransform = controller.transform;
     }
 
     public void AdjustRecoverTime(float adjustingRange)

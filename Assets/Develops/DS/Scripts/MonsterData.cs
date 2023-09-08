@@ -38,6 +38,10 @@ public class MonsterData : ScriptableObject
         {
             monsterAdvancedAI.Add(MonsterTag.Aggresive, (monsterPerception) => AggressiveTypeMonsterBehaviour(monsterPerception));
         }
+        if (!monsterAdvancedAI.ContainsKey(MonsterTag.DynamicallyMove))
+        {
+            monsterAdvancedAI.Add(MonsterTag.DynamicallyMove, (monsterPerception) => DynamicallyMoveTypeMonsterBehaviour(monsterPerception));
+        }
         if (!monsterAdvancedAI.ContainsKey(MonsterTag.Cautious))
         {
             monsterAdvancedAI.Add(MonsterTag.Cautious, (monsterPerception) => CautiousTypeMonsterBehaviour(monsterPerception));
@@ -136,6 +140,11 @@ public class MonsterData : ScriptableObject
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
 
+    }
+
+    private void DynamicallyMoveTypeMonsterBehaviour(MonsterPerception monsterPerception)
+    {
+        monsterPerception.DynamicallyMove();
     }
 
     private void CautiousTypeMonsterBehaviour(MonsterPerception monsterPerception)

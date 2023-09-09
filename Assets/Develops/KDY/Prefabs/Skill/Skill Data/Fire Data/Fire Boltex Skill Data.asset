@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Fire Boltex Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: df6142def56811747a64d1e204e5407f, type: 3}
   skillPrefab: {fileID: 1960178543731926278, guid: fd923b24e6f86274083190b7782567e3,
     type: 3}
   skillName: Fire Boltex
   skillTooltip: This is Fire Boltex Skill
-  recognizeGestureName: Triangle
+  recognizeGestureName: 
   damage: 10
   useMp: 0
   skillType: 0

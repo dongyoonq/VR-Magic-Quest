@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Venom Strike Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: 4368affce1006e6438a38165b5873142, type: 3}
   skillPrefab: {fileID: 8135332472961957589, guid: c961733f291569246ae2406f8dc14eac,
     type: 3}
   skillName: Venom Strike

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
   m_Name: Lightning Boltex Skill Data
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 09313b1ebfa8ed54c8101e4a64865432, type: 3}
+  skillSprite: {fileID: 21300000, guid: b21b950ad71d0ae4f90f071fdb5efc05, type: 3}
   skillPrefab: {fileID: -7916585155906824470, guid: d1994e3322cfd784ba92c40df67b1dd2,
     type: 3}
   skillName: Lightning Boltex
   skillTooltip: This is Lightning Boltex Skill
-  recognizeGestureName: S
+  recognizeGestureName: 
   damage: 120
   useMp: 0
   skillType: 1

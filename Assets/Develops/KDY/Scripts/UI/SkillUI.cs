@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,12 +11,13 @@ public class SkillUI : MonoBehaviour
     [SerializeField] SkillInfoUI infoUI;
     [SerializeField] SkillCommandUI commandUI;
     [SerializeField] SkillSlot[] skillSlots;
+    [SerializeField] MP4Loader mp4Loader;
     
     private Player player;
 
     public UnityEvent<SkillData> OnPointerSkllSlot;
-    public UnityEvent<SkillType[]> OnSortingSkillSlot;
     public UnityEvent<string> OnSkillCommandUpdate;
+    public UnityEvent<SkillType[]> OnSortingSkillSlot;
     public UnityEvent OnPlayerSkillUIUpdate;
 
     public bool isSelectedBtn = false;
@@ -35,19 +37,28 @@ public class SkillUI : MonoBehaviour
 
     private void ShowSkillDescription(SkillData skillData)
     {
+        mp4Loader.OffLoad();
+
         commandUI.selectSkill = skillData;
         commandUI.skillText.text = skillData.skillName;
         commandUI.recognzieText.text = $"Current Recognize : {skillData.recognizeGestureName}";
+        commandUI.skillImage.sprite = skillData.skillSprite;
 
         infoUI.nameText.text = skillData.skillName;
         infoUI.infoText.text = $"Damage : {skillData.damage}\nUseMp : {skillData.useMp}";
         infoUI.gestureText.text = $"Skill Recognize : {skillData.recognizeGestureName}";
         infoUI.descriptionText.text = skillData.skillTooltip;
+        infoUI.skillImage.sprite = skillData.skillSprite;
+
+        infoUI.recognizeBtn.onClick.RemoveAllListeners();
+
+        if (!string.IsNullOrEmpty(skillData.recognizeGestureName))
+            infoUI.recognizeBtn.onClick.AddListener(() => mp4Loader.OnLoad(FindVideoFileInfo(skillData.recognizeGestureName)));
 
         if (player.skillList.Contains(skillData))
         {
             infoUI.subscribeText.color = Color.blue;
-            infoUI.subscribeText.text = "You can use this skill";
+            infoUI.subscribeText.text = "You can use this skill";   
 
             commandUI.infoText.color = Color.blue;
             commandUI.infoText.text = "You can register this skill";
@@ -64,6 +75,9 @@ public class SkillUI : MonoBehaviour
 
     private void UpdateGestureInfoCommand(string gestureName)
     {
+        infoUI.recognizeBtn.onClick.RemoveAllListeners();
+        infoUI.recognizeBtn.onClick.AddListener(() => mp4Loader.OnLoad(FindVideoFileInfo(gestureName)));
+
         infoUI.gestureText.text = $"Skill Recognize : {gestureName}";
     }
     
@@ -116,5 +130,20 @@ public class SkillUI : MonoBehaviour
                 slot.gameObject.SetActive(false);
             }
         }
+    }
+
+    private FileInfo FindVideoFileInfo(string gestureName)
+    {
+        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "\\Editors\\Record\\");
+
+        foreach (FileInfo file in di.GetFiles())
+        {
+            if (file.Name == gestureName + " Video.mp4")
+            {
+                return file;
+            }
+        }
+
+        return null;
     }
 }

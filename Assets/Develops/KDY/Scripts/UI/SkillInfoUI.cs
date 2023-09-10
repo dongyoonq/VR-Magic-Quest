@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SkillInfoUI : MonoBehaviour
 {
+    [SerializeField] public Image skillImage;
     [SerializeField] public TMP_Text nameText;
     [SerializeField] public TMP_Text infoText;
     [SerializeField] public TMP_Text gestureText;

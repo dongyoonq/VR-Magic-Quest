@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 15
   itemName: Nauthiz
   tooltip: "\uB098\uC6B0\uB514\uC988 \uB8EC, \uD544\uC694"
-  iconSprite: {fileID: 21300000, guid: 95d52fbf4739cc945a1c07aa0ee74612, type: 3}
+  iconSprite: {fileID: 21300000, guid: b7093f69746ca944990dc18b3493d69d, type: 3}
   dropItemPrefab: {fileID: 3361998661835854535, guid: 422842a180944174facd0eb4859a5a49,
     type: 3}
   maxAmount: 99

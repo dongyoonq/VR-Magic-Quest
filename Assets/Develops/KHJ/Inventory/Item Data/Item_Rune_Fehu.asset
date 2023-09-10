@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 6
   itemName: Fehu
   tooltip: "\uD6FC\uD6C4 \uB8EC, \uBD80\uADC0, \uC18C"
-  iconSprite: {fileID: 21300000, guid: f846f6f182398fd4799dc1ec575919d3, type: 3}
+  iconSprite: {fileID: 21300000, guid: a3a7a6f3911385c49be0254239695966, type: 3}
   dropItemPrefab: {fileID: 893915794915811787, guid: a3c1287ec52956d409896c00dccf0ca3,
     type: 3}
   maxAmount: 99

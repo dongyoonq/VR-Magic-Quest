@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 7
   itemName: Gebo
   tooltip: "\uAC8C\uBCF4 \uB8EC, \uC120\uBB3C"
-  iconSprite: {fileID: 21300000, guid: 62bea552beb969840ad35704f6578ebc, type: 3}
+  iconSprite: {fileID: 21300000, guid: d063f5df62db7ad4ab0acc246ba4a553, type: 3}
   dropItemPrefab: {fileID: 5002723904040131852, guid: 8beb717cffe2d684bb1fbe40ed1eb320,
     type: 3}
   maxAmount: 99

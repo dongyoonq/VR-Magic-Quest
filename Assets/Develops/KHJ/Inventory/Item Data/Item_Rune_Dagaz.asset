@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 3
   itemName: Dagaz
   tooltip: "\uB2E4\uAC00\uC988 \uB8EC, \uB0AE"
-  iconSprite: {fileID: 21300000, guid: 56fa89b048e65a94b9c0a9445e2ef91c, type: 3}
+  iconSprite: {fileID: 21300000, guid: b69fb3872deffee4291d9b1df28218c2, type: 3}
   dropItemPrefab: {fileID: 8271105284216808224, guid: b3474549bf908024081408fcf03afaeb,
     type: 3}
   maxAmount: 99

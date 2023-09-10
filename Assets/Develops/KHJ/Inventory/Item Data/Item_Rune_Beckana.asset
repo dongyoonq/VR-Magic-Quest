@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 2
   itemName: Beckana
   tooltip: "\uBCA0\uB974\uCE74\uB09C \uB8EC, \uC790\uC791 \uB098\uBB34"
-  iconSprite: {fileID: 21300000, guid: 84ee0b423f3ff4d409080657c3fc615f, type: 3}
+  iconSprite: {fileID: 21300000, guid: 2adbe28eb3484304f9e62cb3fa64fe13, type: 3}
   dropItemPrefab: {fileID: 5985286338083887649, guid: 7ce458dff8ea2c54d95186d5ddccfc8b,
     type: 3}
   maxAmount: 99

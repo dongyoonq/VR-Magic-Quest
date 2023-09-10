@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   itemName: Ansuz
   tooltip: "\uC548\uC218\uC988 \uB8EC, \uC544\uC2A4 \uC2E0"
-  iconSprite: {fileID: 21300000, guid: 53d0b57f36d57494caaaacdce40ea121, type: 3}
+  iconSprite: {fileID: 21300000, guid: f90eaa38406c649418ca9e45007cf050, type: 3}
   dropItemPrefab: {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33,
     type: 3}
   maxAmount: 99

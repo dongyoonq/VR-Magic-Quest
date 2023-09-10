@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 10
   itemName: Isaz
   tooltip: "\uC774\uC0AC\uC988 \uB8EC, \uC5BC\uC74C"
-  iconSprite: {fileID: 21300000, guid: 00efd3fc68533ce4385a71e44821e186, type: 3}
+  iconSprite: {fileID: 21300000, guid: 88ee83c7d97617a4eb79bcd30888a1a2, type: 3}
   dropItemPrefab: {fileID: 376091706614973621, guid: f9f68c26883bb964ab03e945d76b608c,
     type: 3}
   maxAmount: 99

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 22
   itemName: Uruz
   tooltip: "\uC6B0\uB8E8\uC988 \uB8EC, \uB4E4\uC18C"
-  iconSprite: {fileID: 21300000, guid: 41e962a7ab6e7814b991b68a20ae5d07, type: 3}
+  iconSprite: {fileID: 21300000, guid: 1cdc3985200ed13478cbc60d5ff67368, type: 3}
   dropItemPrefab: {fileID: 2764883456244745302, guid: 293c2800384edaa489c62fdcee82a788,
     type: 3}
   maxAmount: 99

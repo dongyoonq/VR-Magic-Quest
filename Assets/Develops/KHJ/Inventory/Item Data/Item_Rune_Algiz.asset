@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 0
   itemName: Algiz
   tooltip: "\uC54C\uAE30\uC988 \uB8EC, \uC5D8\uD06C"
-  iconSprite: {fileID: 21300000, guid: 5ef2ecaf369b3ee4a82a2bbed72abe5a, type: 3}
+  iconSprite: {fileID: 21300000, guid: ca1763f33e2e42e4dab222c434057468, type: 3}
   dropItemPrefab: {fileID: 2691189183381618993, guid: f4f35f38e9d17a84e90fd88892bd1d31,
     type: 3}
   maxAmount: 99

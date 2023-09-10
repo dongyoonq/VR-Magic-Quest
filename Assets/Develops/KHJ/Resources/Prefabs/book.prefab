@@ -4850,6 +4850,7 @@ MonoBehaviour:
   selectButtonSprite: {fileID: 21300000, guid: 180f5ccfbd0088248970be073b3bbbf0, type: 3}
   unselectButtonSprite: {fileID: 21300000, guid: a76936583bfd726439ac65f9f17a6bcf,
     type: 3}
+  CanvasName: {fileID: 1055538828020520925}
 --- !u!1 &2729453290879426292
 GameObject:
   m_ObjectHideFlags: 0
@@ -11011,7 +11012,7 @@ GameObject:
   - component: {fileID: 537962693619650225}
   - component: {fileID: 1055538828020520925}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CanvasName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

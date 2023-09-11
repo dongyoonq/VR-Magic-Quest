@@ -38,7 +38,7 @@ public class BookCanvasUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        SetActiveCanvas(Canvas.Inventory);
+        inventorySwichButtonClick();
     }
 
     private void InitButtonListener()

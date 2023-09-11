@@ -6,6 +6,7 @@ public class RecipeManager : MonoBehaviour
 {
     public class PortionRecipe
     {
+        public Sprite RecipeSprite;
         public RuneItemData ingredientRune1;
         public RuneItemData ingredientRune2;
         public RuneItemData ingredientRune3;
@@ -25,5 +26,10 @@ public class RecipeManager : MonoBehaviour
                 break;
             }
         }
+    }
+    
+    public PortionRecipe GetPortionRecipe(int index)
+    {
+        return portionRecipes[index];
     }
 }

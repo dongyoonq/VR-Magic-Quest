@@ -7,22 +7,13 @@ using UnityEngine.UI;
 
 public class QuestBookclick : MonoBehaviour
 {
-    public Button button;
-    [SerializeField] public QuestData quest;
-    [SerializeField] public TMP_Text qusettitle;
-    [SerializeField] public Questdetail questdetail;
-    public void Awake()
-    {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(Questlistclick);
-        qusettitle.text = quest.questtitle;
+    public QuestBookList bookList;
+    public QuestData quest;
 
-    }
+    public TMP_Text qusettitle;
 
     public void Questlistclick()
     {
-        GameObject.Find("Questdetail").gameObject.GetComponent<Questdetail>().questdetailtext.text = quest.quest;
+        bookList.SetCurQuest(quest);
     }
-
-
 }

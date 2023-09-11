@@ -15,3 +15,6 @@ MonoBehaviour:
   questtitle: asdasd
   quest: asd
   value: 1
+  isclear: 1
+  isinventory: 0
+  Object: {fileID: 0}

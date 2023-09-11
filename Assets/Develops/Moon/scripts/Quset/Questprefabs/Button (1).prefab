@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7964982307361626819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7964982307361626821}
+        m_TargetAssemblyTypeName: QuestBookclick, Assembly-CSharp
+        m_MethodName: Questlistclick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7964982307361626821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14869906dc8f1e243ac2465b3ff9f785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bookList: {fileID: 0}
   button: {fileID: 0}
   quest: {fileID: 0}
   qusettitle: {fileID: 7964982307506275104}

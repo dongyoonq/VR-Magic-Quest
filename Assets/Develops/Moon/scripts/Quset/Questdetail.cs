@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Questdetail : MonoBehaviour
 {
+    [SerializeField] public QuestBookList questlist;
     [SerializeField] public TMP_Text questdetailtext;
 
  

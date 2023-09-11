@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     public UnityEvent<ItemData, int, int> OnAddItemInventory;
     public UnityEvent<ItemData, int, int> OnRemoveItemInventory;
 
-    public KDY.InventoryUI inventoryUI { get; set; }
-    public KDY.Inventory inventory { get; private set; }
+    public InventoryUI inventoryUI { get; set; }
+    public Inventory inventory { get; private set; }
 
     [SerializeField] public List<SkillData> skillList;
     [SerializeField] public int hp;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        inventory = GetComponent<KDY.Inventory>();
+        inventory = GetComponent<Inventory>();
         trainingSet = GameManager.Load.LoadGestures();
     }
 

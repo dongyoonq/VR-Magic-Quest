@@ -13,10 +13,17 @@ public class InventoryUI : MonoBehaviour
 
     public RectTransform inventoryPanel;
     public RectTransform contents;
+    public InventoryInfoUI inventoryInfoUI;
 
     public InventorySlot[] slots;
 
     private Player player;
+
+    private void Start()
+    {
+        if (contents != null)
+            slots = contents.GetComponentsInChildren<InventorySlot>();
+    }
 
     private void OnEnable()
     {
@@ -25,7 +32,6 @@ public class InventoryUI : MonoBehaviour
         inventory = player.inventory;
         player.inventoryUI = this;
         inventory.onSlotCountChange.AddListener(SlotChange);
-        slots = contents.GetComponentsInChildren<InventorySlot>();
 
         for (int i = 0; i < slots.Length; i++)
             slots[i].slotIndex = i;

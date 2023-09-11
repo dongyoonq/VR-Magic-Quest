@@ -5,12 +5,27 @@ using UnityEngine.UI;
 
 public class RecipeSlotUI : MonoBehaviour
 {
+    public PortionRecipeData recipeData;
+    public Image recipeImage;
     public Image frameImage;
-    public string portionName;
     private RecipeUI recipeUI;
+
+    private void Start()
+    {
+        recipeImage = transform.GetChild(0).GetComponent<Image>();
+        frameImage = transform.GetChild(1).GetComponent<Image>();
+
+        if (recipeData != null) 
+            recipeImage.sprite = recipeData.RecipeSprite;
+
+        recipeUI = GetComponentInParent<RecipeUI>();
+
+        GetComponent<Button>().onClick.AddListener(() => ClickButton());
+    }
 
     public void ClickButton()
     {
-        recipeUI.ViewRecipe(portionName);
+        if (recipeData != null) 
+            recipeUI.ViewRecipe(recipeData);
     }
 }

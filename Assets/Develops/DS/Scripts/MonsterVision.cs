@@ -65,7 +65,7 @@ public class MonsterVision : MonoBehaviour
     {
         if (other.gameObject.layer == 7 && perception.CurrentState == BasicState.Idle)
         {
-            targetDirection = (other.transform.position - eyeTransform.position).normalized;
+            targetDirection = (Camera.main.transform.position - eyeTransform.position).normalized;
             if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
             {
                 RaycastHit hitInfo;

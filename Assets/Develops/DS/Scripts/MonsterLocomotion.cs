@@ -39,7 +39,7 @@ public class MonsterLocomotion : MonoBehaviour
 
     public void Turn()
     {
-        transform.LookAt(targetTransform);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetTransform.position - transform.position), Time.deltaTime);
     }
 
     //public void Move()

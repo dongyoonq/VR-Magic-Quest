@@ -30,6 +30,7 @@ public class MonsterPerception : MonoBehaviour
 
     public IEnumerator MakeDecisionRoutine()
     {
+        yield return new WaitForSeconds(3f);
         advancedAI = monsterInfo.monsterAIRoutine;
         Coroutine advancedAIRoutine = StartCoroutine(advancedAI);
         yield return new WaitUntil(() => currentState == BasicState.Collapse);

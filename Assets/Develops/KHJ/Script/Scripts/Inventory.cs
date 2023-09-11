@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /*
@@ -47,6 +48,7 @@ using UnityEngine;
     - void UpdateAccessibleStatesAll() : 모든 슬롯 UI에 접근 가능 여부 갱신
     - void TrimAll() : 앞에서부터 아이템 슬롯 채우기
     - void SortAll() : 앞에서부터 아이템 슬롯 채우면서 정렬
+    - void ViewtoolTim(int) : 아이템 슬롯에 포인트가 올라가면 툴팁이 나옴
 */
 
 public class Inventory : MonoBehaviour
@@ -72,15 +74,18 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private ItemData[] items;
 
+    /// <summary> 아이템 툴팁 </summary>
+    [SerializeField]
+    private TMP_Text Itemtooltip;
+
     /// <summary> 업데이트 할 인덱스 목록 </summary>
     private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
 
     /// <summary> 아이템 데이터 타입별 정렬 가중치 </summary>
     private readonly static Dictionary<Type, int> sortWeightDict = new Dictionary<Type, int>
     {
-        { typeof(PortionItemData), 10000 },
-        /*{ typeof(WeaponItemData),  20000 },
-        { typeof(ArmorItemData),   30000 },*/
+        { typeof(RuneItemData), 10000 },
+        { typeof(PortionItemData),  20000 }
     };
 
     private class ItemComparer : IComparer<ItemData>
@@ -403,6 +408,15 @@ public class Inventory : MonoBehaviour
                 UpdateSlot(index);
             }
         }
+    }
+
+    /// <summary> 아이템 슬롯에 마우스 올라가면 툴팁제공 </summary>
+    public void ViewtooltipItem(int index)
+    {
+        if (!IsValidIndex(index)) return;
+        if (items[index] == null) return;
+
+        Itemtooltip.SetText(items[index].Tooltip);
     }
 
     /// <summary> 모든 슬롯 UI에 접근 가능 여부 업데이트 </summary>

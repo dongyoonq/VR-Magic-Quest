@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryBag : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
+    
 
     private void OnTriggerEnter(Collider other)
     {

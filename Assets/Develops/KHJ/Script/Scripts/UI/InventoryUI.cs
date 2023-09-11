@@ -43,8 +43,6 @@ public class InventoryUI : MonoBehaviour
     [Header("Options")]
     [Space]
     [SerializeField] private bool showTooltip = true;
-    [SerializeField] private bool showHighlight = true;
-    [SerializeField] private bool showRemovingPopup = true;
   
     [Header("Connected Objects")]
     [SerializeField] private RectTransform contentAreaRT; // 슬롯들이 위치할 영역
@@ -115,6 +113,11 @@ public class InventoryUI : MonoBehaviour
     public void TryUseItem(int index)
     {
         inventory.Use(index);
+    }
+
+    public void TrytooltipItem(int index)
+    {
+        inventory.ViewtooltipItem(index);
     }
   
     /// <summary> 인벤토리 참조 등록 (인벤토리에서 직접 호출) </summary>

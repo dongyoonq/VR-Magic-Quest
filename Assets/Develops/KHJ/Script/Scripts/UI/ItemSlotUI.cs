@@ -46,7 +46,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler
     /// <summary> 비활성화된 아이콘 색상 </summary>
     private static readonly Color InaccessibleIconColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-    private void Awake()
+    private void OnEnable()
     {
         InitComponents();
         InitValues();
@@ -188,6 +188,6 @@ public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Enter");
+        inventoryUI.TrytooltipItem(Index);
     }
 }

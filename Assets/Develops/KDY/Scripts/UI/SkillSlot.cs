@@ -9,12 +9,15 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler
     [SerializeField] public Image skillImg;
     [SerializeField] public SkillData skillData;
 
+    public Image frameImg;
+
     private SkillUI skillUI;
     private Button button;
 
     private void Start()
     {
         skillUI = GetComponentInParent<SkillUI>();
+        frameImg = transform.GetChild(1).GetComponent<Image>();
 
         button = GetComponent<Button>();
         button.onClick.AddListener(() => 

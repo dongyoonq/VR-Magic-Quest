@@ -69,8 +69,10 @@ public class MonsterVision : MonoBehaviour
             if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
             {
                 RaycastHit hitInfo;
+                Debug.DrawRay(eyeTransform.position, targetDirection * detectRange.radius, Color.black, 1f);
                 if (Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange.radius, detectLayerMask))
                 {
+                    Debug.Log(gameObject.name + hitInfo.collider.gameObject.name);
                     if (hitInfo.collider.gameObject.layer == 7)
                     {
                         perception.SpotEnemy(other.transform);
@@ -79,6 +81,13 @@ public class MonsterVision : MonoBehaviour
             }           
         }
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    targetDirection = (Camera.main.transform.position - eyeTransform.position).normalized;
+    //    Gizmos.DrawRay(eyeTransform.position, targetDirection * detectRange.radius);
+    //}
 
     private void OnTriggerExit(Collider other)
     {

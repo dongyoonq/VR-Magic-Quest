@@ -105,6 +105,7 @@ public class MonsterPerception : MonoBehaviour
         }
         else
         {
+            transform.LookAt(controller.transform.position);
             currentState = BasicState.Combat;
         }
 
@@ -174,7 +175,7 @@ public class MonsterPerception : MonoBehaviour
 
     public void SynchronizeCombat()
     {
-        combat.Stat = (monsterInfo.healthPoint, monsterInfo.attackPoint);
+        combat.Stat = (monsterInfo.healthPoint, monsterInfo.attackPoint, monsterInfo.attackSpeed);
         combat.WaitRecoverTime = new WaitForSeconds(0.5f);
     }
 

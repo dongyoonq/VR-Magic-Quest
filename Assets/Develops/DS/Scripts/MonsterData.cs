@@ -190,8 +190,7 @@ public class MonsterData : ScriptableObject
         public int attackPoint;
         public float detectRange;
         public float attackRange;
+        public float attackSpeed;
         public float moveSpeed;
-
-
     }
 }

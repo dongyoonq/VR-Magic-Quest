@@ -23,6 +23,8 @@ public class BookCanvasUI : MonoBehaviour
     [SerializeField] Sprite unselectButtonSprite;
     [SerializeField] TMP_Text CanvasName;
 
+    [SerializeField] SkillUI skillUI;
+
 
     enum Canvas { Inventory, Skill, Recipe, Quest, Setting}
     private void Awake()
@@ -36,7 +38,7 @@ public class BookCanvasUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        SetActiveCanvas(Canvas.Inventory);
+        inventorySwichButtonClick();
     }
 
     private void InitButtonListener()
@@ -68,6 +70,7 @@ public class BookCanvasUI : MonoBehaviour
         questSwitchButton.image.sprite = unselectButtonSprite;
         settingSwitchButton.image.sprite = unselectButtonSprite;
         CanvasName.SetText("Skill");
+        skillUI.ActiveSkillUI();
     }
 
     private void RecipeSwichButtonClick()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
 
 public class DoorGrab : XRBaseInteractable
 {
@@ -13,17 +14,22 @@ public class DoorGrab : XRBaseInteractable
     [SerializeField] GameObject curattachpoint;
     IXRSelectInteractor interactor;
     IXRSelectInteractable curinteractable;
-    Transform ratateobjbasepos;
+
+
+    [SerializeField] public bool ispos;
+    [SerializeField] public Vector3 attachpos;
 
     public void Reset()
     {
-        StartCoroutine(restart());
+        ispos = false;
+        attachpos = Vector3.zero;
+
     }
     protected override void Awake()
     {
         base.Awake();
         Attachpoint = transform;
-        ratateobjbasepos = rotateobj.transform;
+   
     }
     protected override void OnEnable()
     {
@@ -49,10 +55,10 @@ public class DoorGrab : XRBaseInteractable
     public void EndGrab(SelectExitEventArgs args)
     {
         interactor = null;
-        Reset();
+      //  Reset();
     }
 
-
+    //이게 업데이트 개념
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
         base.ProcessInteractable(updatePhase);
@@ -64,23 +70,33 @@ public class DoorGrab : XRBaseInteractable
                 
                 RotateUpdate();
             }
+            if (!isSelected && ispos)
+            {
+                Debug.Log("리셋");
+                Reset();
+            }
         }
     }
-
+    //갖다대기만해도 돌아감
     public void RotateUpdate()
     {
-        rotateobj.transform.Rotate(0, 0, 10 * Time.deltaTime);
-
-
+        //rotateobj.transform.Rotate(0, 0, 30*Time.deltaTime);  //이코드는 갖다 대기만 해도돌아
+        dir();
     }
-    IEnumerator restart()
+    public void dir()
     {
-        float pos = Vector3.Distance(ratateobjbasepos.position, rotateobj.transform.position);
-
-        while (pos > 0)
+        if (!ispos)
         {
-            rotateobj.transform.Rotate(0, 0, -10 * Time.deltaTime);
+            attachpos = interactor.GetAttachTransform(this).position;
+            ispos= true;
         }
-        yield return null;
+        float ydis = interactor.GetAttachTransform(this).position.y - attachpos.y;
+        Debug.Log(ydis);
+        if (ydis < -0.1f)
+        {
+            rotateobj.transform.Rotate(0, 0, 30 * Time.deltaTime);
+        }
+
     }
+  
 }

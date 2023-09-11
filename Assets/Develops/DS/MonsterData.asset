@@ -16,38 +16,43 @@ MonoBehaviour:
   - monsterName: Golem
     monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
       type: 3}
-    monsterTag: 00000000
+    monsterTag: 000000000300000001000000
     dropItems:
     - {fileID: 0}
     - {fileID: 0}
     healthPoint: 10
-    detectRange: 5
-    attackRange: 1
+    attackPoint: 3
+    detectRange: 30
+    attackRange: 3
     moveSpeed: 2
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
       type: 3}
-    monsterTag: 000000000300000006000000
+    monsterTag: 000000000400000005000000
     dropItems: []
     healthPoint: 5
-    detectRange: 5
-    attackRange: 1
-    moveSpeed: 4
+    attackPoint: 1
+    detectRange: 30
+    attackRange: 2
+    moveSpeed: 15
   - monsterName: GiantWorm
     monsterPrefab: {fileID: 5491683244567550782, guid: da488cbcf09082d4fa120b721953ac3a,
       type: 3}
-    monsterTag: 0000000005000000
+    monsterTag: 000000000500000009000000
     dropItems: []
     healthPoint: -1
-    detectRange: 10
-    attackRange: 1
-    moveSpeed: 6
+    attackPoint: 0
+    detectRange: 60
+    attackRange: 2
+    moveSpeed: 30
   - monsterName: Lich
     monsterPrefab: {fileID: 8933015472649207977, guid: cde594b068a45134caff008ae5aab594,
       type: 3}
-    monsterTag: 0100000004000000050000000600000007000000
-    dropItems: []
+    monsterTag: 0100000008000000070000000a0000000b000000
+    dropItems:
+    - {fileID: 0}
     healthPoint: 30
-    detectRange: 10
+    attackPoint: 0
+    detectRange: 60
     attackRange: 7
     moveSpeed: 3

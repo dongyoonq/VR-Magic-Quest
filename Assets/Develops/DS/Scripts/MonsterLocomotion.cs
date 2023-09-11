@@ -5,16 +5,41 @@ using UnityEngine.EventSystems;
 
 public class MonsterLocomotion : MonoBehaviour
 {
+    [HideInInspector]
+    public Transform targetTransform;
     private CharacterController characterController;
+    private Animator animator;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        animator.SetFloat("MoveSpeed", 0f);
     }
 
     public void Approach(float moveSpeed)
     {
+        animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
+        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+    }
 
+    public void SlowDown()
+    {
+        animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), 0f, Time.deltaTime * 5f));
+    }
+
+    public void Stop()
+    {
+        animator.SetFloat("MoveSpeed", 0f);
+    }
+
+    public void Turn()
+    {
+        transform.LookAt(targetTransform);
     }
 
     //public void Move()
@@ -65,18 +90,4 @@ public class MonsterLocomotion : MonoBehaviour
     //    outofControl = false;
     //    yield return null;
     //}
-
-    private bool CompareDistanceWithoutHeight(Vector3 pos1, Vector3 pos2, float distance)
-    {
-        float f1 = pos1.x - pos2.x;
-        float f2 = pos1.z - pos2.z;
-        if (f1 * f1 + f2 * f2 > distance * distance)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }

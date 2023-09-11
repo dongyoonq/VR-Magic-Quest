@@ -13,8 +13,7 @@ public class EnumType
         Impact,
         Buff,
         Debuff,
-        Mez,
-        Dot
+        Mez
     }
 
     public enum MonsterTag
@@ -22,7 +21,9 @@ public class EnumType
         Melee,
         LongRange,
         Guard,
+        Tenacity,
         Aggresive,
+        DynamicallyMove,
         Cautious,
         SpellCaster,
         Agile,

@@ -4,22 +4,26 @@ using UnityEngine;
 using UnityEngine.Events;
 using static EnumType;
 
-public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
+public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 {
     private MonsterPerception perception;
-    private int healthPoint;
-    private int attackPoint;
+    private Animator animator;
+    [SerializeField]
+    private (int healthPoint, int attackPoint) stat;
+    public (int healthPoint, int attackPoint) Stat { get { return stat; } set { stat = value; } }
+    private WaitForSeconds waitRecoverTime;
+    public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
     private Dictionary<HitTag, IEnumerator> hitReactions = new Dictionary<HitTag, IEnumerator>();
 
     private void Awake()
     {
         perception = GetComponent<MonsterPerception>();
+        animator = GetComponent<Animator>();
         hitReactions.Add(HitTag.Impact, ImpactHitReactRoutine());
         hitReactions.Add(HitTag.Buff, BuffHitReactRoutine());
         hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
         hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
-        hitReactions.Add(HitTag.Dot, DotHitRoutine());
     }
 
     public void Combat()
@@ -44,8 +48,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
 
     private IEnumerator ImpactHitReactRoutine()
     {
-        float duration = statusDuration;
-        yield return null;
+        animator.SetTrigger("GetHit");
+        yield return waitRecoverTime;
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -65,24 +69,29 @@ public class MonsterCombat : MonoBehaviour, IHitReactor/*, IHittable*/
     private IEnumerator MezHitReactRoutine()
     {
         float duration = statusDuration;
-        yield return null;
-    }
-
-    private IEnumerator DotHitRoutine()
-    {
-        float duration = statusDuration;
-        yield return null;
+        yield return new WaitForSeconds(duration);
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
     {
-        yield return null;
+        (int healthPoint, int attackPoint) originalStat = stat;
+        if (improve)
+        {
+            stat.healthPoint = stat.healthPoint *= 2;
+            stat.attackPoint = stat.attackPoint *= 2;
+        }
+        else
+        {
+            stat.healthPoint = stat.healthPoint / 2;
+            stat.attackPoint = stat.attackPoint / 2;
+        }
+        yield return new WaitForSeconds(duration);
     }
 
     public void TakeDamaged(int damage)
     {
-        healthPoint += -damage;
-        if (healthPoint == 0)
+        stat.healthPoint += -damage;
+        if (stat.healthPoint == 0)
         {
             perception.CurrentState = BasicState.Collapse;
         }

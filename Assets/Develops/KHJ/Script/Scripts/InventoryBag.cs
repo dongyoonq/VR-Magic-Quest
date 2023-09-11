@@ -29,7 +29,7 @@ public class InventoryBag : MonoBehaviour
         }
         else if (recipe != null)
         {
-            recipeManager.GetRecipe(recipe.recipeName);
+            recipeManager.GetRecipe(recipe.recipeData);
             GameManager.Resource.Destroy(recipe.gameObject);
         }
     }

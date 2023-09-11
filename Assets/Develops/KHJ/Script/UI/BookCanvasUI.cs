@@ -7,11 +7,19 @@ using UnityEngine.UI;
 
 public class BookCanvasUI : MonoBehaviour
 {
+    [SerializeField] GameObject book;
+
     [SerializeField] GameObject inventoryCanvas;
     [SerializeField] GameObject skillCanvas;
     [SerializeField] GameObject recipeCanvas;
     [SerializeField] GameObject questCanvas;
     [SerializeField] GameObject settingCanvas;
+
+    [SerializeField] RectTransform inventoryInfoCanvas;
+    [SerializeField] RectTransform skillInfoCanvas;
+    [SerializeField] RectTransform recipeInfoCanvas;
+    // [SerializeField] RectTransform settingInfoCanvas;
+    // [SerializeField] RectTransform questInfoCanvas;
 
     [SerializeField] Button inventorySwitchButton;
     [SerializeField] Button skillSwitchButton;
@@ -27,6 +35,7 @@ public class BookCanvasUI : MonoBehaviour
 
 
     enum Canvas { Inventory, Skill, Recipe, Quest, Setting}
+
     private void Awake()
     {
         inventoryCanvas.SetActive(false);
@@ -36,6 +45,13 @@ public class BookCanvasUI : MonoBehaviour
         settingCanvas.SetActive(false);
         InitButtonListener();
     }
+
+    private void Start()
+    {
+        if (book != null)
+            book.SetActive(false);
+    }
+
     private void OnEnable()
     {
         inventorySwichButtonClick();
@@ -108,10 +124,32 @@ public class BookCanvasUI : MonoBehaviour
 
     private void SetActiveCanvas(Canvas canvas)
     {
-        if (inventoryCanvas != null) inventoryCanvas.SetActive(canvas == Canvas.Inventory);
-        if (skillCanvas != null) skillCanvas.SetActive(canvas == Canvas.Skill);
-        if (recipeCanvas != null) recipeCanvas.SetActive(canvas == Canvas.Recipe);
-        if (questCanvas != null) questCanvas.SetActive(canvas == Canvas.Quest);
-        if (settingCanvas != null) settingCanvas.SetActive(canvas == Canvas.Setting);
+        if (inventoryCanvas != null && inventoryInfoCanvas != null)
+        {
+            inventoryCanvas.SetActive(canvas == Canvas.Inventory);
+            inventoryInfoCanvas.gameObject.SetActive(canvas == Canvas.Inventory);
+        }
+
+        if (skillCanvas != null && skillInfoCanvas != null)
+        {
+            skillCanvas.SetActive(canvas == Canvas.Skill);
+            skillInfoCanvas.gameObject.SetActive(canvas == Canvas.Skill);
+        }
+
+        if (recipeCanvas != null && recipeInfoCanvas != null)
+        {
+            recipeCanvas.SetActive(canvas == Canvas.Recipe);
+            recipeInfoCanvas.gameObject.SetActive(canvas == Canvas.Recipe);
+        }
+
+        if (questCanvas != null)
+        {
+            questCanvas.SetActive(canvas == Canvas.Quest);
+        }
+
+        if (settingCanvas != null)
+        {
+            settingCanvas.SetActive(canvas == Canvas.Setting);
+        }
     }
 }

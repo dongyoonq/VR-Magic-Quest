@@ -32,11 +32,11 @@ public class RecipeUI : MonoBehaviour
             Image image = slot.frameImage;
             RectTransform rect = slot.GetComponent<RectTransform>();
 
-            foreach(PortionRecipe portionRecipe in recipeManager.portionRecipes)
+            foreach(PortionRecipeData portionRecipeData in recipeManager.portionRecipes)
             {
-                if (portionRecipe.madePortion.Name == slot.portionName)
+                if (portionRecipeData == slot.recipeData)
                 {
-                    if (portionRecipe.isUnlock)
+                    if (portionRecipeData.isUnlock)
                     {
                         //활성화 색상
                         image.color = new Color(1f, 0.95f, 0f);
@@ -53,27 +53,33 @@ public class RecipeUI : MonoBehaviour
         }
     }
 
-    public void ViewRecipe(string slotName)
+    public void ViewRecipe(PortionRecipeData recipeData)
     {
-        foreach(PortionRecipe portionRecipe in recipeManager.portionRecipes)
+        foreach(PortionRecipeData portionRecipeData in recipeManager.portionRecipes)
         {
-            if (portionRecipe.madePortion.Name == slotName)
+            if (portionRecipeData == recipeData)
             {
-                if (portionRecipe.isUnlock)
+                if (portionRecipeData.isUnlock)
                 {
-                    runeImage1.sprite = portionRecipe.ingredientRune1.IconSprite;
-                    runeImage2.sprite = portionRecipe.ingredientRune2.IconSprite;
-                    runeImage3.sprite = portionRecipe.ingredientRune3.IconSprite;
-                    portionImage.sprite = portionRecipe.madePortion.IconSprite;
-                    runeName1.SetText(portionRecipe.ingredientRune1.Name);
-                    runeName2.SetText(portionRecipe.ingredientRune2.Name);
-                    runeName3.SetText(portionRecipe.ingredientRune3.Name);
-                    PortionName.SetText(portionRecipe.madePortion.Name);
+                    runeImage1.sprite = portionRecipeData.ingredientRune1.IconSprite;
+                    runeImage2.sprite = portionRecipeData.ingredientRune2.IconSprite;
+                    runeImage3.sprite = portionRecipeData.ingredientRune3.IconSprite;
+                    portionImage.sprite = portionRecipeData.madePortion.IconSprite;
+                    runeName1.SetText(portionRecipeData.ingredientRune1.Name);
+                    runeName2.SetText(portionRecipeData.ingredientRune2.Name);
+                    runeName3.SetText(portionRecipeData.ingredientRune3.Name);
+                    PortionName.SetText(portionRecipeData.madePortion.Name);
                 }
                 else
                 {
-                    portionImage.sprite = portionRecipe.madePortion.IconSprite;
-                    PortionName.SetText(portionRecipe.madePortion.Name);
+                    runeImage1.sprite = null;
+                    runeImage2.sprite = null;
+                    runeImage3.sprite = null;
+                    runeName1.SetText("");
+                    runeName2.SetText("");
+                    runeName3.SetText("");
+                    portionImage.sprite = portionRecipeData.madePortion.IconSprite;
+                    PortionName.SetText(portionRecipeData.madePortion.Name);
                 }
             }
         }

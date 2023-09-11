@@ -8,8 +8,13 @@ using static RecipeManager;
 public class RecipeUI : MonoBehaviour
 {
     [SerializeField] RecipeManager recipeManager;
+    [SerializeField] Image runeImage1;
+    [SerializeField] Image runeImage2;
+    [SerializeField] Image runeImage3;
+    [SerializeField] Image portionImage;
     [SerializeField] RecipeSlotUI[] recipeSlots;
     public UnityEvent OnPlayerRecipeUIUpdate;
+
 
 
 
@@ -36,6 +41,23 @@ public class RecipeUI : MonoBehaviour
                         image.color = new Color(0.55f, 0.54f, 0.5f);
                         rect.SetAsLastSibling();
                     }
+                }
+            }
+        }
+    }
+
+    public void ViewRecipe(string slotName)
+    {
+        foreach(PortionRecipe portionRecipe in recipeManager.portionRecipes)
+        {
+            if (portionRecipe.madePortion.Name == slotName)
+            {
+                if (portionRecipe.isUnlock)
+                {
+                    runeImage1.sprite = portionRecipe.ingredientRune1.IconSprite;
+                    runeImage2.sprite = portionRecipe.ingredientRune2.IconSprite;
+                    runeImage3.sprite = portionRecipe.ingredientRune3.IconSprite;
+                    portionImage.sprite = portionRecipe.madePortion.IconSprite;
                 }
             }
         }

@@ -1,4 +1,3 @@
-using KDY;
 using PDollarGestureRecognizer;
 using System;
 using System.Collections.Generic;

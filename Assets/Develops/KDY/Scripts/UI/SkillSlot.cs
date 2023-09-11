@@ -17,9 +17,9 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler
     private void Start()
     {
         skillUI = GetComponentInParent<SkillUI>();
-        frameImg = transform.GetChild(1).GetComponent<Image>();
 
         button = GetComponent<Button>();
+
         button.onClick.AddListener(() => 
         {
             skillUI.isSelectedBtn = true;
@@ -28,16 +28,17 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler
         });
     }
 
+    private void OnEnable()
+    {
+        frameImg = transform.GetChild(1).GetComponent<Image>();
+        skillImg.sprite = skillData.skillSprite;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!skillUI.isSelectedBtn)
         {
             skillUI.OnPointerSkllSlot?.Invoke(skillData);
         }
-    }
-
-    private void OnEnable()
-    {
-        skillImg.sprite = skillData.skillSprite;
     }
 }

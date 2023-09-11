@@ -88,19 +88,19 @@ public class SkillUI : MonoBehaviour
     {
         foreach (SkillSlot slot in skillSlots)
         {
-            Image image = slot.GetComponent<Image>();
+            Image frameImg = slot.frameImg;
             RectTransform rect = slot.GetComponent<RectTransform>();
 
             if (player.skillList.Contains(slot.skillData))
             {
                 // 활성화 색상
-                image.color = new Color(1f, 0.95f, 0f);
+                frameImg.color = new Color(1f, 1f, 0f);
                 rect.SetAsFirstSibling();
             }
             else
             {
                 // 비활성화 색상
-                image.color = new Color(0.55f, 0.54f, 0.5f);
+                frameImg.color = new Color(0.75f, 0.67f, 0.67f);
                 rect.SetAsLastSibling();
             }
         }

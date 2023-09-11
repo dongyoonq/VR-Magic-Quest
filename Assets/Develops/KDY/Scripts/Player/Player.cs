@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public UnityEvent<ItemData, int, int> OnRemoveItemInventory;
 
     public InventoryUI inventoryUI { get; set; }
-    public Inventory inventory { get; private set; }
+    public Inventory inventory;
 
     [SerializeField] public List<SkillData> skillList;
     [SerializeField] public int hp;
@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        inventory = GetComponent<Inventory>();
         trainingSet = GameManager.Load.LoadGestures();
     }
 

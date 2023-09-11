@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +21,7 @@ public class BookCanvasUI : MonoBehaviour
 
     [SerializeField] Sprite selectButtonSprite;
     [SerializeField] Sprite unselectButtonSprite;
+    [SerializeField] TMP_Text CanvasName;
 
 
     enum Canvas { Inventory, Skill, Recipe, Quest, Setting}
@@ -53,6 +56,7 @@ public class BookCanvasUI : MonoBehaviour
         recipeSwitchButton.image.sprite = unselectButtonSprite;
         questSwitchButton.image.sprite = unselectButtonSprite;
         settingSwitchButton.image.sprite = unselectButtonSprite;
+        CanvasName.SetText("Inventory");
     }
 
     private void SkillSwichButtonClick()
@@ -63,16 +67,18 @@ public class BookCanvasUI : MonoBehaviour
         recipeSwitchButton.image.sprite = unselectButtonSprite;
         questSwitchButton.image.sprite = unselectButtonSprite;
         settingSwitchButton.image.sprite = unselectButtonSprite;
+        CanvasName.SetText("Skill");
     }
 
     private void RecipeSwichButtonClick()
     {
         SetActiveCanvas(Canvas.Recipe);
-        inventorySwitchButton.image.sprite = selectButtonSprite;
+        inventorySwitchButton.image.sprite = unselectButtonSprite;
         skillSwitchButton.image.sprite = unselectButtonSprite;
         recipeSwitchButton.image.sprite = selectButtonSprite;
         questSwitchButton.image.sprite = unselectButtonSprite;
         settingSwitchButton.image.sprite = unselectButtonSprite;
+        CanvasName.SetText("Recipe");
     }
 
     private void QuestSwichButtonClick()
@@ -83,6 +89,7 @@ public class BookCanvasUI : MonoBehaviour
         recipeSwitchButton.image.sprite = unselectButtonSprite;
         questSwitchButton.image.sprite = selectButtonSprite;
         settingSwitchButton.image.sprite = unselectButtonSprite;
+        CanvasName.SetText("Quest");
     }
 
     private void SettingSwichButtonClick()
@@ -93,6 +100,7 @@ public class BookCanvasUI : MonoBehaviour
         recipeSwitchButton.image.sprite = unselectButtonSprite;
         questSwitchButton.image.sprite = unselectButtonSprite;
         settingSwitchButton.image.sprite = selectButtonSprite;
+        CanvasName.SetText("Setting");
     }
 
     private void SetActiveCanvas(Canvas canvas)

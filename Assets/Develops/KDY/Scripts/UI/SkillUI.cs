@@ -12,7 +12,7 @@ public class SkillUI : MonoBehaviour
     [SerializeField] SkillCommandUI commandUI;
     [SerializeField] SkillSlot[] skillSlots;
     [SerializeField] MP4Loader mp4Loader;
-    
+
     private Player player;
 
     public UnityEvent<SkillData> OnPointerSkllSlot;
@@ -30,7 +30,10 @@ public class SkillUI : MonoBehaviour
         OnSortingSkillSlot.AddListener(SortingSkill);
         OnSkillCommandUpdate.AddListener(UpdateGestureInfoCommand);
         OnPlayerSkillUIUpdate.AddListener(PlayerActiveSkillCheck);
+    }
 
+    public void ActiveSkillUI()
+    {
         skillSlots = GetComponentsInChildren<SkillSlot>();
         OnPlayerSkillUIUpdate?.Invoke();
     }
@@ -58,7 +61,7 @@ public class SkillUI : MonoBehaviour
         if (player.skillList.Contains(skillData))
         {
             infoUI.subscribeText.color = Color.blue;
-            infoUI.subscribeText.text = "You can use this skill";   
+            infoUI.subscribeText.text = "You can use this skill";
 
             commandUI.infoText.color = Color.blue;
             commandUI.infoText.text = "You can register this skill";
@@ -80,7 +83,7 @@ public class SkillUI : MonoBehaviour
 
         infoUI.gestureText.text = $"Skill Recognize : {gestureName}";
     }
-    
+
     private void PlayerActiveSkillCheck()
     {
         foreach (SkillSlot slot in skillSlots)

@@ -6,4 +6,5 @@ using UnityEngine.UI;
 public class RecipeSlotUI : MonoBehaviour
 {
     public Image frameImage;
+    public string portionName;
 }

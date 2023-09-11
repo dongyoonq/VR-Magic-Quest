@@ -27,9 +27,4 @@ public class RecipeManager : MonoBehaviour
             }
         }
     }
-    
-    public PortionRecipe GetPortionRecipe(int index)
-    {
-        return portionRecipes[index];
-    }
 }

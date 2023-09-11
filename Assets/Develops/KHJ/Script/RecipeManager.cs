@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RecipeManager : MonoBehaviour
 {
+    [System.Serializable]
     public class PortionRecipe
     {
         public Sprite RecipeSprite;
@@ -14,7 +15,7 @@ public class RecipeManager : MonoBehaviour
         public bool isUnlock = false;
     }
 
-    public PortionRecipe[] portionRecipes;
+    [SerializeField] public PortionRecipe[] portionRecipes;
 
     public void GetRecipe(string recipeName)
     {

@@ -12,6 +12,7 @@ public class RecipeUI : MonoBehaviour
     public UnityEvent OnPlayerRecipeUIUpdate;
 
 
+
     private void PlayerActiveRecipeCheck()
     {
         foreach (RecipeSlotUI slot in recipeSlots)

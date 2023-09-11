@@ -13,18 +13,10 @@ public class PortionItemData : CountableItemData
 
     public override bool UseItem()
     {
-        if(Amount <= 0)
-        {
-            return false;
-        }
-        else
-        {
-            Amount -= 1;
-            Vector3 createVector = Camera.main.transform.position;
-            createVector += Camera.main.transform.forward * 1.5f;
+        Vector3 createVector = Camera.main.transform.position;
+        createVector += Camera.main.transform.forward * 1.5f;
 
-            Instantiate<GameObject>(dropItemPrefab, createVector, Camera.main.transform.rotation);
-            return true;
-        }
+        Instantiate<GameObject>(dropItemPrefab, createVector, Camera.main.transform.rotation);
+        return true;
     }
 }

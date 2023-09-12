@@ -19,18 +19,16 @@ public class SkillCommandUI : MonoBehaviour
     [SerializeField] SkillCommandButton commandButtonPrefab;
     [SerializeField] SkillUI skillUI;
 
-
     public UnityEvent<string> OnSetCommanded;
-
-    public Player player;       // 추후 UI 완성된후 책오브젝트 생성시 책 UI 전역에서 사용할 수 있게 변경
     public SkillData selectSkill;
+
+    private void Start()
+    {
+        OnSetCommanded.AddListener(SetCommandedUIUpdate);
+    }
 
     private void OnEnable()
     {
-        player = FindAnyObjectByType<Player>();
-        OnSetCommanded.RemoveAllListeners();
-        OnSetCommanded.AddListener(SetCommandedUIUpdate);
-
         foreach (SkillCommandButton button in commandButtons)
         {
             Destroy(button.gameObject);
@@ -38,7 +36,7 @@ public class SkillCommandUI : MonoBehaviour
 
         commandButtons.Clear();
 
-        foreach (Gesture gesture in player.trainingSet)
+        foreach (Gesture gesture in skillUI.player.trainingSet)
         {
             SkillCommandButton button = GameManager.Resource.Instantiate(commandButtonPrefab, true);
             button.transform.SetParent(contents, false);
@@ -54,7 +52,7 @@ public class SkillCommandUI : MonoBehaviour
             Destroy(button.gameObject);
         }
 
-        foreach (SkillData skillData in player.skillList)
+        foreach (SkillData skillData in skillUI.player.skillList)
         {
             SkillCommandButton button = GameManager.Resource.Instantiate(commandButtonPrefab, contents, true);
             button.OnUpdateCommand?.Invoke(skillData.recognizeGestureName);
@@ -64,7 +62,7 @@ public class SkillCommandUI : MonoBehaviour
 
     private void SetCommandedUIUpdate(string gestureName)
     {
-        if (!player.skillList.Contains(selectSkill))
+        if (!skillUI.player.skillList.Contains(selectSkill))
         {
             infoText.color = Color.red;
             infoText.text = "You must learn this skill first";

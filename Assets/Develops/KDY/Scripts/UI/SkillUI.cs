@@ -6,14 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using static EnumType;
 
-public class SkillUI : MonoBehaviour
+public class SkillUI : BookUI
 {
     [SerializeField] SkillInfoUI infoUI;
     [SerializeField] SkillCommandUI commandUI;
     [SerializeField] SkillSlot[] skillSlots;
     [SerializeField] MP4Loader mp4Loader;
-
-    private Player player;
 
     public UnityEvent<SkillData> OnPointerSkllSlot;
     public UnityEvent<string> OnSkillCommandUpdate;
@@ -24,8 +22,6 @@ public class SkillUI : MonoBehaviour
 
     private void Start()
     {
-        player = FindAnyObjectByType<Player>();
-
         OnPointerSkllSlot.AddListener(ShowSkillDescription);
         OnSortingSkillSlot.AddListener(SortingSkill);
         OnSkillCommandUpdate.AddListener(UpdateGestureInfoCommand);

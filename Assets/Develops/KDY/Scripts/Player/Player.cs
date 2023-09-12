@@ -13,12 +13,13 @@ public class Player : MonoBehaviour
     public InventoryUI inventoryUI { get; set; }
     public Inventory inventory;
 
-    [SerializeField] public List<SkillData> skillList;
+    public List<SkillData> skillList;
+    public List<PortionRecipeData> unlockRecipeList;
+    public List<Gesture> trainingSet = new List<Gesture>();
+
     [SerializeField] public int hp;
 
     [NonSerialized] public bool isSkillUsed;
-
-    public List<Gesture> trainingSet = new List<Gesture>();
 
     private void Start()
     {
@@ -103,5 +104,17 @@ public class Player : MonoBehaviour
             if (inventoryUI.slots[index].amount == 0)
                 inventory.list[index] = null;
         }
+    }
+
+    public void UnlockRecipe(PortionRecipeData data)
+    {
+        if (!unlockRecipeList.Contains(data))
+            unlockRecipeList.Add(data);
+    }
+
+    public void LockRecipe(PortionRecipeData data)
+    {
+        if (unlockRecipeList.Contains(data))
+            unlockRecipeList.Remove(data);
     }
 }

@@ -8,5 +8,4 @@ public class PortionRecipeData : ScriptableObject
     public RuneItemData ingredientRune2;
     public RuneItemData ingredientRune3;
     public PortionItemData madePortion;
-    public bool isUnlock = false;
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : BookUI
 {
     Inventory inventory;
 
@@ -16,8 +16,6 @@ public class InventoryUI : MonoBehaviour
     public InventoryInfoUI inventoryInfoUI;
 
     public InventorySlot[] slots;
-
-    private Player player;
 
     private void Start()
     {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class InventoryBag : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
-    [SerializeField] private RecipeManager recipeManager;
 
     Player player;
 
@@ -29,7 +28,7 @@ public class InventoryBag : MonoBehaviour
         }
         else if (recipe != null)
         {
-            recipeManager.GetRecipe(recipe.recipeData);
+            player.UnlockRecipe(recipe.recipeData);
             GameManager.Resource.Destroy(recipe.gameObject);
         }
     }

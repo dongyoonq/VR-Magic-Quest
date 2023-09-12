@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        player = FindAnyObjectByType<Player>();
+        player = GetComponent<Player>();
 
         player.OnAddItemInventory.AddListener(AddInventory);
         player.OnRemoveItemInventory.AddListener(RemoveInventory);

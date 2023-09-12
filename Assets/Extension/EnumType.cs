@@ -6,6 +6,7 @@ public class EnumType
         IceLightning,
         Venom,
         Gravity,
+        Teleport,
     }
 
     public enum HitTag

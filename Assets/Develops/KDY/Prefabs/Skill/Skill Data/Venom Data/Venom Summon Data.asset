@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Venom Summon
   skillTooltip: This is Venom Summon Skill
-  recognizeGestureName: O
+  recognizeGestureName: Star
   damage: 150
   useMp: 0
   skillType: 2

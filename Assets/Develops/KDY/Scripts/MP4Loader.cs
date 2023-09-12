@@ -41,7 +41,8 @@ public class MP4Loader : MonoBehaviour
 
         audioSource.clip = null;
 
-        rawImageDrawVideo.texture = videoPlayer.targetTexture;
+        if (rawImageDrawVideo != null)
+            rawImageDrawVideo.texture = videoPlayer.targetTexture;
 
         videoPlayer.Prepare();
 

@@ -17,12 +17,18 @@ public class Player : MonoBehaviour
     public List<PortionRecipeData> unlockRecipeList;
     public List<Gesture> trainingSet = new List<Gesture>();
 
-    [SerializeField] public int hp;
+    [SerializeField] public int maxHp;
+    [SerializeField] public int maxMp;
+    public int currHp;
+    public int currMp;
 
     [NonSerialized] public bool isSkillUsed;
 
     private void Start()
     {
+        currHp = maxHp;
+        currMp = maxMp;
+
         trainingSet = GameManager.Load.LoadGestures();
     }
 

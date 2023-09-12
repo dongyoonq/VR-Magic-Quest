@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   skillName: Venom Beam
   skillTooltip: This is Venom Beam Skill
-  recognizeGestureName: Beam
+  recognizeGestureName: "\u221E"
   damage: 60
   useMp: 0
   skillType: 2

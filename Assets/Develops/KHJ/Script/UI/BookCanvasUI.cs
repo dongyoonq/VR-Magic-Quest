@@ -18,7 +18,7 @@ public class BookCanvasUI : MonoBehaviour
     [SerializeField] RectTransform inventoryInfoCanvas;
     [SerializeField] RectTransform skillInfoCanvas;
     [SerializeField] RectTransform recipeInfoCanvas;
-    // [SerializeField] RectTransform settingInfoCanvas;
+    [SerializeField] RectTransform settingInfoCanvas;
     // [SerializeField] RectTransform questInfoCanvas;
 
     [SerializeField] Button inventorySwitchButton;
@@ -55,6 +55,16 @@ public class BookCanvasUI : MonoBehaviour
     private void OnEnable()
     {
         inventorySwichButtonClick();
+    }
+
+    public void ActiveBookUI(bool active)
+    {
+        book.SetActive(active);
+        book.transform.position = Camera.main.transform.position + (Camera.main.transform.forward * 0.6f);
+        Vector3 lookdir = (Camera.main.transform.position - book.transform.position).normalized;
+        Quaternion rot = Quaternion.LookRotation(lookdir);
+        lookdir = new Vector3(rot.eulerAngles.x + 30f, rot.eulerAngles.y, rot.eulerAngles.z);
+        book.transform.rotation = Quaternion.Euler(lookdir);
     }
 
     private void InitButtonListener()
@@ -147,9 +157,10 @@ public class BookCanvasUI : MonoBehaviour
             questCanvas.SetActive(canvas == Canvas.Quest);
         }
 
-        if (settingCanvas != null)
+        if (settingCanvas != null && settingInfoCanvas != null)
         {
             settingCanvas.SetActive(canvas == Canvas.Setting);
+            settingInfoCanvas.gameObject.SetActive(canvas == Canvas.Setting);
         }
     }
 }

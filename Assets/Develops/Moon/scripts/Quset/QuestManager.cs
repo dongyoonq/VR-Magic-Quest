@@ -13,6 +13,8 @@ public class QuestManager : MonoBehaviour
     public UnityEvent<QuestData> OnQuestRemoved;
     public UnityEvent<QuestData> OnQuestCleared;
 
+    public UnityEvent OnQuestUpdated;
+
     private void Awake()
     {
         questList = new List<QuestData>();
@@ -40,9 +42,37 @@ public class QuestManager : MonoBehaviour
         // 보상
     }
 
+    public void UpdateQuest()
+    {
+        Debug.Log("퀘스트 업데이트");
+        OnQuestUpdated?.Invoke();
+    }
+
+
     public void KillMonster(string monsterName)
     {
-       
+   
+        foreach (QuestData questData in questList)
+        {
+            Debug.Log("들어감");
+            if (questData.monster == monsterName)
+            {
+                questData.value++;
+                questData.CheckClear();
+                Debug.Log("올림");
+                UpdateQuest();
+
+            }
+            else
+            {
+                Debug.Log(questData.monster);
+                Debug.Log(monsterName);
+                Debug.Log("안올림");
+                return;
+            }
+               
+
+        }
     }
 
     public void GatherItem(string itemName)

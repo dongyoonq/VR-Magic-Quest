@@ -21,8 +21,6 @@ public class QuestBookList : MonoBehaviour
 
     [SerializeField] private TMP_Text questDetail;
 
-    public UnityAction OnQuested;
-
 
     public void Awake()
     {
@@ -35,7 +33,7 @@ public class QuestBookList : MonoBehaviour
     {
         GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestAdded.AddListener(AddQuest);
         GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestRemoved.AddListener(RemoveQuest);
-
+        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestUpdated.AddListener(UpDateQuest);
         InitQuest();
     }
 
@@ -43,7 +41,7 @@ public class QuestBookList : MonoBehaviour
     {
         GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestAdded.RemoveListener(AddQuest);
         GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestRemoved.RemoveListener(RemoveQuest);
-
+        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestUpdated.RemoveListener(UpDateQuest);
         ReleaseQuest();
     }
 
@@ -79,12 +77,30 @@ public class QuestBookList : MonoBehaviour
        
     }
 
+    public void UpDateQuest()
+    {
+        List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+        foreach (QuestData data in list)
+        {
+            if (data.isclear)
+            {
+                QuestData quest = data;
+                clearbutton.gameObject.SetActive(true);
+                clearbutton.onClick.AddListener(() => Clear(quest));
+            }
+            else
+            {
+                clearbutton.gameObject.SetActive(false);
+            }
+        }
+    }
+
     public void RemoveQuest(QuestData quest)
     {
         Debug.Log($"Äù½ºÆ®ºÏ Äù½ºÆ® Á¦°Å {quest.questtitle}");
         QuestBookclick questButton = questButtonList.Find(x => x.quest == quest);
         questButtonList.Remove(questButton);
-        Destroy(questButton.gameObject);
+        Debug.Log("»èÁ¦");
     }
 
     public void SetCurQuest(QuestData quest)
@@ -109,6 +125,11 @@ public class QuestBookList : MonoBehaviour
     public void Clear(QuestData quest)
     {
         Debug.Log("º¸»ó");
+        QuestBookclick questButton = questButtonList.Find(x => x.quest == quest);
+        if (questButton != null)
+        {
+            Destroy(questButton.gameObject);
+        }
         clearbutton.gameObject.SetActive(false);
         questDetail.text = "";
         GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().ClearQuest(curQuestData);

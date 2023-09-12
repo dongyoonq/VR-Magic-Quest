@@ -9,22 +9,20 @@ public class QuestData : ScriptableObject
 {
     [SerializeField] public string questtitle;
     [SerializeField] public string quest;
-    [SerializeField] int value;
+    [SerializeField] public int value;
     [SerializeField] public bool isclear;
     [SerializeField] public bool isinventory;
-
+    [SerializeField] public string monster;
     // 보상 아이템
     [SerializeField] public GameObject Object;
 
     public void CheckClear()
     {
-        isclear = true;
-        /*  if (isclear)
-              return;
-
-          if (true)
-          {
-              isclear = true;
-          }*/
+        if (value == 1)
+        {
+            isclear = true;
+            Debug.Log("트루");
+        }
+        else isclear= false;
     }
 }

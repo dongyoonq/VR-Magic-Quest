@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questtitle: asdasd
   quest: asd
-  value: 1
-  isclear: 1
+  value: 0
+  isclear: 0
   isinventory: 0
+  monster: asdasdasd
   Object: {fileID: 0}

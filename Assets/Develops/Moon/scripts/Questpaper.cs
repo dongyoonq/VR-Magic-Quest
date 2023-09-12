@@ -19,6 +19,7 @@ public class Questpaper : MonoBehaviour
         quest.name = questdata.name;
         quest.questtitle = questdata.questtitle;
         quest.quest = questdata.quest;
+        quest.monster = questdata.monster;
         quest.isinventory = questdata.isinventory;
         quest.isclear = questdata.isclear;
 

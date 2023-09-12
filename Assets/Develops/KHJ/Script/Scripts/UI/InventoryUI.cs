@@ -21,10 +21,7 @@ public class InventoryUI : BookUI
     {
         if (contents != null)
             slots = contents.GetComponentsInChildren<InventorySlot>();
-    }
 
-    private void OnEnable()
-    {
         player = FindAnyObjectByType<Player>();
 
         inventory = player.inventory;

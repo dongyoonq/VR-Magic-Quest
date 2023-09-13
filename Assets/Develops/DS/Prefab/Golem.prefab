@@ -962,6 +962,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicAttackType: 
+  meleeAttackType: 
+  rangedAttackType: 
+  meleeAttackPoints: []
 --- !u!95 &3909709754832402095
 Animator:
   serializedVersion: 5
@@ -972,7 +976,7 @@ Animator:
   m_GameObject: {fileID: 4563906618266966602}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b2d11d64877f0b4cad5d45ec7d53473, type: 3}
-  m_Controller: {fileID: 9100000, guid: e85c92aafeb32774993a40feee911b9a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5d735a9ab73d8a44e8811b448d3d25d8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -996,7 +1000,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.5
   m_Radius: 1
-  m_SlopeLimit: 20
+  m_SlopeLimit: 10
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

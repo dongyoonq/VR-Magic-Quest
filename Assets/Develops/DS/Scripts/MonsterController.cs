@@ -27,7 +27,7 @@ public class MonsterController : MonoBehaviour
 
     private IEnumerator MonsterBehaveRoutine()
     {
-        yield return null;
+        yield return new WaitForSeconds(3f);
         while (true)
         {
             passiveEvent?.Invoke();

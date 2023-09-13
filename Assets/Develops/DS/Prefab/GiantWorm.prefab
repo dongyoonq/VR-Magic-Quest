@@ -1741,6 +1741,7 @@ Transform:
   - {fileID: 4026813207495326815}
   - {fileID: 4026813207495327225}
   - {fileID: 4026813207495327223}
+  - {fileID: 4740919824215185333}
   m_Father: {fileID: 4026813207495327213}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3654,7 +3655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff661e3d8e96f0c4e93a194e41cdb7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyeTransform: {fileID: 4026813207495326833}
+  eyeTransform: {fileID: 4740919824215185333}
   fieldOfView: 120
   rigBuilder: {fileID: 6762822352297762822}
   headAim: {fileID: 3112795453334944494}
@@ -3684,6 +3685,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicAttackType: 
+  meleeAttackType: 
+  rangedAttackType: 
+  meleeAttackPoints: []
 --- !u!95 &5807459419073263952
 Animator:
   serializedVersion: 5
@@ -3694,7 +3699,7 @@ Animator:
   m_GameObject: {fileID: 5491683244567550782}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f788021144d32493999cabeb71c954b9, type: 3}
-  m_Controller: {fileID: 9100000, guid: a033a273313849946b63fae06cb1faaf, type: 2}
+  m_Controller: {fileID: 9100000, guid: e3aab0ad50ba82e48aeeb94c45f7801b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3718,7 +3723,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.5
   m_Radius: 0.5
-  m_SlopeLimit: 20
+  m_SlopeLimit: 10
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -3952,3 +3957,34 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
+--- !u!1 &7521203948813245093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4740919824215185333}
+  m_Layer: 6
+  m_Name: EyeTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4740919824215185333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7521203948813245093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.413, z: 1.041}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4026813207495326833}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

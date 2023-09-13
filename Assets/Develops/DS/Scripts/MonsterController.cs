@@ -21,8 +21,6 @@ public class MonsterController : MonoBehaviour
     {
         spawnPoint = transform.GetChild(0).transform;
         spawnTriggerCollider = GetComponentInChildren<Collider>();
-        //Test
-        SpawnMonster(spawnMonsterNumber, spawnPoint.position);
     }
 
     private IEnumerator MonsterBehaveRoutine()

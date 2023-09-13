@@ -36,7 +36,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
         hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
         hitTargetLayerMask = LayerMask.GetMask("Player");
-        StartCoroutine(TestRoutine());
     }
 
     private IEnumerator TestRoutine()

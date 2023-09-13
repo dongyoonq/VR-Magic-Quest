@@ -144,6 +144,8 @@ public class MonsterPerception : MonoBehaviour
         chaseMoveSpeed = monsterInfo.moveSpeed;
         currentState = BasicState.Idle;
         SynchronizeController((() => MonsterBasicBehave()), true);
+        SynchronizeController((() => locomotion.Fall()), false);
+        SynchronizeController((() => locomotion.GroundCheck()), false);
         SynchronizeVision();
         SynchronizeCombat();
         SynchronizeLocomotion();

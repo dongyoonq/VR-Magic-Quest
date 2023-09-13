@@ -10,11 +10,15 @@ public class MonsterLocomotion : MonoBehaviour
     public Transform targetTransform;
     private CharacterController characterController;
     private Animator animator;
+    private float ySpeed;
+    private bool floating;
+    private float floatingTime;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        ySpeed = 0f;
     }
 
     private void OnEnable()
@@ -57,6 +61,16 @@ public class MonsterLocomotion : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetTransform.position - transform.position), Time.deltaTime);
     }
 
+    public void Fall()
+    {
+        ySpeed += Physics.gravity.y * Time.deltaTime;
+        if (!floating && ySpeed < 0)
+        {
+            ySpeed = -1f;
+        }
+        characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
+    }
+
     public IEnumerator ShovedRoutine(int shovedPower)
     {
         for (int i = 0; i < shovedPower; i++)
@@ -64,6 +78,21 @@ public class MonsterLocomotion : MonoBehaviour
             characterController.Move(-(Camera.main.transform.position - transform.position).normalized * Time.deltaTime * 10f);
             yield return null;
         }       
+    }
+
+    public void GroundCheck()
+    {
+        floatingTime += Time.deltaTime;
+        if (floatingTime > 0.1f)
+        {
+            floating = true;
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        floating = false;
+        floatingTime = 0f;
     }
 
     //public void Move()

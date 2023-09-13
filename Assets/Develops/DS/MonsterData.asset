@@ -34,7 +34,7 @@ MonoBehaviour:
     healthPoint: 500
     attackPoint: 300
     detectRange: 30
-    attackRange: 2
+    attackRange: 3
     attackSpeed: 2
     moveSpeed: 0
   - monsterName: GiantWorm

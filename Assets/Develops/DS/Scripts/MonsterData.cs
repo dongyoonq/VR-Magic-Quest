@@ -119,7 +119,11 @@ public class MonsterData : ScriptableObject
 
     private void MeleeTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // advancedState 피로함 같은 조건
+        //if(monsterPerception.CurrentState == BasicState.Alert || monsterPerception.CurrentState == BasicState.Chase)
+        //{
+        //    monsterPerception.Combat.MeleeAttack();
+        //}
     }
 
     private void LongRangeTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -129,7 +133,7 @@ public class MonsterData : ScriptableObject
 
     private void GuardTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        
+        // idle 전환시 원래 위치로 복귀
     }
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -139,7 +143,7 @@ public class MonsterData : ScriptableObject
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // idle 전환시 정면으로 일정 거리만큼 이동
     }
 
     private void DynamicallyMoveTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -154,12 +158,19 @@ public class MonsterData : ScriptableObject
 
     private void SpellCasterTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // 조건에 따라 다양한 마법 사용 마법을 종류별로 분류 직렬화 배열로 보유
     }
 
     private void AgileTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // overap sphere 주변 스킬? 레이어 감지 시 회피
+        // overap sphere 주변 스킬? 레이어 감지 시 회피\
+        if (monsterPerception.CurrentState != BasicState.Idle)
+        {
+            if (Physics.OverlapSphere(monsterPerception.transform.position, 2f, LayerMask.GetMask("Skill")).Length > 0)
+            {
+                
+            }
+        }       
     }
 
     private void GimmickTypeMonsterBehaviour(MonsterPerception monsterPerception)

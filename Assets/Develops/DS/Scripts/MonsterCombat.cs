@@ -36,53 +36,86 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
         hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
         hitTargetLayerMask = LayerMask.GetMask("Player");
+        StartCoroutine(TestRoutine());
+    }
+
+    private IEnumerator TestRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+        perception.SendCommand(AlertRoutine());
     }
 
     public void Combat()
     {
         if (Mathf.Abs(attackDelayTime- 0f) < 0.01f)
         {
-            attackRoutine = StartCoroutine(AttackRoutine());
+            attackRoutine = StartCoroutine(BasicAttackRoutine());
             attackDelayTime = -1f;
+        }
+        if (attackDelayTime < 0.01f)
+        {
+            perception.Vision.AvertEye();
+            perception.Vision.AvertEye();
         }
         attackDelayTime -= Time.deltaTime * stat.attackSpeed;
     }
 
-    private IEnumerator AttackRoutine()
+    private void Attack(int damage, HitTag[] attackType)
     {
-        animator.SetTrigger("Attack");
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
         Collider[] hitObjects = Physics.OverlapSphere(Camera.main.transform.position, 1f, hitTargetLayerMask);
         foreach (Collider hitObject in hitObjects)
         {
-            hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint);
-            hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
+            hitObject.GetComponent<IHittable>()?.TakeDamaged(damage);
+            hitObject.GetComponent<IHitReactor>()?.HitReact(attackType, 1f);
         }
+    }
+
+    private IEnumerator BasicAttackRoutine()
+    {
+        animator.SetTrigger("Attack");
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
+        Attack(stat.attackPoint, basicAttackType);
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
         attackDelayTime = 3f;
+    }
+
+    public void MeleeAttack()
+    {
+        perception.SendCommand(MeleeAttackRoutine());
     }
 
     // TODO: 애니메이터 태그 수정 필요할 듯
     private IEnumerator MeleeAttackRoutine()
     {
-        animator.SetTrigger("MeleeAttack");
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
-        Collider[] hitObjects;
-        foreach (Transform attackPoint in meleeAttackPoints)
+        Debug.Log(gameObject.name);
+        animator.SetBool("MeleeAttack", true);
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(perception.Locomotion.RushRoutine(15f, 3f));
+        Debug.Log(gameObject.name);
+        animator.SetBool("MeleeAttack", false);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("MeleeAttack"))
         {
-            hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
-            foreach(Collider hitObject in hitObjects)
+            Collider[] hitObjects;
+            foreach (Transform attackPoint in meleeAttackPoints)
             {
-                hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint);
-                hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
+                hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
+                foreach (Collider hitObject in hitObjects)
+                {
+                    hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint);
+                    hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
+                }
             }
-        }
-        yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
+        }      
     }
 
     private IEnumerator RangedAttackRoutine()
     {
+        animator.SetBool("RangedAttack", true);
+        animator.SetTrigger("Attack");
+
         yield return null;
+        animator.SetBool("RangedAttack", false);
     }
 
     public void HitReact(HitTag[] hitType, float duration)
@@ -97,13 +130,15 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator ImpactHitReactRoutine()
     {
-        StopCoroutine(attackRoutine);
-        //if (attackRoutine != null)
-        //{
-        //    StopCoroutine(attackRoutine);
-        //}
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+        }
         animator.SetTrigger("GetHit");
+        yield return null;
+        yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
         yield return waitRecoverTime;
+        perception.SendCommand(AlertRoutine());
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -124,6 +159,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
+        perception.SendCommand(AlertRoutine());
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
@@ -147,6 +183,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void TakeDamaged(int damage)
     {
+        // TODO: 강한 피해를 받으면 혹은 데미지 정도에 따라 밀려나는 거리를 다르게 하고 싶으면 perception.SendCommand(perception.Locomotion.ShovedRoutine(10));
         stat.healthPoint += -damage;
         if (stat.healthPoint <= 0)
         {
@@ -154,8 +191,47 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
     }
 
-    private void LookAround()
+    private IEnumerator AlertRoutine()
     {
-        // 주변 회전
+        Coroutine lookAroundRoutine = StartCoroutine(LookAroundRoutine());
+        yield return new WaitWhile(() => perception.CurrentState == BasicState.Idle);
+        StopCoroutine(lookAroundRoutine);
+    }
+
+    private IEnumerator LookAroundRoutine()
+    {
+        float time = 0f;
+        while (time < 1.5f)
+        {
+            perception.SpinMonsterController(true);
+            perception.Locomotion.Turn();
+            perception.Vision.Gaze();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        while (time < 4.5f)
+        {
+            perception.SpinMonsterController(false);
+            perception.Locomotion.Turn();
+            perception.Vision.Gaze();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        while (time < 6f)
+        {
+            perception.SpinMonsterController(true);
+            perception.Locomotion.Turn();
+            perception.Vision.Gaze();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        while (time < 7.5f)
+        {
+            perception.Locomotion.Turn();
+            perception.Vision.Gaze();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
     }
 }

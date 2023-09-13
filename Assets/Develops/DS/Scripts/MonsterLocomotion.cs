@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MonsterLocomotion : MonoBehaviour
 {
@@ -27,6 +28,20 @@ public class MonsterLocomotion : MonoBehaviour
         characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
     }
 
+    public IEnumerator RushRoutine(float moveSpeed, float rushTime)
+    {
+        float time = 0f;
+        animator.SetFloat("MoveSpeed", moveSpeed);
+        while (time < rushTime)
+        {
+            Turn(); Turn(); Turn();
+            characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        animator.SetFloat("MoveSpeed", 0f);
+    }
+
     public void SlowDown()
     {
         animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), 0f, Time.deltaTime * 5f));
@@ -40,6 +55,15 @@ public class MonsterLocomotion : MonoBehaviour
     public void Turn()
     {
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetTransform.position - transform.position), Time.deltaTime);
+    }
+
+    public IEnumerator ShovedRoutine(int shovedPower)
+    {
+        for (int i = 0; i < shovedPower; i++)
+        {
+            characterController.Move(-(Camera.main.transform.position - transform.position).normalized * Time.deltaTime * 10f);
+            yield return null;
+        }       
     }
 
     //public void Move()

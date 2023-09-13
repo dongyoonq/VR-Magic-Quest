@@ -11,10 +11,15 @@ public class MonsterPerception : MonoBehaviour
     private MonsterController controller;
     private MonsterData.MonsterInfo monsterInfo;
     private MonsterVision vision;
+    public MonsterVision Vision { get { return vision; } }
     private MonsterCombat combat;
+    public MonsterCombat Combat { get { return combat; } }
     private MonsterLocomotion locomotion;
+    public MonsterLocomotion Locomotion { get { return locomotion; } }
     private BasicState currentState;
     public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
+    private AdvancedState currentAdvancedState;
+    public AdvancedState CurrentAdvancedState { get { return currentAdvancedState; } set { currentAdvancedState = value; } }
     private IEnumerator advancedAI;
     [HideInInspector]
     public float alertMoveSpeed;
@@ -50,8 +55,8 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = BasicState.Idle;
-        //controller.transform.parent = null;
-        //controller.transform.position = transform.position + transform.forward * 5f;
+        controller.transform.parent = null;
+        controller.transform.position = transform.position + transform.forward * 5f;
     }
 
     public void SendCommand(IEnumerator command)
@@ -109,11 +114,6 @@ public class MonsterPerception : MonoBehaviour
             currentState = BasicState.Combat;
         }
 
-    }
-
-    public IEnumerator MoveRoutine()
-    {
-        yield return null;
     }
 
     public void DynamicallyMove()
@@ -206,5 +206,20 @@ public class MonsterPerception : MonoBehaviour
     public bool CheckBackAttackChance()
     {        
         return Vector3.Dot(Camera.main.transform.forward, transform.position) <= 0f;
+    }
+
+    public void SpinMonsterController(bool spinLeft)
+    {
+        if(currentState == BasicState.Idle)
+        {
+            if (spinLeft)
+            {
+                controller.transform.RotateAround(transform.position, Vector3.down, Time.deltaTime * 60f);
+            }
+            else
+            {
+                controller.transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * 60f);
+            }
+        }
     }
 }

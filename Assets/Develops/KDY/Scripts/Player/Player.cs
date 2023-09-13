@@ -1,22 +1,25 @@
 using PDollarGestureRecognizer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHittable, IHitReactor
 {
     public UnityEvent<ItemData, int, int> OnAddItemInventory;
     public UnityEvent<ItemData, int, int> OnRemoveItemInventory;
 
     public InventoryUI inventoryUI { get; set; }
-    public Inventory inventory;
+    public Inventory inventory { get; private set; }
 
     public List<SkillData> skillList;
     public List<PortionRecipeData> unlockRecipeList;
     public List<Gesture> trainingSet = new List<Gesture>();
 
+    [SerializeField] Image hitScreen;
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
     public int currHp;
@@ -29,7 +32,16 @@ public class Player : MonoBehaviour
         currHp = maxHp;
         currMp = maxMp;
 
+        inventory = GetComponent<Inventory>();
         trainingSet = GameManager.Load.LoadGestures();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.K))
+        {
+            TakeDamaged(5);
+        }
     }
 
 
@@ -122,5 +134,48 @@ public class Player : MonoBehaviour
     {
         if (unlockRecipeList.Contains(data))
             unlockRecipeList.Remove(data);
+    }
+
+    public void HitReact(EnumType.HitTag[] hitType, float duration)
+    {
+        //
+    }
+
+    public void TakeDamaged(int damage)
+    {
+        currHp -= damage;
+
+        StartCoroutine(GotHurtRoutine());
+    }
+
+    IEnumerator GotHurtRoutine()
+    {
+        Color startColor = hitScreen.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0.7f);
+
+        float time = 0f;
+        float duration = 0.3f;
+
+        while (time < duration)
+        {
+            hitScreen.color = Color.Lerp(startColor, targetColor, time / duration);
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        time = 0f;
+        duration = 0.7f;
+
+        startColor = hitScreen.color;
+        targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        while (time < duration)
+        {
+            hitScreen.color = Color.Lerp(startColor, targetColor, time / duration);
+            time += Time.deltaTime;
+
+            yield return null;
+        }
     }
 }

@@ -20,7 +20,12 @@ public class MonsterController : MonoBehaviour
     private void Awake()
     {
         spawnPoint = transform.GetChild(0).transform;
-        spawnTriggerCollider = GetComponentInChildren<Collider>();
+        spawnTriggerCollider = GetComponent<Collider>();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator MonsterBehaveRoutine()
@@ -28,7 +33,6 @@ public class MonsterController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while (true)
         {
-            passiveEvent?.Invoke();
             if (commandQueue.Count > 0)
             {
                 yield return StartCoroutine(commandQueue.Dequeue());
@@ -38,15 +42,26 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    private IEnumerator MonsterInvoluntaryBehaveRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        while (true)
+        {
+            passiveEvent?.Invoke();
+            yield return null;
+        }
+    }
+
     public void GetCommand(IEnumerator command)
     {
         commandQueue.Enqueue(command);
     }
 
-    public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
+    public void SpawnMonster(int monsterNumber, Transform spawnPoint)
     {
         MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
-        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPosition + Vector3.up * 0.5f, Quaternion.identity, true).GetComponent<MonsterPerception>();
+        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPoint.position + Vector3.up * 0.5f, spawnPoint.rotation, true).GetComponent<MonsterPerception>();
+        StartCoroutine(MonsterInvoluntaryBehaveRoutine());
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());
@@ -55,7 +70,7 @@ public class MonsterController : MonoBehaviour
     //TODO: 플레이어 레이어를 제외한 다른 콜리더들은 아예 무시하도록 projectsetting
     private void OnTriggerEnter(Collider other)
     {
-        SpawnMonster(spawnMonsterNumber, spawnPoint.position);
+        SpawnMonster(spawnMonsterNumber, spawnPoint);
         spawnTriggerCollider.enabled = false;
     }
 }

@@ -27,12 +27,16 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     [NonSerialized] public bool isSkillUsed;
 
+    private void Awake()
+    {
+        inventory = GetComponent<Inventory>();
+    }
+
     private void Start()
     {
         currHp = maxHp;
         currMp = maxMp;
 
-        inventory = GetComponent<Inventory>();
         trainingSet = GameManager.Load.LoadGestures();
     }
 

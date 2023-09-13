@@ -12,7 +12,6 @@ using UnityEditor;
 
 public class MagicWand : XRGrabInteractable
 {
-    public GameObject linePrefab;
     public TrailRenderer vfx;
     public Transform movementSource;
     public UnityEvent<string, float> OnRecognized;
@@ -54,9 +53,12 @@ public class MagicWand : XRGrabInteractable
     {
         col.isTrigger = true;
 
+        Debug.Log(args.interactorObject.transform.name);
+
         if (args.interactorObject.transform != null)
         {
             owner = args.interactorObject.transform.GetComponentInParent<Player>();
+            Debug.Log(owner);
         }
 
         base.OnSelectEntered(args);
@@ -132,7 +134,7 @@ public class MagicWand : XRGrabInteractable
         moveDistance = Vector3.Distance(startPos, endPos);
 
         // Add a new Gesture to training set
-        if (creationMode)       
+        if (creationMode)
         {
             newGesture.Name = newGestureName;
 

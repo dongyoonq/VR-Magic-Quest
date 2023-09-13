@@ -14,7 +14,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private WaitForSeconds waitRecoverTime;
     public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
-    private Dictionary<HitTag, IEnumerator> hitReactions = new Dictionary<HitTag, IEnumerator>();
     private LayerMask hitTargetLayerMask;
     private Coroutine attackRoutine;
     private float attackDelayTime;
@@ -121,9 +120,22 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         foreach (HitTag hitTag in hitType)
         {
-            hitReactions.TryGetValue(hitTag, out IEnumerator hitReactRoutine);
             statusDuration = duration;
-            perception.SendCommand(hitReactRoutine);
+            switch (hitTag)
+            {
+                case HitTag.Impact:
+                    perception.SendCommand(ImpactHitReactRoutine());
+                    break;
+                case HitTag.Debuff:
+                    perception.SendCommand(DeBuffHitReactRoutine());
+                    break;
+                case HitTag.Buff:
+                    perception.SendCommand(BuffHitReactRoutine());
+                    break;
+                case HitTag.Mez:
+                    perception.SendCommand(MezHitReactRoutine());
+                    break;
+            }
         }
     }
 
@@ -137,7 +149,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return null;
         yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
         yield return waitRecoverTime;
-        perception.SendCommand(AlertRoutine());
+        //perception.SendCommand(AlertRoutine());
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -158,7 +170,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
-        perception.SendCommand(AlertRoutine());
+        //perception.SendCommand(AlertRoutine());
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)

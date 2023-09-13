@@ -15,7 +15,7 @@ public class QuestManager : MonoBehaviour
 
     public UnityEvent OnQuestUpdated;
 
-    private void Awake()
+    public void Awake()
     {
         questList = new List<QuestData>();
     }

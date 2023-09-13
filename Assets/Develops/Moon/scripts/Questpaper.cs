@@ -24,7 +24,8 @@ public class Questpaper : MonoBehaviour
         quest.isclear = questdata.isclear;
 
         // TODO : QuestManager 싱글톤으로 만들어서 Find 쓰지 않기
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().AddQuest(quest);
+        //  GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().AddQuest(quest);
+        GameManager.Quest.AddQuest(quest);
         Destroy(gameObject);
     }
 }

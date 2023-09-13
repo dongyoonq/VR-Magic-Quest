@@ -21,34 +21,35 @@ public class QuestBookList : MonoBehaviour
 
     [SerializeField] private TMP_Text questDetail;
 
-
-    public void Awake()
+    public void Start()
     {
         questButtonList = new List<QuestBookclick>();
         clearbutton.gameObject.SetActive(false);
-      //  clearbutton.onClick.AddListener(Clear);
     }
 
     private void OnEnable()
     {
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestAdded.AddListener(AddQuest);
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestRemoved.AddListener(RemoveQuest);
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestUpdated.AddListener(UpDateQuest);
-        InitQuest();
+            GameManager.Quest.OnQuestAdded?.AddListener(AddQuest);
+            GameManager.Quest.OnQuestRemoved?.AddListener(RemoveQuest);
+            GameManager.Quest.OnQuestUpdated?.AddListener(UpDateQuest);
+             InitQuest();
     }
 
     private void OnDisable()
     {
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestAdded.RemoveListener(AddQuest);
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestRemoved.RemoveListener(RemoveQuest);
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().OnQuestUpdated.RemoveListener(UpDateQuest);
+
+        GameManager.Quest.OnQuestAdded?.RemoveListener(AddQuest);
+        GameManager.Quest.OnQuestRemoved?.RemoveListener(RemoveQuest);
+        GameManager.Quest.OnQuestUpdated?.RemoveListener(UpDateQuest);
         ReleaseQuest();
     }
+
 
     private void InitQuest()
     {
         Debug.Log("Äù½ºÆ®ºÏ ÃÊ±âÈ­");
-        List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+     //   List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+        List<QuestData> list = GameManager.Quest.questList;
         foreach (QuestData data in list)
         {
             AddQuest(data);
@@ -58,7 +59,8 @@ public class QuestBookList : MonoBehaviour
     private void ReleaseQuest()
     {
         Debug.Log("Äù½ºÆ®ºÏ ¸¶¹«¸®");
-        List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+       // List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+        List<QuestData> list = GameManager.Quest.questList;
         foreach (QuestData data in list)
         {
             RemoveQuest(data);
@@ -79,7 +81,8 @@ public class QuestBookList : MonoBehaviour
 
     public void UpDateQuest()
     {
-        List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+        //  List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+        List<QuestData> list = GameManager.Quest.questList;
         foreach (QuestData data in list)
         {
             if (data.isclear)
@@ -99,7 +102,11 @@ public class QuestBookList : MonoBehaviour
     {
         Debug.Log($"Äù½ºÆ®ºÏ Äù½ºÆ® Á¦°Å {quest.questtitle}");
         QuestBookclick questButton = questButtonList.Find(x => x.quest == quest);
-        questButtonList.Remove(questButton);
+        if(questButton != null)
+        {
+            questButtonList.Remove(questButton);
+            Destroy(questButton.gameObject);
+        }
         Debug.Log("»èÁ¦");
     }
 
@@ -132,6 +139,6 @@ public class QuestBookList : MonoBehaviour
         }
         clearbutton.gameObject.SetActive(false);
         questDetail.text = "";
-        GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().ClearQuest(curQuestData);
+        GameManager.Quest.ClearQuest(curQuestData);
     }
 }

@@ -12,15 +12,18 @@ public class RecipeSlotUI : MonoBehaviour
 
     private void Start()
     {
-        recipeImage = transform.GetChild(0).GetComponent<Image>();
-        frameImage = transform.GetChild(1).GetComponent<Image>();
-
         if (recipeData != null) 
             recipeImage.sprite = recipeData.RecipeSprite;
 
         recipeUI = GetComponentInParent<RecipeUI>();
 
         GetComponent<Button>().onClick.AddListener(() => ClickButton());
+    }
+
+    private void OnEnable()
+    {
+        recipeImage = transform.GetChild(0).GetComponent<Image>();
+        frameImage = transform.GetChild(1).GetComponent<Image>();
     }
 
     public void ClickButton()

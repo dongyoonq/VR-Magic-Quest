@@ -180,7 +180,10 @@ public class MonsterData : ScriptableObject
 
     private void GimmickTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 기믹 트리거가 활성화 되면 몬스터 사망
+        if(monsterPerception.GimmickTrigger.gameObject.activeSelf)
+        {
+            monsterPerception.Combat.TakeDamaged(-monsterPerception.GimmickTrigger.gimmickHealAmount);
+        }
     }
 
     private void EliteTypeMonsterBehaviour(MonsterPerception monsterPerception)

@@ -6,11 +6,11 @@ using static EnumType;
 public class GimmickTrigger : MonoBehaviour
 {
     [SerializeField]
-    int gimmickDamage;
-    [SerializeField]
-    HitTag[] gimmickDamageType;
+    private HitTag[] gimmickDamageType;
+    public int gimmickDamage;
+    public int gimmickHealAmount;
     private MonsterCombat monster;
-
+    //TODO: 트리거와 기믹몬스터 사이에 연결된 선 만들기
     private void Awake()
     {
         monster = GetComponentInParent<MonsterCombat>();

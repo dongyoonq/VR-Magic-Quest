@@ -20,7 +20,7 @@ MonoBehaviour:
     dropItems:
     - {fileID: 0}
     - {fileID: 0}
-    healthPoint: 1000
+    healthPoint: 5000
     attackPoint: 600
     detectRange: 30
     attackRange: 3

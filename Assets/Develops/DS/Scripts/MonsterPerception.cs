@@ -25,12 +25,14 @@ public class MonsterPerception : MonoBehaviour
     public float alertMoveSpeed;
     [HideInInspector]
     public float chaseMoveSpeed;
+    private Animator animator;
 
     private void Awake()
     {
         vision = GetComponent<MonsterVision>();
         combat = GetComponent<MonsterCombat>();
         locomotion = GetComponent<MonsterLocomotion>();
+        animator = GetComponent<Animator>();
     }
 
     public IEnumerator MakeDecisionRoutine()
@@ -125,12 +127,18 @@ public class MonsterPerception : MonoBehaviour
     private IEnumerator CollapseRoutine()
     {
         StopCoroutine(controller.monsterBehaviourRoutine);
+        StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
+        animator.SetBool("Collapse", true);
+        animator.SetTrigger("GetHit");
         // 죽는 애니메이션
         // vr 상호작용 활성화
         // 임시 아이템 드롭 나중에 상호작용시 아이템으로 변하는 것으로 변경할 것
+
+        // 임시 딜레이
+        yield return new WaitForSeconds(3f);
         if(monsterInfo.dropItems.Length > 0)
         {
-            GameManager.Resource.Instantiate(monsterInfo.dropItems[Random.Range(0, monsterInfo.dropItems.Length)], true);
+            GameManager.Resource.Instantiate(monsterInfo.dropItems[Random.Range(0, monsterInfo.dropItems.Length)], transform.position + Vector3.up, Quaternion.identity, true);
         }
         // 상호작용시 아이템으로 변함(아이템을 떨어트리고 pool 회수)
         yield return null;

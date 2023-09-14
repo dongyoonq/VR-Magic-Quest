@@ -14,6 +14,7 @@ public class MonsterController : MonoBehaviour
     public UnityEvent activeEvent = new UnityEvent();
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
     public Coroutine monsterBehaviourRoutine;
+    public Coroutine monsterInvoluntaryBehaveRoutine;
     private Transform spawnPoint;
     private Collider spawnTriggerCollider;
 
@@ -61,7 +62,7 @@ public class MonsterController : MonoBehaviour
     {
         MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
         monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPoint.position + Vector3.up * 0.5f, spawnPoint.rotation, true).GetComponent<MonsterPerception>();
-        StartCoroutine(MonsterInvoluntaryBehaveRoutine());
+        monsterInvoluntaryBehaveRoutine = StartCoroutine(MonsterInvoluntaryBehaveRoutine());
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());

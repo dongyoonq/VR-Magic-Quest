@@ -16,6 +16,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private float statusDuration;
     private LayerMask hitTargetLayerMask;
     private Coroutine attackRoutine;
+    private bool getHit;
     private float attackDelayTime;
     [SerializeField]
     private HitTag[] basicAttackType;
@@ -30,17 +31,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         perception = GetComponent<MonsterPerception>();
         animator = GetComponent<Animator>();
-        hitReactions.Add(HitTag.Impact, ImpactHitReactRoutine());
-        hitReactions.Add(HitTag.Buff, BuffHitReactRoutine());
-        hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
-        hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
         hitTargetLayerMask = LayerMask.GetMask("Player");
-    }
-
-    private IEnumerator TestRoutine()
-    {
-        yield return new WaitForSeconds(3f);
-        perception.SendCommand(AlertRoutine());
+        getHit = false;
     }
 
     public void Combat()
@@ -56,6 +48,12 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             perception.Vision.AvertEye();
         }
         attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+        // 몬스터가 추격할때 attackDelayTime을 가속하는 코드
+        if (perception.CurrentState != BasicState.Combat)
+        {
+            attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+            attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+        }
     }
 
     private void Attack(int damage, HitTag[] attackType)
@@ -118,6 +116,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void HitReact(HitTag[] hitType, float duration)
     {
+        getHit = true;
         foreach (HitTag hitTag in hitType)
         {
             statusDuration = duration;
@@ -149,7 +148,11 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return null;
         yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
         yield return waitRecoverTime;
-        //perception.SendCommand(AlertRoutine());
+        getHit = false;
+        if (perception.CurrentState == BasicState.Idle)
+        {
+            perception.SendCommand(AlertRoutine());
+        }
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -168,9 +171,14 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator MezHitReactRoutine()
     {
+        animator.SetFloat("MoveSpeed", 0f);
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
-        //perception.SendCommand(AlertRoutine());
+        getHit = false;
+        if (perception.CurrentState == BasicState.Idle)
+        {
+            perception.SendCommand(AlertRoutine());
+        }
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
@@ -204,16 +212,18 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator AlertRoutine()
     {
-        Coroutine lookAroundRoutine = StartCoroutine(LookAroundRoutine());
-        yield return new WaitWhile(() => perception.CurrentState == BasicState.Idle);
-        StopCoroutine(lookAroundRoutine);
+        yield return StartCoroutine(LookArountRoutine());
     }
-
-    private IEnumerator LookAroundRoutine()
+    
+    private IEnumerator LookArountRoutine()
     {
         float time = 0f;
         while (time < 1.5f)
         {
+            if (perception.CurrentState != BasicState.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(true);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -222,6 +232,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 4.5f)
         {
+            if (perception.CurrentState != BasicState.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(false);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -230,6 +244,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 6f)
         {
+            if (perception.CurrentState != BasicState.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(true);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -238,6 +256,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 7.5f)
         {
+            if (perception.CurrentState != BasicState.Idle || getHit)
+            {
+                yield break;
+            }
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
             time += Time.deltaTime;

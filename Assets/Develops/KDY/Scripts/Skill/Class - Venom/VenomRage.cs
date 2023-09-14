@@ -30,6 +30,12 @@ public class VenomRage : Skill
         foreach (Collider collider in colliders)
         {
             IHittable hitMonster = collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+
+            if (hitReactor != null)
+            {
+                hitReactor.HitReact(skillData.hitTags, 0.2f);
+            }
 
             if (hitMonster != null)
             {

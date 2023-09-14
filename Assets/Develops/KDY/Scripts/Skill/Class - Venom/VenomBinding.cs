@@ -23,20 +23,28 @@ public class VenomBinding : Skill
     {
         float time = 0f;
 
+        Vector3 ceneter = skill.transform.position;
+        Vector3 boxSzie = new Vector3(2f, 3.5f, 2f);
+        Collider[] colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
+
+        foreach (Collider collider in colliders)
+        {
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+
+            if (hitReactor != null)
+                hitReactor.HitReact(skillData.hitTags, 5f);
+        }
+
         while (time < 5f)
         {
             time += Time.deltaTime;
 
             // Monster Binding & Damage
-            Vector3 ceneter = skill.transform.position;
-            Vector3 boxSzie = new Vector3(2f, 3.5f, 2f);
-            Collider[] colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
+            colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
 
             foreach (Collider collider in colliders)
             {
                 IHittable hitMonster = collider.GetComponent<IHittable>();
-
-                // Binding
 
                 // Damage
                 if (!isDamaged)

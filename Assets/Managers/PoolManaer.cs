@@ -16,11 +16,6 @@ public class PoolManager : MonoBehaviour
         canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
     }
 
-    public void Restart()
-    {
-        Awake();
-    }
-
     public T Get<T>(T original) where T : Object
     {
         return Get(original, Vector3.zero, Quaternion.identity, null);

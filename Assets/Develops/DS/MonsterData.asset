@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece506fd3f684e44181996ddb20ae56e, type: 3}
+  m_Name: MonsterData
+  m_EditorClassIdentifier: 
+  monsterType:
+  - monsterName: Golem
+    monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
+      type: 3}
+    monsterTag: 000000000300000001000000
+    dropItems:
+    - {fileID: 0}
+    - {fileID: 0}
+    healthPoint: 1000
+    attackPoint: 600
+    detectRange: 30
+    attackRange: 3
+    attackSpeed: 0.5
+    moveSpeed: 2
+  - monsterName: Skeleton
+    monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
+      type: 3}
+    monsterTag: 0a0000000000000005000000
+    dropItems: []
+    healthPoint: 500
+    attackPoint: 300
+    detectRange: 30
+    attackRange: 3
+    attackSpeed: 2
+    moveSpeed: 0
+  - monsterName: GiantWorm
+    monsterPrefab: {fileID: 5491683244567550782, guid: da488cbcf09082d4fa120b721953ac3a,
+      type: 3}
+    monsterTag: 0500000009000000
+    dropItems: []
+    healthPoint: 100000
+    attackPoint: 100000
+    detectRange: 60
+    attackRange: 4
+    attackSpeed: 2
+    moveSpeed: 30
+  - monsterName: Lich
+    monsterPrefab: {fileID: 8933015472649207977, guid: cde594b068a45134caff008ae5aab594,
+      type: 3}
+    monsterTag: 0100000008000000070000000a0000000b000000
+    dropItems:
+    - {fileID: 0}
+    healthPoint: 10000
+    attackPoint: 450
+    detectRange: 60
+    attackRange: 7
+    attackSpeed: 0
+    moveSpeed: 3

@@ -8,25 +8,27 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ShopItem : MonoBehaviour
 {
 
-    [SerializeField] GameObject intateUI;
+    [SerializeField] ShopUI intateUI;
     [SerializeField] Transform Attachpoint;
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == 7)
         {
-            Debug.Log("¥Í¿Ω");
+          
+            PopUI();
         }
     }
 
     public void PopUI()
-    {
-        GameObject objUI = Instantiate(intateUI);
-        objUI.transform.position = Camera.main.transform.forward;
+    {   
+       ShopUI shopui=Instantiate(intateUI, Camera.main.transform.position + Camera.main.transform.forward,Quaternion.identity);
         Debug.Log("¥Í¿Ω");
     }
     public void Buy()
     {
+
+        Debug.Log("º•æ∆¿Ã≈€¿∏∑Œ µÈæÓ∞®");
         gameObject.AddComponent<XRGrabInteractable>();
         gameObject.GetComponent<XRGrabInteractable>().attachTransform = Attachpoint;
         

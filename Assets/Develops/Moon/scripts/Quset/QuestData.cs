@@ -21,7 +21,7 @@ public class QuestData : ScriptableObject
         if (value == 1)
         {
             isclear = true;
-            Debug.Log("트루");
+            Debug.Log("트루");    
         }
         else isclear= false;
     }

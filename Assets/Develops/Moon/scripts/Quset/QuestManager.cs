@@ -9,11 +9,11 @@ public class QuestManager : MonoBehaviour
 {
     public List<QuestData> questList;
 
-    public UnityEvent<QuestData> OnQuestAdded;
-    public UnityEvent<QuestData> OnQuestRemoved;
-    public UnityEvent<QuestData> OnQuestCleared;
+    public UnityAction<QuestData> OnQuestAdded;
+    public UnityAction<QuestData> OnQuestRemoved;
+    public UnityAction<QuestData> OnQuestCleared;
 
-    public UnityEvent OnQuestUpdated;
+    public UnityAction OnQuestUpdated;
 
     public void Awake()
     {
@@ -55,20 +55,18 @@ public class QuestManager : MonoBehaviour
         foreach (QuestData questData in questList)
         {
             Debug.Log("들어감");
-            if (questData.monster == monsterName)
+            if (questData.monster!= monsterName)
             {
+                Debug.Log("이상한데들어감");
+            }
+            else
+            {
+               
                 questData.value++;
                 questData.CheckClear();
                 Debug.Log("올림");
                 UpdateQuest();
-
-            }
-            else
-            {
-                Debug.Log(questData.monster);
-                Debug.Log(monsterName);
-                Debug.Log("안올림");
-                return;
+                break;
             }
                
 
@@ -77,6 +75,24 @@ public class QuestManager : MonoBehaviour
 
     public void GatherItem(string itemName)
     {
-        
+        foreach (QuestData questData in questList)
+        {
+            Debug.Log("들어감");
+            if (questData.item != itemName)
+            {
+                Debug.Log("이상한데들어감");
+
+            }
+            else
+            {
+                ++questData.value;
+                questData.CheckClear();
+                Debug.Log("올림");
+                UpdateQuest();
+                return;
+            }
+
+
+        }
     }
 }

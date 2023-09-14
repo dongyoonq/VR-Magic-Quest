@@ -75,7 +75,11 @@ public class SkillUI : BookUI
     private void UpdateGestureInfoCommand(string gestureName)
     {
         infoUI.recognizeBtn.onClick.RemoveAllListeners();
-        infoUI.recognizeBtn.onClick.AddListener(() => mp4Loader.OnLoad(FindVideoFileInfo(gestureName)));
+
+        if (!string.IsNullOrEmpty(gestureName))
+        {
+            infoUI.recognizeBtn.onClick.AddListener(() => mp4Loader.OnLoad(FindVideoFileInfo(gestureName)));
+        }
 
         infoUI.gestureText.text = $"Skill Recognize : {gestureName}";
     }

@@ -17,8 +17,8 @@ MonoBehaviour:
     type: 3}
   skillName: Gravity Distortion
   skillTooltip: This is Gravity Distortion Skill
-  recognizeGestureName: 
+  recognizeGestureName: Infinity
   damage: 20
   useMp: 0
   skillType: 3
-  hitTags: 
+  hitTags: 03000000

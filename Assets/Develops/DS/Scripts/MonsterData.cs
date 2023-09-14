@@ -137,7 +137,7 @@ public class MonsterData : ScriptableObject
 
     private void MeleeTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 일정 시간마다 advanced state 상승
+        // 돌진 elite일시 적 앞에서 정지
     }
 
     private void LongRangeTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -152,7 +152,7 @@ public class MonsterData : ScriptableObject
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 적을 향해 돌진 elite면 적앞에서 정지
+        // 컨티션 회복
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)

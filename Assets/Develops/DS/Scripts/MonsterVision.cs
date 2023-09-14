@@ -72,7 +72,7 @@ public class MonsterVision : MonoBehaviour
                     {
                         if (hitInfo.collider.gameObject.layer == 7)
                         {
-                            perception.SendCommand(perception.SpotEnemyRoutine(target.targetTransform.root));
+                            perception.SendCommand(perception.SpotEnemyRoutine(target.targetTransform.parent.parent));
                         }
                     }
                 }

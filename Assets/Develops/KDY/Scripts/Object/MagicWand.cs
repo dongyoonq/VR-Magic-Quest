@@ -12,9 +12,6 @@ using UnityEditor;
 
 public class MagicWand : XRGrabInteractable
 {
-    private const string gesturefileLocation = "/Editors/RecognizeData/";
-
-    public GameObject linePrefab;
     public TrailRenderer vfx;
     public Transform movementSource;
     public UnityEvent<string, float> OnRecognized;
@@ -28,7 +25,6 @@ public class MagicWand : XRGrabInteractable
     private bool isRecording = false;
     private float moveDistance;
     private List<Vector3> positionList = new List<Vector3>();
-    private List<Gesture> trainingSet = new List<Gesture>();
     private Player owner;
     private Collider col;
 
@@ -36,13 +32,6 @@ public class MagicWand : XRGrabInteractable
     {
         col = GetComponent<Collider>();
         OnRecognized.AddListener(CastingSpell);
-
-        string[] gestureFiles = Directory.GetFiles(Application.dataPath + gesturefileLocation, "*.xml");
-       
-        foreach (var item in gestureFiles)
-        {
-            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
-        }
     }
 
     private void Update()
@@ -64,9 +53,12 @@ public class MagicWand : XRGrabInteractable
     {
         col.isTrigger = true;
 
+        Debug.Log(args.interactorObject.transform.name);
+
         if (args.interactorObject.transform != null)
         {
             owner = args.interactorObject.transform.GetComponentInParent<Player>();
+            Debug.Log(owner);
         }
 
         base.OnSelectEntered(args);
@@ -142,16 +134,24 @@ public class MagicWand : XRGrabInteractable
         moveDistance = Vector3.Distance(startPos, endPos);
 
         // Add a new Gesture to training set
-        if (creationMode)       
+        if (creationMode)
         {
             newGesture.Name = newGestureName;
-            trainingSet.Add(newGesture);
 
-            string fileName = Application.dataPath + gesturefileLocation + newGestureName + ".xml";
+            if (owner.trainingSet.Count < 8)
+            {
+                owner.trainingSet.Add(newGesture);
+            }
+            else
+            {
+                Debug.Log("The maximum number of motions to learn is up to 8");
+            }
+
+            string fileName = Application.dataPath + LoadManager.gesturefileLocation + newGestureName + ".xml";
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
             Debug.Log($"{fileName}, {newGestureName}, Success Create Gesture");
 
-            CastingSpell(newGestureName, 1f);
+            // CastingSpell(newGestureName, 1f);
 
             GameManager.Record.StopRecording(5f);
             IEnumerator StopFlag() { yield return new WaitForSeconds(5f); isRecording = false; }
@@ -160,7 +160,7 @@ public class MagicWand : XRGrabInteractable
         // recognize
         else
         {
-            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
+            Result result = PointCloudRecognizer.Classify(newGesture, owner.trainingSet.ToArray());
             Debug.Log($"{result.GestureClass} : {result.Score}");
 
             if (result.Score > recognitionThreshold)

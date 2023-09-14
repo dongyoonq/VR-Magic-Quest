@@ -1,24 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuestBookclick : MonoBehaviour
 {
-    public Button button;
+    public QuestBookList bookList;
+    public QuestData quest;
 
-
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(Questlistclick);
-    }
+    public TMP_Text qusettitle;
 
     public void Questlistclick()
     {
-        Debug.Log("Å¬¸¯ÇÔ");
+        bookList.SetCurQuest(quest);
     }
-
-
 }

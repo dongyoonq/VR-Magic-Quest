@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 9
   itemName: Ingwaz
   tooltip: "\uC789\uACFC\uC988 \uB8EC, \uC2E0 \uC789\uADF8\uBE44"
-  iconSprite: {fileID: 21300000, guid: db1528ba1dcefb940a93238be49fccfe, type: 3}
+  iconSprite: {fileID: 21300000, guid: 54a0cbf9abeb58a409c73efe86d83450, type: 3}
   dropItemPrefab: {fileID: 5933577049611559985, guid: f60ea0a823af71d4d991ab082c7e7286,
     type: 3}
   maxAmount: 99

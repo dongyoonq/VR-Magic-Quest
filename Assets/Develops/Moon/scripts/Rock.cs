@@ -28,12 +28,6 @@ public class Rock : DestroyObject
     public override void skillHitObject()
     {
         DestroyObject();
-          /*  GameObject obj = Instantiate(hitafter, transform.position, Quaternion.identity);
-            obj.SetActive(true);
-            Destroy(this.gameObject);
-            StartCoroutine(rockcreatRoutin());
-            ParticleSystem effect = Instantiate(hiteffect, transform.position, Quaternion.identity);
-            Destroy(effect.gameObject, 0.5f);*/
 
     }
     public override void ToolHitObject()

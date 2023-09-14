@@ -1,3 +1,4 @@
+using PDollarGestureRecognizer;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -5,9 +6,11 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class SkillCommandUI : MonoBehaviour
 {
+    [SerializeField] public Image skillImage;
     [SerializeField] public TMP_Text skillText;
     [SerializeField] public TMP_Text infoText;
     [SerializeField] public TMP_Text recognzieText;
@@ -17,24 +20,30 @@ public class SkillCommandUI : MonoBehaviour
     [SerializeField] SkillUI skillUI;
 
     public UnityEvent<string> OnSetCommanded;
-
-    public Player player;
+    public SkillData selectSkill;
 
     private void Start()
     {
-        player = FindAnyObjectByType<Player>();
         OnSetCommanded.AddListener(SetCommandedUIUpdate);
+    }
 
-        foreach (SkillData skillData in player.skillList)
+    private void OnEnable()
+    {
+        foreach (SkillCommandButton button in commandButtons)
+        {
+            Destroy(button.gameObject);
+        }
+
+        commandButtons.Clear();
+
+        foreach (Gesture gesture in skillUI.player.trainingSet)
         {
             SkillCommandButton button = GameManager.Resource.Instantiate(commandButtonPrefab, true);
             button.transform.SetParent(contents, false);
-            button.OnUpdateCommand?.Invoke(skillData.recognizeGestureName);
+            button.OnUpdateCommand?.Invoke(gesture.Name);
             commandButtons.Add(button);
         }
     }
-
-    public SkillData selectSkill;
 
     public void CommandButtonUpdate()
     {
@@ -43,7 +52,7 @@ public class SkillCommandUI : MonoBehaviour
             Destroy(button.gameObject);
         }
 
-        foreach (SkillData skillData in player.skillList)
+        foreach (SkillData skillData in skillUI.player.skillList)
         {
             SkillCommandButton button = GameManager.Resource.Instantiate(commandButtonPrefab, contents, true);
             button.OnUpdateCommand?.Invoke(skillData.recognizeGestureName);
@@ -53,7 +62,7 @@ public class SkillCommandUI : MonoBehaviour
 
     private void SetCommandedUIUpdate(string gestureName)
     {
-        if (!player.skillList.Contains(selectSkill))
+        if (!skillUI.player.skillList.Contains(selectSkill))
         {
             infoText.color = Color.red;
             infoText.text = "You must learn this skill first";

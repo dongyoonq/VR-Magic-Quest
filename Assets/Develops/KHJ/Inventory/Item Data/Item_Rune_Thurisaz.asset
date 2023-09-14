@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 21
   itemName: Thurisaz
   tooltip: "\uC464\uB9AC\uC0AC\uC988 \uB8EC, \uC2E0 \uD1A0\uB974, \uAC70\uC778"
-  iconSprite: {fileID: 21300000, guid: c36ee4ebd94862140a0abe5960a62488, type: 3}
+  iconSprite: {fileID: 21300000, guid: c8b87841424425b47a5546ed52deec53, type: 3}
   dropItemPrefab: {fileID: 1445941700141921562, guid: 68aa3cca2b727c5448fbcf700deaad00,
     type: 3}
   maxAmount: 99

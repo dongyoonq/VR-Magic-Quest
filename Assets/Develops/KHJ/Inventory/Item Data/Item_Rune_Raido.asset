@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 18
   itemName: Raido
   tooltip: "\uB77C\uC774\uB3C4 \uB8EC, \uC2B9\uCC28, \uC5EC\uD589"
-  iconSprite: {fileID: 21300000, guid: 4852c944cc40da143a1d05162da5f605, type: 3}
+  iconSprite: {fileID: 21300000, guid: a6ddf68a38e82a444bc9b08a8e2e2dd4, type: 3}
   dropItemPrefab: {fileID: 8339877788973011948, guid: dc50bedfaa57d994ba4a6076cb648a00,
     type: 3}
   maxAmount: 99

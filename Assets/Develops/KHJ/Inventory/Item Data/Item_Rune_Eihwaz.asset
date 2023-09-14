@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 5
   itemName: Eihwaz
   tooltip: "\uC5D0\uC774\uD558\uC988 \uB8EC, \uC8FC\uBAA9 \uB098\uBB34"
-  iconSprite: {fileID: 21300000, guid: 903f76b9f6f7ebe40951cf1c328c8523, type: 3}
+  iconSprite: {fileID: 21300000, guid: d7c7e7aa38197f94ab0ff09d6d7a7f62, type: 3}
   dropItemPrefab: {fileID: 3798244049454182368, guid: f1cf0b77d901f65419160af376bb97ec,
     type: 3}
   maxAmount: 99

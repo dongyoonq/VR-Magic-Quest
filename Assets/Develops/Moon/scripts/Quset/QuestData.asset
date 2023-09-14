@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: QuestData
   m_EditorClassIdentifier: 
   questtitle: asdasd
-  quest: 
-  value: 1
+  quest: asd
+  value: 0
+  isclear: 0
+  isinventory: 0
+  monster: asdasdasd
+  Object: {fileID: 0}

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 17
   itemName: Pertho
   tooltip: "\uD398\uB974\uC3D8 \uB8EC, \uBC30 \uB098\uBB34"
-  iconSprite: {fileID: 21300000, guid: 03c5a60d3055afd4abd6ec8d94c54f55, type: 3}
+  iconSprite: {fileID: 21300000, guid: 339ec4c07685bcb48ae3e56d77bd5f07, type: 3}
   dropItemPrefab: {fileID: 3926859739586314843, guid: 604666ea57ca30d4081cdc9afa1859c9,
     type: 3}
   maxAmount: 99

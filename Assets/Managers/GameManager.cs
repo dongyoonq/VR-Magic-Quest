@@ -11,13 +11,18 @@ public class GameManager : MonoBehaviour
     private static PoolManager poolManager;
     private static ResourceManager resourceManager;
     private static SoundManager soundManager;
+    private static QuestManager questManager;
+    private static LoadManager loadManager;
     private static RecordManager recordManager;
 
     public static GameManager Instance { get { return instance; } }
     public static PoolManager Pool { get { return poolManager; } }
     public static ResourceManager Resource { get { return resourceManager; } }
     public static SoundManager Sound { get { return soundManager; } }
+    public static LoadManager Load { get { return loadManager; } }
     public static RecordManager Record { get { return recordManager; } }
+
+    public static QuestManager Quest { get { return questManager; } }
 
     private void Awake()
     {
@@ -54,6 +59,16 @@ public class GameManager : MonoBehaviour
         soundObj.name = "SoundManager";
         soundObj.transform.parent = transform;
         soundManager = soundObj.AddComponent<SoundManager>();
+
+        GameObject questObj = new GameObject();
+        questObj.name = "QuestManager";
+        questObj.transform.parent = transform;
+        questManager = questObj.AddComponent<QuestManager>();
+
+        GameObject loadObj = new GameObject();
+        loadObj.name = "LoadManager";
+        loadObj.transform.parent = transform;
+        loadManager = loadObj.AddComponent<LoadManager>();
 
         GameObject recordObj = new GameObject();
         recordObj.name = "RecordManager";

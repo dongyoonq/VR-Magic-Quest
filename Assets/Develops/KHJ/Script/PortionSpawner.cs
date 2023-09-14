@@ -8,26 +8,18 @@ using UnityEngine;
 /// </summary>
 public class PortionSpawner : MonoBehaviour
 {
-    public PortionItemData[] Portions;
-    
     [SerializeField] private Transform spawnPostion;
     [SerializeField] private GameObject failPostion;
 
-    public void PotionBrewed(AlchemyPot.Recipe recipe)
+    public void PotionBrewed(PortionRecipeData potionData)
     {
-        if (recipe == null)
+        if (potionData == null)
         {
             Instantiate(failPostion, spawnPostion.position, transform.rotation);
         }
         else
         {
-            foreach (PortionItemData PortionData in Portions)
-            {
-                if (PortionData.Name == recipe.name)
-                {
-                    Instantiate(PortionData.DropItemPrefab, spawnPostion.position, transform.rotation);
-                }
-            }
+            Instantiate(potionData.madePortion.DropItemPrefab, spawnPostion.position, transform.rotation);
         }
     }
 }

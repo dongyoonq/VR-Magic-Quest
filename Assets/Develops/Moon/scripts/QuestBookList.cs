@@ -21,6 +21,7 @@ public class QuestBookList : MonoBehaviour
 
     [SerializeField] private TMP_Text questDetail;
 
+
     public void Start()
     {
         questButtonList = new List<QuestBookclick>();
@@ -29,17 +30,19 @@ public class QuestBookList : MonoBehaviour
 
     private void OnEnable()
     {
-            GameManager.Quest.OnQuestAdded?.AddListener(AddQuest);
-            GameManager.Quest.OnQuestRemoved?.AddListener(RemoveQuest);
-            GameManager.Quest.OnQuestUpdated?.AddListener(UpDateQuest);
-             InitQuest();
+             GameManager.Quest.OnQuestAdded += AddQuest;
+        GameManager.Quest.OnQuestRemoved += RemoveQuest;
+        // GameManager.Quest.OnQuestRemoved?.AddListener(RemoveQuest);
+         GameManager.Quest.OnQuestUpdated?.AddListener(UpDateQuest);
+        InitQuest();
     }
 
     private void OnDisable()
     {
-
-        GameManager.Quest.OnQuestAdded?.RemoveListener(AddQuest);
-        GameManager.Quest.OnQuestRemoved?.RemoveListener(RemoveQuest);
+        GameManager.Quest.OnQuestAdded -=AddQuest;
+        GameManager.Quest.OnQuestRemoved -=RemoveQuest;
+        //   GameManager.Quest.OnQuestAdded?.RemoveListener(AddQuest);
+        //  GameManager.Quest.OnQuestRemoved?.RemoveListener(RemoveQuest);
         GameManager.Quest.OnQuestUpdated?.RemoveListener(UpDateQuest);
         ReleaseQuest();
     }

@@ -9,9 +9,9 @@ public class QuestManager : MonoBehaviour
 {
     public List<QuestData> questList;
 
-    public UnityEvent<QuestData> OnQuestAdded;
-    public UnityEvent<QuestData> OnQuestRemoved;
-    public UnityEvent<QuestData> OnQuestCleared;
+    public UnityAction<QuestData> OnQuestAdded;
+    public UnityAction<QuestData> OnQuestRemoved;
+    public UnityAction<QuestData> OnQuestCleared;
 
     public UnityEvent OnQuestUpdated;
 
@@ -65,9 +65,7 @@ public class QuestManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(questData.monster);
-                Debug.Log(monsterName);
-                Debug.Log("안올림");
+                Debug.Log("이상한데들어감");
                 return;
             }
                

@@ -25,7 +25,7 @@ public class VenomRage : Skill
     {
         yield return new WaitForSeconds(0.1f);
 
-        Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 6f);
+        Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 6f, LayerMask.GetMask("Monster"));
 
         foreach (Collider collider in colliders)
         {

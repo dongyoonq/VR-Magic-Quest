@@ -9,14 +9,17 @@ public class VenomBinding : Skill
     public override void CastingSpell(Player player, float correctValue, Transform createTrans)
     {
         isDamaged = false;
-        player.isSkillUsed = true;
 
-        createTrans = Camera.main.transform;
-        Vector3 createPos = createTrans.position + (createTrans.forward * 6f) + (createTrans.up * -0.5f);
-        Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.identity, true);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 12, LayerMask.GetMask("Monster")))
+        {
+            Vector3 createPos = hit.point + (hit.transform.up * -1f);
+            Skill skill = GameManager.Resource.Instantiate(skillData.skillPrefab, createPos, Quaternion.identity, true);
 
-        skill.StartCoroutine(AttackJudgement(skill));
-        skill.StartCoroutine(BindingEndRoutine(player, skill));
+            player.isSkillUsed = true;
+
+            skill.StartCoroutine(AttackJudgement(skill));
+            skill.StartCoroutine(BindingEndRoutine(player, skill));
+        }
     }
 
     IEnumerator AttackJudgement(Skill skill)

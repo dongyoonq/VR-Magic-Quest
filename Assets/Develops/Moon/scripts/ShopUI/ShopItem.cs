@@ -1,39 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ShopItem : MonoBehaviour
 {
 
-    [SerializeField] ShopUI intateUI;
-    [SerializeField] Transform Attachpoint;
+    [SerializeField] public ShopUI intateUI;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == 7)
-        {
-          
-            PopUI();
-        }
-    }
+    [SerializeField] public ItemData itemData;
+    public Player player;
+    [SerializeField] public ShopUI shuopui;
 
     public void PopUI()
-    {   
-       ShopUI shopui=Instantiate(intateUI, Camera.main.transform.position + Camera.main.transform.forward,Quaternion.identity);
+    {
+
+      shuopui= Instantiate(intateUI, Camera.main.transform.position+Camera.main.transform.forward.normalized*0.5f, Quaternion.identity);
+        shuopui.shopItem = this;
         Debug.Log("닿음");
+    
     }
     public void Buy()
     {
-
         Debug.Log("샵아이템으로 들어감");
-        gameObject.AddComponent<XRGrabInteractable>();
-        gameObject.GetComponent<XRGrabInteractable>().attachTransform = Attachpoint;
-        
-        //TODO: 인벤토리 빈공간 들어가게끔 만들기
-        Destroy(gameObject.GetComponent<XRSimpleInteractable>());
+        player.AddItemToInventory(itemData);
+        Destroy(shuopui.gameObject);
         Destroy(gameObject);
+    }
+    public void Cancel()
+    {
+        Destroy(shuopui.gameObject);
     }
 }

@@ -9,7 +9,7 @@ public class testtesttest : MonoBehaviour
         if (Input.GetKey(KeyCode.M))
         {
             GameManager.Quest.KillMonster(transform.gameObject.name);
-            Debug.Log(gameObject.name);
+            Debug.Log(transform.name);
             Destroy(gameObject);
             
         }

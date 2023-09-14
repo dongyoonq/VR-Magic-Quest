@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
-   // [SerializeField] public Button buybutton;
-  //  [SerializeField] public Button cancelbutton;
 
     public ShopItem shopItem;
    public void Buy()
@@ -17,6 +15,7 @@ public class ShopUI : MonoBehaviour
 
     public void Cancel()
     {
-        Destroy(gameObject);
+        shopItem.Cancel();
+    //    Destroy(gameObject);
     }
 }

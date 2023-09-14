@@ -77,4 +77,11 @@ public class SkillCommandUI : MonoBehaviour
             skillUI.OnSkillCommandUpdate?.Invoke(gestureName);
         }
     }
+
+    public void RemoveSkillCommand()
+    {
+        recognzieText.text = "Current Recognize : ";
+        selectSkill.recognizeGestureName = "";
+        skillUI.OnSkillCommandUpdate?.Invoke("");
+    }
 }

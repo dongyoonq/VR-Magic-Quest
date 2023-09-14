@@ -34,6 +34,7 @@ public class GravityDistortionCollider : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
+            collider.GetComponent<IHitReactor>().HitReact(skillSource.skillData.hitTags, 2f);
             StartCoroutine(RotateDamageRoutine(collider.transform));
         }
     }

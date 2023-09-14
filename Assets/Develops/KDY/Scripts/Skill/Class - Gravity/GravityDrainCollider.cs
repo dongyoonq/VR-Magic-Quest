@@ -22,8 +22,10 @@ public class GravityDrainCollider : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
+            IHitReactor hitReactor = collision.gameObject.GetComponent<IHitReactor>();
             IHittable hitMonster = collision.gameObject.GetComponent<IHittable>();
             hitMonster.TakeDamaged(skillSource.skillData.damage);
+            hitReactor.HitReact(skillSource.skillData.hitTags, 2f);
             StartCoroutine(PlayerSkillActiveRoutine(source, 2f));
             return;
         }
@@ -53,6 +55,11 @@ public class GravityDrainCollider : MonoBehaviour
 
     IEnumerator MonsterDrainRoutine(Transform monster)
     {
+        CharacterController controller = monster.GetComponent<CharacterController>();
+
+        if (controller != null)
+            controller.enabled = false;
+
         Vector3 start = monster.transform.position;
         Vector3 end = createPositon;
 
@@ -78,6 +85,9 @@ public class GravityDrainCollider : MonoBehaviour
         }
 
         source.isSkillUsed = false;
+
+        if (controller != null)
+            controller.enabled = true;
 
         if (skillSource.IsValid())
             GameManager.Resource.Destroy(skillSource);

@@ -21,6 +21,7 @@ public class MonsterPerception : MonoBehaviour
     private AdvancedState currentAdvancedState;
     public AdvancedState CurrentAdvancedState { get { return currentAdvancedState; } set { currentAdvancedState = value; } }
     private IEnumerator advancedAI;
+    public GimmickTrigger GimmickTrigger { get { return controller.GimmickTrigger; } }
     [HideInInspector]
     public float alertMoveSpeed;
     [HideInInspector]
@@ -46,11 +47,12 @@ public class MonsterPerception : MonoBehaviour
         GameManager.Resource.Destroy(gameObject);
     }
 
-    public void SpotEnemy(Transform enemyTransform)
+    public IEnumerator SpotEnemyRoutine(Transform enemyTransform)
     {
         currentState = BasicState.Alert;
         controller.transform.position = enemyTransform.position;
         controller.transform.parent = enemyTransform;
+        yield return null;
     }
 
     // guard 타입은 놓치면 원래 자리로 복귀 aggressive는 적을 놓쳐도 해당 방향으로 일정 거리만큼 더 전진
@@ -128,6 +130,7 @@ public class MonsterPerception : MonoBehaviour
     {
         StopCoroutine(controller.monsterBehaviourRoutine);
         StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
+        GameManager.Quest.KillMonster(monsterInfo.monsterName);
         animator.SetBool("Collapse", true);
         animator.SetTrigger("GetHit");
         // 죽는 애니메이션
@@ -175,7 +178,7 @@ public class MonsterPerception : MonoBehaviour
 
     public void SynchronizeVision()
     {
-        vision.DetectRange.radius = monsterInfo.detectRange;
+        vision.DetectRange = monsterInfo.detectRange;
         WeightedTransformArray sourceObject = new WeightedTransformArray();
         sourceObject.Add(new WeightedTransform(controller.transform, 1f));
         vision.HeadAim.data.sourceObjects = sourceObject;

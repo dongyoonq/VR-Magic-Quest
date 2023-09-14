@@ -3604,7 +3604,6 @@ GameObject:
   - component: {fileID: 2505419918858651002}
   - component: {fileID: 6762822352297762822}
   - component: {fileID: 3700310183633168914}
-  - component: {fileID: 1658352684273876683}
   - component: {fileID: 7638127935032991871}
   m_Layer: 6
   m_Name: GiantWorm
@@ -3844,19 +3843,6 @@ MonoBehaviour:
   - {fileID: 4026813207495326797}
   - {fileID: 4026813207495326783}
   - {fileID: 4026813207495326755}
---- !u!135 &1658352684273876683
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491683244567550782}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &7638127935032991871
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -17274,7 +17274,6 @@ GameObject:
   - component: {fileID: 7595189825617875222}
   - component: {fileID: 3542988245576529104}
   - component: {fileID: 419019601548697096}
-  - component: {fileID: 4084739656253928046}
   - component: {fileID: 2014125676818398537}
   m_Layer: 6
   m_Name: Lich
@@ -17546,19 +17545,6 @@ MonoBehaviour:
   - {fileID: 428098424852226068}
   - {fileID: 5899291339449130218}
   - {fileID: 8526860689440885331}
---- !u!135 &4084739656253928046
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8933015472649207977}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &2014125676818398537
 CapsuleCollider:
   m_ObjectHideFlags: 0

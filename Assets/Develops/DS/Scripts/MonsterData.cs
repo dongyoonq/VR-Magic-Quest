@@ -97,6 +97,7 @@ public class MonsterData : ScriptableObject
             if (tag == MonsterTag.Elite)
             {
                 waitForMakeDecision = new WaitForSeconds(1.5f);
+                monsterPerception.Locomotion.EliteMonster = true;
             }
             else if (tag == MonsterTag.Cautious)
             {
@@ -115,10 +116,18 @@ public class MonsterData : ScriptableObject
                 }
                 gimmickTrigger.gameObject.SetActive(true);
             }
+            else if (tag == MonsterTag.SpellCaster)
+            {
+                monsterPerception.Locomotion.SpellCaster = true;
+            }
+            else if (tag == MonsterTag.Melee)
+            {
+                monsterPerception.Combat.MeleeType = true;
+            }
             yield return null;
         }
         Vector3 guardPosition = monsterPerception.transform.position;
-        while (monsterPerception.CurrentState != BasicState.Collapse)
+        while (monsterPerception.CurrentState != EnumType.State.Collapse)
         {
             advancedAI?.Invoke(monsterPerception);
             yield return waitForMakeDecision;
@@ -128,7 +137,7 @@ public class MonsterData : ScriptableObject
 
     private void MeleeTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 일반공격 대신 강공격 실행
+        // 돌진 elite일시 적 앞에서 정지
     }
 
     private void LongRangeTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -143,7 +152,7 @@ public class MonsterData : ScriptableObject
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 적을 향해 돌진 elite면 적앞에서 정지
+        // 컨티션 회복
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -168,10 +177,10 @@ public class MonsterData : ScriptableObject
 
     private void AgileTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // overap sphere 주변 스킬? 레이어 감지 시 회피\
-        if (monsterPerception.CurrentState != BasicState.Idle)
+        // overap sphere 주변 스킬? 레이어 감지 시 회피
+        if (monsterPerception.CurrentState != EnumType.State.Idle)
         {
-            if (Physics.OverlapSphere(monsterPerception.transform.position, 2f, LayerMask.GetMask("Skill")).Length > 0)
+            if (Physics.OverlapSphere(monsterPerception.transform.position, 5f, LayerMask.GetMask("Skill")).Length > 0)
             {
                 
             }

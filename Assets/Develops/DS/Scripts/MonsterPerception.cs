@@ -16,10 +16,10 @@ public class MonsterPerception : MonoBehaviour
     public MonsterCombat Combat { get { return combat; } }
     private MonsterLocomotion locomotion;
     public MonsterLocomotion Locomotion { get { return locomotion; } }
-    private BasicState currentState;
-    public BasicState CurrentState { get { return currentState; } set { currentState = value; } }
-    private AdvancedState currentAdvancedState;
-    public AdvancedState CurrentAdvancedState { get { return currentAdvancedState; } set { currentAdvancedState = value; } }
+    private State currentState;
+    public State CurrentState { get { return currentState; } set { currentState = value; } }
+    private Condition currentCondition;
+    public Condition CurrentCondition { get { return currentCondition; } set { currentCondition = value; } }
     private IEnumerator advancedAI;
     public GimmickTrigger GimmickTrigger { get { return controller.GimmickTrigger; } }
     [HideInInspector]
@@ -36,12 +36,23 @@ public class MonsterPerception : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        currentState = State.Idle;
+        currentCondition = Condition.Good;
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
     public IEnumerator MakeDecisionRoutine()
     {
         yield return new WaitForSeconds(3f);
         advancedAI = monsterInfo.monsterAIRoutine;
         Coroutine advancedAIRoutine = StartCoroutine(advancedAI);
-        yield return new WaitUntil(() => currentState == BasicState.Collapse);
+        yield return new WaitUntil(() => currentState == State.Collapse);
         StopCoroutine(advancedAIRoutine);
         yield return StartCoroutine(CollapseRoutine());
         GameManager.Resource.Destroy(gameObject);
@@ -49,7 +60,7 @@ public class MonsterPerception : MonoBehaviour
 
     public IEnumerator SpotEnemyRoutine(Transform enemyTransform)
     {
-        currentState = BasicState.Alert;
+        currentState = State.Alert;
         controller.transform.position = enemyTransform.position;
         controller.transform.parent = enemyTransform;
         yield return null;
@@ -58,7 +69,7 @@ public class MonsterPerception : MonoBehaviour
     // guard 타입은 놓치면 원래 자리로 복귀 aggressive는 적을 놓쳐도 해당 방향으로 일정 거리만큼 더 전진
     public void LoseSightOfTarget()
     {
-        currentState = BasicState.Idle;
+        currentState = State.Idle;
         controller.transform.parent = null;
         controller.transform.position = transform.position + transform.forward * 5f;
     }
@@ -68,25 +79,38 @@ public class MonsterPerception : MonoBehaviour
         controller.GetCommand(command);
     }
 
+    public void ChangeCondition(int amount)
+    {
+        currentCondition += amount;
+        if (currentCondition < 0)
+        {
+            currentCondition = Condition.Weak;
+        }
+        else if (currentCondition > Condition.TopForm)
+        {
+            currentCondition = Condition.TopForm;
+        }
+    }
+
     private void MonsterBasicBehave()
     {
         switch (currentState)
         {
-            case BasicState.Idle:
+            case State.Idle:
                 vision.AvertEye();
                 locomotion.SlowDown();
                 break;
-            case BasicState.Alert:
+            case State.Alert:
                 locomotion.Approach(alertMoveSpeed);
                 locomotion.Turn();
                 vision.Gaze();
                 break;
-            case BasicState.Chase:
+            case State.Chase:
                 locomotion.Approach(chaseMoveSpeed);
                 locomotion.Turn();
                 vision.Gaze();
                 break;
-            case BasicState.Combat:
+            case State.Combat:
                 vision.Gaze();
                 locomotion.SlowDown();
                 locomotion.Turn();
@@ -97,7 +121,7 @@ public class MonsterPerception : MonoBehaviour
                 locomotion.Stop();
                 break;
         }
-        if (currentState == BasicState.Idle)
+        if (currentState == State.Idle)
         {
             return;
         }
@@ -105,17 +129,17 @@ public class MonsterPerception : MonoBehaviour
         {
             if (CheckBackAttackChance())
             {
-                currentState = BasicState.Chase;
+                currentState = State.Chase;
             }
             else
             {
-                currentState = BasicState.Alert;
+                currentState = State.Alert;
             }
         }
         else
-        {
+        {           
             transform.LookAt(controller.transform.position);
-            currentState = BasicState.Combat;
+            currentState = State.Combat;
         }
 
     }
@@ -153,7 +177,7 @@ public class MonsterPerception : MonoBehaviour
         this.monsterInfo = monsterInfo;
         alertMoveSpeed = monsterInfo.moveSpeed;
         chaseMoveSpeed = monsterInfo.moveSpeed;
-        currentState = BasicState.Idle;
+        currentState = State.Idle;
         SynchronizeController((() => MonsterBasicBehave()), true);
         SynchronizeController((() => locomotion.Fall()), false);
         SynchronizeController((() => locomotion.GroundCheck()), false);
@@ -223,7 +247,7 @@ public class MonsterPerception : MonoBehaviour
 
     public void SpinMonsterController(bool spinLeft)
     {
-        if(currentState == BasicState.Idle)
+        if(currentState == State.Idle)
         {
             if (spinLeft)
             {

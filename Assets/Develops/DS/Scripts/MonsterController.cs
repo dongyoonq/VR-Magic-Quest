@@ -39,6 +39,7 @@ public class MonsterController : MonoBehaviour
         {
             if (commandQueue.Count > 0)
             {
+                Debug.Log(commandQueue.Peek());
                 yield return StartCoroutine(commandQueue.Dequeue());
             }
             activeEvent?.Invoke();

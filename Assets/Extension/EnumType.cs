@@ -33,7 +33,7 @@ public class EnumType
         LastBoss
     }
 
-    public enum BasicState
+    public enum State
     {
         Idle,
         Alert,
@@ -42,8 +42,16 @@ public class EnumType
         Collapse
     }
 
-    public enum AdvancedState
+    public enum Condition
     {
-
+        Weak,
+        Exhausted,
+        Fatigued,
+        Tired,
+        Normal,
+        Refreshing,
+        Good,
+        Energetic,
+        TopForm
     }
 }

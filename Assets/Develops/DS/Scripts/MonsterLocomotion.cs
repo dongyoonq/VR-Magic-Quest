@@ -13,17 +13,23 @@ public class MonsterLocomotion : MonoBehaviour
     private float ySpeed;
     private bool floating;
     private float floatingTime;
+    private bool spellCaster;
+    public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
+    private bool eliteMonster;
+    public bool EliteMonster { get {  return eliteMonster; } set {  eliteMonster = value; } }
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        ySpeed = 0f;
     }
 
     private void OnEnable()
     {
+        ySpeed = 0f;
         animator.SetFloat("MoveSpeed", 0f);
+        spellCaster = false;
+        eliteMonster = false;
     }
 
     public void Approach(float moveSpeed)
@@ -34,6 +40,19 @@ public class MonsterLocomotion : MonoBehaviour
 
     public IEnumerator RushRoutine(float moveSpeed, float rushTime)
     {
+        // 돌격 준비 애니메이션
+        if (eliteMonster)
+        {
+            // 달릴때 Turn 많이
+            // 적 앞에서 멈추기
+            // 끝나고 공격
+        }
+        else
+        {
+            // 달릴때 처음 플레이어 방향으로 전진
+            // 일정거리만큼 돌진
+            // 끝나고 플레이어 방향으로 회전
+        }
         float time = 0f;
         animator.SetFloat("MoveSpeed", moveSpeed);
         while (time < rushTime)
@@ -69,6 +88,20 @@ public class MonsterLocomotion : MonoBehaviour
             ySpeed = -1f;
         }
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
+    }
+
+    public IEnumerator DodgeRoutine()
+    {
+        animator.SetBool("Dodge", true);
+        if (spellCaster)
+        {
+
+        }
+        else
+        {
+
+        }
+        yield return null;
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

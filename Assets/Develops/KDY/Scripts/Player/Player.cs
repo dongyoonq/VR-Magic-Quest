@@ -20,8 +20,10 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
     public List<Gesture> trainingSet = new List<Gesture>();
 
     [SerializeField] Image hitScreen;
+
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
+    
     public int currHp;
     public int currMp;
 

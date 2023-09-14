@@ -9,6 +9,9 @@ public class MonsterController : MonoBehaviour
     private MonsterData monsterData;
     [SerializeField]
     private int spawnMonsterNumber;
+    [SerializeField]
+    private GimmickTrigger gimmickTrigger;
+    public GimmickTrigger GimmickTrigger { get { return gimmickTrigger; } set { gimmickTrigger = value; } }
     private MonsterPerception monsterPerception;
     public UnityEvent passiveEvent = new UnityEvent();
     public UnityEvent activeEvent = new UnityEvent();

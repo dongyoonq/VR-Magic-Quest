@@ -21,6 +21,7 @@ public class MonsterPerception : MonoBehaviour
     private AdvancedState currentAdvancedState;
     public AdvancedState CurrentAdvancedState { get { return currentAdvancedState; } set { currentAdvancedState = value; } }
     private IEnumerator advancedAI;
+    public GimmickTrigger GimmickTrigger { get { return controller.GimmickTrigger; } }
     [HideInInspector]
     public float alertMoveSpeed;
     [HideInInspector]
@@ -128,6 +129,7 @@ public class MonsterPerception : MonoBehaviour
     {
         StopCoroutine(controller.monsterBehaviourRoutine);
         StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
+        GameManager.Quest.KillMonster(monsterInfo.monsterName);
         animator.SetBool("Collapse", true);
         animator.SetTrigger("GetHit");
         // 죽는 애니메이션

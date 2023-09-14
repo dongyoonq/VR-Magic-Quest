@@ -106,6 +106,15 @@ public class MonsterData : ScriptableObject
             {
                 monsterPerception.AdjustRecoverTime(0.25f);
             }
+            else if (tag == MonsterTag.Gimmick)
+            {
+                GimmickTrigger gimmickTrigger = monsterPerception.GimmickTrigger;
+                if (gimmickTrigger == null)
+                {
+                    Debug.LogError("기믹 몬스터 컨트롤에 기믹 트리거가 존재하지 않습니다.");
+                }
+                gimmickTrigger.gameObject.SetActive(true);
+            }
             yield return null;
         }
         Vector3 guardPosition = monsterPerception.transform.position;
@@ -119,16 +128,12 @@ public class MonsterData : ScriptableObject
 
     private void MeleeTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // advancedState 피로함 같은 조건
-        //if(monsterPerception.CurrentState == BasicState.Alert || monsterPerception.CurrentState == BasicState.Chase)
-        //{
-        //    monsterPerception.Combat.MeleeAttack();
-        //}
+        // 일반공격 대신 강공격 실행
     }
 
     private void LongRangeTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // 원거리 공격
     }
 
     private void GuardTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -138,7 +143,7 @@ public class MonsterData : ScriptableObject
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // 적을 향해 돌진 elite면 적앞에서 정지
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -153,7 +158,7 @@ public class MonsterData : ScriptableObject
 
     private void CautiousTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // 가끔씩 뒤를 돌아봄
     }
 
     private void SpellCasterTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -175,12 +180,12 @@ public class MonsterData : ScriptableObject
 
     private void GimmickTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        // 기믹 트리거가 활성화 되면 몬스터 사망
     }
 
     private void EliteTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-
+        //정면에 ray를 쏴서 player가 아닌게 있으면 돌아가기
     }
 
     private void LastBossTypeMonsterBehaviour(MonsterPerception monsterPerception)

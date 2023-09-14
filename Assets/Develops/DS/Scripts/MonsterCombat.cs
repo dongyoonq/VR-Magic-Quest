@@ -18,6 +18,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private Coroutine attackRoutine;
     private bool getHit;
     private float attackDelayTime;
+    private bool meleeType;
+    public bool MeleeType { get { return meleeType; } set {  meleeType = value; } }
     [SerializeField]
     private HitTag[] basicAttackType;
     [SerializeField]
@@ -35,12 +37,30 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         getHit = false;
     }
 
+    private void OnEnable()
+    {
+        meleeType = false;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    // advanced state에 따라 다른 공격
     public void Combat()
     {
         if (Mathf.Abs(attackDelayTime- 0f) < 0.01f)
         {
-            attackRoutine = StartCoroutine(BasicAttackRoutine());
-            attackDelayTime = -1f;
+            if (perception.CurrentCondition <= Condition.Good)
+            {
+                attackRoutine = StartCoroutine(BasicAttackRoutine());
+                attackDelayTime = -1f;
+            }
+            else if (perception.CurrentCondition > Condition.Good)
+            {
+                attackRoutine = StartCoroutine(MeleeAttackRoutine());
+            }
         }
         if (attackDelayTime < 0.01f)
         {
@@ -49,7 +69,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         attackDelayTime -= Time.deltaTime * stat.attackSpeed;
         // 몬스터가 추격할때 attackDelayTime을 가속하는 코드
-        if (perception.CurrentState != BasicState.Combat)
+        if (perception.CurrentState != State.Combat)
         {
             attackDelayTime -= Time.deltaTime * stat.attackSpeed;
             attackDelayTime -= Time.deltaTime * stat.attackSpeed;
@@ -59,6 +79,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private void Attack(int damage, HitTag[] attackType)
     {
         Collider[] hitObjects = Physics.OverlapSphere(Camera.main.transform.position, 1f, hitTargetLayerMask);
+        if (perception.CurrentCondition == Condition.TopForm)
+        {
+            damage += damage / 2;
+        }
         foreach (Collider hitObject in hitObjects)
         {
             hitObject.GetComponent<IHittable>()?.TakeDamaged(damage);
@@ -149,7 +173,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
         yield return waitRecoverTime;
         getHit = false;
-        if (perception.CurrentState == BasicState.Idle)
+        if (perception.CurrentState == State.Idle)
         {
             perception.SendCommand(AlertRoutine());
         }
@@ -175,7 +199,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
         getHit = false;
-        if (perception.CurrentState == BasicState.Idle)
+        if (perception.CurrentState == State.Idle)
         {
             perception.SendCommand(AlertRoutine());
         }
@@ -203,10 +227,14 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     public void TakeDamaged(int damage)
     {
         // TODO: 강한 피해를 받으면 혹은 데미지 정도에 따라 밀려나는 거리를 다르게 하고 싶으면 perception.SendCommand(perception.Locomotion.ShovedRoutine(10));
+        if (perception.CurrentCondition == Condition.Weak)
+        {
+            damage += damage / 2;
+        }
         stat.healthPoint += -damage;
         if (stat.healthPoint <= 0)
         {
-            perception.CurrentState = BasicState.Collapse;
+            perception.CurrentState = State.Collapse;
         }
     }
 
@@ -220,7 +248,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         float time = 0f;
         while (time < 1.5f)
         {
-            if (perception.CurrentState != BasicState.Idle || getHit)
+            if (perception.CurrentState != State.Idle || getHit)
             {
                 yield break;
             }
@@ -232,7 +260,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 4.5f)
         {
-            if (perception.CurrentState != BasicState.Idle || getHit)
+            if (perception.CurrentState != State.Idle || getHit)
             {
                 yield break;
             }
@@ -244,7 +272,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 6f)
         {
-            if (perception.CurrentState != BasicState.Idle || getHit)
+            if (perception.CurrentState != State.Idle || getHit)
             {
                 yield break;
             }
@@ -256,7 +284,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 7.5f)
         {
-            if (perception.CurrentState != BasicState.Idle || getHit)
+            if (perception.CurrentState != State.Idle || getHit)
             {
                 yield break;
             }

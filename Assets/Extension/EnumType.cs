@@ -54,4 +54,19 @@ public class EnumType
         Energetic,
         TopForm
     }
+
+    public enum Aim
+    {
+        Self,
+        Front,
+        Target,
+        Other
+    }
+    public enum SpellType
+    {
+        Burst,
+        Area, 
+        Projectile,
+        Falling
+    }
 }

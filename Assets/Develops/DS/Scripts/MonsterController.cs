@@ -10,6 +10,8 @@ public class MonsterController : MonoBehaviour
     [SerializeField]
     private int spawnMonsterNumber;
     [SerializeField]
+    private Wall wall;
+    [SerializeField]
     private GimmickTrigger gimmickTrigger;
     public GimmickTrigger GimmickTrigger { get { return gimmickTrigger; } set { gimmickTrigger = value; } }
     private MonsterPerception monsterPerception;
@@ -72,7 +74,14 @@ public class MonsterController : MonoBehaviour
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());
     }
 
-    //TODO: 플레이어 레이어를 제외한 다른 콜리더들은 아예 무시하도록 projectsetting
+    public void UnlockNextArea()
+    {
+        if (wall != null)
+        {
+            wall.Unlock();
+        }  
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         SpawnMonster(spawnMonsterNumber, spawnPoint);

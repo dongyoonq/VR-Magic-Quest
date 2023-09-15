@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: bf82c6a00dd9f164292b560b6daabe21, type: 2}
   spawnMonsterNumber: 0
+  gimmickTrigger: {fileID: 0}
   passiveEvent:
     m_PersistentCalls:
       m_Calls: []

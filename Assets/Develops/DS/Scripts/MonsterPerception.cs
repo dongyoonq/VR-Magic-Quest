@@ -154,6 +154,7 @@ public class MonsterPerception : MonoBehaviour
     {
         StopCoroutine(controller.monsterBehaviourRoutine);
         StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
+        controller.UnlockNextArea();
         GameManager.Quest.KillMonster(monsterInfo.monsterName);
         animator.SetBool("Collapse", true);
         animator.SetTrigger("GetHit");

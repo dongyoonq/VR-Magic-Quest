@@ -26,6 +26,18 @@ MonoBehaviour:
     attackRange: 3
     attackSpeed: 0.5
     moveSpeed: 2
+  - monsterName: FireGolem
+    monsterPrefab: {fileID: 7662181597779404465, guid: c76783a8235a97341894f51015d92fa0,
+      type: 3}
+    monsterTag: 0000000007000000
+    dropItems:
+    - {fileID: 0}
+    healthPoint: 5000
+    attackPoint: 600
+    detectRange: 30
+    attackRange: 3
+    attackSpeed: 0.5
+    moveSpeed: 2
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
       type: 3}

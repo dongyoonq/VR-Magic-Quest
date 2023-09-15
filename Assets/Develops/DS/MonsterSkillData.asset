@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b7bb714a196ce40aed9308143ac8c5, type: 3}
+  m_Name: MonsterSkillData
+  m_EditorClassIdentifier: 
+  skill:
+  - skillName: RockShower
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    skillForm: 0
+    additionalEffects: []
+  - skillName: Rage
+    hitType: 01000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 0
+    skillForm: 0
+    additionalEffects: []
+  - skillName: RootBind
+    hitType: 03000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    skillForm: 0
+    additionalEffects: []
+  - skillName: IceShield
+    hitType: 0100000003000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 0
+    skillForm: 0
+    additionalEffects:
+    - skillName: IceField
+      hitType: 02000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 0
+      skillForm: 1
+      additionalEffects: []
+  - skillName: Earthquake
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 1
+    skillForm: 0
+    additionalEffects: []
+  - skillName: MagicCannon
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 1
+    skillForm: 2
+    additionalEffects:
+    - skillName: FireWall
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 1
+      additionalEffects: []
+  - skillName: FireShower
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    skillForm: 3
+    additionalEffects:
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []
+    - skillName: FireShower
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      skillForm: 3
+      additionalEffects: []

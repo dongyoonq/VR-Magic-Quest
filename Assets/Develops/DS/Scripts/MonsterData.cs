@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using static EnumType;
 
-[CreateAssetMenu(fileName = "MonsterData", menuName = "Data/Tag")]
+[CreateAssetMenu(fileName = "MonsterData", menuName = "Data/MonsterData")]
 public class MonsterData : ScriptableObject
 {
     [SerializeField]

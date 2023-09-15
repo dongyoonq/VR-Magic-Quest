@@ -16,4 +16,4 @@ MonoBehaviour:
   ingredientRune1: {fileID: 11400000, guid: bea514166b4028940a281b8c2470d789, type: 2}
   ingredientRune2: {fileID: 11400000, guid: bdb167eddedf01c4194acf69590561e5, type: 2}
   ingredientRune3: {fileID: 11400000, guid: 321ef95ad1bb884459f9e4228b7988d0, type: 2}
-  madePortion: {fileID: 11400000, guid: 04eef8332317ca946adaf6a2a23b00ca, type: 2}
+  madePortion: {fileID: 11400000, guid: 8cfc673ebee7a0a4d877c7959c8124ca, type: 2}

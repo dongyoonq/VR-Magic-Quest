@@ -82,23 +82,30 @@ public class QuestBookList : MonoBehaviour
        
     }
 
-    public void UpDateQuest()
+    public void UpDateQuest(QuestData quest)
     {
-        //  List<QuestData> list = GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().questList;
+     
         List<QuestData> list = GameManager.Quest.questList;
-        foreach (QuestData data in list)
+        if (curQuestData == null)
+            return;
+        else
         {
-            if (data.isclear)
+            foreach (QuestData data in list)
             {
-                QuestData quest = data;
-                clearbutton.gameObject.SetActive(true);
-                clearbutton.onClick.AddListener(() => Clear(quest));
-            }
-            else
-            {
-                clearbutton.gameObject.SetActive(false);
+
+                if (data.isclear)
+                {
+                    quest = data;
+                    clearbutton.gameObject.SetActive(true);
+                    clearbutton.onClick.AddListener(() => Clear(quest));
+                }
+                else
+                {
+                    clearbutton.gameObject.SetActive(false);
+                }
             }
         }
+
     }
 
     public void RemoveQuest(QuestData quest)

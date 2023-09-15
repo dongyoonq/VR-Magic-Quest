@@ -15,12 +15,14 @@ public class ShopItem : MonoBehaviour
     [SerializeField] public ItemData itemData;
     public Player player;
     [SerializeField] public ShopUI shuopui;
-
+   // [SerializeField] public RuneItem runetiem;
     public void PopUI()
     {
 
-      shuopui= Instantiate(intateUI, Camera.main.transform.position+Camera.main.transform.forward.normalized*0.5f, Quaternion.identity);
+      shuopui= Instantiate(intateUI, Camera.main.transform.position+Camera.main.transform.forward.normalized, Quaternion.identity);
         shuopui.shopItem = this;
+
+
         Debug.Log("¥Í¿Ω");
     
     }

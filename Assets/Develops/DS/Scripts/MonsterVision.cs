@@ -25,6 +25,7 @@ public class MonsterVision : MonoBehaviour
     private Vector3 targetDirection;
     private LayerMask detectLayerMask;
     private (Transform targetTransform, float targetSqrDistance) target;
+    private Transform targetTransform;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class MonsterVision : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+        perception.LoseSightOfTarget();
     }
 
     public IEnumerator VisionRoutine()
@@ -62,8 +64,6 @@ public class MonsterVision : MonoBehaviour
             }
             if (target.targetSqrDistance < detectRange * detectRange)
             {
-                Debug.Log(target.targetSqrDistance);
-                Debug.Log(detectRange * detectRange);
                 targetDirection = (target.targetTransform.position - eyeTransform.position).normalized;
                 if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
                 {
@@ -72,7 +72,11 @@ public class MonsterVision : MonoBehaviour
                     {
                         if (hitInfo.collider.gameObject.layer == 7)
                         {
-                            perception.SendCommand(perception.SpotEnemyRoutine(target.targetTransform.parent.parent));
+                            if (targetTransform != target.targetTransform)
+                            {
+                                targetTransform = target.targetTransform;
+                                perception.SendCommand(perception.SpotEnemyRoutine(targetTransform.parent.parent));                             
+                            }                 
                         }
                     }
                 }

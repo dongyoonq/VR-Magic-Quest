@@ -13,7 +13,7 @@ public class QuestManager : MonoBehaviour
     public UnityAction<QuestData> OnQuestRemoved;
     public UnityAction<QuestData> OnQuestCleared;
 
-    public UnityAction OnQuestUpdated;
+    public UnityAction<QuestData> OnQuestUpdated;
 
     public void Awake()
     {
@@ -42,10 +42,10 @@ public class QuestManager : MonoBehaviour
         // 보상
     }
 
-    public void UpdateQuest()
+    public void UpdateQuest(QuestData quest)
     {
         Debug.Log("퀘스트 업데이트");
-        OnQuestUpdated?.Invoke();
+        OnQuestUpdated?.Invoke(quest);
     }
 
 
@@ -65,7 +65,7 @@ public class QuestManager : MonoBehaviour
                 questData.value++;
                 questData.CheckClear();
                 Debug.Log("올림");
-                UpdateQuest();
+                UpdateQuest(questData);
                 break;
             }
                
@@ -88,7 +88,7 @@ public class QuestManager : MonoBehaviour
                 ++questData.value;
                 questData.CheckClear();
                 Debug.Log("올림");
-                UpdateQuest();
+                UpdateQuest(questData);
                 return;
             }
 

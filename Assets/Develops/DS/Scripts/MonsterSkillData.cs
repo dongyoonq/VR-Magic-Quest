@@ -21,6 +21,8 @@ public class MonsterSkillData : ScriptableObject
         public int damage;
         public float castingTime;
         public float delayTime;
+        public float spellDuration;
+        public float hitRange;
         public Aim aim;
         public SpellType spellType;
         public SkillInfo[] additionalEffects;

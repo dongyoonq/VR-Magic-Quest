@@ -5,11 +5,11 @@ using UnityEngine;
 public class testtesttest : MonoBehaviour
 {
     public void Update()
-    {
+    {   
         if (Input.GetKey(KeyCode.M))
         {
-            GameManager.Quest.KillMonster(gameObject.name);
-            Debug.Log(gameObject.name);
+            GameManager.Quest.KillMonster(transform.gameObject.name);
+            Debug.Log(transform.name);
             Destroy(gameObject);
             
         }

@@ -31,10 +31,7 @@ public class Questpaper : MonoBehaviour
         quest.monster = questdata.monster;
         quest.item = questdata.item;
         quest.clearValue = questdata.clearValue;
-        quest.Object = questdata.Object;
-
-        // TODO : QuestManager 싱글톤으로 만들어서 Find 쓰지 않기
-        //  GameObject.Find("QuestManager").gameObject.GetComponent<QuestManager>().AddQuest(quest);
+        quest.clearitem = questdata.clearitem;
         GameManager.Quest.AddQuest(quest);
         Destroy(gameObject);
     }

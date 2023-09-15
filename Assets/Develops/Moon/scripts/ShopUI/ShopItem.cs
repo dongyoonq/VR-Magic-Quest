@@ -15,7 +15,12 @@ public class ShopItem : MonoBehaviour
     [SerializeField] public ItemData itemData;
     public Player player;
     [SerializeField] public ShopUI shuopui;
-   // [SerializeField] public RuneItem runetiem;
+    // [SerializeField] public RuneItem runetiem;
+
+    public void Awake()
+    {
+        player = GameObject.FindObjectOfType<Player>();
+    }
     public void PopUI()
     {
 

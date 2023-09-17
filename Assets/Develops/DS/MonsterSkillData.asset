@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b7bb714a196ce40aed9308143ac8c5, type: 3}
+  m_Name: MonsterSkillData
+  m_EditorClassIdentifier: 
+  skill:
+  - skillName: RockShower
+    skillPrefab: {fileID: 0}
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    spellType: 0
+    additionalEffects: []
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: Rage
+    skillPrefab: {fileID: 0}
+    hitType: 01000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 0
+    spellType: 0
+    additionalEffects: []
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: RootBind
+    skillPrefab: {fileID: 0}
+    hitType: 03000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    spellType: 0
+    additionalEffects: []
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: IceShield
+    skillPrefab: {fileID: 0}
+    hitType: 0100000003000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 0
+    spellType: 0
+    additionalEffects:
+    - skillName: IceField
+      skillPrefab: {fileID: 0}
+      hitType: 02000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 0
+      spellType: 0
+      additionalEffects: []
+      otherPosition: {x: 0, y: 0, z: 0}
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: Earthquake
+    skillPrefab: {fileID: 0}
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 1
+    spellType: 0
+    additionalEffects: []
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: MagicCannon
+    skillPrefab: {fileID: 0}
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 1
+    spellType: 0
+    additionalEffects:
+    - skillName: FireWall
+      skillPrefab: {fileID: 0}
+      hitType: 00000000
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 2
+      spellType: 0
+      additionalEffects: []
+      otherPosition: {x: 0, y: 0, z: 0}
+    otherPosition: {x: 0, y: 0, z: 0}
+  - skillName: FireRain
+    skillPrefab: {fileID: 0}
+    hitType: 00000000
+    damage: 0
+    castingTime: 0
+    delayTime: 0
+    aim: 2
+    spellType: 0
+    additionalEffects:
+    - skillName: FireRain
+      skillPrefab: {fileID: 0}
+      hitType: 
+      damage: 0
+      castingTime: 0
+      delayTime: 0
+      aim: 0
+      spellType: 0
+      additionalEffects: []
+      otherPosition: {x: 0, y: 0, z: 0}
+    otherPosition: {x: 0, y: 0, z: 0}

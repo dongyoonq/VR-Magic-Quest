@@ -19,7 +19,7 @@ public class BookCanvasUI : MonoBehaviour
     [SerializeField] RectTransform skillInfoCanvas;
     [SerializeField] RectTransform recipeInfoCanvas;
     [SerializeField] RectTransform settingInfoCanvas;
-    // [SerializeField] RectTransform questInfoCanvas;
+    [SerializeField] RectTransform questInfoCanvas;
 
     [SerializeField] Button inventorySwitchButton;
     [SerializeField] Button skillSwitchButton;
@@ -148,9 +148,10 @@ public class BookCanvasUI : MonoBehaviour
             recipeInfoCanvas.gameObject.SetActive(canvas == Canvas.Recipe);
         }
 
-        if (questCanvas != null)
+        if (questCanvas != null && questInfoCanvas != null)
         {
             questCanvas.SetActive(canvas == Canvas.Quest);
+            questInfoCanvas.gameObject.SetActive(canvas == Canvas.Quest);
         }
 
         if (settingCanvas != null && settingInfoCanvas != null)

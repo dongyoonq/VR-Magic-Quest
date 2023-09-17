@@ -26,6 +26,7 @@ public class MonsterVision : MonoBehaviour
     private LayerMask detectLayerMask;
     private (Transform targetTransform, float targetSqrDistance) target;
     private Transform targetTransform;
+    public Transform TargetTransform { get { return targetTransform; } }
 
     private void Awake()
     {

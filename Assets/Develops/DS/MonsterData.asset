@@ -13,26 +13,25 @@ MonoBehaviour:
   m_Name: MonsterData
   m_EditorClassIdentifier: 
   monsterType:
-  - monsterName: Golem
-    monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
+  - monsterName: Lich
+    monsterPrefab: {fileID: 8933015472649207977, guid: cde594b068a45134caff008ae5aab594,
       type: 3}
-    monsterTag: 000000000300000001000000
+    monsterTag: 0100000008000000070000000a0000000b000000
     dropItems:
     - {fileID: 0}
-    - {fileID: 0}
     healthPoint: 5000
-    attackPoint: 600
-    detectRange: 30
-    attackRange: 3
-    attackSpeed: 0.5
-    moveSpeed: 2
+    attackPoint: 100
+    detectRange: 60
+    attackRange: 7
+    attackSpeed: 0
+    moveSpeed: 3
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
       type: 3}
     monsterTag: 0a0000000000000005000000
     dropItems: []
-    healthPoint: 500
-    attackPoint: 300
+    healthPoint: 700
+    attackPoint: 100
     detectRange: 30
     attackRange: 3
     attackSpeed: 2
@@ -48,15 +47,39 @@ MonoBehaviour:
     attackRange: 4
     attackSpeed: 2
     moveSpeed: 30
-  - monsterName: Lich
-    monsterPrefab: {fileID: 8933015472649207977, guid: cde594b068a45134caff008ae5aab594,
+  - monsterName: Golem
+    monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
       type: 3}
-    monsterTag: 0100000008000000070000000a0000000b000000
+    monsterTag: 000000000300000001000000
     dropItems:
     - {fileID: 0}
-    healthPoint: 10000
-    attackPoint: 450
-    detectRange: 60
-    attackRange: 7
-    attackSpeed: 0
-    moveSpeed: 3
+    - {fileID: 0}
+    healthPoint: 7500
+    attackPoint: 300
+    detectRange: 30
+    attackRange: 3
+    attackSpeed: 0.5
+    moveSpeed: 2
+  - monsterName: FireGolem
+    monsterPrefab: {fileID: 7662181597779404465, guid: c76783a8235a97341894f51015d92fa0,
+      type: 3}
+    monsterTag: 0000000007000000
+    dropItems:
+    - {fileID: 0}
+    healthPoint: 5000
+    attackPoint: 600
+    detectRange: 30
+    attackRange: 3
+    attackSpeed: 0.5
+    moveSpeed: 2
+  - monsterName: Zombie
+    monsterPrefab: {fileID: 0}
+    monsterTag: 040000000500000003000000
+    dropItems:
+    - {fileID: 0}
+    healthPoint: 100
+    attackPoint: 50
+    detectRange: 30
+    attackRange: 2
+    attackSpeed: 1.5
+    moveSpeed: 4

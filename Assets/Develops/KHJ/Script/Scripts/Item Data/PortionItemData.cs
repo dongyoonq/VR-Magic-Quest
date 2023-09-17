@@ -7,10 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item_Portion_", menuName = "Inventory System/Item Data/Portion", order = 5)]
 public class PortionItemData : CountableItemData
 {
-    /// <summary> 효과량(회복량 등) </summary>
-    public float Value => value;
-    [SerializeField] private float value;
-
     public override bool UseItem()
     {
         Vector3 createVector = Camera.main.transform.position;

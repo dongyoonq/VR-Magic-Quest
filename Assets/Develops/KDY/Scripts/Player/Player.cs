@@ -44,12 +44,8 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.K))
-        {
-            TakeDamaged(5);
-        }
-    }
 
+    }
 
     // 인벤토리 추가 메서드
     public void AddItemToInventory(ItemData item)
@@ -80,6 +76,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
             }
 
             OnAddItemInventory?.Invoke(item, index, 1);
+            GameManager.Quest.GatherItem(item);
             return;
         }
 
@@ -95,6 +92,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         }
 
         OnAddItemInventory?.Invoke(item, index, 1);
+        GameManager.Quest.GatherItem(item);
     }
 
     public void AddItemToInventory(ItemData item, int index = 0)

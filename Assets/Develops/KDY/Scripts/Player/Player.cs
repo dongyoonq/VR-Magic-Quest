@@ -76,7 +76,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
             }
 
             OnAddItemInventory?.Invoke(item, index, 1);
-            // GameManager.Quest.GatherItem();
+            GameManager.Quest.GatherItem(item);
             return;
         }
 
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         }
 
         OnAddItemInventory?.Invoke(item, index, 1);
-        // GameManager.Quest.GatherItem();
+        GameManager.Quest.GatherItem(item);
     }
 
     public void AddItemToInventory(ItemData item, int index = 0)

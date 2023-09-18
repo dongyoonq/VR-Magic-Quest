@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4082758504687966}
   - component: {fileID: 114170158363688364}
   - component: {fileID: 926298060358444060}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VenomBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 198308988578382596}
   - component: {fileID: 199438260136279714}
   - component: {fileID: 114301068929918220}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotTrail2_Distance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4991,7 +4991,7 @@ GameObject:
   - component: {fileID: 4747625284077572}
   - component: {fileID: 198268441287635912}
   - component: {fileID: 199558637134927392}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9873,7 +9873,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4300492770431938}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9907,7 +9907,7 @@ GameObject:
   - component: {fileID: 4765427932705320}
   - component: {fileID: 198530308897328476}
   - component: {fileID: 199070548085006358}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SubEmitter0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14732,7 +14732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4409599020157600}
   - component: {fileID: 82284327740952984}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14860,7 +14860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4712185182151632}
   - component: {fileID: 108972221831181340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14957,7 +14957,7 @@ GameObject:
   - component: {fileID: 199436048763040854}
   - component: {fileID: 114428758356718022}
   - component: {fileID: 114677398662560208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotTrail_Distance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19877,7 +19877,7 @@ GameObject:
   - component: {fileID: 4564943759346512}
   - component: {fileID: 114865770840058642}
   - component: {fileID: 1372696109454879073}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

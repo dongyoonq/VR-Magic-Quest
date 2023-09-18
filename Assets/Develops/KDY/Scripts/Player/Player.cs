@@ -6,6 +6,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using static EnumType;
 
 public class Player : MonoBehaviour, IHittable, IHitReactor
 {
@@ -23,15 +26,19 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
+    [SerializeField] public ActionBasedControllerManager controllerManager;
     
     public int currHp;
     public int currMp;
+
+    private LocomotionSystem playerLocomotion;
 
     [NonSerialized] public bool isSkillUsed;
 
     private void Awake()
     {
         inventory = GetComponent<Inventory>();
+        playerLocomotion = GetComponentInChildren<LocomotionSystem>();
     }
 
     private void Start()
@@ -40,7 +47,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         currMp = maxMp;
 
         trainingSet = GameManager.Load.LoadGestures();
-    }
+    }   
 
     private void Update()
     {
@@ -140,9 +147,23 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
             unlockRecipeList.Remove(data);
     }
 
-    public void HitReact(EnumType.HitTag[] hitType, float duration)
+    public void HitReact(HitTag[] hitType, float duration)
     {
-        //
+        foreach (HitTag hitTag in hitType)
+        {
+            switch (hitTag)
+            {
+                case HitTag.Impact:
+                    break;
+                case HitTag.Debuff:
+                    break;
+                case HitTag.Buff:
+                    break;
+                case HitTag.Mez:
+                    StartCoroutine(MezRoutine(duration));
+                    break;
+            }
+        }
     }
 
     public void TakeDamaged(int damage)
@@ -181,5 +202,16 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
             yield return null;
         }
+    }
+
+    IEnumerator MezRoutine(float duration)
+    {
+        isSkillUsed = true;
+        playerLocomotion.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(duration);
+
+        isSkillUsed = false;
+        playerLocomotion.gameObject.SetActive(true);
     }
 }

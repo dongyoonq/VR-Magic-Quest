@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4762703236498184}
   - component: {fileID: 96472324623766648}
   - component: {fileID: 114223074471350172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 198269203881156918}
   - component: {fileID: 199204553345480490}
   - component: {fileID: 114243571948553416}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Distortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4894,7 +4894,7 @@ GameObject:
   - component: {fileID: 4616722652517666}
   - component: {fileID: 114303165723437324}
   - component: {fileID: 6476164389529777555}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4965,7 +4965,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSource: {fileID: 0}
   source: {fileID: 0}
-  isDistored: 0
 --- !u!1 &1793853348663404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4977,7 +4976,7 @@ GameObject:
   - component: {fileID: 4643683999604400}
   - component: {fileID: 114819656883356600}
   - component: {fileID: -6496801112108266203}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GravityDistortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5050,7 +5049,7 @@ GameObject:
   - component: {fileID: 4774298054661838}
   - component: {fileID: 198913079298661406}
   - component: {fileID: 199567839730523744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9741,7 +9740,7 @@ GameObject:
   - component: {fileID: 96203827618762556}
   - component: {fileID: 114339448426848964}
   - component: {fileID: 114723102042466546}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailDistortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

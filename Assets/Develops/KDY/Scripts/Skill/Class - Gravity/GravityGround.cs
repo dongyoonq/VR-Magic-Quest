@@ -24,16 +24,26 @@ public class GravityGround : Skill
 
         float time = 0f;
 
-        while (time < 5f)
+        Vector3 ceneter = skill.transform.position;
+        Vector3 boxSzie = new Vector3(5f, 1f, 5f);
+        Collider[] colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
+
+        foreach (Collider collider in colliders)
+        {
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+
+            if (hitReactor != null)
+                hitReactor.HitReact(skillData.hitTags, 2.4f);
+        }
+
+        while (time < 2.4f)
         {
             time += Time.deltaTime;
-            Collider[] colliders = Physics.OverlapBox(skill.transform.position, new Vector3(5f, 1f, 5f) / 2, Quaternion.identity, LayerMask.GetMask("Monster"));
-            
+            colliders = Physics.OverlapBox(ceneter, boxSzie / 2f, Quaternion.identity, LayerMask.GetMask("Monster"));
+
             foreach (Collider collider in colliders)
             {
                 IHittable hitMonster = collider.GetComponent<IHittable>();
-
-                // Binding
 
                 // Damage
                 if (!isDamaged)
@@ -55,7 +65,7 @@ public class GravityGround : Skill
 
     IEnumerator ActiveDamageTimer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         isDamaged = false;
     }
 

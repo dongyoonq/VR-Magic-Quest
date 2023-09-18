@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4657887188938654}
   - component: {fileID: 82805526883121064}
   - component: {fileID: 114997395610594520}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 198847234063003444}
   - component: {fileID: 199622372984531640}
   - component: {fileID: 114005299458862496}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ExplosionFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4793,7 +4793,7 @@ GameObject:
   - component: {fileID: 4113967829293540}
   - component: {fileID: 114026583668987328}
   - component: {fileID: 8492550190229578408}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4867,7 +4867,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSource: {fileID: 0}
   source: {fileID: 0}
-  isDrained: 0
 --- !u!1 &1402044057928834
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,7 +4879,7 @@ GameObject:
   - component: {fileID: 198479740939644910}
   - component: {fileID: 199761775268220094}
   - component: {fileID: 114557493871775732}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9522,7 +9521,7 @@ GameObject:
   - component: {fileID: 198392719040569396}
   - component: {fileID: 199913117397313684}
   - component: {fileID: 114098470348852970}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Distortions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14145,7 +14144,7 @@ GameObject:
   - component: {fileID: 4884733473879942}
   - component: {fileID: 114992862451545696}
   - component: {fileID: 1070988710477299041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GravityDrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14219,7 +14218,7 @@ GameObject:
   - component: {fileID: 198873976586704808}
   - component: {fileID: 199533447118961748}
   - component: {fileID: 114222177306125882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18906,7 +18905,7 @@ GameObject:
   - component: {fileID: 108445474429937724}
   - component: {fileID: 114481479776608406}
   - component: {fileID: 5173897134802804251}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

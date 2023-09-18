@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4451061288613816}
   - component: {fileID: 198348716532853290}
   - component: {fileID: 199521194329449072}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4603,7 +4603,7 @@ GameObject:
   - component: {fileID: 199371140267963710}
   - component: {fileID: 114984542110781914}
   - component: {fileID: 114924677729880710}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailCore2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9546,7 +9546,7 @@ GameObject:
   - component: {fileID: 4563857548813984}
   - component: {fileID: 114527389955286708}
   - component: {fileID: 4478250263827109047}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VenomSummon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9609,6 +9609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: a5cbcf279c51a6d4899f4cb60ee6607e, type: 2}
+  isCollision: 0
 --- !u!1 &1319843737891330
 GameObject:
   m_ObjectHideFlags: 0
@@ -9623,7 +9624,7 @@ GameObject:
   - component: {fileID: 114542769961251536}
   - component: {fileID: 114265488474951926}
   - component: {fileID: 114304751325925582}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailCore2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14581,7 +14582,7 @@ GameObject:
   - component: {fileID: 4994516231168360}
   - component: {fileID: 198009265284386566}
   - component: {fileID: 199040400011715540}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SubEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19286,7 +19287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4258048732447362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19321,7 +19322,7 @@ GameObject:
   - component: {fileID: 4034017046639350}
   - component: {fileID: 108242255660346832}
   - component: {fileID: 4940188643222003553}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19435,7 +19436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4686322196224622}
   - component: {fileID: 114118770813630052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19482,7 +19483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4774641885294600}
   - component: {fileID: 82777282891288294}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FadeIn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19611,7 +19612,7 @@ GameObject:
   - component: {fileID: 4423187167285770}
   - component: {fileID: 198286459000681016}
   - component: {fileID: 199978614863872066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SubEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24319,7 +24320,7 @@ GameObject:
   - component: {fileID: 198872868716899150}
   - component: {fileID: 199020999716238538}
   - component: {fileID: 114640094021213086}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

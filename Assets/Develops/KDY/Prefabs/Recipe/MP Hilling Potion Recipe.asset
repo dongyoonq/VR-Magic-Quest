@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
-  m_Name: Fire Beam Skill Recipe
+  m_Name: MP Hilling Potion Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 06ee6b12ec24ff544a3a70e53e919bb2, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 32dc009de818b4e4db96e1a1a60f12ec, type: 3}
   ingredientRune1: {fileID: 11400000, guid: bea514166b4028940a281b8c2470d789, type: 2}
-  ingredientRune2: {fileID: 11400000, guid: 5fa4cd47b29379e4cb4e633a6b257ecb, type: 2}
-  ingredientRune3: {fileID: 11400000, guid: 24a070397ad28a848bd7181b411d0670, type: 2}
-  madePortion: {fileID: 11400000, guid: 39af651b0f38ada4aaa505407c9601a9, type: 2}
+  ingredientRune2: {fileID: 11400000, guid: bdb167eddedf01c4194acf69590561e5, type: 2}
+  ingredientRune3: {fileID: 11400000, guid: 9f26eab824114d245becf51698f54688, type: 2}
+  madePortion: {fileID: 11400000, guid: 026803c5a56c9564c9c711b823fcaa8e, type: 2}

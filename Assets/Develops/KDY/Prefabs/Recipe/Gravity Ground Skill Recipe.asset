@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Gravity Ground Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 6bab87cdc4afd9441a7de1d01ce0b28d, type: 3}
   ingredientRune1: {fileID: 11400000, guid: 321ef95ad1bb884459f9e4228b7988d0, type: 2}
   ingredientRune2: {fileID: 11400000, guid: e5fdc3ada4533714fa934bd091483260, type: 2}
   ingredientRune3: {fileID: 11400000, guid: 24a070397ad28a848bd7181b411d0670, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Venom Rage Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 6549db40c2a4f2b419a47cd9c2bbc0d1, type: 3}
   ingredientRune1: {fileID: 11400000, guid: bdd02bcb2f9d63b4f8447dc17c20dd38, type: 2}
   ingredientRune2: {fileID: 11400000, guid: 1159b3ff37b1e864d97eef222bdf37c5, type: 2}
   ingredientRune3: {fileID: 11400000, guid: 24a070397ad28a848bd7181b411d0670, type: 2}

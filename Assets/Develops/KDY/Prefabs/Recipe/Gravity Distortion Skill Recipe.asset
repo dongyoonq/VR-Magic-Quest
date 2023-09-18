@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Gravity Distortion Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: b5a40f457850da84f8b82871ef74e8d6, type: 3}
   ingredientRune1: {fileID: 11400000, guid: 321ef95ad1bb884459f9e4228b7988d0, type: 2}
   ingredientRune2: {fileID: 11400000, guid: 9f26eab824114d245becf51698f54688, type: 2}
   ingredientRune3: {fileID: 11400000, guid: 4ac26ec07309395419b2ceb7865265e9, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Lightning Bolt Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 35317befb39e4fc4481318346644df81, type: 3}
   ingredientRune1: {fileID: 11400000, guid: be000e19ad9b36249a52f7fc61e6161f, type: 2}
   ingredientRune2: {fileID: 11400000, guid: 1ed1544bae992b34fadbadb406a671fd, type: 2}
   ingredientRune3: {fileID: 11400000, guid: c1517c4dbb619ab44912a41f50735672, type: 2}

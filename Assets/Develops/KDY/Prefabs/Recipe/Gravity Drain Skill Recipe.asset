@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Gravity Drain Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 5f1ec5b63c457d9429fe558222b1bfd2, type: 3}
   ingredientRune1: {fileID: 11400000, guid: 321ef95ad1bb884459f9e4228b7988d0, type: 2}
   ingredientRune2: {fileID: 11400000, guid: 71aca503af92254408dbeb84f2897592, type: 2}
   ingredientRune3: {fileID: 11400000, guid: bdd02bcb2f9d63b4f8447dc17c20dd38, type: 2}

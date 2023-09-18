@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
   m_Name: Fire Circle Skill Recipe
   m_EditorClassIdentifier: 
-  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  RecipeSprite: {fileID: 21300000, guid: 48abf64cc8761e141afd5e3ad539af0e, type: 3}
   ingredientRune1: {fileID: 11400000, guid: bea514166b4028940a281b8c2470d789, type: 2}
   ingredientRune2: {fileID: 11400000, guid: ab9d9c9e55a3cfb4e85bd129500f0671, type: 2}
   ingredientRune3: {fileID: 11400000, guid: 26a512e0d0c9ff34d9cf3dacca534337, type: 2}

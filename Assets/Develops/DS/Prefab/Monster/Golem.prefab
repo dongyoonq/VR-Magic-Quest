@@ -961,10 +961,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rageMode: 0
+  skillData: {fileID: 11400000, guid: 227b4206c7a88d64ba01f147f8f275e5, type: 2}
+  concentrateObject: {fileID: 5735992949251914007, guid: 0c00f7d3705ac8e4d9dbaef6933da934,
+    type: 3}
+  heavyAttack:
+    skill: -1
+    energyCost: 1
+    limit: -1
+  harassmentSkills:
+  - skill: 2
+    energyCost: 2
+    limit: 30
+  aggressiveSkills: []
+  defensiveSkills: []
+  finisher: []
   basicAttackType: 
-  meleeAttackType: 
-  rangedAttackType: 
-  meleeAttackPoints: []
+  heavyAttackType: 
 --- !u!95 &3909709754832402095
 Animator:
   serializedVersion: 5

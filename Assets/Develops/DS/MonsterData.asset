@@ -16,14 +16,14 @@ MonoBehaviour:
   - monsterName: Lich
     monsterPrefab: {fileID: 8933015472649207977, guid: cde594b068a45134caff008ae5aab594,
       type: 3}
-    monsterTag: 0100000008000000070000000a0000000b000000
+    monsterTag: 0100000008000000050000000600000009000000
     dropItems:
     - {fileID: 0}
     healthPoint: 5000
     attackPoint: 100
     detectRange: 60
     attackRange: 7
-    attackSpeed: 0
+    attackSpeed: 0.7
     moveSpeed: 3
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,

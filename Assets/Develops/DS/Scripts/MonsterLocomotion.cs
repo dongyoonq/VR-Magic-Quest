@@ -10,10 +10,14 @@ public class MonsterLocomotion : MonoBehaviour
     public Transform targetTransform;
     private CharacterController characterController;
     private Animator animator;
+    private Vector3 guardPosition;
+    public Vector3 GuardPosition { get { return guardPosition; } set { guardPosition = value; } }
     private float ySpeed;
     private bool floating;
     private float floatingTime;
     private bool spellCaster;
+    private bool moving;
+    public bool Moving { get { return moving; } set { moving = value; } }
     public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
     private bool eliteMonster;
     public bool EliteMonster { get {  return eliteMonster; } set {  eliteMonster = value; } }
@@ -35,11 +39,24 @@ public class MonsterLocomotion : MonoBehaviour
     public void Approach(float moveSpeed)
     {
         animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
-        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);       
+    }
+
+    public void ComeRound(Vector3 position, bool left)
+    {
+        if (left)
+        {
+            characterController.transform.RotateAround(position, Vector3.up, Time.deltaTime * 20f);
+        }
+        else
+        {
+            characterController.transform.RotateAround(position, Vector3.down, Time.deltaTime * 20f);
+        }
     }
 
     public IEnumerator RushRoutine(float moveSpeed, float rushTime)
     {
+        moving = true;
         // 돌격 준비 애니메이션
         if (eliteMonster)
         {
@@ -63,6 +80,7 @@ public class MonsterLocomotion : MonoBehaviour
             yield return null;
         }
         animator.SetFloat("MoveSpeed", 0f);
+        moving = false;
     }
 
     public void SlowDown()
@@ -88,6 +106,11 @@ public class MonsterLocomotion : MonoBehaviour
             ySpeed = -1f;
         }
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
+    }
+
+    public void Dodge()
+    {
+
     }
 
     public IEnumerator DodgeRoutine()

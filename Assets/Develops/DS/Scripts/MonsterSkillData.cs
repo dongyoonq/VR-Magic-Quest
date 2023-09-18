@@ -11,6 +11,7 @@ public class MonsterSkillData : ScriptableObject
     [SerializeField]
     private SkillInfo[] skill;
     public SkillInfo[] Skill { get { return skill; } }
+    public GameObject defaultSkillPrefab;
 
     [Serializable]
     public class SkillInfo
@@ -20,76 +21,35 @@ public class MonsterSkillData : ScriptableObject
         public HitTag[] hitType;
         public int damage;
         public float castingTime;
+        public ActivateTiming activateTiming;
         public float delayTime;
         public float spellDuration;
         public float hitRange;
         public Aim aim;
         public SpellType spellType;
-        public SkillInfo[] additionalEffects;
-        public Vector3 otherPosition;
-
-        public void GetOtherPosition(Vector3 position)
-        {
-            otherPosition = position;
-        }
+        public SkillInfo[] additionalSkills;
     }
-
-    public void CastSpell(SkillInfo skillInfo, MonsterPerception caster)
+    
+    public SkillInfo GetSkillInfo(MonsterSkill skill)
     {
-        caster.StartCoroutine(CastSpellRoutine(skillInfo, caster));
-    }
-
-    private IEnumerator CastSpellRoutine(SkillInfo skillInfo, MonsterPerception caster)
-    {
-        Spell spell;
-        switch (skillInfo.aim)
+        switch (skill)
         {
-            case Aim.Self:
-                spell = GameManager.Resource.Instantiate
-                    (skillInfo.skillPrefab, caster.transform.position, Quaternion.identity, true).GetComponent<Spell>();
-                spell.SynchronizeSpell(skillInfo);
-                break;
-            case Aim.Front:
-                spell = GameManager.Resource.Instantiate
-                    (skillInfo.skillPrefab, caster.transform.position + caster.transform.forward, Quaternion.identity, true)
-                    .GetComponent<Spell>();
-                spell.SynchronizeSpell(skillInfo);
-                break;
-            case Aim.Target:
-                spell = GameManager.Resource.Instantiate
-                    (skillInfo.skillPrefab, caster.Vision.TargetTransform.position, Quaternion.identity, true)
-                    .GetComponent<Spell>();
-                spell.SynchronizeSpell(skillInfo);
-                break;
+            case MonsterSkill.RockShower:
+                return this.skill[0];
+            case MonsterSkill.Rage:
+                return this.skill[1];
+            case MonsterSkill.RootBind:
+                return this.skill[2];
+            case MonsterSkill.IceShield:
+                return this.skill[3];
+            case MonsterSkill.Earthquake:
+                return this.skill[4];
+            case MonsterSkill.ThunderDragonCannon:
+                return this.skill[5];
+            case MonsterSkill.FireRain:
+                return this.skill[6];
             default:
-                spell = GameManager.Resource.Instantiate
-                    (skillInfo.skillPrefab, skillInfo.otherPosition, Quaternion.identity, true).GetComponent<Spell>();
-                spell.SynchronizeSpell(skillInfo);
-                break;
+                return null;
         }
-        if (skillInfo.additionalEffects.Length > 0)
-        {
-            foreach (SkillInfo additionalSkill in skillInfo.additionalEffects)
-            {
-                yield return new WaitWhile(() => skillInfo.otherPosition == null);
-                CastSpell(additionalSkill, caster);
-            }
-        }
-        yield return null;
     }
-
-    // юс╫ц
-    //public enum Aim
-    //{
-    //    Self, // trannsform position
-    //    Front, // ray
-    //    Target // vision.target
-    //}
-    //public enum SkillType
-    //{
-    //    Burst, // overapsphere
-    //    Area, // instantiate, move, Trigger
-    //    Projectile, // instantiate, Trigger
-    //    Falling // random position around position position + Random.insideUnitCircle, move down
-    //}
 }

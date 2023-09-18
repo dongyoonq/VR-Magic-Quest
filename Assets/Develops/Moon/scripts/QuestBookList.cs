@@ -154,16 +154,12 @@ public class QuestBookList : MonoBehaviour
         if (questButton != null)
         {
             Destroy(questButton.gameObject);
-            player.AddItemToInventory(quest.clearitem);
+            player.UnlockRecipe(quest.clearRecipe);
             GameManager.Quest.ClearQuest(quest);
             curQuestData = null;
             clearbutton.gameObject.SetActive(false);
             questDetail.text = "";
         }
-      //  clearbutton.gameObject.SetActive(false);
-      //  questDetail.text = "";
-       
-        //GameManager.Quest.ClearQuest(curQuestData);
         curQuestData = null;
     }
 }

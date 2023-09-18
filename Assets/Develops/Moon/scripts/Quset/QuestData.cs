@@ -14,7 +14,7 @@ public class QuestData : ScriptableObject
     [SerializeField] public string item;
     [SerializeField] public int clearValue;
     // 보상 아이템
-    [SerializeField] public ItemData clearitem;
+    [SerializeField] public PortionRecipeData clearRecipe;
 
 
 

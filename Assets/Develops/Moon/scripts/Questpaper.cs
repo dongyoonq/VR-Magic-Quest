@@ -31,7 +31,7 @@ public class Questpaper : MonoBehaviour
         quest.monster = questdata.monster;
         quest.item = questdata.item;
         quest.clearValue = questdata.clearValue;
-        quest.clearitem = questdata.clearitem;
+        quest.clearRecipe = questdata.clearRecipe;
         GameManager.Quest.AddQuest(quest);
         Destroy(gameObject);
     }

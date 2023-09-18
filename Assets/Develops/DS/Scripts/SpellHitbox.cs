@@ -1,47 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MonsterSkillData;
 
 public class SpellHitbox : MonoBehaviour
 {
     private Spell spell;
     private float time;
-    private Coroutine continuousHitCheckRoutine;
+    private bool hittable;
+    // TODO: 연속데미지
 
     public void SynchronizeSpell(Spell spell)
     {
         this.spell = spell;
     }
 
-    private IEnumerator ContinuousHitCheckRoutine()
+    private void OnEnable()
     {
-        while (true)
-        {            
-            if (time <= 0f)
-            {
-                spell.Hit(transform.position);
-                time = 0.1f;
-            }
-            else
-            {
-                time += -Time.deltaTime;
-            }
-            yield return null;
-        }
+        time = 0f;
+        hittable = true;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        spell.Hit(collision.contacts[0].point);
+        if (spell != null)
+        {
+            spell.activate = false;
+            spell.Hit(transform.position);
+        }  
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        continuousHitCheckRoutine = StartCoroutine(ContinuousHitCheckRoutine());
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        StopCoroutine(continuousHitCheckRoutine);
+        spell.ContinuousHit(other);
     }
 }

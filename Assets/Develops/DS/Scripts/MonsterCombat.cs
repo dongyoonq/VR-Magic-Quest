@@ -1,34 +1,76 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using static EnumType;
+using static MonsterCombat;
+using static MonsterSkillData;
 
 public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 {
     private MonsterPerception perception;
-    private Animator animator;
+    public Animator animator;
     [SerializeField]
     private (int healthPoint, int attackPoint, float attackSpeed) stat;
     public (int healthPoint, int attackPoint, float attackSpeed) Stat { get { return stat; } set { stat = value; } }
+    private int maxHP;
+    public int MaxHP { get { return maxHP; } set { maxHP = value; } }
     private WaitForSeconds waitRecoverTime;
     public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
     private LayerMask hitTargetLayerMask;
     private Coroutine attackRoutine;
+    private Coroutine concentrateRoutine;
     private bool getHit;
+    public bool rageMode;
+    [SerializeField]
+    private MonsterSkillData skillData;
+    [SerializeField]
+    private GameObject concentrateObject;
     private float attackDelayTime;
-    private bool meleeType;
-    public bool MeleeType { get { return meleeType; } set {  meleeType = value; } }
+    [SerializeField]
+    private Skill heavyAttack;
+    public Skill HeavyAttack {  get { return heavyAttack; } set {  heavyAttack = value; } }
+    [SerializeField]
+    private Skill[] harassmentSkills;
+    public Skill[] HarassmentSkills { get {  return harassmentSkills; } set {  harassmentSkills = value; } }
+    [SerializeField]
+    private float harassmentSkillCoolTime;
+    private float harassmentSkillTime;
+    [SerializeField]
+    private Skill[] aggressiveSkills;
+    public Skill[] AggressiveSkills { get { return aggressiveSkills; } set {  aggressiveSkills = value; } }
+    [SerializeField]
+    private float aggressiveSkillCoolTime;
+    private float aggressiveSkillTime;
+    [SerializeField]
+    private Skill[] defensiveSkills;
+    public Skill[] DefensiveSkills { get { return defensiveSkills; } set {  defensiveSkills = value; } }
+    [SerializeField]
+    private Skill[] finisher;
+    public Skill[] Finisher { get { return finisher; } set { finisher = value; } }
+    [SerializeField]
+    private float finisherCoolTime;
+    private float finisherTime;
     private bool channelling;
     [SerializeField]
     private HitTag[] basicAttackType;
     [SerializeField]
-    private HitTag[] meleeAttackType;
-    [SerializeField]
-    private HitTag[] rangedAttackType;
-    [SerializeField]
-    private Transform[] meleeAttackPoints;
+    private HitTag[] heavyAttackType;
+    private MonsterSkillData.SkillInfo heavyAttackInfo;
+    private bool binded;
+    private bool invincible;
+    private bool tryAttack;
+
+    [Serializable]
+    public class Skill
+    {
+        public MonsterSkill skill;
+        public int energyCost;
+        public int limit;
+    }
 
     private void Awake()
     {
@@ -36,13 +78,23 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         animator = GetComponent<Animator>();
         hitTargetLayerMask = LayerMask.GetMask("Player");
         getHit = false;
+        concentrateObject = GameManager.Resource.Instantiate(concentrateObject, transform.position + Vector3.up * 2f, transform.rotation);
+        concentrateObject.transform.SetParent(transform);
+        concentrateObject.SetActive(false);
+        if (heavyAttack.skill != MonsterSkill.Basic)
+        {
+            heavyAttackInfo = skillData.GetSkillInfo(heavyAttack.skill);
+        }
     }
 
     private void OnEnable()
     {
-        meleeType = false;
         channelling = false;
+        rageMode = false;
         attackDelayTime = 0f;
+        harassmentSkillTime = 0f;
+        aggressiveSkillTime = 0f;
+        finisherTime = 0f;
     }
 
     private void OnDisable()
@@ -50,28 +102,70 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         StopAllCoroutines();
     }
 
+    //TODO: 공격 딜레이 타임 조정, 돌진, 회피
     // advanced state에 따라 다른 공격
     public void Combat()
-    {
-        if (attackDelayTime <= 0f)
+    {    
+        if (stat.healthPoint <= 200f)
         {
-            if (perception.CurrentCondition <= Condition.Good)
+            CheckConditionAndUse(DefensiveSkills);
+        }
+        else if (tryAttack && finisherTime <= 0f)
+        {
+            CheckConditionAndUse(finisher);
+            finisherTime = finisherCoolTime;
+            CountDown(ref finisherTime);
+            tryAttack = false;
+        }
+        else if (perception.CurrentCondition >= Condition.Tired && perception.
+                CompareDistanceWithoutHeight(transform.position, perception.Vision.TargetTransform.position, 5f)
+                && aggressiveSkillTime <= 0f)
+        {
+            CheckConditionAndUse(AggressiveSkills);
+            aggressiveSkillTime = aggressiveSkillCoolTime;
+            CountDown(ref aggressiveSkillTime);
+        }
+        else if (perception.CurrentCondition >= Condition.Energetic && harassmentSkillTime <= 0f)
+        {
+            CheckConditionAndUse(harassmentSkills);
+            harassmentSkillTime = harassmentSkillCoolTime;
+            CountDown(ref harassmentSkillTime);
+            tryAttack = true;
+
+        }
+        else if (attackDelayTime <= 0f)
+        {
+            if (heavyAttack.limit == 0 && basicAttackType.Length > 0)
             {
                 attackRoutine = StartCoroutine(BasicAttackRoutine());
             }
-            else if (perception.CurrentCondition > Condition.Good)
+            else
             {
-                attackRoutine = StartCoroutine(HeavytAttackRoutine());
-                perception.CurrentCondition--;
-            }
+                if (perception.CurrentCondition <= Condition.Good && basicAttackType.Length > 0)
+                {
+                    attackRoutine = StartCoroutine(BasicAttackRoutine());
+                }
+                else if (perception.CurrentCondition > Condition.Good && heavyAttackType.Length > 0)
+                {
+                    attackRoutine = StartCoroutine(HeavytAttackRoutine());
+                }
+            }           
             StartCoroutine(CountAttackDelayTimeRoutine());
         }
-
     }
 
+    private void CountDown(ref float time)
+    {
+        while (time <= 0)
+        {
+            time += -Time.deltaTime;
+        }
+    }
+    
     private IEnumerator CountAttackDelayTimeRoutine()
     {
-        while (attackDelayTime <= 0f)
+        attackDelayTime = 15f;
+        while (attackDelayTime > 0f)
         {
             if (perception.CurrentCondition <= Condition.Exhausted)
             {
@@ -111,6 +205,57 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
     }
 
+    public (bool, int) CheckCondition(Skill[] skillGroup)
+    {
+        bool usable = false;
+        int index = 0;
+        Condition expectedCondition = Condition.TopForm + 1;
+        for (int i = 0; i < skillGroup.Length; i++)
+        {
+            if (skillGroup[i].limit == 0)
+            {
+                continue;
+            }
+            if (perception.CurrentCondition - skillGroup[i].energyCost >= Condition.Weak)
+            {
+                usable = true;
+                if (perception.CurrentCondition - skillGroup[i].energyCost < expectedCondition)
+                {
+                    expectedCondition = perception.CurrentCondition - skillGroup[i].energyCost;
+                    index = i;
+                }
+            }
+        }
+        return (usable, index);
+    }
+
+    public void CheckConditionAndUse(Skill[] skillGroup)
+    {
+        bool usable = false;
+        int index = 0;
+        Condition expectedCondition = Condition.TopForm + 1;
+        for (int i = 0; i < skillGroup.Length; i++)
+        {
+            if (skillGroup[i].limit == 0)
+            {
+                continue;
+            }
+            if (perception.CurrentCondition - skillGroup[i].energyCost >= Condition.Weak)
+            {
+                usable = true;
+                if (perception.CurrentCondition - skillGroup[i].energyCost < expectedCondition)
+                {
+                    expectedCondition = perception.CurrentCondition - skillGroup[i].energyCost;
+                    index = i;
+                }
+            }
+        }
+        if (usable)
+        {
+            Cast(ref skillGroup[index]);
+        }
+    }
+
     private IEnumerator BasicAttackRoutine()
     {
         animator.SetTrigger("Attack");
@@ -122,44 +267,136 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private IEnumerator HeavytAttackRoutine()
     {
         channelling = true;
+        heavyAttack.limit--;
         yield return null;
-        //animator.SetBool("MeleeAttack", true);
-        //animator.SetTrigger("Attack");
-        //yield return new WaitForSeconds(1f);
-        //yield return StartCoroutine(perception.Locomotion.RushRoutine(15f, 3f));
-        //Debug.Log(gameObject.name);
-        //animator.SetBool("MeleeAttack", false);
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsTag("MeleeAttack"))
-        //{
-        //    Collider[] hitObjects;
-        //    foreach (Transform attackPoint in meleeAttackPoints)
-        //    {
-        //        hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
-        //        foreach (Collider hitObject in hitObjects)
-        //        {
-        //            hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint * 2);
-        //            hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
-        //        }
-        //    }
-        //}      
+        if (heavyAttack.skill == MonsterSkill.Basic)
+        {
+            animator.SetTrigger("Attack");
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
+            Attack(stat.attackPoint * 2, heavyAttackType);
+            yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
+        }
+        else
+        {
+            animator.SetBool("HeavyAttack", true);           
+            yield return new WaitForSeconds(heavyAttackInfo.castingTime);
+            ActivateSpell(heavyAttackInfo, perception.Vision.TargetTransform);           
+        }  
         channelling = false;
+        animator.SetBool("HeavyAttack", false);
     }
 
-    private IEnumerator RangedAttackRoutine()
+    public void Rage()
+    {
+        MonsterSkillData.SkillInfo skillInfo = skillData.GetSkillInfo(MonsterSkill.Rage);
+        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillInfo));
+        perception.SendCommand(ConcentrateRoutine(true));
+    }
+
+    public void Cast(ref Skill skill)
+    {
+        perception.ChangeCondition(-skill.energyCost);
+        skill.limit--;
+        perception.SendCommand(CastRoutine(skill));
+    }
+    
+    private IEnumerator CastRoutine(Skill skill)
     {
         yield return null;
-        //animator.SetBool("RangedAttack", true);
-        //animator.SetTrigger("Attack");
-
-        //yield return null;
-        //animator.SetBool("RangedAttack", false);
+        MonsterSkillData.SkillInfo skillInfo = skillData.GetSkillInfo(skill.skill);
+        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillInfo));
+        if (skillInfo.castingTime == 0)
+        {
+            perception.SendCommand(ConcentrateRoutine(true));
+        }
+        else
+        {
+            perception.SendCommand(ConcentrateRoutine());
+        }
     }
 
-    private IEnumerator CastSpellRoutine()
+    private IEnumerator CastSpellRoutine(MonsterSkillData.SkillInfo skillInfo)
     {
         channelling = true;
-        // 캐스팅 시간 딜레이 monsterSkillInfo.SpellCastingTime
-        yield return null;
+        yield return new WaitForSeconds(skillInfo.castingTime);
+        ActivateSpell(skillInfo, perception.Vision.TargetTransform);
+        channelling = false;
+        animator.SetBool("Casting", false);
+    }
+
+    private void ActivateSpell(MonsterSkillData.SkillInfo skillInfo, Transform targetTransform)
+    {
+        Spell spell;
+        GameObject skillPrefab;
+        if (skillInfo.skillPrefab == null)
+        {
+            skillPrefab = skillData.defaultSkillPrefab;
+        }
+        else
+        {
+            skillPrefab = skillInfo.skillPrefab;
+        }
+        switch (skillInfo.aim)
+        {
+            case Aim.Target:
+                spell = GameManager.Resource.Instantiate(skillPrefab, targetTransform.position, targetTransform.rotation, true)
+                    .GetComponent<Spell>();
+                break;
+            case Aim.Front:
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, transform.position + transform.forward * 1.5f, transform.rotation, true).GetComponent<Spell>();
+                break;
+            case Aim.Around:
+                Vector3 aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
+                   .GetComponent<Spell>();
+                break;
+            default:
+                spell = GameManager.Resource.Instantiate(skillPrefab, transform.position, transform.rotation, true)
+                    .GetComponent<Spell>();
+                break;
+        }
+        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+        spell.SynchronizeSpell(skillInfo, transform);
+        if (skillInfo.additionalSkills.Length > 0)
+        {
+            for(int i = 0; i < skillInfo.additionalSkills.Length; i++)
+            {
+                ActivateSpell(skillInfo.additionalSkills[i], spell.transform);
+            }
+        }
+    }
+
+    private IEnumerator ConcentrateRoutine()
+    {
+        animator.SetBool("Casting", true);
+        concentrateObject.SetActive(true);
+        yield return new WaitWhile(() => channelling);
+        concentrateObject.SetActive(false);
+    }
+
+    private IEnumerator ConcentrateRoutine(bool burst)
+    {
+        yield return new WaitWhile(() => channelling);
+    }
+
+    public void Meditation()
+    {
+        channelling = true;
+        concentrateRoutine = StartCoroutine(MeditationRoutine());
+        perception.SendCommand(ConcentrateRoutine());
+    }
+
+    private IEnumerator MeditationRoutine()
+    {
+        int time = 0;
+        while(perception.CurrentCondition <= Condition.TopForm && time <= 3)
+        {
+            yield return new WaitForSeconds(1f);
+            time++;
+            perception.ChangeCondition(2);
+        }
         channelling = false;
     }
 
@@ -169,6 +406,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         foreach (HitTag hitTag in hitType)
         {
             statusDuration = duration;
+            if (invincible)
+            {
+                return;
+            }
             switch (hitTag)
             {
                 case HitTag.Impact:
@@ -183,6 +424,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                 case HitTag.Mez:
                     perception.SendCommand(MezHitReactRoutine());
                     break;
+                case HitTag.Invincible:
+                    perception.SendCommand(InvincibleHitReactRoutine());
+                    break;
+
             }
         }
     }
@@ -195,12 +440,27 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             StopCoroutine(attackRoutine);
             if (channelling)
             {
-                perception.CurrentCondition--;
+                perception.ChangeCondition(-1);
+                animator.SetBool("HeavyAttack", false);
+                channelling = false;
             }            
+        }
+        if (concentrateRoutine != null)
+        {
+            StopCoroutine(concentrateRoutine);
+            if (channelling)
+            {
+                perception.ChangeCondition(-1);
+                channelling = false;
+                animator.SetBool("Casting", false);
+            }
         }
         animator.SetTrigger("GetHit");
         yield return null;
-        yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
+        if (binded)
+        {
+            yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
+        }
         yield return waitRecoverTime;
         getHit = false;
         if (perception.CurrentState == State.Idle)
@@ -225,14 +485,31 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator MezHitReactRoutine()
     {
+        tryAttack = false;
         animator.SetFloat("MoveSpeed", 0f);
+        binded = true;
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
         getHit = false;
+        binded = false;
         if (perception.CurrentState == State.Idle)
         {
             perception.SendCommand(AlertRoutine());
         }
+    }
+
+    private IEnumerator InvincibleHitReactRoutine()
+    {
+        float duration = statusDuration;
+        StartCoroutine(InvincibleRoutine(duration));
+        yield return null;
+    }
+
+    private IEnumerator InvincibleRoutine(float duration)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(duration);
+        invincible = false;
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)

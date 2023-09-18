@@ -20,7 +20,7 @@ public class MonsterController : MonoBehaviour
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
     public Coroutine monsterBehaviourRoutine;
     public Coroutine monsterInvoluntaryBehaveRoutine;
-    private Transform spawnPoint;
+    public Transform spawnPoint;
     private Collider spawnTriggerCollider;
 
     private void Awake()
@@ -64,9 +64,9 @@ public class MonsterController : MonoBehaviour
         commandQueue.Enqueue(command);
     }
 
-    public void SpawnMonster(int monsterNumber, Transform spawnPoint)
+    public void SpawnMonster()
     {
-        MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
+        MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[spawnMonsterNumber];
         monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPoint.position + Vector3.up * 0.5f, spawnPoint.rotation, true).GetComponent<MonsterPerception>();
         monsterInvoluntaryBehaveRoutine = StartCoroutine(MonsterInvoluntaryBehaveRoutine());
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
@@ -79,12 +79,13 @@ public class MonsterController : MonoBehaviour
         if (wall != null)
         {
             wall.Unlock();
-        }  
+        }
+        this.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        SpawnMonster(spawnMonsterNumber, spawnPoint);
+        SpawnMonster();
         spawnTriggerCollider.enabled = false;
     }
 }

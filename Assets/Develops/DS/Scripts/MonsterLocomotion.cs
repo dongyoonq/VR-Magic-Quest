@@ -10,13 +10,20 @@ public class MonsterLocomotion : MonoBehaviour
     public Transform targetTransform;
     private CharacterController characterController;
     private Animator animator;
+    private Vector3 guardPosition;
+    public Vector3 GuardPosition { get { return guardPosition; } set { guardPosition = value; } }
     private float ySpeed;
     private bool floating;
     private float floatingTime;
     private bool spellCaster;
+    private bool moving;
+    public bool Moving { get { return moving; } set { moving = value; } }
     public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
     private bool eliteMonster;
     public bool EliteMonster { get {  return eliteMonster; } set {  eliteMonster = value; } }
+    [SerializeField]
+    private GameObject dodgeEffect;
+    public GameObject DodgeEffect { get {  return dodgeEffect; } set {  dodgeEffect = value; } }
 
     private void Awake()
     {
@@ -35,34 +42,49 @@ public class MonsterLocomotion : MonoBehaviour
     public void Approach(float moveSpeed)
     {
         animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
-        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);       
+    }
+
+    public void ComeRound(Vector3 position, bool left)
+    {
+        if (left)
+        {
+            characterController.transform.RotateAround(position, Vector3.up, Time.deltaTime * 20f);
+        }
+        else
+        {
+            characterController.transform.RotateAround(position, Vector3.down, Time.deltaTime * 20f);
+        }
     }
 
     public IEnumerator RushRoutine(float moveSpeed, float rushTime)
     {
-        // 돌격 준비 애니메이션
-        if (eliteMonster)
-        {
-            // 달릴때 Turn 많이
-            // 적 앞에서 멈추기
-            // 끝나고 공격
-        }
-        else
-        {
-            // 달릴때 처음 플레이어 방향으로 전진
-            // 일정거리만큼 돌진
-            // 끝나고 플레이어 방향으로 회전
-        }
-        float time = 0f;
-        animator.SetFloat("MoveSpeed", moveSpeed);
-        while (time < rushTime)
-        {
-            Turn(); Turn(); Turn();
-            characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        animator.SetFloat("MoveSpeed", 0f);
+        yield return null;
+        //moving = true;
+        //// 돌격 준비 애니메이션
+        //if (eliteMonster)
+        //{
+        //    // 달릴때 Turn 많이
+        //    // 적 앞에서 멈추기
+        //    // 끝나고 공격
+        //}
+        //else
+        //{
+        //    // 달릴때 처음 플레이어 방향으로 전진
+        //    // 일정거리만큼 돌진
+        //    // 끝나고 플레이어 방향으로 회전
+        //}
+        //float time = 0f;
+        //animator.SetFloat("MoveSpeed", moveSpeed);
+        //while (time < rushTime)
+        //{
+        //    Turn(); Turn(); Turn();
+        //    characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
+        //    time += Time.deltaTime;
+        //    yield return null;
+        //}
+        //animator.SetFloat("MoveSpeed", 0f);
+        //moving = false;
     }
 
     public void SlowDown()
@@ -90,18 +112,28 @@ public class MonsterLocomotion : MonoBehaviour
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
     }
 
-    public IEnumerator DodgeRoutine()
+    public void Dodge(Vector3 skillPosition)
     {
-        animator.SetBool("Dodge", true);
-        if (spellCaster)
+        RaycastHit hitInfo;
+        Vector3 direction = (skillPosition - transform.position).normalized;
+        StartCoroutine(DodgeRoutine());
+        if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo , 5f))
         {
-
+            transform.position = hitInfo.transform.position + direction;
         }
         else
         {
-
+            transform.position = transform.position - direction;
         }
-        yield return null;
+    }
+
+    public IEnumerator DodgeRoutine()
+    {
+        dodgeEffect.SetActive(true);
+        dodgeEffect.transform.position = transform.position;
+        dodgeEffect.transform.rotation = transform.rotation;
+        yield return new WaitForSeconds(1f);
+        dodgeEffect.SetActive(false);
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

@@ -9,6 +9,9 @@ using static UnityEngine.GraphicsBuffer;
 public class MonsterPerception : MonoBehaviour
 {
     private MonsterController controller;
+    public MonsterController Controller { get { return controller; } }
+    private MonsterController[] minionController;
+    public MonsterController[] MinionController { get { return minionController; } set { minionController = value; } }
     private MonsterData.MonsterInfo monsterInfo;
     private MonsterVision vision;
     public MonsterVision Vision { get { return vision; } }
@@ -39,12 +42,12 @@ public class MonsterPerception : MonoBehaviour
     private void OnEnable()
     {
         currentState = State.Idle;
-        currentCondition = Condition.Good;
+        currentCondition = Condition.Normal;
     }
 
     private void OnDisable()
     {
-        
+        StopAllCoroutines();
     }
 
     public IEnumerator MakeDecisionRoutine()
@@ -104,11 +107,13 @@ public class MonsterPerception : MonoBehaviour
                 locomotion.Approach(alertMoveSpeed);
                 locomotion.Turn();
                 vision.Gaze();
+                vision.CheckObstacle(vision.TargetTransform.position);
                 break;
             case State.Chase:
                 locomotion.Approach(chaseMoveSpeed);
                 locomotion.Turn();
                 vision.Gaze();
+                vision.CheckObstacle(vision.TargetTransform.position);
                 break;
             case State.Combat:
                 vision.Gaze();
@@ -137,11 +142,26 @@ public class MonsterPerception : MonoBehaviour
             }
         }
         else
-        {           
+        {
             transform.LookAt(controller.transform.position);
             currentState = State.Combat;
         }
 
+    }
+
+    public IEnumerator ReturnRoutine()
+    {
+        controller.transform.position = Locomotion.GuardPosition;
+        locomotion.Moving = true;
+        while (currentState == State.Idle && CompareDistanceWithoutHeight(transform.position, Locomotion.GuardPosition, 1f))
+        {
+            locomotion.Approach(alertMoveSpeed);
+            locomotion.Turn();
+            vision.Gaze();
+            vision.CheckObstacle(vision.TargetTransform.position);
+            yield return null;
+        }
+        locomotion.Moving = false;
     }
 
     public void DynamicallyMove()
@@ -214,6 +234,7 @@ public class MonsterPerception : MonoBehaviour
     public void SynchronizeCombat()
     {
         combat.Stat = (monsterInfo.healthPoint, monsterInfo.attackPoint, monsterInfo.attackSpeed);
+        combat.MaxHP = monsterInfo.healthPoint;
         combat.WaitRecoverTime = new WaitForSeconds(0.5f);
     }
 

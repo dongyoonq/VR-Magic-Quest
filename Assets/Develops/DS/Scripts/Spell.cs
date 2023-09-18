@@ -7,18 +7,29 @@ using static MonsterSkillData;
 public class Spell : MonoBehaviour
 {
     private SpellHitbox spellHitbox;
-    private Coroutine spellRoutine;
+    public SpellHitbox SpellHitbox { get { return spellHitbox; } }
     private SkillInfo skillInfo;
+    private Spell previousSpell;
+    public Spell PreviousSpell { get { return previousSpell; } set {  previousSpell = value; } }
+    private Transform casterTransform;
+    public Transform CasterTransform { get { return casterTransform; } }
+    public bool activate;
+    private GameObject effect;
+    private float time = 0f;
 
     private void Awake()
     {
+        effect = transform.GetChild(0).gameObject;
+        effect.SetActive(true);
         spellHitbox = GetComponentInChildren<SpellHitbox>();
-        spellHitbox.SynchronizeSpell(this);
+        spellHitbox?.SynchronizeSpell(this);
+        effect.SetActive(false);
     }
 
     private void OnEnable()
     {
-        
+        skillInfo = null;
+        casterTransform = null;
     }
 
     private void OnDisable()
@@ -26,92 +37,65 @@ public class Spell : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void SynchronizeSpell(SkillInfo skillInfo, Transform casterTransform)
+    {
+        this.skillInfo = skillInfo;
+        this.casterTransform = casterTransform;
+        StartCoroutine(SpellRoutine());
+    }
+
+    private IEnumerator SpellRoutine()
+    {
+        activate = true;
+        if (skillInfo.activateTiming == ActivateTiming.After)
+        {
+            yield return new WaitWhile(() => previousSpell.activate);
+            if (skillInfo.aim == Aim.Target)
+            {
+                transform.position = previousSpell.spellHitbox.transform.position;
+            }
+        }
+        yield return new WaitForSeconds(skillInfo.delayTime);
+        activate = true;
+        effect.SetActive(true);
+        if (skillInfo.spellType == SpellType.Burst)
+        {
+            Hit(transform.position);
+        }
+        yield return new WaitForSeconds(skillInfo.spellDuration);
+        activate = false;
+        effect.SetActive(false);
+        GameManager.Resource.Destroy(gameObject);
+    }
+
     public void Hit(Vector3 position)
     {
         Collider[] colliders = Physics.OverlapSphere(position, skillInfo.hitRange);
         foreach (Collider collider in colliders)
         {
+            if (collider.transform != casterTransform)
+            {
+                IHittable hittable = collider.GetComponent<IHittable>();
+                IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                hittable?.TakeDamaged(skillInfo.damage);
+                hitReactor?.HitReact(skillInfo.hitType, 1f);
+            }
+        }
+    }
+    
+    public void ContinuousHit(Collider collider)
+    {
+        if (time >= 0.2f)
+        {
             IHittable hittable = collider.GetComponent<IHittable>();
             IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
-            hittable.TakeDamaged(skillInfo.damage);
-            hitReactor.HitReact(skillInfo.hitType, 1f);
+            hittable?.TakeDamaged(skillInfo.damage);
+            hitReactor?.HitReact(skillInfo.hitType, 1f);
+            time = 0f;
         }
-    }
-
-    public Vector3 SynchronizeSpell(SkillInfo skillInfo)
-    {
-        this.skillInfo = skillInfo;
-        switch (skillInfo.spellType)
-        {
-            case SpellType.Area:
-                spellRoutine = StartCoroutine(AreaSpellRoutine());
-                break;
-            case SpellType.Projectile:
-                spellRoutine = StartCoroutine(ProjectileSpellRoutine());
-                break;
-            case SpellType.Falling:
-                spellRoutine = StartCoroutine(FallingSpellRoutine());
-                break;
-            default:
-                spellRoutine = StartCoroutine(BurstSpellRoutine());
-                break;
-        }
-        return transform.position;
-    }
-
-    public IEnumerator AreaSpellRoutine()
-    {
-        yield return new WaitForSeconds (skillInfo.delayTime);
-        float time = 0f;
-        while (time < skillInfo.spellDuration)
+        else
         {
             time += Time.deltaTime;
-            yield return null;
         }
-        // 임시
-        skillInfo.GetOtherPosition(transform.position);
-        GameManager.Resource.Destroy(gameObject);
-    }
-
-    public IEnumerator ProjectileSpellRoutine()
-    {
-        yield return new WaitForSeconds(skillInfo.delayTime);
-        float time = 0f;
-        while (time < skillInfo.spellDuration)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        // 임시
-        skillInfo.GetOtherPosition(transform.position);
-        GameManager.Resource.Destroy(gameObject);
-    }
-
-    public IEnumerator FallingSpellRoutine()
-    {
-        yield return new WaitForSeconds(skillInfo.delayTime);
-        float time = 0f;
-        while (time < skillInfo.spellDuration)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        // 임시
-        skillInfo.GetOtherPosition(transform.position);
-        GameManager.Resource.Destroy(gameObject);
-    }
-
-    public IEnumerator BurstSpellRoutine()
-    {
-        yield return new WaitForSeconds(skillInfo.delayTime);
-        float time = 0f;
-        while (time < skillInfo.spellDuration)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        // 임시
-        skillInfo.GetOtherPosition(transform.position);
-        GameManager.Resource.Destroy(gameObject);
     }
 }

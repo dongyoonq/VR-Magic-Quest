@@ -14,13 +14,12 @@ public class EnumType
         Impact,
         Buff,
         Debuff,
-        Mez
+        Mez,
+        Invincible
     }
 
     public enum MonsterTag
     {
-        Melee,
-        LongRange,
         Guard,
         Tenacity,
         Aggresive,
@@ -55,18 +54,37 @@ public class EnumType
         TopForm
     }
 
+    public enum MonsterSkill
+    {
+        Basic = -1,
+        RockShower,
+        Rage,
+        RootBind,
+        IceShield,
+        Earthquake,
+        ThunderDragonCannon,
+        FireRain
+    }
+
     public enum Aim
     {
         Self,
         Front,
         Target,
-        Other
+        Around
     }
+
     public enum SpellType
     {
         Burst,
         Area, 
         Projectile,
-        Falling
+    }
+
+    public enum ActivateTiming
+    {
+        After,
+        DelayTime,
+        Immediately
     }
 }

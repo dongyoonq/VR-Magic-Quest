@@ -14,102 +14,275 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill:
   - skillName: RockShower
-    skillPrefab: {fileID: 0}
+    skillPrefab: {fileID: 4819755503533612425, guid: 6f33c254991df494f94744f0b8b5b30c,
+      type: 3}
     hitType: 00000000
-    damage: 0
-    castingTime: 0
+    damage: 150
+    castingTime: 1
+    activateTiming: 2
     delayTime: 0
+    spellDuration: 7
+    hitRange: 1
     aim: 2
     spellType: 0
-    additionalEffects: []
-    otherPosition: {x: 0, y: 0, z: 0}
+    additionalSkills: []
   - skillName: Rage
-    skillPrefab: {fileID: 0}
+    skillPrefab: {fileID: 7579621772359270039, guid: e505773b24e181f4b8c6e3e8f82a99d5,
+      type: 3}
     hitType: 01000000
     damage: 0
     castingTime: 0
+    activateTiming: 2
     delayTime: 0
+    spellDuration: 1800
+    hitRange: 0.5
     aim: 0
     spellType: 0
-    additionalEffects: []
-    otherPosition: {x: 0, y: 0, z: 0}
+    additionalSkills: []
   - skillName: RootBind
-    skillPrefab: {fileID: 0}
+    skillPrefab: {fileID: 2609135410416184967, guid: fceb5522d8dbfa74397e3ebb50efb4bd,
+      type: 3}
     hitType: 03000000
     damage: 0
-    castingTime: 0
-    delayTime: 0
+    castingTime: 2
+    activateTiming: 2
+    delayTime: 0.5
+    spellDuration: 3
+    hitRange: 1
     aim: 2
     spellType: 0
-    additionalEffects: []
-    otherPosition: {x: 0, y: 0, z: 0}
+    additionalSkills: []
   - skillName: IceShield
-    skillPrefab: {fileID: 0}
-    hitType: 0100000003000000
+    skillPrefab: {fileID: 4503131566431730721, guid: 1e0c3870a7d33cc44a05fc8296ba6e0d,
+      type: 3}
+    hitType: 0400000003000000
     damage: 0
     castingTime: 0
+    activateTiming: 2
     delayTime: 0
+    spellDuration: 5
+    hitRange: 0.5
     aim: 0
     spellType: 0
-    additionalEffects:
+    additionalSkills:
     - skillName: IceField
-      skillPrefab: {fileID: 0}
-      hitType: 02000000
-      damage: 0
+      skillPrefab: {fileID: 4997148756193024449, guid: 2057bde927c46ca419b8b5a3b2d4f032,
+        type: 3}
+      hitType: 0200000000000000
+      damage: 300
       castingTime: 0
+      activateTiming: 0
       delayTime: 0
+      spellDuration: 3
+      hitRange: 1
       aim: 0
-      spellType: 0
-      additionalEffects: []
-      otherPosition: {x: 0, y: 0, z: 0}
-    otherPosition: {x: 0, y: 0, z: 0}
+      spellType: 1
+      additionalSkills:
+      - skillName: IceFieldAfterEffect
+        skillPrefab: {fileID: 0}
+        hitType: 00000000
+        damage: 30
+        castingTime: 0
+        activateTiming: 1
+        delayTime: 0
+        spellDuration: 5
+        hitRange: 0
+        aim: 0
+        spellType: 1
+        additionalSkills: []
   - skillName: Earthquake
-    skillPrefab: {fileID: 0}
+    skillPrefab: {fileID: 6838560168994127254, guid: 225747f4f80b85b468ed47480405bffb,
+      type: 3}
     hitType: 00000000
-    damage: 0
-    castingTime: 0
-    delayTime: 0
+    damage: 200
+    castingTime: 2.7
+    activateTiming: 2
+    delayTime: 0.2
+    spellDuration: 6
+    hitRange: 6
     aim: 1
     spellType: 0
-    additionalEffects: []
-    otherPosition: {x: 0, y: 0, z: 0}
-  - skillName: MagicCannon
-    skillPrefab: {fileID: 0}
+    additionalSkills: []
+  - skillName: ThunderCannon
+    skillPrefab: {fileID: 7121266866037982872, guid: 0a262a84b312f7a4abd32ab1924570a7,
+      type: 3}
     hitType: 00000000
-    damage: 0
-    castingTime: 0
+    damage: 100
+    castingTime: 1.5
+    activateTiming: 2
     delayTime: 0
+    spellDuration: 7
+    hitRange: 2
     aim: 1
-    spellType: 0
-    additionalEffects:
-    - skillName: FireWall
-      skillPrefab: {fileID: 0}
+    spellType: 2
+    additionalSkills:
+    - skillName: ThunderDragon
+      skillPrefab: {fileID: 2121942915109224665, guid: bf78a93bba8137c428467a975fe26f03,
+        type: 3}
       hitType: 00000000
-      damage: 0
+      damage: 50
       castingTime: 0
+      activateTiming: 0
       delayTime: 0
+      spellDuration: 10
+      hitRange: 1
       aim: 2
-      spellType: 0
-      additionalEffects: []
-      otherPosition: {x: 0, y: 0, z: 0}
-    otherPosition: {x: 0, y: 0, z: 0}
-  - skillName: FireRain
-    skillPrefab: {fileID: 0}
+      spellType: 1
+      additionalSkills:
+      - skillName: ThunderDragonAfterEffect
+        skillPrefab: {fileID: 0}
+        hitType: 00000000
+        damage: 400
+        castingTime: 0
+        activateTiming: 0
+        delayTime: 0
+        spellDuration: 4
+        hitRange: 3
+        aim: 2
+        spellType: 0
+        additionalSkills: []
+  - skillName: FireRainWall
+    skillPrefab: {fileID: 5591447314251430440, guid: ec6089bec84257142aa29b8a1c4073fa,
+      type: 3}
     hitType: 00000000
     damage: 0
-    castingTime: 0
-    delayTime: 0
+    castingTime: 3
+    activateTiming: 2
+    delayTime: 0.3
+    spellDuration: 6
+    hitRange: 3
     aim: 2
-    spellType: 0
-    additionalEffects:
+    spellType: 1
+    additionalSkills:
     - skillName: FireRain
-      skillPrefab: {fileID: 0}
-      hitType: 
-      damage: 0
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
       castingTime: 0
-      delayTime: 0
-      aim: 0
-      spellType: 0
-      additionalEffects: []
-      otherPosition: {x: 0, y: 0, z: 0}
-    otherPosition: {x: 0, y: 0, z: 0}
+      activateTiming: 1
+      delayTime: 2
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 2.3
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 2.6
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 2.9
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 3.2
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 3.5
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 3.8
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 4.1
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 4.4
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+    - skillName: FireRain
+      skillPrefab: {fileID: 7588030526005135213, guid: b2b914a43374cba4797fa6d964280504,
+        type: 3}
+      hitType: 00000000
+      damage: 20
+      castingTime: 0
+      activateTiming: 1
+      delayTime: 4.7
+      spellDuration: 4
+      hitRange: 1
+      aim: 3
+      spellType: 2
+      additionalSkills: []
+  defaultSkillPrefab: {fileID: 7412001846553132808, guid: 79c3551d3d755904898aef5cc4d7a1f2,
+    type: 3}

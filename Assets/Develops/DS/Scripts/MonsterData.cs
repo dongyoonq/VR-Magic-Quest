@@ -18,14 +18,6 @@ public class MonsterData : ScriptableObject
 #if UNITY_EDITOR
     private void OnEnable()
     {
-        if (!monsterAdvancedAI.ContainsKey(MonsterTag.Melee))
-        {
-            monsterAdvancedAI.Add(MonsterTag.Melee, (monsterPerception) => MeleeTypeMonsterBehaviour(monsterPerception));
-        }
-        if (!monsterAdvancedAI.ContainsKey(MonsterTag.LongRange))
-        {
-            monsterAdvancedAI.Add(MonsterTag.LongRange, (monsterPerception) => LongRangeTypeMonsterBehaviour(monsterPerception));
-        }
         if (!monsterAdvancedAI.ContainsKey(MonsterTag.Guard))
         {
             monsterAdvancedAI.Add(MonsterTag.Guard, (monsterPerception) => GuardTypeMonsterBehaviour(monsterPerception));
@@ -89,15 +81,19 @@ public class MonsterData : ScriptableObject
     private IEnumerator AdvancedMonsterBehaviourRoutine(MonsterInfo monsterInfo, MonsterPerception monsterPerception)
     {
         UnityEvent<MonsterPerception> advancedAI = new UnityEvent<MonsterPerception>();
-        WaitForSeconds waitForMakeDecision = new WaitForSeconds(3f);
+        WaitForSeconds waitForMakeDecision = new WaitForSeconds(10f);
         foreach (MonsterTag tag in monsterInfo.monsterTag)
         {
             monsterAdvancedAI.TryGetValue(tag, out UnityAction<MonsterPerception> action);
             advancedAI.AddListener(action);
             if (tag == MonsterTag.Elite)
             {
-                waitForMakeDecision = new WaitForSeconds(1.5f);
+                waitForMakeDecision = new WaitForSeconds(5f);
                 monsterPerception.Locomotion.EliteMonster = true;
+            }
+            else if (tag == MonsterTag.Guard)
+            {
+                monsterPerception.Locomotion.GuardPosition = monsterPerception.transform.position;
             }
             else if (tag == MonsterTag.Cautious)
             {
@@ -120,13 +116,12 @@ public class MonsterData : ScriptableObject
             {
                 monsterPerception.Locomotion.SpellCaster = true;
             }
-            else if (tag == MonsterTag.Melee)
+            else if (tag == MonsterTag.Agile)
             {
-                monsterPerception.Combat.MeleeType = true;
+                monsterPerception.Locomotion.DodgeEffect = GameManager.Resource.Instantiate(monsterPerception.Locomotion.DodgeEffect);
             }
             yield return null;
         }
-        Vector3 guardPosition = monsterPerception.transform.position;
         while (monsterPerception.CurrentState != EnumType.State.Collapse)
         {
             advancedAI?.Invoke(monsterPerception);
@@ -135,29 +130,25 @@ public class MonsterData : ScriptableObject
         yield return null;
     }
 
-    private void MeleeTypeMonsterBehaviour(MonsterPerception monsterPerception)
-    {
-        // 돌진 elite일시 적 앞에서 정지
-    }
-
-    private void LongRangeTypeMonsterBehaviour(MonsterPerception monsterPerception)
-    {
-        // 원거리 공격
-    }
-
     private void GuardTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // idle 전환시 원래 위치로 복귀
+        if (monsterPerception.CurrentState == EnumType.State.Idle && !monsterPerception.Locomotion.Moving &&
+            monsterPerception.CompareDistanceWithoutHeight(monsterPerception.transform.position, monsterPerception.Locomotion.GuardPosition, 1f))
+        {
+            monsterPerception.StartCoroutine(monsterPerception.ReturnRoutine());
+        }
     }
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 컨티션 회복
+        monsterPerception.Combat.TakeDamaged(-100);
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // idle 전환시 정면으로 일정 거리만큼 이동
+        //monsterPerception.StartCoroutine(monsterPerception.Locomotion.RushRoutine());
+        //MonsterCombat.Skill[] heavyAttack = { monsterPerception.Combat.HeavyAttack };
+        //monsterPerception.Combat.CheckConditionAndUse(heavyAttack);
     }
 
     private void DynamicallyMoveTypeMonsterBehaviour(MonsterPerception monsterPerception)
@@ -167,22 +158,36 @@ public class MonsterData : ScriptableObject
 
     private void CautiousTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 가끔씩 뒤를 돌아봄
+        if (monsterPerception.CurrentState == EnumType.State.Idle)
+        {
+            monsterPerception.Vision.CheckBehind();
+        }       
     }
 
     private void SpellCasterTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 조건에 따라 다양한 마법 사용 마법을 종류별로 분류 직렬화 배열로 보유
+        if (monsterPerception.CurrentState == EnumType.State.Combat)
+        {
+            if (monsterPerception.CurrentCondition < Condition.Tired)
+            {
+                (bool usable, int skillIndex) = monsterPerception.Combat.CheckCondition(monsterPerception.Combat.HarassmentSkills);
+                if (usable)
+                {
+                    monsterPerception.Combat.Cast(ref monsterPerception.Combat.HarassmentSkills[skillIndex]);
+                }
+                monsterPerception.Combat.Meditation();
+            }
+        }
     }
 
     private void AgileTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // overap sphere 주변 스킬? 레이어 감지 시 회피
         if (monsterPerception.CurrentState != EnumType.State.Idle)
         {
-            if (Physics.OverlapSphere(monsterPerception.transform.position, 5f, LayerMask.GetMask("Skill")).Length > 0)
+            Collider[] collider = Physics.OverlapSphere(monsterPerception.transform.position, 5f, LayerMask.GetMask("Skill"));
+            if (collider.Length > 0)
             {
-                
+                monsterPerception.Locomotion.Dodge(collider[0].transform.position);
             }
         }       
     }
@@ -197,13 +202,51 @@ public class MonsterData : ScriptableObject
 
     private void EliteTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        //정면에 ray를 쏴서 player가 아닌게 있으면 돌아가기
+        monsterPerception.ChangeCondition(1);
     }
 
     private void LastBossTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        // 1페이즈 2페이즈
-        // 사망시 게임 클리어
+        if (monsterPerception.Combat.rageMode)
+        {
+            for (int i = 0; i < monsterPerception.MinionController.Length; i++)
+            {
+                if (monsterPerception.MinionController[i].enabled)
+                {
+                    continue;
+                }
+                monsterPerception.MinionController[i].enabled = true;
+                monsterPerception.MinionController[i].spawnPoint.position = monsterPerception.transform.position + monsterPerception.transform.forward;
+                monsterPerception.MinionController[i].SpawnMonster();
+            }
+        }
+        else if (monsterPerception.Combat.MaxHP/2 >= monsterPerception.Combat.Stat.healthPoint)
+        {
+            monsterPerception.Combat.HeavyAttack.energyCost /= 2;
+            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.HarassmentSkills)
+            {
+                skill.energyCost /= 2;
+            }
+            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.AggressiveSkills)
+            {
+                skill.energyCost /= 2;
+            }
+            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.DefensiveSkills)
+            {
+                skill.energyCost /= 2;
+            }
+            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.Finisher)
+            {
+                skill.energyCost /= 2;
+            }
+            monsterPerception.MinionController = new MonsterController[2];
+            for (int i = 0; i < monsterPerception.MinionController.Length; i++)
+            {
+                monsterPerception.MinionController[i] = GameManager.Resource.Instantiate(monsterPerception.Controller, true);
+            }
+            monsterPerception.Combat.rageMode = true;
+            
+        }
     }
 
     [Serializable]

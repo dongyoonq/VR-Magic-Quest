@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  dodgeEffect: {fileID: 7823971501854563214, guid: d570b4034e1879c489e309d6869ab46b,
+    type: 3}
 --- !u!114 &6242992761753825916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,10 +99,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttackType: 
-  meleeAttackType: 
-  rangedAttackType: 
-  meleeAttackPoints: []
+  animator: {fileID: 0}
+  rageMode: 0
+  skillData: {fileID: 0}
+  concentrateObject: {fileID: 0}
+  heavyAttack:
+    skill: -1
+    energyCost: 1
+    limit: -1
+  harassmentSkills: []
+  harassmentSkillCoolTime: 0
+  aggressiveSkills: []
+  aggressiveSkillCoolTime: 0
+  defensiveSkills: []
+  finisher: []
+  finisherCoolTime: 0
+  basicAttackType: 00000000
+  heavyAttackType: 00000000
 --- !u!95 &4135362832684762404
 Animator:
   serializedVersion: 5

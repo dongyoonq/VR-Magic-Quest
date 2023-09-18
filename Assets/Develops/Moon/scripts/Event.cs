@@ -8,10 +8,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Event : MonoBehaviour
 {
     public boxInteraction boxInteraction;
-    public UnityEvent envet;
+    // public UnityEvent envet;
+
+    public SelectEnterEvent OnSelectedEnter;
     void Awake()
     {
-        boxInteraction.selectEntered.AddListener((evt) => envet.Invoke());
+        var interactor = GetComponent<XRBaseInteractor>();
+        interactor.selectEntered.AddListener(evt => { OnSelectedEnter.Invoke(evt); });
+
+     //   boxInteraction.selectEntered.AddListener((evt) => envet.Invoke());
     }
 }
  

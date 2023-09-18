@@ -10,6 +10,7 @@ public class RecipeUI : BookUI
     [SerializeField] Image runeImage1;
     [SerializeField] Image runeImage2;
     [SerializeField] Image runeImage3;
+    [SerializeField] TMP_Text recipeName;
     [SerializeField] TMP_Text runeName1;
     [SerializeField] TMP_Text runeName2;
     [SerializeField] TMP_Text runeName3;
@@ -49,6 +50,7 @@ public class RecipeUI : BookUI
     {
         if (player.unlockRecipeList.Contains(recipeData))
         {
+            recipeName.text = recipeData.name;
             runeImage1.sprite = recipeData.ingredientRune1.IconSprite;
             runeImage2.sprite = recipeData.ingredientRune2.IconSprite;
             runeImage3.sprite = recipeData.ingredientRune3.IconSprite;
@@ -60,6 +62,7 @@ public class RecipeUI : BookUI
         }
         else
         {
+            recipeName.text = recipeData.name;
             runeImage1.sprite = null;
             runeImage2.sprite = null;
             runeImage3.sprite = null;

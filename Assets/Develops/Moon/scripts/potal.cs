@@ -38,6 +38,6 @@ public class potal : MonoBehaviour
 
     public void  potalMove()
     {
-        playerobj.transform.position = potalend.transform.position;
+        playerobj.transform.position = potalend.transform.position+ potalend.transform.up*1.5f;
     }
 }

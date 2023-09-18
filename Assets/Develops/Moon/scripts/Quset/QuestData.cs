@@ -8,20 +8,25 @@ using UnityEngine.UI;
 public class QuestData : ScriptableObject
 {
     [SerializeField] public string questtitle;
-    [SerializeField] public string quest;
     [SerializeField] public int value;
     [SerializeField] public bool isclear;
-    [SerializeField] public bool isinventory;
     [SerializeField] public string monster;
+    [SerializeField] public string item;
+    [SerializeField] public int clearValue;
     // 보상 아이템
-    [SerializeField] public GameObject Object;
+    [SerializeField] public ItemData clearitem;
+
+
+
+    [Multiline]
+    [SerializeField] public string quest;
 
     public void CheckClear()
     {
-        if (value == 1)
+        if (value==clearValue)
         {
             isclear = true;
-            Debug.Log("트루");
+            Debug.Log("트루");    
         }
         else isclear= false;
     }

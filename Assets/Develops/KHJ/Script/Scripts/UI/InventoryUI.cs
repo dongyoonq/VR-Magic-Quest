@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class InventoryUI : BookUI
 {
+    [SerializeField] GameObject playerBookUI;
     Inventory inventory;
 
     public RectTransform inventoryPanel;
@@ -30,6 +31,8 @@ public class InventoryUI : BookUI
 
         for (int i = 0; i < slots.Length; i++)
             slots[i].slotIndex = i;
+
+        playerBookUI.SetActive(false);
     }
 
     private void SlotChange(int val)

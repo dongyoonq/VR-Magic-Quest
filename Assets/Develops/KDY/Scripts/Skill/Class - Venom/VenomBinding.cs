@@ -35,10 +35,10 @@ public class VenomBinding : Skill
             IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
 
             if (hitReactor != null)
-                hitReactor.HitReact(skillData.hitTags, 5f);
+                hitReactor.HitReact(skillData.hitTags, 3f);
         }
 
-        while (time < 5f)
+        while (time < 3f)
         {
             time += Time.deltaTime;
 

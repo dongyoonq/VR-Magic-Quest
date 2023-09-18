@@ -9,11 +9,11 @@ public class QuestManager : MonoBehaviour
 {
     public List<QuestData> questList;
 
-    public UnityEvent<QuestData> OnQuestAdded;
-    public UnityEvent<QuestData> OnQuestRemoved;
-    public UnityEvent<QuestData> OnQuestCleared;
+    public UnityAction<QuestData> OnQuestAdded;
+    public UnityAction<QuestData> OnQuestRemoved;
+    public UnityAction<QuestData> OnQuestCleared;
 
-    public UnityEvent OnQuestUpdated;
+    public UnityAction<QuestData> OnQuestUpdated;
 
     public void Awake()
     {
@@ -35,17 +35,17 @@ public class QuestManager : MonoBehaviour
 
     public void ClearQuest(QuestData quest)
     {
-        Debug.Log($"{quest.questtitle} 퀘스트 클리어");
+      //  Debug.Log($"{quest.questtitle} 퀘스트 클리어");
         questList.Remove(quest);
         OnQuestCleared?.Invoke(quest);
         OnQuestRemoved?.Invoke(quest);
         // 보상
     }
 
-    public void UpdateQuest()
+    public void UpdateQuest(QuestData quest)
     {
         Debug.Log("퀘스트 업데이트");
-        OnQuestUpdated?.Invoke();
+        OnQuestUpdated?.Invoke(quest);
     }
 
 
@@ -55,28 +55,44 @@ public class QuestManager : MonoBehaviour
         foreach (QuestData questData in questList)
         {
             Debug.Log("들어감");
-            if (questData.monster == monsterName)
+            if (questData.monster!= monsterName)
             {
-                questData.value++;
-                questData.CheckClear();
-                Debug.Log("올림");
-                UpdateQuest();
-
+                Debug.Log("이상한데들어감");
             }
             else
             {
-                Debug.Log(questData.monster);
-                Debug.Log(monsterName);
-                Debug.Log("안올림");
-                return;
+               
+                questData.value++;
+                questData.CheckClear();
+                Debug.Log("올림");
+                UpdateQuest(questData);
+                break;
             }
                
 
         }
     }
 
-    public void GatherItem(string itemName)
+    public void GatherItem(ItemData item)
     {
-        
+        foreach (QuestData questData in questList)
+        {
+            Debug.Log("들어감");
+            if (questData.item != item.Name)
+            {
+                Debug.Log("이상한데들어감");
+
+            }
+            else
+            {
+                questData.value++;
+                questData.CheckClear();
+                Debug.Log("올림");
+                UpdateQuest(questData);
+                return;
+            }
+
+
+        }
     }
 }

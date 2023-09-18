@@ -11,7 +11,9 @@ public class SkillProjectileCollider : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
             IHittable hitMonster = collision.gameObject.GetComponent<IHittable>();
+            IHitReactor hitReactor = collision.gameObject.GetComponent<IHitReactor>();
             hitMonster.TakeDamaged(skillSource.skillData.damage);
+            hitReactor.HitReact(skillSource.skillData.hitTags, 0.4f);
             StartCoroutine(PlayerSkillActiveRoutine(source, 2f));
         }
     }

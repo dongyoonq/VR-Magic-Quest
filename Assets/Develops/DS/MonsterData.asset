@@ -19,7 +19,7 @@ MonoBehaviour:
     monsterTag: 0100000008000000050000000600000009000000
     dropItems:
     - {fileID: 2036955768169506492, guid: f1292d8118a95e8469060c025b72eb3d, type: 3}
-    healthPoint: 5000
+    healthPoint: 3000
     attackPoint: 100
     detectRange: 60
     attackRange: 7

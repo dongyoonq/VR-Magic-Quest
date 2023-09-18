@@ -325,8 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1024a7001da4a47a4ce4ca5d2322fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: c76044d8a642b6341882e805becf92df, type: 2}
-  PotionType: Bad
+  Data: {fileID: 11400000, guid: 6c25b140d4546e244b68fbfe43cbb480, type: 2}
   plugObj: {fileID: 3320597120299873993}
   particleSystemLiquid: {fileID: 2725960887883604825}
   fillAmount: 0.8

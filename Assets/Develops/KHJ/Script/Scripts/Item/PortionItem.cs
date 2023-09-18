@@ -54,7 +54,8 @@ public class PortionItem : CountableItem
 
     void Start()
     {
-        m_AudioSource = SFXPlayer.Instance.GetNewSource();
+        //m_AudioSource = SFXPlayer.Instance.GetNewSource();
+        m_AudioSource = GameManager.Sound.GetNewSource();
         m_AudioSource.gameObject.transform.SetParent(particleSystemLiquid.transform, false);
         m_AudioSource.gameObject.SetActive(true);
 
@@ -156,12 +157,7 @@ public class PortionItem : CountableItem
 
             plugObj.transform.parent = null;
 
-            SFXPlayer.Instance.PlaySFX(PoppingPlugAudioClip[Random.Range(0, PoppingPlugAudioClip.Length)], m_PlugRb.transform.position, new SFXPlayer.PlayParameters()
-            {
-                Pitch = Random.Range(0.9f, 1.1f),
-                Volume = 1.0f,
-                SourceID = -99
-            });
+            GameManager.Sound.PlaySFX(PoppingPlugAudioClip[Random.Range(0, PoppingPlugAudioClip.Length)]);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,6 @@ using static MonsterSkillData;
 public class SpellHitbox : MonoBehaviour
 {
     private Spell spell;
-    private Collider hitCollider;
-    public Collider HitCollider { get { return hitCollider; } }
     private float time;
     private bool hittable;
     // TODO: 연속데미지
@@ -17,16 +16,10 @@ public class SpellHitbox : MonoBehaviour
         this.spell = spell;
     }
 
-    private void Awake()
-    {
-        hitCollider = GetComponent<Collider>();
-    }
-
     private void OnEnable()
     {
         time = 0f;
         hittable = true;
-        hitCollider.enabled = false;
     }
 
     private void OnDisable()
@@ -38,6 +31,7 @@ public class SpellHitbox : MonoBehaviour
     {
         if (spell != null)
         {
+            spell.activate = false;
             spell.Hit(transform.position);
         }  
     }

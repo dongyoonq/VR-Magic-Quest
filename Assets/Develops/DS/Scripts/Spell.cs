@@ -7,6 +7,7 @@ using static MonsterSkillData;
 public class Spell : MonoBehaviour
 {
     private SpellHitbox spellHitbox;
+    public SpellHitbox SpellHitbox { get { return spellHitbox; } }
     private SkillInfo skillInfo;
     private Spell previousSpell;
     public Spell PreviousSpell { get { return previousSpell; } set {  previousSpell = value; } }
@@ -14,12 +15,15 @@ public class Spell : MonoBehaviour
     public Transform CasterTransform { get { return casterTransform; } }
     public bool activate;
     private GameObject effect;
+    private Coroutine spellRoutine;
 
     private void Awake()
     {
+        effect = transform.GetChild(0).gameObject;
+        effect.SetActive(true);
         spellHitbox = GetComponentInChildren<SpellHitbox>();
         spellHitbox?.SynchronizeSpell(this);
-        effect = transform.GetChild(0).gameObject;
+        effect.SetActive(false);
     }
 
     private void OnEnable()
@@ -37,7 +41,7 @@ public class Spell : MonoBehaviour
     {
         this.skillInfo = skillInfo;
         this.casterTransform = casterTransform;
-        StartCoroutine(SpellRoutine());
+        spellRoutine = StartCoroutine(SpellRoutine());
     }
 
     private IEnumerator SpellRoutine()
@@ -46,18 +50,14 @@ public class Spell : MonoBehaviour
         if (skillInfo.activateTiming == ActivateTiming.After)
         {
             yield return new WaitWhile(() => previousSpell.activate);
+            if (skillInfo.aim == Aim.Target)
+            {
+                transform.position = previousSpell.spellHitbox.transform.position;
+            }
         }
         yield return new WaitForSeconds(skillInfo.delayTime);
         activate = true;
         effect.SetActive(true);
-        if (skillInfo.spellType == SpellType.Projectile)
-        {
-            StartCoroutine(EnableColliderRoutine());
-        }
-        else
-        {
-            spellHitbox.HitCollider.enabled = true;
-        }
         if (skillInfo.spellType == SpellType.Burst)
         {
             Hit(transform.position);
@@ -66,12 +66,6 @@ public class Spell : MonoBehaviour
         activate = false;
         effect.SetActive(false);
         GameManager.Resource.Destroy(gameObject);
-    }
-
-    private IEnumerator EnableColliderRoutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-        spellHitbox.HitCollider.enabled = true;
     }
 
     public void Hit(Vector3 position)

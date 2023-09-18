@@ -69,11 +69,21 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         concentrateObject.SetActive(false);
     }
 
+    private IEnumerator TestRoutine()
+    {
+        yield return new WaitForSeconds(6f);
+        //Cast(ref harassmentSkills[0]);
+        //Cast(ref defensiveSkills[0]);
+        //Cast(ref aggressiveSkills[0]);
+        Cast(ref finisher[0]);
+    }
+
     private void OnEnable()
     {
         channelling = false;
         rageMode = false;
         attackDelayTime = 0f;
+        StartCoroutine(TestRoutine());
     }
 
     private void OnDisable()
@@ -85,45 +95,45 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     // advanced state에 따라 다른 공격
     public void Combat()
     {
-        Debug.Log(attackDelayTime);
-        if (attackDelayTime <= 0f)
-        {
-            if (heavyAttack.limit == 0)
-            {
-                attackRoutine = StartCoroutine(BasicAttackRoutine());
-            }
-            else
-            {
-                if (perception.CurrentCondition <= Condition.Good)
-                {
-                    attackRoutine = StartCoroutine(BasicAttackRoutine());
-                }
-                else if (perception.CurrentCondition > Condition.Good)
-                {
-                    attackRoutine = StartCoroutine(HeavytAttackRoutine());
-                    perception.CurrentCondition--;
-                }
-            }
-            attackDelayTime = 100f;
-            StartCoroutine(CountAttackDelayTimeRoutine());
-        }
-        else
-        {
-            if (perception.CurrentCondition >= Condition.Energetic)
-            {
-                CheckConditionAndUse(harassmentSkills);
-                CheckConditionAndUse(finisher);
-            }
-            else if (stat.healthPoint <= 200)
-            {
-                CheckConditionAndUse(DefensiveSkills);
-            }
-            else if (perception.CurrentCondition >= Condition.Tired && perception.
-                CompareDistanceWithoutHeight(transform.position, perception.Vision.TargetTransform.position, 20f))
-            {
-                CheckConditionAndUse(aggressiveSkills);
-            }
-        }
+        //Debug.Log(attackDelayTime);
+        //if (attackDelayTime <= 0f)
+        //{
+        //    if (heavyAttack.limit == 0)
+        //    {
+        //        attackRoutine = StartCoroutine(BasicAttackRoutine());
+        //    }
+        //    else
+        //    {
+        //        if (perception.CurrentCondition <= Condition.Good)
+        //        {
+        //            attackRoutine = StartCoroutine(BasicAttackRoutine());
+        //        }
+        //        else if (perception.CurrentCondition > Condition.Good)
+        //        {
+        //            attackRoutine = StartCoroutine(HeavytAttackRoutine());
+        //            perception.CurrentCondition--;
+        //        }
+        //    }
+        //    attackDelayTime = 100f;
+        //    StartCoroutine(CountAttackDelayTimeRoutine());
+        //}
+        //else
+        //{
+        //    if (perception.CurrentCondition >= Condition.Energetic)
+        //    {
+        //        CheckConditionAndUse(harassmentSkills);
+        //        CheckConditionAndUse(finisher);
+        //    }
+        //    else if (stat.healthPoint <= 200)
+        //    {
+        //        CheckConditionAndUse(DefensiveSkills);
+        //    }
+        //    else if (perception.CurrentCondition >= Condition.Tired && perception.
+        //        CompareDistanceWithoutHeight(transform.position, perception.Vision.TargetTransform.position, 20f))
+        //    {
+        //        CheckConditionAndUse(aggressiveSkills);
+        //    }
+        //}
     }
 
     private IEnumerator CountAttackDelayTimeRoutine()
@@ -250,8 +260,16 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         perception.ChangeCondition(-skill.energyCost);
         skill.limit--;
-        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillData.GetSkillInfo(skill.skill)));
-        perception.SendCommand(ConcentrateRoutine());
+        MonsterSkillData.SkillInfo skillInfo = skillData.GetSkillInfo(skill.skill);
+        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillInfo));
+        if (skillInfo.castingTime == 0)
+        {
+            perception.SendCommand(ConcentrateRoutine(true));
+        }
+        else
+        {
+            perception.SendCommand(ConcentrateRoutine());
+        }        
     }
 
     private IEnumerator CastSpellRoutine(MonsterSkillData.SkillInfo skillInfo)
@@ -314,6 +332,11 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         concentrateObject.SetActive(false);
     }
 
+    private IEnumerator ConcentrateRoutine(bool burst)
+    {
+        yield return new WaitWhile(() => channelling);
+    }
+
     public void Meditation()
     {
         channelling = true;
@@ -323,14 +346,14 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator MeditationRoutine()
     {
-        channelling = false;
         int time = 0;
-        while(perception.CurrentCondition <= Condition.TopForm || time == 5)
+        while(perception.CurrentCondition <= Condition.TopForm && time <= 3)
         {
             yield return new WaitForSeconds(1f);
             time++;
             perception.ChangeCondition(2);
         }
+        channelling = false;
     }
 
     public void HitReact(HitTag[] hitType, float duration)

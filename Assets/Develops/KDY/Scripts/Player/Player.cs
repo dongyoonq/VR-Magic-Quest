@@ -204,14 +204,19 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         }
     }
 
+    public void ActiveLocomotion(bool active)
+    {
+        playerLocomotion.gameObject.SetActive(active);
+    }
+
     IEnumerator MezRoutine(float duration)
     {
         isSkillUsed = true;
-        playerLocomotion.gameObject.SetActive(false);
+        ActiveLocomotion(false);
 
         yield return new WaitForSeconds(duration);
 
         isSkillUsed = false;
-        playerLocomotion.gameObject.SetActive(true);
+        ActiveLocomotion(true);
     }
 }

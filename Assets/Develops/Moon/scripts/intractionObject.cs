@@ -9,6 +9,7 @@ public class intractionObject : DestroyObject
     public Animator aim;
     [SerializeField] float asd;
     [SerializeField] ParticleSystem hiteffect;
+    
     public void Awake()
     {
         objrb = GetComponent<Rigidbody>();
@@ -19,7 +20,7 @@ public class intractionObject : DestroyObject
     //테스트 용도로 update 만듬
     public void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.K))
         {
             objrb.useGravity = true;
             
@@ -29,10 +30,16 @@ public class intractionObject : DestroyObject
     public void OnCollisionEnter(Collision collision)
     {
         
-        objrb.useGravity = true;
 
-        if (collision.gameObject.layer == 9)
+        //플레이어 스킬 맞으면 gravity 되게끔 설정하면됨
+        if(collision.gameObject.layer == 9)
         {
+            objrb.useGravity = true;
+        }
+        //바닥에 닿으면 시작
+        if (collision.gameObject.layer == 12)
+        {
+
             skillHitObject();
         }
     }

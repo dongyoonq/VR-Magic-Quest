@@ -18,9 +18,9 @@ MonoBehaviour:
   monster: 
   item: Kaunan
   clearValue: 1
-  clearitem: {fileID: 11400000, guid: c76044d8a642b6341882e805becf92df, type: 2}
+  clearRecipe: {fileID: 11400000, guid: 35c280c4fbc95474b8a56dbe28afff25, type: 2}
   quest: ' Kaunan 1Get
 
 
 
-    clear: HP portion'
+    clear: Fire Dragon Skill Recipe'

@@ -18,9 +18,9 @@ MonoBehaviour:
   monster: Golem
   item: 
   clearValue: 1
-  clearitem: {fileID: 11400000, guid: 04eef8332317ca946adaf6a2a23b00ca, type: 2}
+  clearRecipe: {fileID: 11400000, guid: 9ce0a741042060c439133711a3e01fba, type: 2}
   quest: 'Golem 1Kill
 
 
 
-    Clear : MP portion'
+    clear : Gravity Distortion Skill Recipe'

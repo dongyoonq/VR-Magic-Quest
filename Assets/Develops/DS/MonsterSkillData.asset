@@ -18,7 +18,7 @@ MonoBehaviour:
       type: 3}
     hitType: 00000000
     damage: 150
-    castingTime: 3
+    castingTime: 1
     activateTiming: 2
     delayTime: 0
     spellDuration: 7
@@ -32,7 +32,7 @@ MonoBehaviour:
     hitType: 01000000
     damage: 0
     castingTime: 0
-    activateTiming: 0
+    activateTiming: 2
     delayTime: 0
     spellDuration: 1800
     hitRange: 0.5
@@ -55,7 +55,7 @@ MonoBehaviour:
   - skillName: IceShield
     skillPrefab: {fileID: 4503131566431730721, guid: 1e0c3870a7d33cc44a05fc8296ba6e0d,
       type: 3}
-    hitType: 0100000003000000
+    hitType: 0400000003000000
     damage: 0
     castingTime: 0
     activateTiming: 2
@@ -95,11 +95,11 @@ MonoBehaviour:
       type: 3}
     hitType: 00000000
     damage: 200
-    castingTime: 1
+    castingTime: 2.7
     activateTiming: 2
-    delayTime: 0.3
+    delayTime: 0.2
     spellDuration: 6
-    hitRange: 4
+    hitRange: 6
     aim: 1
     spellType: 0
     additionalSkills: []
@@ -108,9 +108,9 @@ MonoBehaviour:
       type: 3}
     hitType: 00000000
     damage: 100
-    castingTime: 2
+    castingTime: 1.5
     activateTiming: 2
-    delayTime: 0.1
+    delayTime: 0
     spellDuration: 7
     hitRange: 2
     aim: 1

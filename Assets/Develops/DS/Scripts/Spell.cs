@@ -15,7 +15,7 @@ public class Spell : MonoBehaviour
     public Transform CasterTransform { get { return casterTransform; } }
     public bool activate;
     private GameObject effect;
-    private Coroutine spellRoutine;
+    private float time = 0f;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class Spell : MonoBehaviour
     {
         this.skillInfo = skillInfo;
         this.casterTransform = casterTransform;
-        spellRoutine = StartCoroutine(SpellRoutine());
+        StartCoroutine(SpellRoutine());
     }
 
     private IEnumerator SpellRoutine()
@@ -80,6 +80,22 @@ public class Spell : MonoBehaviour
                 hittable?.TakeDamaged(skillInfo.damage);
                 hitReactor?.HitReact(skillInfo.hitType, 1f);
             }
+        }
+    }
+    
+    public void ContinuousHit(Collider collider)
+    {
+        if (time >= 0.2f)
+        {
+            IHittable hittable = collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+            hittable?.TakeDamaged(skillInfo.damage);
+            hitReactor?.HitReact(skillInfo.hitType, 1f);
+            time = 0f;
+        }
+        else
+        {
+            time += Time.deltaTime;
         }
     }
 }

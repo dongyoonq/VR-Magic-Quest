@@ -21,6 +21,9 @@ public class MonsterLocomotion : MonoBehaviour
     public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
     private bool eliteMonster;
     public bool EliteMonster { get {  return eliteMonster; } set {  eliteMonster = value; } }
+    [SerializeField]
+    private GameObject dodgeEffect;
+    public GameObject DodgeEffect { get {  return dodgeEffect; } set {  dodgeEffect = value; } }
 
     private void Awake()
     {
@@ -56,31 +59,32 @@ public class MonsterLocomotion : MonoBehaviour
 
     public IEnumerator RushRoutine(float moveSpeed, float rushTime)
     {
-        moving = true;
-        // 돌격 준비 애니메이션
-        if (eliteMonster)
-        {
-            // 달릴때 Turn 많이
-            // 적 앞에서 멈추기
-            // 끝나고 공격
-        }
-        else
-        {
-            // 달릴때 처음 플레이어 방향으로 전진
-            // 일정거리만큼 돌진
-            // 끝나고 플레이어 방향으로 회전
-        }
-        float time = 0f;
-        animator.SetFloat("MoveSpeed", moveSpeed);
-        while (time < rushTime)
-        {
-            Turn(); Turn(); Turn();
-            characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        animator.SetFloat("MoveSpeed", 0f);
-        moving = false;
+        yield return null;
+        //moving = true;
+        //// 돌격 준비 애니메이션
+        //if (eliteMonster)
+        //{
+        //    // 달릴때 Turn 많이
+        //    // 적 앞에서 멈추기
+        //    // 끝나고 공격
+        //}
+        //else
+        //{
+        //    // 달릴때 처음 플레이어 방향으로 전진
+        //    // 일정거리만큼 돌진
+        //    // 끝나고 플레이어 방향으로 회전
+        //}
+        //float time = 0f;
+        //animator.SetFloat("MoveSpeed", moveSpeed);
+        //while (time < rushTime)
+        //{
+        //    Turn(); Turn(); Turn();
+        //    characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
+        //    time += Time.deltaTime;
+        //    yield return null;
+        //}
+        //animator.SetFloat("MoveSpeed", 0f);
+        //moving = false;
     }
 
     public void SlowDown()
@@ -108,23 +112,28 @@ public class MonsterLocomotion : MonoBehaviour
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
     }
 
-    public void Dodge()
+    public void Dodge(Vector3 skillPosition)
     {
-
+        RaycastHit hitInfo;
+        Vector3 direction = (skillPosition - transform.position).normalized;
+        StartCoroutine(DodgeRoutine());
+        if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo , 5f))
+        {
+            transform.position = hitInfo.transform.position + direction;
+        }
+        else
+        {
+            transform.position = transform.position - direction;
+        }
     }
 
     public IEnumerator DodgeRoutine()
     {
-        animator.SetBool("Dodge", true);
-        if (spellCaster)
-        {
-
-        }
-        else
-        {
-
-        }
-        yield return null;
+        dodgeEffect.SetActive(true);
+        dodgeEffect.transform.position = transform.position;
+        dodgeEffect.transform.rotation = transform.rotation;
+        yield return new WaitForSeconds(1f);
+        dodgeEffect.SetActive(false);
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

@@ -14,7 +14,8 @@ public class EnumType
         Impact,
         Buff,
         Debuff,
-        Mez
+        Mez,
+        Invincible
     }
 
     public enum MonsterTag

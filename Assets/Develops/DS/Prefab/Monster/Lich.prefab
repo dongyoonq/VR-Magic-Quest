@@ -17342,6 +17342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  dodgeEffect: {fileID: 7823971501854563214, guid: d570b4034e1879c489e309d6869ab46b,
+    type: 3}
 --- !u!114 &2548575899729965019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17367,20 +17369,23 @@ MonoBehaviour:
   - skill: 2
     energyCost: 2
     limit: 30
+  harassmentSkillCoolTime: 7
   aggressiveSkills:
   - skill: 6
     energyCost: 1
     limit: 10
+  aggressiveSkillCoolTime: 5
   defensiveSkills:
   - skill: 3
     energyCost: 0
     limit: 1
   finisher:
   - skill: 5
-    energyCost: 3
+    energyCost: 4
     limit: 20
+  finisherCoolTime: 10
   basicAttackType: 
-  heavyAttackType: 
+  heavyAttackType: 00000000
 --- !u!95 &3687047946168558115
 Animator:
   serializedVersion: 5

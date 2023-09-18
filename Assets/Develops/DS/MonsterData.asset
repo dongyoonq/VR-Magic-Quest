@@ -18,7 +18,7 @@ MonoBehaviour:
       type: 3}
     monsterTag: 0100000008000000050000000600000009000000
     dropItems:
-    - {fileID: 0}
+    - {fileID: 2036955768169506492, guid: f1292d8118a95e8469060c025b72eb3d, type: 3}
     healthPoint: 5000
     attackPoint: 100
     detectRange: 60
@@ -28,7 +28,7 @@ MonoBehaviour:
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
       type: 3}
-    monsterTag: 0a0000000000000005000000
+    monsterTag: 03000000
     dropItems: []
     healthPoint: 700
     attackPoint: 100
@@ -39,7 +39,7 @@ MonoBehaviour:
   - monsterName: GiantWorm
     monsterPrefab: {fileID: 5491683244567550782, guid: da488cbcf09082d4fa120b721953ac3a,
       type: 3}
-    monsterTag: 0500000009000000
+    monsterTag: 0300000007000000
     dropItems: []
     healthPoint: 100000
     attackPoint: 100000
@@ -50,7 +50,7 @@ MonoBehaviour:
   - monsterName: Golem
     monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
       type: 3}
-    monsterTag: 000000000300000001000000
+    monsterTag: 0000000001000000
     dropItems:
     - {fileID: 0}
     - {fileID: 0}
@@ -63,18 +63,18 @@ MonoBehaviour:
   - monsterName: FireGolem
     monsterPrefab: {fileID: 7662181597779404465, guid: c76783a8235a97341894f51015d92fa0,
       type: 3}
-    monsterTag: 0000000007000000
+    monsterTag: 010000000500000004000000
     dropItems:
     - {fileID: 0}
     healthPoint: 5000
     attackPoint: 600
     detectRange: 30
-    attackRange: 3
+    attackRange: 5
     attackSpeed: 0.5
     moveSpeed: 2
   - monsterName: Zombie
     monsterPrefab: {fileID: 0}
-    monsterTag: 040000000500000003000000
+    monsterTag: 0200000003000000
     dropItems:
     - {fileID: 0}
     healthPoint: 100

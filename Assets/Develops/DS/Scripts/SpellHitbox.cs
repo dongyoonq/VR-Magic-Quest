@@ -36,18 +36,8 @@ public class SpellHitbox : MonoBehaviour
         }  
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        time = 0f;
-    }
-
     private void OnTriggerStay(Collider other)
     {
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        
+        spell.ContinuousHit(other);
     }
 }

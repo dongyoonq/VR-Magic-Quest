@@ -42,12 +42,12 @@ public class MonsterPerception : MonoBehaviour
     private void OnEnable()
     {
         currentState = State.Idle;
-        currentCondition = Condition.Good;
+        currentCondition = Condition.Normal;
     }
 
     private void OnDisable()
     {
-
+        StopAllCoroutines();
     }
 
     public IEnumerator MakeDecisionRoutine()

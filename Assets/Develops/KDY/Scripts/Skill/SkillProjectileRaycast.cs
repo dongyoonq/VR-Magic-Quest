@@ -35,6 +35,7 @@ public class SkillProjectileRaycast : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, 100) && !isHitted)
         {
             IHittable hitMonster = hitInfo.collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = hitInfo.collider.GetComponent<IHitReactor>();
 
             if (hitMonster != null)
             {
@@ -42,6 +43,7 @@ public class SkillProjectileRaycast : MonoBehaviour
                 remainTime = 5f - time;
 
                 StartCoroutine(DamageRoutine(hitMonster));
+                StartCoroutine(ReactRoutine(hitReactor));
                 StartCoroutine(EndSkillRoutine());
             }
         }
@@ -51,6 +53,12 @@ public class SkillProjectileRaycast : MonoBehaviour
     {
         yield return new WaitForSeconds(hitTime);
         hitMonster.TakeDamaged(source.skillData.damage);
+    }
+
+    IEnumerator ReactRoutine(IHitReactor hitReactor)
+    {
+        yield return new WaitForSeconds(hitTime);
+        hitReactor.HitReact(source.skillData.hitTags, 0.4f);
     }
 
     IEnumerator EndSkillRoutine()

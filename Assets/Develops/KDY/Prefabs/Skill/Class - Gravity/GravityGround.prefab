@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 82448654918907288}
   - component: {fileID: 114663460738475344}
   - component: {fileID: 166212564042697778}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PostEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 4271420015378398}
   - component: {fileID: 82362763176455666}
   - component: {fileID: 114969165668499076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 4458872283724362}
   - component: {fileID: 198357917440542288}
   - component: {fileID: 199157940254172122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ParticlesRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5057,7 +5057,7 @@ GameObject:
   - component: {fileID: 23448473503948154}
   - component: {fileID: 114313514675607312}
   - component: {fileID: 114889321218325524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5211,7 +5211,7 @@ GameObject:
   - component: {fileID: 4083068471379458}
   - component: {fileID: 114752466909315258}
   - component: {fileID: -8030588056602456020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GravityGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5292,7 +5292,7 @@ GameObject:
   - component: {fileID: 198986167414018140}
   - component: {fileID: 199122393413208400}
   - component: {fileID: 114294234203906018}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9892,7 +9892,7 @@ GameObject:
   - component: {fileID: 198394462154077106}
   - component: {fileID: 199683361695334472}
   - component: {fileID: 114637653599661420}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: DistortExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14563,7 +14563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4171969997382304}
   - component: {fileID: 114609910581672412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14614,7 +14614,7 @@ GameObject:
   - component: {fileID: 198659433074827014}
   - component: {fileID: 199497592460304656}
   - component: {fileID: 114757663618251830}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19290,7 +19290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4127692101940524}
   - component: {fileID: 114935686660186088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CamShake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19335,7 +19335,7 @@ GameObject:
   - component: {fileID: 4625366030745480}
   - component: {fileID: 108751484141703464}
   - component: {fileID: 114062865501577890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19498,7 +19498,7 @@ GameObject:
   - component: {fileID: 4996763512156144}
   - component: {fileID: 82177592646765488}
   - component: {fileID: 114635259956747758}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

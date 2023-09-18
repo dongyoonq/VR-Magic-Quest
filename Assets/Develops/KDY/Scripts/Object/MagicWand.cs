@@ -62,6 +62,8 @@ public class MagicWand : XRGrabInteractable
         }
 
         base.OnSelectEntered(args);
+
+        owner.controllerManager.UpdateLocomotionActions();
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)

@@ -26,7 +26,9 @@ public class FireDragon : Skill
         foreach (Collider collider in colliders)
         {
             IHittable hitMonster = collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
             hitMonster.TakeDamaged(skill.skillData.damage);
+            hitReactor.HitReact(skill.skillData.hitTags, 0.2f);
         }
 
         yield return new WaitForSeconds(2.5f);

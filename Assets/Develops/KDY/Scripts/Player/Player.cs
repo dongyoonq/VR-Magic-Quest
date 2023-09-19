@@ -24,7 +24,6 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
     public List<Gesture> trainingSet = new List<Gesture>();
 
     [SerializeField] Image hitScreen;
-    [SerializeField] Transform home;
 
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
@@ -234,5 +233,15 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
         isSkillUsed = false;
         ActiveLocomotion(true);
+    }
+
+    public void PlayerEndBattle()
+    {
+        MonsterController[] monsters = GetComponentsInChildren<MonsterController>();
+
+        if (monsters.Length == 0)
+        {
+            GameManager.Sound.PlayBGM("DungeonBGM");
+        }
     }
 }

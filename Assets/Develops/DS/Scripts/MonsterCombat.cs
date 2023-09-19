@@ -39,6 +39,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     public bool rageMode;
     [SerializeField]
     private HitTag[] basicAttackType;
+    [SerializeField]
+    private string attackSound;
+    [SerializeField]
+    private string getDamageSound;
 
     [Serializable]
     public class Skill
@@ -96,6 +100,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         if (delayTime <= 0f)
         {
             delayTime = UnityEngine.Random.Range(5, 10);
+            if (attackSound != null)
+            {
+                GameManager.Sound.PlaySFX(attackSound);
+            }            
             for (int i = 0; i < conditionalPatern.Length; i++)
             {
                 if (stat.healthPoint < conditionalPatern[i].conditionHP)
@@ -551,6 +559,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             yield return null;
         }
         rageMode = true;
+        GameManager.Sound.PlayBGM("BossBGM2");
     }
 
     private IEnumerator InvincibleRoutine(float duration)
@@ -589,6 +598,13 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         if (stat.healthPoint <= 0)
         {
             perception.CurrentState = State.Collapse;
+        }
+        else
+        {
+            if (getDamageSound != null)
+            {
+                GameManager.Sound.PlaySFX(getDamageSound);
+            }
         }
     }
 

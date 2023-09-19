@@ -120,6 +120,10 @@ public class MonsterData : ScriptableObject
             {
                 monsterPerception.Locomotion.DodgeEffect = GameManager.Resource.Instantiate(monsterPerception.Locomotion.DodgeEffect);
             }
+            else if (tag == MonsterTag.LastBoss)
+            {
+                GameManager.Sound.PlayBGM("BossBGM1");
+            }
             yield return null;
         }
         while (monsterPerception.CurrentState != EnumType.State.Collapse)

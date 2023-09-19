@@ -185,6 +185,7 @@ public class MonsterLocomotion : MonoBehaviour
     public IEnumerator TeleportRoutine()
     {
         dodgeEffect.SetActive(true);
+        GameManager.Sound.PlaySFX("GhostLaugh");
         int directionNumber = Random.Range(0, 8);
         Vector3 direction;
         switch (directionNumber)

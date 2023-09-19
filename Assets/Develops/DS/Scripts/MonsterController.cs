@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class MonsterController : MonoBehaviour
 {
+    [SerializeField] 
+    private MonsterSpawnerHelper monsterSpawnerHelper;
     [SerializeField]
     private MonsterData monsterData;
     [SerializeField]
@@ -71,6 +73,8 @@ public class MonsterController : MonoBehaviour
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());
+
+        monsterSpawnerHelper.AddRespawnMonster(monsterPerception);
     }
 
     public void UnlockNextArea()

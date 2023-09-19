@@ -1707,10 +1707,14 @@ MonoBehaviour:
   - skill: -1
     energyCost: 0
     limit: -1
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   conditionalPatern: []
+  rageMode: 0
   basicAttackType: 00000000
+  attackSound: ZombieAttack
 --- !u!114 &5864448207502526268
 MonoBehaviour:
   m_ObjectHideFlags: 0

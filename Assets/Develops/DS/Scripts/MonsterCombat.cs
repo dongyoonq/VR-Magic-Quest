@@ -39,6 +39,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     public bool rageMode;
     [SerializeField]
     private HitTag[] basicAttackType;
+    [SerializeField]
+    private string attackSound;
+    [SerializeField]
+    private string getDamageSound;
 
     [Serializable]
     public class Skill
@@ -46,7 +50,9 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         public MonsterSkill skill;
         public int energyCost;
         public int limit;
+        public int castingMotion;
         public int conditionHP;
+        public float conditionDistance;
         [HideInInspector]
         public int priority = 0;
     }
@@ -72,7 +78,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             skillPriority.Add(skill);
             skill.priority++;
         }
-        StartCoroutine(Test());
+        //StartCoroutine(Test());
     }
 
     private void OnDisable()
@@ -83,6 +89,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     IEnumerator Test()
     {
         yield return new WaitForSeconds(5f);
+        TakeDamaged(100000);
     }
 
     //TODO: 공격 딜레이 타임 조정, 돌진, 회피
@@ -93,6 +100,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         if (delayTime <= 0f)
         {
             delayTime = UnityEngine.Random.Range(5, 10);
+            if (attackSound != null)
+            {
+                GameManager.Sound.PlaySFX(attackSound);
+            }            
             for (int i = 0; i < conditionalPatern.Length; i++)
             {
                 if (stat.healthPoint < conditionalPatern[i].conditionHP)
@@ -105,6 +116,19 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                     conditionalPatern[i].limit--;
                     return;
                 }
+                if (conditionalPatern[i].conditionDistance != 0f)
+                {
+                    if (!perception.CompareDistanceWithoutHeight(transform.position, perception.Vision.TargetTransform.position, conditionalPatern[i].conditionDistance))
+                    {
+                        if (conditionalPatern[i].limit == 0)
+                        {
+                            continue;
+                        }
+                        Cast(ref conditionalPatern[i]);
+                        conditionalPatern[i].limit--;
+                        return;
+                    }
+                }             
             }
             Skill skill = skillPriority[UnityEngine.Random.Range(0, skillPriority.Count)];
             for (int i = 0; i < skill.priority; i++)
@@ -242,7 +266,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         else
         {
-            perception.SendCommand(ConcentrateRoutine(skillInfo.castingTime));
+            perception.SendCommand(ConcentrateRoutine(skillInfo.castingTime, skill.castingMotion));
         }
     }
 
@@ -250,6 +274,27 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         channelling = true;
         yield return new WaitForSeconds(skillInfo.castingTime);
+        Vector3 targetPosition = perception.Vision.TargetTransform.position;
+        if (rageMode)
+        {
+            switch (skillInfo.aim)
+            {
+                case Aim.Target:
+                    for (int i = 0; i < UnityEngine.Random.Range(1, 11); i++)
+                    {
+                        Vector3 randomPosition = UnityEngine.Random.insideUnitSphere * 20f + targetPosition;
+                        ActivateSpell(skillInfo, perception.Vision.TargetTransform, new Vector3(randomPosition.x, targetPosition.y, randomPosition.z));
+                    }
+                    break;
+                case Aim.Front:
+                    for (int i = 1; i <= UnityEngine.Random.Range(1, 4); i++)
+                    {
+                        ActivateSpell(skillInfo, perception.Vision.TargetTransform, transform.position + transform.forward * 1.5f + transform.right * 1.5f * i);
+                        ActivateSpell(skillInfo, perception.Vision.TargetTransform, transform.position + transform.forward * 1.5f + -transform.right * 1.5f * i);
+                    }
+                    break;
+            }
+        }
         ActivateSpell(skillInfo, perception.Vision.TargetTransform);
         channelling = false;
         animator.SetBool("Casting", false);
@@ -269,19 +314,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         switch (skillInfo.aim)
         {
-            case Aim.Target:
-                if (rageMode)
-                {
-                    for (int i = 0; i < UnityEngine.Random.Range(1, 11); i++)
-                    {
-                        Vector3 randomPosition = UnityEngine.Random.insideUnitSphere * 20f + targetTransform.position;
-                        spell = GameManager.Resource.Instantiate
-                            (skillPrefab, new Vector3(randomPosition.x, targetTransform.position.y, randomPosition.z), targetTransform.rotation, true)
-                            .GetComponent<Spell>();
-                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
-                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                    }
-                }
+            case Aim.Target:                   
                 spell = GameManager.Resource.Instantiate(skillPrefab, targetTransform.position, targetTransform.rotation, true)
                     .GetComponent<Spell>();
                 spell.PreviousSpell = targetTransform.GetComponent<Spell>();
@@ -289,24 +322,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
                 break;
             case Aim.Front:
-                if (rageMode)
-                {
-                    int randomNumber = UnityEngine.Random.Range(1, 4);
-                    for (int i = 1; i <= randomNumber; i++)
-                    {
-                        spell = GameManager.Resource.Instantiate
-                            (skillPrefab, transform.position + transform.forward * 1.5f + transform.right * 1.5f * i, transform.rotation, true)
-                            .GetComponent<Spell>();
-                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
-                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                        spell = GameManager.Resource.Instantiate
-                            (skillPrefab, transform.position + transform.forward * 1.5f + -transform.right * 1.5f * i, transform.rotation, true)
-                            .GetComponent<Spell>();
-                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
-                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                    }
-
-                }
                 spell = GameManager.Resource.Instantiate
                     (skillPrefab, transform.position + transform.forward * 1.5f, transform.rotation, true).GetComponent<Spell>();
                 spell.PreviousSpell = targetTransform.GetComponent<Spell>();
@@ -319,15 +334,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                    .GetComponent<Spell>();
                 spell.PreviousSpell = targetTransform.GetComponent<Spell>();
                 spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                if (rageMode)
-                {
-                    aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
-                    spell = GameManager.Resource.Instantiate
-                        (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
-                       .GetComponent<Spell>();
-                    spell.PreviousSpell = targetTransform.GetComponent<Spell>();
-                    spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                }
                 break;
             default:
                 spell = GameManager.Resource.Instantiate(skillPrefab, transform.position, transform.rotation, true)
@@ -338,21 +344,80 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         if (skillInfo.additionalSkills.Length > 0)
         {
-            for(int i = 0; i < skillInfo.additionalSkills.Length; i++)
+            for (int i = 0; i < skillInfo.additionalSkills.Length; i++)
+            {
+                ActivateSpell(skillInfo.additionalSkills[i], spell.transform);
+            }
+        }    
+    }
+
+    private void ActivateSpell(MonsterSkillData.SkillInfo skillInfo, Transform targetTransform, Vector3 targetPosition)
+    {
+        Spell spell;
+        GameObject skillPrefab;
+        if (skillInfo.skillPrefab == null)
+        {
+            skillPrefab = skillData.defaultSkillPrefab;
+        }
+        else
+        {
+            skillPrefab = skillInfo.skillPrefab;
+        }
+        switch (skillInfo.aim)
+        {
+            case Aim.Target:
+                spell = GameManager.Resource.Instantiate(skillPrefab, targetPosition, targetTransform.rotation, true)
+                    .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+
+                break;
+            case Aim.Front:
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, targetPosition, transform.rotation, true).GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                break;
+            case Aim.Around:
+                Vector3 aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
+                   .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                break;
+            default:
+                spell = GameManager.Resource.Instantiate(skillPrefab, transform.position, transform.rotation, true)
+                    .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                break;
+        }
+        if (skillInfo.additionalSkills.Length > 0)
+        {
+            for (int i = 0; i < skillInfo.additionalSkills.Length; i++)
             {
                 ActivateSpell(skillInfo.additionalSkills[i], spell.transform);
             }
         }
     }
 
-    private IEnumerator ConcentrateRoutine(float castingTime)
+    private IEnumerator ConcentrateRoutine(float castingTime, int castingMotion)
     {
-        animator.SetBool("Casting", true);
-        animator.SetFloat("CastingTime", 1 / castingTime);
+        if (castingMotion == 0)
+        {
+            animator.SetBool("Casting", true);
+            animator.SetFloat("CastingTime", 1 / castingTime);
+        }
+        else
+        {
+            animator.SetInteger("SpecialAttack", castingMotion);
+        }
         concentrateObject.SetActive(true);
         yield return new WaitWhile(() => channelling);
         concentrateObject.SetActive(false);
         animator.SetFloat("CastingTime", 1f);
+        animator.SetInteger("SpecialAttack", 0);
     }
 
     private IEnumerator ConcentrateRoutine(bool burst)
@@ -364,7 +429,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         channelling = true;
         concentrateRoutine = StartCoroutine(MeditationRoutine());
-        perception.SendCommand(ConcentrateRoutine(3f));
+        perception.SendCommand(ConcentrateRoutine(3f, 0));
     }
 
     private IEnumerator MeditationRoutine()
@@ -494,6 +559,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             yield return null;
         }
         rageMode = true;
+        GameManager.Sound.PlayBGM("BossBGM2");
     }
 
     private IEnumerator InvincibleRoutine(float duration)
@@ -532,6 +598,13 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         if (stat.healthPoint <= 0)
         {
             perception.CurrentState = State.Collapse;
+        }
+        else
+        {
+            if (getDamageSound != null)
+            {
+                GameManager.Sound.PlaySFX(getDamageSound);
+            }
         }
     }
 

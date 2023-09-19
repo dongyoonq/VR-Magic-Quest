@@ -85,7 +85,7 @@ MonoBehaviour:
     damageMultiplier: 2
     castingTime: 1
     activateTiming: 2
-    delayTime: 2
+    delayTime: 4
     spellDuration: 6
     hitRange: 4
     aim: 1

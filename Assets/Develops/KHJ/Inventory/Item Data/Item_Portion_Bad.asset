@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 24
   itemName: BadPortion
   tooltip: "\uC798\uBABB \uB9CC\uB4E4\uC5B4\uC9C4 \uD3EC\uC158"
-  iconSprite: {fileID: 21300000, guid: b51962460e41b48428c52a9cff07458b, type: 3}
+  iconSprite: {fileID: 21300000, guid: 1ae5f5665314b9b4b9c8f661904d64cc, type: 3}
   dropItemPrefab: {fileID: 1052899370326745896, guid: e63296e59f199454c879d9525c21b896,
     type: 3}
   maxAmount: 99

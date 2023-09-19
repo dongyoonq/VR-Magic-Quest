@@ -29,6 +29,7 @@ public class AlchemyPot : MonoBehaviour
     {
         m_StartingVolume = AmbientSoundSource.volume;
         AmbientSoundSource.volume = m_StartingVolume * 0.2f;
+        AmbientSoundSource.Play();
     }
 
     void OnTriggerEnter(Collider other)
@@ -45,15 +46,7 @@ public class AlchemyPot : MonoBehaviour
         {
             Vector3 contactPosition = other.attachedRigidbody.gameObject.transform.position;
             contactPosition.y = gameObject.transform.position.y;
-
-            /*
-            SFXPlayer.Instance.PlaySFX(SplashClips[Random.Range(0, SplashClips.Length)], contactPosition, new SFXPlayer.PlayParameters()
-            {
-                Pitch = Random.Range(0.8f, 1.2f),
-                SourceID = 17624,
-                Volume = 1.0f
-            }, 0.2f, true);
-            */
+            GameManager.Sound.PlaySFX(SplashClips[Random.Range(0, SplashClips.Length)]);            
 
             if (Rune != null)
             {

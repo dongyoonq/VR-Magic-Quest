@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 25
   itemName: HPPortion
-  tooltip: "\uB9C8\uC2DC\uBA74 HP\uB97C ??\uD68C\uBCF5\uC2DC\uCF1C \uC900\uB2E4"
-  iconSprite: {fileID: 21300000, guid: c2ebadfcb9b8cbb4a8ae6f124b17e332, type: 3}
+  tooltip: "\uB9C8\uC2DC\uBA74 HP\uB97C \uC5B4\uB290\uC815\uB3C4 \uD68C\uBCF5\uC2DC\uCF1C
+    \uC900\uB2E4"
+  iconSprite: {fileID: 21300000, guid: 08d200ffb5bf16041b1a87f3ba69091b, type: 3}
   dropItemPrefab: {fileID: 7752485392262410096, guid: 7a54337ef46543742bab4a571330944e,
     type: 3}
   maxAmount: 99
-  hillHpValue: 0
+  hillHpValue: 300
   hillMpValue: 0

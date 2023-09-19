@@ -288,7 +288,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             case Aim.Target:
                 if (rageMode)
                 {
-                    for (int i = 0; i < UnityEngine.Random.Range(1, 11); i++)
+                    for (int i = 0; i < UnityEngine.Random.Range(1, 8); i++)
                     {
                         Vector3 randomPosition = UnityEngine.Random.insideUnitSphere * 20f + targetTransform.position;
                         spell = GameManager.Resource.Instantiate
@@ -307,7 +307,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             case Aim.Front:
                 if (rageMode)
                 {
-                    int randomNumber = UnityEngine.Random.Range(1, 4);
+                    int randomNumber = UnityEngine.Random.Range(1, 3);
                     for (int i = 1; i <= randomNumber; i++)
                     {
                         spell = GameManager.Resource.Instantiate
@@ -335,15 +335,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                    .GetComponent<Spell>();
                 spell.PreviousSpell = targetTransform.GetComponent<Spell>();
                 spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                if (rageMode)
-                {
-                    aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
-                    spell = GameManager.Resource.Instantiate
-                        (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
-                       .GetComponent<Spell>();
-                    spell.PreviousSpell = targetTransform.GetComponent<Spell>();
-                    spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
-                }
                 break;
             default:
                 spell = GameManager.Resource.Instantiate(skillPrefab, transform.position, transform.rotation, true)

@@ -44,8 +44,9 @@ public class AlchemyPot : MonoBehaviour
         }
         else
         {
+            /*
             Vector3 contactPosition = other.attachedRigidbody.gameObject.transform.position;
-            contactPosition.y = gameObject.transform.position.y;
+            contactPosition.y = gameObject.transform.position.y;*/
             GameManager.Sound.PlaySFX(SplashClips[Random.Range(0, SplashClips.Length)]);            
 
             if (Rune != null)

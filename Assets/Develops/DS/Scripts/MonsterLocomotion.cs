@@ -48,13 +48,32 @@ public class MonsterLocomotion : MonoBehaviour
         characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);       
     }
 
-    public IEnumerator KeepDistanceRoutine(float moveSpeed)
+    public IEnumerator KeepDistanceRoutine(float moveSpeed, bool approach)
     {
-        Coroutine stepBackRoutine = StartCoroutine(StepBackRoutine(moveSpeed));
-        yield return new WaitForSeconds(5f);
-        StopCoroutine(stepBackRoutine);
+        if (approach)
+        {
+            Coroutine moveRoutine = StartCoroutine(ApproachRoutine(moveSpeed));
+            yield return new WaitForSeconds(5f);
+            StopCoroutine(moveRoutine);
+            animator.SetFloat("MoveSpeed", 0f);
+        }
+        else
+        {
+            Coroutine moveRoutine = StartCoroutine(StepBackRoutine(moveSpeed));
+            yield return new WaitForSeconds(5f);
+            StopCoroutine(moveRoutine);
+            animator.SetFloat("MoveSpeed", 0f);
+        }          
+    }
+
+    private IEnumerator ApproachRoutine(float moveSpeed)
+    {
+        while (!binded)
+        {
+            Approach(moveSpeed);
+            yield return null;
+        }
         animator.SetFloat("MoveSpeed", 0f);
-             
     }
 
     private IEnumerator StepBackRoutine(float moveSpeed)
@@ -144,11 +163,11 @@ public class MonsterLocomotion : MonoBehaviour
             StartCoroutine(DodgeRoutine());
             if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo, 5f))
             {
-                transform.position = hitInfo.transform.position + direction + Vector3.up * 0.3f;
+                transform.position = hitInfo.transform.position + direction + Vector3.up * 0.5f;
             }
             else
             {
-                transform.position = transform.position - direction + Vector3.up * 0.3f;
+                transform.position = transform.position - direction + Vector3.up * 0.5f;
             }
         }       
     }

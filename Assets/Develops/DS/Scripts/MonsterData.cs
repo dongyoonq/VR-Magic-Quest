@@ -168,11 +168,10 @@ public class MonsterData : ScriptableObject
     {
         if (monsterPerception.CurrentState == EnumType.State.Combat)
         {
-            monsterPerception.StartCoroutine(monsterPerception.Locomotion.KeepDistanceRoutine(monsterPerception.alertMoveSpeed));
-            if (monsterPerception.CurrentCondition < Condition.Tired)
-            {
-                monsterPerception.Combat.Meditation();
-            }
+            monsterPerception.Locomotion.StartCoroutine
+                (monsterPerception.Locomotion.KeepDistanceRoutine
+                (monsterPerception.alertMoveSpeed, monsterPerception.CompareDistanceWithoutHeight
+                (monsterPerception.transform.position, monsterPerception.Vision.TargetTransform.position, 7f)));
         }
     }
 
@@ -187,7 +186,7 @@ public class MonsterData : ScriptableObject
             }
             else
             {
-                if (!monsterPerception.CompareDistanceWithoutHeight(monsterPerception.transform.position, monsterPerception.Vision.TargetTransform.position, 7f))
+                if (!monsterPerception.CompareDistanceWithoutHeight(monsterPerception.transform.position, monsterPerception.Vision.TargetTransform.position, 5f))
                 {
                     monsterPerception.SendCommand(monsterPerception.Locomotion.TeleportRoutine());
                 }

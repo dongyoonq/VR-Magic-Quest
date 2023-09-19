@@ -46,7 +46,9 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         public MonsterSkill skill;
         public int energyCost;
         public int limit;
+        public int castingMotion;
         public int conditionHP;
+        public float conditionDistance;
         [HideInInspector]
         public int priority = 0;
     }
@@ -72,7 +74,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             skillPriority.Add(skill);
             skill.priority++;
         }
-        StartCoroutine(Test());
+        //StartCoroutine(Test());
     }
 
     private void OnDisable()
@@ -83,6 +85,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     IEnumerator Test()
     {
         yield return new WaitForSeconds(5f);
+        TakeDamaged(100000);
     }
 
     //TODO: 공격 딜레이 타임 조정, 돌진, 회피
@@ -105,6 +108,19 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                     conditionalPatern[i].limit--;
                     return;
                 }
+                if (conditionalPatern[i].conditionDistance != 0f)
+                {
+                    if (!perception.CompareDistanceWithoutHeight(transform.position, perception.Vision.TargetTransform.position, conditionalPatern[i].conditionDistance))
+                    {
+                        if (conditionalPatern[i].limit == 0)
+                        {
+                            continue;
+                        }
+                        Cast(ref conditionalPatern[i]);
+                        conditionalPatern[i].limit--;
+                        return;
+                    }
+                }             
             }
             Skill skill = skillPriority[UnityEngine.Random.Range(0, skillPriority.Count)];
             for (int i = 0; i < skill.priority; i++)
@@ -242,7 +258,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         else
         {
-            perception.SendCommand(ConcentrateRoutine(skillInfo.castingTime));
+            perception.SendCommand(ConcentrateRoutine(skillInfo.castingTime, skill.castingMotion));
         }
     }
 
@@ -345,14 +361,22 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
     }
 
-    private IEnumerator ConcentrateRoutine(float castingTime)
+    private IEnumerator ConcentrateRoutine(float castingTime, int castingMotion)
     {
-        animator.SetBool("Casting", true);
-        animator.SetFloat("CastingTime", 1 / castingTime);
+        if (castingMotion == 0)
+        {
+            animator.SetBool("Casting", true);
+            animator.SetFloat("CastingTime", 1 / castingTime);
+        }
+        else
+        {
+            animator.SetInteger("SpecialAttack", castingMotion);
+        }
         concentrateObject.SetActive(true);
         yield return new WaitWhile(() => channelling);
         concentrateObject.SetActive(false);
         animator.SetFloat("CastingTime", 1f);
+        animator.SetInteger("SpecialAttack", 0);
     }
 
     private IEnumerator ConcentrateRoutine(bool burst)
@@ -364,7 +388,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         channelling = true;
         concentrateRoutine = StartCoroutine(MeditationRoutine());
-        perception.SendCommand(ConcentrateRoutine(3f));
+        perception.SendCommand(ConcentrateRoutine(3f, 0));
     }
 
     private IEnumerator MeditationRoutine()

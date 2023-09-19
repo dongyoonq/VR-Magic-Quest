@@ -176,10 +176,15 @@ public class MonsterPerception : MonoBehaviour
 
     private IEnumerator CollapseRoutine()
     {
-        StopCoroutine(controller.monsterBehaviourRoutine);
-        StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
+        CurrentState = State.Idle;
+        LoseSightOfTarget();
         controller.UnlockNextArea();
         GameManager.Quest.KillMonster(monsterInfo.monsterName);
+        locomotion.StopAllCoroutines();
+        vision.StopAllCoroutines();
+        combat.StopAllCoroutines();
+        StopCoroutine(controller.monsterBehaviourRoutine);
+        StopCoroutine(controller.monsterInvoluntaryBehaveRoutine);
         animator.SetBool("Collapse", true);
         animator.SetTrigger("GetHit");
         // 죽는 애니메이션

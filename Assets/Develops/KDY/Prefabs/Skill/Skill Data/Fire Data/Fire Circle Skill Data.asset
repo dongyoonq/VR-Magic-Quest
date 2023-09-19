@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Fire Circle
   skillTooltip: This is Fire Circle Skill, Monster Binding Skill
   recognizeGestureName: 
-  damage: 10
+  damage: 15
   useMp: 0
   skillType: 0
   hitTags: 03000000

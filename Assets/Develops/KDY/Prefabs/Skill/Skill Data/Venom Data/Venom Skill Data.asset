@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Venom Basic
   skillTooltip: This is Venom Basic Skill
   recognizeGestureName: Wave
-  damage: 50
+  damage: 80
   useMp: 0
   skillType: 2
   hitTags: 

@@ -103,7 +103,7 @@ public class DoorGrab : XRBaseInteractable
         }
         if (door.feDoor.transform.position.y > door.fedoorpos.y + 10)
         {
-            Debug.Log("enddoorµé¾î°¨");
+      
             door.enddoor();
             transform.GetComponent<DoorGrab>().enabled = false;
         }

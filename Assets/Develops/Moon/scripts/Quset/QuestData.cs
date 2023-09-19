@@ -26,7 +26,7 @@ public class QuestData : ScriptableObject
         if (value==clearValue)
         {
             isclear = true;
-            Debug.Log("Æ®·ç");    
+            
         }
         else isclear= false;
     }

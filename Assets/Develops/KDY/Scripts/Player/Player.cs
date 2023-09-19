@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     public InventoryUI inventoryUI { get; set; }
     public Inventory inventory { get; private set; }
+    public SettingUI settingUI;
 
     public List<SkillData> skillList;
     public List<PortionRecipeData> unlockRecipeList;
@@ -171,6 +172,20 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         currHp -= damage;
 
         StartCoroutine(GotHurtRoutine());
+
+        if (currHp < 0)
+        {
+            StartCoroutine(DieRoutine());
+        }
+    }
+
+    IEnumerator DieRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+        GameManager.Sound.PlaySFX("PlayerDie");
+        settingUI.ReturnHome();
+        yield return new WaitForSeconds(1f);
+        currHp = maxHp;
     }
 
     IEnumerator GotHurtRoutine()
@@ -218,5 +233,15 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
         isSkillUsed = false;
         ActiveLocomotion(true);
+    }
+
+    public void PlayerEndBattle()
+    {
+        MonsterController[] monsters = GetComponentsInChildren<MonsterController>();
+
+        if (monsters.Length == 0)
+        {
+            GameManager.Sound.PlayBGM("DungeonBGM");
+        }
     }
 }

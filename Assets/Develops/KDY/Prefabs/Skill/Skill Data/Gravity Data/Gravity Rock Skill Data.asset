@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Gravity Rock
   skillTooltip: This is Gravity Rock Skill
   recognizeGestureName: 
-  damage: 120
+  damage: 180
   useMp: 0
   skillType: 3
   hitTags: 00000000

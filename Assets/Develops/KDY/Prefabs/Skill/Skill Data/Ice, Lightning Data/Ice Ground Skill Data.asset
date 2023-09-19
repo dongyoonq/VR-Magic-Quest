@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Ice Ground
   skillTooltip: This is Ice Ground Skill,  Monster Binding Skill
   recognizeGestureName: 
-  damage: 10
+  damage: 20
   useMp: 0
   skillType: 1
   hitTags: 03000000

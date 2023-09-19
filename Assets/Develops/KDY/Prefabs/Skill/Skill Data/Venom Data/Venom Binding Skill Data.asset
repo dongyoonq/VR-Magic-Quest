@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Venom Binding
   skillTooltip: This is Venom Binding Skill, Monster Binding Skill
   recognizeGestureName: Z
-  damage: 10
+  damage: 20
   useMp: 0
   skillType: 2
   hitTags: 03000000

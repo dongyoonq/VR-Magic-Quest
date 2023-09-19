@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Lightning Boltex
   skillTooltip: This is Lightning Boltex Skill
   recognizeGestureName: 
-  damage: 120
+  damage: 160
   useMp: 0
   skillType: 1
   hitTags: 00000000

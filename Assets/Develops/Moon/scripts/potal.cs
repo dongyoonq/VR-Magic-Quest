@@ -40,7 +40,7 @@ public class potal : MonoBehaviour
     public void  potalMove()
     {
         monsterSpawnerHelper.RespawnAll();
-
+        GameManager.Sound.PlayBGM("DungeonBGM");
         playerobj.transform.position = potalend.transform.position+ potalend.transform.up*1.5f;
     }
 }

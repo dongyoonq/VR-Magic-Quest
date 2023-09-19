@@ -71,5 +71,7 @@ public class SettingUI : BookUI
         }
 
         player.ActiveLocomotion(true);
+
+        GameManager.Sound.PlayBGM("TownBGM");
     }
 }

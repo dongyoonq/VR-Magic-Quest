@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     public List<Sound> musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-
+    bool bossDamaged;
     private void Start()
     {
         musicSounds = new List<Sound>()
@@ -95,6 +95,15 @@ public class SoundManager : MonoBehaviour
 
         }
         else
+        {
+            sfxSource.PlayOneShot(sound.clip);
+        }
+    }
+
+    public void PlayBossDamaged()
+    {
+        Sound sound = sfxSounds.Find(x => x.name == "GhostDamaged");
+        if (!bossDamaged)
         {
             sfxSource.PlayOneShot(sound.clip);
         }

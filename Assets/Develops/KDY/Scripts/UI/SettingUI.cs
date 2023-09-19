@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SettingUI : BookUI
 {
+    [SerializeField] MonsterSpawnerHelper monsterSpawnerHelper;
     [SerializeField] MagicWand wand;
     [SerializeField] Ladle ladle;
     [SerializeField] GameObject hammer;
@@ -29,6 +30,8 @@ public class SettingUI : BookUI
 
     public void ReturnHome()
     {
+        monsterSpawnerHelper.ResetMonsterSpawn();
+
         player.StartCoroutine(ReturnRoutine());
     }
 

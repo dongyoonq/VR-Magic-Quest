@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5607b76aa1182704ea517a71ec46934c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feDoor: {fileID: 0}
+  feDoor: {fileID: 8709541997131462078, guid: 1fb0b115d7b91b14ea3c72d0d5f7fb0e, type: 3}
   interaction: 0
   angle: {x: 0, y: 0, z: 0, w: 0}
   sped: 0

@@ -100,22 +100,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  rageMode: 0
   skillData: {fileID: 0}
   concentrateObject: {fileID: 0}
-  heavyAttack:
-    skill: -1
-    energyCost: 1
+  attackPatern:
+  - skill: -1
+    energyCost: 0
     limit: -1
-  harassmentSkills: []
-  harassmentSkillCoolTime: 0
-  aggressiveSkills: []
-  aggressiveSkillCoolTime: 0
-  defensiveSkills: []
-  finisher: []
-  finisherCoolTime: 0
+    conditionHP: 0
+    priority: 0
+  conditionalPatern: []
   basicAttackType: 00000000
-  heavyAttackType: 00000000
 --- !u!95 &4135362832684762404
 Animator:
   serializedVersion: 5

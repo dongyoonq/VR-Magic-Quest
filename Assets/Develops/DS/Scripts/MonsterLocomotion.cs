@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class MonsterLocomotion : MonoBehaviour
     private bool floating;
     private float floatingTime;
     private bool spellCaster;
+    private bool binded;
+    public bool Binded { get { return binded; } set { binded = value; } }
     private bool moving;
     public bool Moving { get { return moving; } set { moving = value; } }
     public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
@@ -43,6 +46,26 @@ public class MonsterLocomotion : MonoBehaviour
     {
         animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
         characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);       
+    }
+
+    public IEnumerator KeepDistanceRoutine(float moveSpeed)
+    {
+        Coroutine stepBackRoutine = StartCoroutine(StepBackRoutine(moveSpeed));
+        yield return new WaitForSeconds(5f);
+        StopCoroutine(stepBackRoutine);
+        animator.SetFloat("MoveSpeed", 0f);
+             
+    }
+
+    private IEnumerator StepBackRoutine(float moveSpeed)
+    {
+        while (!binded)
+        {
+            animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
+            characterController.Move(-transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+            yield return null;
+        }
+        animator.SetFloat("MoveSpeed", 0f);
     }
 
     public void ComeRound(Vector3 position, bool left)
@@ -114,26 +137,75 @@ public class MonsterLocomotion : MonoBehaviour
 
     public void Dodge(Vector3 skillPosition)
     {
-        RaycastHit hitInfo;
-        Vector3 direction = (skillPosition - transform.position).normalized;
-        StartCoroutine(DodgeRoutine());
-        if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo , 5f))
+        if (!binded)
         {
-            transform.position = hitInfo.transform.position + direction;
-        }
-        else
-        {
-            transform.position = transform.position - direction;
-        }
+            RaycastHit hitInfo;
+            Vector3 direction = (skillPosition - transform.position).normalized;
+            StartCoroutine(DodgeRoutine());
+            if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo, 5f))
+            {
+                transform.position = hitInfo.transform.position + direction + Vector3.up * 0.3f;
+            }
+            else
+            {
+                transform.position = transform.position - direction + Vector3.up * 0.3f;
+            }
+        }       
     }
 
     public IEnumerator DodgeRoutine()
     {
-        dodgeEffect.SetActive(true);
+        animator.SetBool("Dodge", true);
         dodgeEffect.transform.position = transform.position;
         dodgeEffect.transform.rotation = transform.rotation;
         yield return new WaitForSeconds(1f);
         dodgeEffect.SetActive(false);
+        animator.SetBool("Dodge", false);
+    }
+
+    public IEnumerator TeleportRoutine()
+    {
+        dodgeEffect.SetActive(true);
+        int directionNumber = Random.Range(0, 8);
+        Vector3 direction;
+        switch (directionNumber)
+        {
+            case 0:
+                direction = transform.forward;
+                break;
+            case 1:
+                direction = transform.forward + transform.right;
+                break;
+            case 2:
+                direction = transform.right;
+                break;
+            case 3:
+                direction = transform.right + -transform.forward;
+                break;
+            case 4:
+                direction = -transform.forward;
+                break;
+            case 5:
+                direction = -transform.forward + -transform.right;
+                break;
+            case 6:
+                direction = -transform.right;
+                break;
+            default:
+                direction = transform.forward + -transform.right;
+                break;
+        }
+        yield return new WaitForSeconds(3f);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + Vector3.up, direction, out hitInfo, 3f))
+        {
+            transform.position = hitInfo.transform.position + -direction + Vector3.up * 0.3f;
+        }
+        else
+        {
+            transform.position = transform.position + direction * 3f + Vector3.up * 0.3f;
+        }
+        StartCoroutine(DodgeRoutine());
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

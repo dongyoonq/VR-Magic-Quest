@@ -168,13 +168,9 @@ public class MonsterData : ScriptableObject
     {
         if (monsterPerception.CurrentState == EnumType.State.Combat)
         {
+            monsterPerception.StartCoroutine(monsterPerception.Locomotion.KeepDistanceRoutine(monsterPerception.alertMoveSpeed));
             if (monsterPerception.CurrentCondition < Condition.Tired)
             {
-                (bool usable, int skillIndex) = monsterPerception.Combat.CheckCondition(monsterPerception.Combat.HarassmentSkills);
-                if (usable)
-                {
-                    monsterPerception.Combat.Cast(ref monsterPerception.Combat.HarassmentSkills[skillIndex]);
-                }
                 monsterPerception.Combat.Meditation();
             }
         }
@@ -188,6 +184,13 @@ public class MonsterData : ScriptableObject
             if (collider.Length > 0)
             {
                 monsterPerception.Locomotion.Dodge(collider[0].transform.position);
+            }
+            else
+            {
+                if (!monsterPerception.CompareDistanceWithoutHeight(monsterPerception.transform.position, monsterPerception.Vision.TargetTransform.position, 7f))
+                {
+                    monsterPerception.SendCommand(monsterPerception.Locomotion.TeleportRoutine());
+                }
             }
         }       
     }
@@ -209,43 +212,7 @@ public class MonsterData : ScriptableObject
     {
         if (monsterPerception.Combat.rageMode)
         {
-            for (int i = 0; i < monsterPerception.MinionController.Length; i++)
-            {
-                if (monsterPerception.MinionController[i].enabled)
-                {
-                    continue;
-                }
-                monsterPerception.MinionController[i].enabled = true;
-                monsterPerception.MinionController[i].spawnPoint.position = monsterPerception.transform.position + monsterPerception.transform.forward;
-                monsterPerception.MinionController[i].SpawnMonster();
-            }
-        }
-        else if (monsterPerception.Combat.MaxHP/2 >= monsterPerception.Combat.Stat.healthPoint)
-        {
-            monsterPerception.Combat.HeavyAttack.energyCost /= 2;
-            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.HarassmentSkills)
-            {
-                skill.energyCost /= 2;
-            }
-            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.AggressiveSkills)
-            {
-                skill.energyCost /= 2;
-            }
-            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.DefensiveSkills)
-            {
-                skill.energyCost /= 2;
-            }
-            foreach (MonsterCombat.Skill skill in monsterPerception.Combat.Finisher)
-            {
-                skill.energyCost /= 2;
-            }
-            monsterPerception.MinionController = new MonsterController[2];
-            for (int i = 0; i < monsterPerception.MinionController.Length; i++)
-            {
-                monsterPerception.MinionController[i] = GameManager.Resource.Instantiate(monsterPerception.Controller, true);
-            }
-            monsterPerception.Combat.rageMode = true;
-            
+
         }
     }
 

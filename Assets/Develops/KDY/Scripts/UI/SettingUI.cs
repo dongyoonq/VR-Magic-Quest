@@ -6,12 +6,25 @@ using UnityEngine.UI;
 public class SettingUI : BookUI
 {
     [SerializeField] MagicWand wand;
+    [SerializeField] Ladle ladle;
+    [SerializeField] GameObject hammer;
+
     [SerializeField] Image fadeScreen;
     [SerializeField] Transform returnTransform;
 
     public void CreateWand()
     {
         Instantiate(wand, Camera.main.transform.position + (Camera.main.transform.forward * 2f), Quaternion.identity);
+    }
+
+    public void CreateLadle()
+    {
+        Instantiate(ladle, Camera.main.transform.position + (Camera.main.transform.forward * 2f), Quaternion.identity);
+    }
+
+    public void CreateHammer()
+    {
+        Instantiate(hammer, Camera.main.transform.position + (Camera.main.transform.forward * 2f), Quaternion.identity);
     }
 
     public void ReturnHome()

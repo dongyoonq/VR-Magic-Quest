@@ -33,6 +33,7 @@ public class Rock : DestroyObject
     public override void ToolHitObject()
     {
         hitcount++;
+        GameManager.Sound.PlaySFX("stonehit");
         if (hitcount > 2)
         {
             DestroyObject();

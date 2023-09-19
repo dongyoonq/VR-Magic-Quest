@@ -16,21 +16,7 @@ public class boxInteraction : XRSocketInteractor
         base.Awake();
     }
 
-  /*  public override void PreprocessInteractor(XRInteractionUpdateOrder.UpdatePhase updatePhase)
-    {
-        base.PreprocessInteractor(updatePhase);
-
-        if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
-        {
-            if (acces)
-            {
-                Debug.Log("¿¬°áµÊ");
-                var interactor = GetComponent<XRBaseInteractor>();
-
-                transform.GetChild(1).transform.rotation = interactor.gameObject.transform.rotation;
-            }
-        }
-    }*/
+ 
     public override bool CanSelect(XRBaseInteractable interactable)
     {
         key key = interactable.GetComponent<key>();
@@ -38,7 +24,6 @@ public class boxInteraction : XRSocketInteractor
         if (key == null)
             return false;
 
-        //   acces = true;
   
         return base.CanSelect(interactable) && (key.keytype == keytype);
     }

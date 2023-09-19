@@ -30,7 +30,7 @@ public class Hammer : MonoBehaviour
         {
             if(Addvelocity(velocityx, velocityy, velocityz) > 5)
             {
-                Debug.Log("¸ÂÀ½");
+             
                 other.gameObject.GetComponent<Rock>().ToolHitObject();
             }
         }

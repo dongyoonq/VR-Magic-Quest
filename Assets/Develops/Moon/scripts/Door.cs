@@ -76,7 +76,7 @@ public class Door : MonoBehaviour
     }
     public void enddoor()
     {
-        Debug.Log("enddoor");
+       
         isend = true;
         feDoor.GetComponent<Rigidbody>().useGravity = false;
         feDoor.GetComponent<Rigidbody>().velocity = Vector3.zero;

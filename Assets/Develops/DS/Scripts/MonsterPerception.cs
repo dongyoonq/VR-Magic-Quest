@@ -80,7 +80,9 @@ public class MonsterPerception : MonoBehaviour
         {
             return;
         }
+        Player player = controller.transform.GetComponentInParent<Player>();
         controller.transform.parent = null;
+        player.PlayerEndBattle();
         controller.transform.position = transform.position + transform.forward * 5f;
     }
 

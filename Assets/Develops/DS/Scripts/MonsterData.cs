@@ -141,7 +141,7 @@ public class MonsterData : ScriptableObject
 
     private void TenacityTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
-        monsterPerception.Combat.TakeDamaged(-100);
+        monsterPerception.Combat.TakeDamaged(-5);
     }
 
     private void AggressiveTypeMonsterBehaviour(MonsterPerception monsterPerception)

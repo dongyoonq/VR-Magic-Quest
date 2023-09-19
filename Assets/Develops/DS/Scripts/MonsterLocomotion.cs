@@ -158,26 +158,26 @@ public class MonsterLocomotion : MonoBehaviour
     {
         if (!binded)
         {
-            RaycastHit hitInfo;
             Vector3 direction = (skillPosition - transform.position).normalized;
-            StartCoroutine(DodgeRoutine());
-            if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo, 5f))
-            {
-                transform.position = hitInfo.transform.position + direction + Vector3.up * 0.5f;
-            }
-            else
-            {
-                transform.position = transform.position - direction + Vector3.up * 0.5f;
-            }
+            StartCoroutine(DodgeRoutine( -(direction), 5f));
         }       
     }
 
-    public IEnumerator DodgeRoutine()
+    public IEnumerator DodgeRoutine(Vector3 direction, float distance)
     {
         animator.SetBool("Dodge", true);
         dodgeEffect.transform.position = transform.position;
         dodgeEffect.transform.rotation = transform.rotation;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + Vector3.up, direction, out hitInfo, distance, 1))
+        {
+            transform.position = hitInfo.transform.position + -direction + Vector3.up * 0.5f;
+        }
+        else
+        {
+            transform.position = transform.position + direction * distance + Vector3.up * 0.5f;
+        }
         dodgeEffect.SetActive(false);
         animator.SetBool("Dodge", false);
     }
@@ -214,17 +214,8 @@ public class MonsterLocomotion : MonoBehaviour
                 direction = transform.forward + -transform.right;
                 break;
         }
-        yield return new WaitForSeconds(3f);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position + Vector3.up, direction, out hitInfo, 3f))
-        {
-            transform.position = hitInfo.transform.position + -direction + Vector3.up * 0.3f;
-        }
-        else
-        {
-            transform.position = transform.position + direction * 3f + Vector3.up * 0.3f;
-        }
-        StartCoroutine(DodgeRoutine());
+        yield return null;
+        StartCoroutine(DodgeRoutine(direction, 5f));
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

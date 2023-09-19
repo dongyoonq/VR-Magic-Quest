@@ -1,34 +1,55 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using static EnumType;
+using static MonsterCombat;
+using static MonsterSkillData;
 
 public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 {
     private MonsterPerception perception;
-    private Animator animator;
+    public Animator animator;
     [SerializeField]
     private (int healthPoint, int attackPoint, float attackSpeed) stat;
     public (int healthPoint, int attackPoint, float attackSpeed) Stat { get { return stat; } set { stat = value; } }
+    private int maxHP;
+    public int MaxHP { get { return maxHP; } set { maxHP = value; } }
     private WaitForSeconds waitRecoverTime;
     public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
     private LayerMask hitTargetLayerMask;
     private Coroutine attackRoutine;
+    private Coroutine concentrateRoutine;
     private bool getHit;
-    private float attackDelayTime;
-    private bool meleeType;
-    public bool MeleeType { get { return meleeType; } set {  meleeType = value; } }
+    [SerializeField]
+    private MonsterSkillData skillData;
+    [SerializeField]
+    private GameObject concentrateObject;
     private bool channelling;
+    private bool invincible;
+    [SerializeField]
+    private Skill[] attackPatern;
+    [SerializeField]
+    private Skill[] conditionalPatern;
+    private List<Skill> skillPriority;
+    private float delayTime;
+    public bool rageMode;
     [SerializeField]
     private HitTag[] basicAttackType;
-    [SerializeField]
-    private HitTag[] meleeAttackType;
-    [SerializeField]
-    private HitTag[] rangedAttackType;
-    [SerializeField]
-    private Transform[] meleeAttackPoints;
+
+    [Serializable]
+    public class Skill
+    {
+        public MonsterSkill skill;
+        public int energyCost;
+        public int limit;
+        public int conditionHP;
+        [HideInInspector]
+        public int priority = 0;
+    }
 
     private void Awake()
     {
@@ -36,13 +57,22 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         animator = GetComponent<Animator>();
         hitTargetLayerMask = LayerMask.GetMask("Player");
         getHit = false;
+        concentrateObject = GameManager.Resource.Instantiate(concentrateObject, transform.position + Vector3.up * 2f, transform.rotation);
+        concentrateObject.transform.SetParent(transform);
+        concentrateObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        meleeType = false;
         channelling = false;
-        attackDelayTime = 0f;
+        delayTime = 2f;
+        skillPriority = new List<Skill>();
+        foreach (Skill skill in attackPatern)
+        {
+            skillPriority.Add(skill);
+            skill.priority++;
+        }
+        StartCoroutine(Test());
     }
 
     private void OnDisable()
@@ -50,50 +80,60 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         StopAllCoroutines();
     }
 
+    IEnumerator Test()
+    {
+        yield return new WaitForSeconds(5f);
+    }
+
+    //TODO: 공격 딜레이 타임 조정, 돌진, 회피
     // advanced state에 따라 다른 공격
     public void Combat()
     {
-        if (attackDelayTime <= 0f)
+        delayTime += -Time.deltaTime;
+        if (delayTime <= 0f)
         {
-            if (perception.CurrentCondition <= Condition.Good)
+            delayTime = UnityEngine.Random.Range(5, 10);
+            for (int i = 0; i < conditionalPatern.Length; i++)
             {
-                attackRoutine = StartCoroutine(BasicAttackRoutine());
+                if (stat.healthPoint < conditionalPatern[i].conditionHP)
+                {
+                    if (conditionalPatern[i].limit == 0)
+                    {
+                        continue;
+                    }
+                    Cast(ref conditionalPatern[i]);
+                    conditionalPatern[i].limit--;
+                    return;
+                }
             }
-            else if (perception.CurrentCondition > Condition.Good)
+            Skill skill = skillPriority[UnityEngine.Random.Range(0, skillPriority.Count)];
+            for (int i = 0; i < skill.priority; i++)
             {
-                attackRoutine = StartCoroutine(HeavytAttackRoutine());
-                perception.CurrentCondition--;
+                skillPriority.Remove(skill);
             }
-            StartCoroutine(CountAttackDelayTimeRoutine());
+            skill.priority = 0;
+            foreach (Skill patern in attackPatern)
+            {
+                if (patern.limit != 0)
+                {
+                    skillPriority.Add(patern);
+                    patern.priority++;
+                }
+            }
+            Cast(ref skill);
+            skill.limit--;
+            if (skill.limit == 0)
+            {
+                skillPriority.Remove(skill);
+            }    
         }
-
     }
 
-    private IEnumerator CountAttackDelayTimeRoutine()
+    private void CountDown(ref float time)
     {
-        while (attackDelayTime <= 0f)
+        while (time <= 0)
         {
-            if (perception.CurrentCondition <= Condition.Exhausted)
-            {
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-            }
-            else if (perception.CurrentCondition > Condition.Energetic)
-            {
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-            }
-            else
-            {
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
-            }
-            if (attackDelayTime < 0.01f)
-            {
-                perception.Vision.AvertEye();
-                perception.Vision.AvertEye();
-            }
-            yield return null;
+            time += -Time.deltaTime;
         }
     }
 
@@ -111,6 +151,57 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
     }
 
+    public (bool, int) CheckCondition(Skill[] skillGroup)
+    {
+        bool usable = false;
+        int index = 0;
+        Condition expectedCondition = Condition.TopForm + 1;
+        for (int i = 0; i < skillGroup.Length; i++)
+        {
+            if (skillGroup[i].limit == 0)
+            {
+                continue;
+            }
+            if (perception.CurrentCondition - skillGroup[i].energyCost >= Condition.Weak)
+            {
+                usable = true;
+                if (perception.CurrentCondition - skillGroup[i].energyCost < expectedCondition)
+                {
+                    expectedCondition = perception.CurrentCondition - skillGroup[i].energyCost;
+                    index = i;
+                }
+            }
+        }
+        return (usable, index);
+    }
+
+    public void CheckConditionAndUse(Skill[] skillGroup)
+    {
+        bool usable = false;
+        int index = 0;
+        Condition expectedCondition = Condition.TopForm + 1;
+        for (int i = 0; i < skillGroup.Length; i++)
+        {
+            if (skillGroup[i].limit == 0)
+            {
+                continue;
+            }
+            if (perception.CurrentCondition - skillGroup[i].energyCost >= Condition.Weak)
+            {
+                usable = true;
+                if (perception.CurrentCondition - skillGroup[i].energyCost < expectedCondition)
+                {
+                    expectedCondition = perception.CurrentCondition - skillGroup[i].energyCost;
+                    index = i;
+                }
+            }
+        }
+        if (usable)
+        {
+            Cast(ref skillGroup[index]);
+        }
+    }
+
     private IEnumerator BasicAttackRoutine()
     {
         animator.SetTrigger("Attack");
@@ -119,47 +210,172 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
     }
 
-    private IEnumerator HeavytAttackRoutine()
+    public void Rage()
+    {
+        MonsterSkillData.SkillInfo skillInfo = skillData.GetSkillInfo(MonsterSkill.Rage);
+        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillInfo));
+        perception.SendCommand(ConcentrateRoutine(true));
+    }
+
+    public void Cast(ref Skill skill)
+    {
+        if (skill.skill == MonsterSkill.Basic)
+        {
+            perception.SendCommand(BasicAttackRoutine());
+            delayTime -= delayTime * stat.attackSpeed;
+        }
+        else
+        {
+            perception.ChangeCondition(-skill.energyCost);
+            perception.SendCommand(CastRoutine(skill));
+        }
+    }
+
+    private IEnumerator CastRoutine(Skill skill)
+    {
+        yield return null;
+        MonsterSkillData.SkillInfo skillInfo = skillData.GetSkillInfo(skill.skill);
+        concentrateRoutine = StartCoroutine(CastSpellRoutine(skillInfo));
+        if (skillInfo.castingTime == 0)
+        {
+            perception.SendCommand(ConcentrateRoutine(true));
+        }
+        else
+        {
+            perception.SendCommand(ConcentrateRoutine(skillInfo.castingTime));
+        }
+    }
+
+    private IEnumerator CastSpellRoutine(MonsterSkillData.SkillInfo skillInfo)
     {
         channelling = true;
-        yield return null;
-        //animator.SetBool("MeleeAttack", true);
-        //animator.SetTrigger("Attack");
-        //yield return new WaitForSeconds(1f);
-        //yield return StartCoroutine(perception.Locomotion.RushRoutine(15f, 3f));
-        //Debug.Log(gameObject.name);
-        //animator.SetBool("MeleeAttack", false);
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsTag("MeleeAttack"))
-        //{
-        //    Collider[] hitObjects;
-        //    foreach (Transform attackPoint in meleeAttackPoints)
-        //    {
-        //        hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
-        //        foreach (Collider hitObject in hitObjects)
-        //        {
-        //            hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint * 2);
-        //            hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
-        //        }
-        //    }
-        //}      
+        yield return new WaitForSeconds(skillInfo.castingTime);
+        ActivateSpell(skillInfo, perception.Vision.TargetTransform);
         channelling = false;
+        animator.SetBool("Casting", false);
     }
 
-    private IEnumerator RangedAttackRoutine()
+    private void ActivateSpell(MonsterSkillData.SkillInfo skillInfo, Transform targetTransform)
     {
-        yield return null;
-        //animator.SetBool("RangedAttack", true);
-        //animator.SetTrigger("Attack");
+        Spell spell;
+        GameObject skillPrefab;
+        if (skillInfo.skillPrefab == null)
+        {
+            skillPrefab = skillData.defaultSkillPrefab;
+        }
+        else
+        {
+            skillPrefab = skillInfo.skillPrefab;
+        }
+        switch (skillInfo.aim)
+        {
+            case Aim.Target:
+                if (rageMode)
+                {
+                    for (int i = 0; i < UnityEngine.Random.Range(1, 11); i++)
+                    {
+                        Vector3 randomPosition = UnityEngine.Random.insideUnitSphere * 20f + targetTransform.position;
+                        spell = GameManager.Resource.Instantiate
+                            (skillPrefab, new Vector3(randomPosition.x, targetTransform.position.y, randomPosition.z), targetTransform.rotation, true)
+                            .GetComponent<Spell>();
+                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                    }
+                }
+                spell = GameManager.Resource.Instantiate(skillPrefab, targetTransform.position, targetTransform.rotation, true)
+                    .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
 
-        //yield return null;
-        //animator.SetBool("RangedAttack", false);
+                break;
+            case Aim.Front:
+                if (rageMode)
+                {
+                    int randomNumber = UnityEngine.Random.Range(1, 4);
+                    for (int i = 1; i <= randomNumber; i++)
+                    {
+                        spell = GameManager.Resource.Instantiate
+                            (skillPrefab, transform.position + transform.forward * 1.5f + transform.right * 1.5f * i, transform.rotation, true)
+                            .GetComponent<Spell>();
+                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                        spell = GameManager.Resource.Instantiate
+                            (skillPrefab, transform.position + transform.forward * 1.5f + -transform.right * 1.5f * i, transform.rotation, true)
+                            .GetComponent<Spell>();
+                        spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                        spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                    }
+
+                }
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, transform.position + transform.forward * 1.5f, transform.rotation, true).GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                break;
+            case Aim.Around:
+                Vector3 aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
+                spell = GameManager.Resource.Instantiate
+                    (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
+                   .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                if (rageMode)
+                {
+                    aroundPosition = UnityEngine.Random.insideUnitSphere * 2f + targetTransform.position;
+                    spell = GameManager.Resource.Instantiate
+                        (skillPrefab, new Vector3(aroundPosition.x, targetTransform.position.y, aroundPosition.z), targetTransform.rotation, true)
+                       .GetComponent<Spell>();
+                    spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                    spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                }
+                break;
+            default:
+                spell = GameManager.Resource.Instantiate(skillPrefab, transform.position, transform.rotation, true)
+                    .GetComponent<Spell>();
+                spell.PreviousSpell = targetTransform.GetComponent<Spell>();
+                spell.SynchronizeSpell(skillInfo, transform, stat.attackPoint);
+                break;
+        }
+        if (skillInfo.additionalSkills.Length > 0)
+        {
+            for(int i = 0; i < skillInfo.additionalSkills.Length; i++)
+            {
+                ActivateSpell(skillInfo.additionalSkills[i], spell.transform);
+            }
+        }
     }
 
-    private IEnumerator CastSpellRoutine()
+    private IEnumerator ConcentrateRoutine(float castingTime)
+    {
+        animator.SetBool("Casting", true);
+        animator.SetFloat("CastingTime", 1 / castingTime);
+        concentrateObject.SetActive(true);
+        yield return new WaitWhile(() => channelling);
+        concentrateObject.SetActive(false);
+        animator.SetFloat("CastingTime", 1f);
+    }
+
+    private IEnumerator ConcentrateRoutine(bool burst)
+    {
+        yield return new WaitWhile(() => channelling);
+    }
+
+    public void Meditation()
     {
         channelling = true;
-        // 캐스팅 시간 딜레이 monsterSkillInfo.SpellCastingTime
-        yield return null;
+        concentrateRoutine = StartCoroutine(MeditationRoutine());
+        perception.SendCommand(ConcentrateRoutine(3f));
+    }
+
+    private IEnumerator MeditationRoutine()
+    {
+        int time = 0;
+        while(perception.CurrentCondition <= Condition.TopForm && time <= 3)
+        {
+            yield return new WaitForSeconds(1f);
+            time++;
+            perception.ChangeCondition(2);
+        }
         channelling = false;
     }
 
@@ -169,6 +385,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         foreach (HitTag hitTag in hitType)
         {
             statusDuration = duration;
+            if (invincible)
+            {
+                return;
+            }
             switch (hitTag)
             {
                 case HitTag.Impact:
@@ -183,6 +403,12 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                 case HitTag.Mez:
                     perception.SendCommand(MezHitReactRoutine());
                     break;
+                case HitTag.Invincible:
+                    perception.SendCommand(InvincibleHitReactRoutine());
+                    break;
+                case HitTag.Rage:
+                    perception.SendCommand(RageHitReactRoutine());
+                    break;
             }
         }
     }
@@ -195,12 +421,28 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             StopCoroutine(attackRoutine);
             if (channelling)
             {
-                perception.CurrentCondition--;
+                perception.ChangeCondition(-1);
+                animator.SetBool("HeavyAttack", false);
+                channelling = false;
             }            
+        }
+        if (concentrateRoutine != null)
+        {
+            StopCoroutine(concentrateRoutine);
+            animator.SetFloat("CastingTime", 1f);
+            if (channelling)
+            {
+                perception.ChangeCondition(-1);
+                channelling = false;
+                animator.SetBool("Casting", false);
+            }
         }
         animator.SetTrigger("GetHit");
         yield return null;
-        yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
+        if (!perception.Locomotion.Binded)
+        {
+            yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
+        }
         yield return waitRecoverTime;
         getHit = false;
         if (perception.CurrentState == State.Idle)
@@ -226,13 +468,39 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private IEnumerator MezHitReactRoutine()
     {
         animator.SetFloat("MoveSpeed", 0f);
+        perception.Locomotion.Binded = true;
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
         getHit = false;
+        perception.Locomotion.Binded = false;
         if (perception.CurrentState == State.Idle)
         {
             perception.SendCommand(AlertRoutine());
         }
+    }
+
+    private IEnumerator InvincibleHitReactRoutine()
+    {
+        float duration = statusDuration;
+        StartCoroutine(InvincibleRoutine(duration));
+        yield return null;
+    }
+
+    private IEnumerator RageHitReactRoutine()
+    {
+        foreach (Skill patern in attackPatern)
+        {
+            patern.energyCost /= 2;
+            yield return null;
+        }
+        rageMode = true;
+    }
+
+    private IEnumerator InvincibleRoutine(float duration)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(duration);
+        invincible = false;
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
@@ -256,7 +524,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void TakeDamaged(int damage)
     {
-        // TODO: 강한 피해를 받으면 혹은 데미지 정도에 따라 밀려나는 거리를 다르게 하고 싶으면 perception.SendCommand(perception.Locomotion.ShovedRoutine(10));
         if (perception.CurrentCondition == Condition.Weak)
         {
             damage += damage / 2;

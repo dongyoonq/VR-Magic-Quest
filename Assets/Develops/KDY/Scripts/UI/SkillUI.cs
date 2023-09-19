@@ -30,7 +30,13 @@ public class SkillUI : BookUI
 
     public void ActiveSkillUI()
     {
+        foreach (SkillSlot slot in skillSlots)
+        {
+            slot.gameObject.SetActive(true);
+        }
+
         skillSlots = GetComponentsInChildren<SkillSlot>();
+
         OnPlayerSkillUIUpdate?.Invoke();
     }
 

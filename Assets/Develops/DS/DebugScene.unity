@@ -3932,12 +3932,12 @@ PrefabInstance:
     - target: {fileID: 3407975625837609968, guid: c966657d75d2a6b498771295e644dfd0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.64
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3407975625837609968, guid: c966657d75d2a6b498771295e644dfd0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.2
+      value: -59.2
       objectReference: {fileID: 0}
     - target: {fileID: 3407975625837609968, guid: c966657d75d2a6b498771295e644dfd0,
         type: 3}
@@ -4017,7 +4017,7 @@ PrefabInstance:
     - target: {fileID: 7778675785399763973, guid: c966657d75d2a6b498771295e644dfd0,
         type: 3}
       propertyPath: spawnMonsterNumber
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c966657d75d2a6b498771295e644dfd0, type: 3}

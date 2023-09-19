@@ -23,17 +23,25 @@ public class FireCircle : Skill
     {
         float time = 0f;
 
-        while (time < 3f)
+        Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 3f, LayerMask.GetMask("Monster"));
+
+        foreach (Collider collider in colliders)
+        {
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+
+            if (hitReactor != null)
+                hitReactor.HitReact(skillData.hitTags, 2.4f);
+        }
+
+        while (time < 2.4f)
         {
             time += Time.deltaTime;
 
             // Monster Binding & Damage
-            Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 3f, LayerMask.GetMask("Monster"));
+            colliders = Physics.OverlapSphere(skill.transform.position, 3f, LayerMask.GetMask("Monster"));
             foreach (Collider collider in colliders)
             {
                 IHittable hitMonster = collider.GetComponent<IHittable>();
-
-                // Binding
 
                 // Damage
                 if (!isDamaged)
@@ -54,7 +62,7 @@ public class FireCircle : Skill
 
     IEnumerator ActiveDamageTimer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         isDamaged = false;
     }
 

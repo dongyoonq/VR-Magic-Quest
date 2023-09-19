@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,13 +11,22 @@ public class MonsterLocomotion : MonoBehaviour
     public Transform targetTransform;
     private CharacterController characterController;
     private Animator animator;
+    private Vector3 guardPosition;
+    public Vector3 GuardPosition { get { return guardPosition; } set { guardPosition = value; } }
     private float ySpeed;
     private bool floating;
     private float floatingTime;
     private bool spellCaster;
+    private bool binded;
+    public bool Binded { get { return binded; } set { binded = value; } }
+    private bool moving;
+    public bool Moving { get { return moving; } set { moving = value; } }
     public bool SpellCaster { get { return spellCaster; } set {  spellCaster = value; } }
     private bool eliteMonster;
     public bool EliteMonster { get {  return eliteMonster; } set {  eliteMonster = value; } }
+    [SerializeField]
+    private GameObject dodgeEffect;
+    public GameObject DodgeEffect { get {  return dodgeEffect; } set {  dodgeEffect = value; } }
 
     private void Awake()
     {
@@ -35,34 +45,69 @@ public class MonsterLocomotion : MonoBehaviour
     public void Approach(float moveSpeed)
     {
         animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
-        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+        characterController.Move(transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);       
+    }
+
+    public IEnumerator KeepDistanceRoutine(float moveSpeed)
+    {
+        Coroutine stepBackRoutine = StartCoroutine(StepBackRoutine(moveSpeed));
+        yield return new WaitForSeconds(5f);
+        StopCoroutine(stepBackRoutine);
+        animator.SetFloat("MoveSpeed", 0f);
+             
+    }
+
+    private IEnumerator StepBackRoutine(float moveSpeed)
+    {
+        while (!binded)
+        {
+            animator.SetFloat("MoveSpeed", Mathf.Lerp(animator.GetFloat("MoveSpeed"), moveSpeed, Time.deltaTime));
+            characterController.Move(-transform.forward * animator.GetFloat("MoveSpeed") * Time.deltaTime * 0.5f);
+            yield return null;
+        }
+        animator.SetFloat("MoveSpeed", 0f);
+    }
+
+    public void ComeRound(Vector3 position, bool left)
+    {
+        if (left)
+        {
+            characterController.transform.RotateAround(position, Vector3.up, Time.deltaTime * 20f);
+        }
+        else
+        {
+            characterController.transform.RotateAround(position, Vector3.down, Time.deltaTime * 20f);
+        }
     }
 
     public IEnumerator RushRoutine(float moveSpeed, float rushTime)
     {
-        // 돌격 준비 애니메이션
-        if (eliteMonster)
-        {
-            // 달릴때 Turn 많이
-            // 적 앞에서 멈추기
-            // 끝나고 공격
-        }
-        else
-        {
-            // 달릴때 처음 플레이어 방향으로 전진
-            // 일정거리만큼 돌진
-            // 끝나고 플레이어 방향으로 회전
-        }
-        float time = 0f;
-        animator.SetFloat("MoveSpeed", moveSpeed);
-        while (time < rushTime)
-        {
-            Turn(); Turn(); Turn();
-            characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        animator.SetFloat("MoveSpeed", 0f);
+        yield return null;
+        //moving = true;
+        //// 돌격 준비 애니메이션
+        //if (eliteMonster)
+        //{
+        //    // 달릴때 Turn 많이
+        //    // 적 앞에서 멈추기
+        //    // 끝나고 공격
+        //}
+        //else
+        //{
+        //    // 달릴때 처음 플레이어 방향으로 전진
+        //    // 일정거리만큼 돌진
+        //    // 끝나고 플레이어 방향으로 회전
+        //}
+        //float time = 0f;
+        //animator.SetFloat("MoveSpeed", moveSpeed);
+        //while (time < rushTime)
+        //{
+        //    Turn(); Turn(); Turn();
+        //    characterController.Move(transform.forward * moveSpeed * Time.deltaTime * 0.5f);
+        //    time += Time.deltaTime;
+        //    yield return null;
+        //}
+        //animator.SetFloat("MoveSpeed", 0f);
+        //moving = false;
     }
 
     public void SlowDown()
@@ -90,18 +135,77 @@ public class MonsterLocomotion : MonoBehaviour
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime * 2f);
     }
 
+    public void Dodge(Vector3 skillPosition)
+    {
+        if (!binded)
+        {
+            RaycastHit hitInfo;
+            Vector3 direction = (skillPosition - transform.position).normalized;
+            StartCoroutine(DodgeRoutine());
+            if (Physics.Raycast(transform.position + Vector3.up, -(direction), out hitInfo, 5f))
+            {
+                transform.position = hitInfo.transform.position + direction + Vector3.up * 0.3f;
+            }
+            else
+            {
+                transform.position = transform.position - direction + Vector3.up * 0.3f;
+            }
+        }       
+    }
+
     public IEnumerator DodgeRoutine()
     {
         animator.SetBool("Dodge", true);
-        if (spellCaster)
-        {
+        dodgeEffect.transform.position = transform.position;
+        dodgeEffect.transform.rotation = transform.rotation;
+        yield return new WaitForSeconds(1f);
+        dodgeEffect.SetActive(false);
+        animator.SetBool("Dodge", false);
+    }
 
+    public IEnumerator TeleportRoutine()
+    {
+        dodgeEffect.SetActive(true);
+        int directionNumber = Random.Range(0, 8);
+        Vector3 direction;
+        switch (directionNumber)
+        {
+            case 0:
+                direction = transform.forward;
+                break;
+            case 1:
+                direction = transform.forward + transform.right;
+                break;
+            case 2:
+                direction = transform.right;
+                break;
+            case 3:
+                direction = transform.right + -transform.forward;
+                break;
+            case 4:
+                direction = -transform.forward;
+                break;
+            case 5:
+                direction = -transform.forward + -transform.right;
+                break;
+            case 6:
+                direction = -transform.right;
+                break;
+            default:
+                direction = transform.forward + -transform.right;
+                break;
+        }
+        yield return new WaitForSeconds(3f);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + Vector3.up, direction, out hitInfo, 3f))
+        {
+            transform.position = hitInfo.transform.position + -direction + Vector3.up * 0.3f;
         }
         else
         {
-
+            transform.position = transform.position + direction * 3f + Vector3.up * 0.3f;
         }
-        yield return null;
+        StartCoroutine(DodgeRoutine());
     }
 
     public IEnumerator ShovedRoutine(int shovedPower)

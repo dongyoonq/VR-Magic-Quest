@@ -46,10 +46,16 @@ public class VenomSummonCollider : MonoBehaviour
             foreach (Collider collider in colliders)
             {
                 IHittable hitMonster = collider.GetComponent<IHittable>();
+                IHitReactor hitReactor = collider.gameObject.GetComponent<IHitReactor>();
 
                 if (hitMonster != null)
                 {
                     hitMonster.TakeDamaged(skillSource.skillData.damage);
+                }
+
+                if (hitReactor != null)
+                {
+                    hitReactor.HitReact(skillSource.skillData.hitTags, 0.5f);
                 }
             }
 

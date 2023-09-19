@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 108876201580326894}
   - component: {fileID: 114978581578949764}
   - component: {fileID: 74919794784210018}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 4660060631330338}
   - component: {fileID: 114548108279133696}
   - component: {fileID: 5327560985727149970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VenomBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 4381606242719204}
   - component: {fileID: 198876780323751062}
   - component: {fileID: 199084829123582318}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5020,7 +5020,7 @@ GameObject:
   - component: {fileID: 4096808216952306}
   - component: {fileID: 114287060789888418}
   - component: {fileID: 2537777270851258319}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5104,7 +5104,7 @@ GameObject:
   - component: {fileID: 198132722974161158}
   - component: {fileID: 199162144932179478}
   - component: {fileID: 114763637877728646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

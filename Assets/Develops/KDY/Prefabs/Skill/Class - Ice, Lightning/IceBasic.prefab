@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 198031229577069350}
   - component: {fileID: 199328352812876292}
   - component: {fileID: 114315619880879886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4535,7 +4535,7 @@ GameObject:
   - component: {fileID: 4301099643914436}
   - component: {fileID: 114929364026103686}
   - component: {fileID: 3972120659351321524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4596,6 +4596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 0}
   player: {fileID: 0}
+  hitTime: 0
 --- !u!1 &1059129326783906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4607,7 +4608,7 @@ GameObject:
   - component: {fileID: 4301564570765624}
   - component: {fileID: 82530467411410652}
   - component: {fileID: 114243913874607784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4792,7 +4793,7 @@ GameObject:
   - component: {fileID: 4506987037165750}
   - component: {fileID: 198820139460362364}
   - component: {fileID: 199985573247595830}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionParticles1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9630,7 +9631,7 @@ GameObject:
   - component: {fileID: 198384110236629808}
   - component: {fileID: 199277101657825284}
   - component: {fileID: 114589792297037374}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14145,7 +14146,7 @@ GameObject:
   - component: {fileID: 4857187046949860}
   - component: {fileID: 198811199898518954}
   - component: {fileID: 199488146074664664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionParticles2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18982,7 +18983,7 @@ GameObject:
   - component: {fileID: 4467920007160058}
   - component: {fileID: 198638701857232398}
   - component: {fileID: 199226572621717776}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23874,7 +23875,7 @@ GameObject:
   - component: {fileID: 198707475556339390}
   - component: {fileID: 199367284208034546}
   - component: {fileID: 114140766688184818}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28390,7 +28391,7 @@ GameObject:
   - component: {fileID: 198218029481223256}
   - component: {fileID: 199751598155264492}
   - component: {fileID: 114808389122172398}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailDistortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33296,7 +33297,7 @@ GameObject:
   - component: {fileID: 198768481374901200}
   - component: {fileID: 199606379319970088}
   - component: {fileID: 114104994395070540}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37819,7 +37820,7 @@ GameObject:
   - component: {fileID: 4811664026241294}
   - component: {fileID: 198853694878630238}
   - component: {fileID: 199325089419470720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42711,7 +42712,7 @@ GameObject:
   - component: {fileID: 198416700590177412}
   - component: {fileID: 199512164286923348}
   - component: {fileID: 114112664080898224}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailDistortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47616,7 +47617,7 @@ GameObject:
   - component: {fileID: 4620830925289038}
   - component: {fileID: 114206299323010796}
   - component: {fileID: 854962402661359564}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IceBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

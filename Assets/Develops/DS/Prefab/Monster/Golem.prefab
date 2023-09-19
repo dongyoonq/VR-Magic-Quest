@@ -949,6 +949,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  dodgeEffect: {fileID: 7823971501854563214, guid: d570b4034e1879c489e309d6869ab46b,
+    type: 3}
 --- !u!114 &6513097755697175014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,10 +963,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttackType: 
-  meleeAttackType: 
-  rangedAttackType: 
-  meleeAttackPoints: []
+  animator: {fileID: 0}
+  skillData: {fileID: 11400000, guid: 227b4206c7a88d64ba01f147f8f275e5, type: 2}
+  concentrateObject: {fileID: 5735992949251914007, guid: 0c00f7d3705ac8e4d9dbaef6933da934,
+    type: 3}
+  attackPatern:
+  - skill: -1
+    energyCost: 0
+    limit: -1
+    conditionHP: 0
+    priority: 0
+  conditionalPatern: []
+  basicAttackType: 00000000
 --- !u!95 &3909709754832402095
 Animator:
   serializedVersion: 5
@@ -975,7 +985,7 @@ Animator:
   m_GameObject: {fileID: 4563906618266966602}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b2d11d64877f0b4cad5d45ec7d53473, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5d735a9ab73d8a44e8811b448d3d25d8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 49f34b8fc7eea1742b79239d19a4d789, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

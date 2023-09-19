@@ -70,11 +70,24 @@ public class SkillCommandUI : MonoBehaviour
         }
         else
         {
+            CheckOtherCommandGesture(gestureName);
+
             infoText.color = Color.blue;
             infoText.text = "Command registration is success";
             recognzieText.text = $"Current Recognize : {gestureName}";
             selectSkill.recognizeGestureName = gestureName;
             skillUI.OnSkillCommandUpdate?.Invoke(gestureName);
+        }
+    }
+
+    private void CheckOtherCommandGesture(string gestureName)
+    {
+        foreach (SkillData skillData in skillUI.player.skillList)
+        {
+            if (skillData.recognizeGestureName == gestureName)
+            {
+                skillData.recognizeGestureName = "";
+            }
         }
     }
 

@@ -17342,6 +17342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  dodgeEffect: {fileID: 7823971501854563214, guid: d570b4034e1879c489e309d6869ab46b,
+    type: 3}
 --- !u!114 &2548575899729965019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17354,10 +17356,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7616e27e03a764c95087511d6ebd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttackType: 
-  meleeAttackType: 
-  rangedAttackType: 
-  meleeAttackPoints: []
+  animator: {fileID: 0}
+  skillData: {fileID: 11400000, guid: 227b4206c7a88d64ba01f147f8f275e5, type: 2}
+  concentrateObject: {fileID: 7255349010408604085, guid: 407e306b0cba4eb48a7acdcad9d8894b,
+    type: 3}
+  attackPatern:
+  - skill: 0
+    energyCost: 1
+    limit: 10
+    conditionHP: 0
+    priority: 0
+  - skill: 2
+    energyCost: 2
+    limit: 5
+    conditionHP: 0
+    priority: 0
+  - skill: 6
+    energyCost: 1
+    limit: 30
+    conditionHP: 0
+    priority: 0
+  - skill: 5
+    energyCost: 3
+    limit: 10
+    conditionHP: 0
+    priority: 0
+  conditionalPatern:
+  - skill: 1
+    energyCost: 0
+    limit: 1
+    conditionHP: 400
+    priority: 0
+  - skill: 3
+    energyCost: 0
+    limit: 1
+    conditionHP: 200
+    priority: 0
 --- !u!95 &3687047946168558115
 Animator:
   serializedVersion: 5

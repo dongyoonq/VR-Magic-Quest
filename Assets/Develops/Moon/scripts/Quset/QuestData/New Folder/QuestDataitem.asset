@@ -18,9 +18,9 @@ MonoBehaviour:
   monster: 
   item: Ehwaz
   clearValue: 1
-  clearitem: {fileID: 11400000, guid: c76044d8a642b6341882e805becf92df, type: 2}
+  clearRecipe: {fileID: 11400000, guid: 98e2202fb61b2b044bd363467e93be9c, type: 2}
   quest: 'Ehwaz 1Get
 
 
 
-    clear: HP potion'
+    clear: Fire Boltex Skill Recipe'

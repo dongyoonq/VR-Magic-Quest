@@ -68,18 +68,7 @@ public class MonsterVision : MonoBehaviour
                 targetDirection = (target.targetTransform.position - eyeTransform.position).normalized;
                 if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
                 {
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange, detectLayerMask))
-                    {
-                        if (hitInfo.collider.gameObject.layer == 7)
-                        {
-                            if (targetTransform != target.targetTransform)
-                            {
-                                targetTransform = target.targetTransform;
-                                perception.SendCommand(perception.SpotEnemyRoutine(targetTransform.parent.parent));                             
-                            }                 
-                        }
-                    }
+                    CheckObstacle(target.targetTransform.position);
                 }
             }
             else
@@ -112,5 +101,34 @@ public class MonsterVision : MonoBehaviour
         {
             upperBodyAim.weight = Mathf.Lerp(upperBodyAim.weight, 0f, Time.deltaTime);
         }
+    }
+
+    public void CheckBehind()
+    {
+
+    }
+
+    public void CheckObstacle(Vector3 targetPosition)
+    {
+        RaycastHit hitInfo;
+        if (Physics.Linecast(eyeTransform.position, targetPosition, out hitInfo, detectLayerMask))
+        {
+            if (hitInfo.collider.gameObject.layer != 7)
+            {
+                if (perception.CurrentState != State.Idle)
+                {
+                    perception.Locomotion.ComeRound(targetPosition, Vector3.Dot(hitInfo.transform.position - transform.position, transform.right) > 0);
+                }
+            }
+            else
+            {
+                if (targetTransform != target.targetTransform)
+                {
+                    targetTransform = target.targetTransform;
+                    perception.SendCommand(perception.SpotEnemyRoutine(targetTransform.parent.parent));
+                }
+            }
+        }
+        
     }
 }

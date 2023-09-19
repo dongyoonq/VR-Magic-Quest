@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 10827768}
   - component: {fileID: 114474125033423232}
   - component: {fileID: 7473017180088125202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 451308}
   - component: {fileID: 8231044}
   - component: {fileID: 11422270}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 471280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 498082}
   - component: {fileID: 8251340}
   - component: {fileID: 11421140}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 403466}
   - component: {fileID: 8223032}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FadeIn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 459516}
   - component: {fileID: 114472266000501952}
   - component: {fileID: 5471058727975467881}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 475060}
   - component: {fileID: 19884008}
   - component: {fileID: 19960856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CoreCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5592,7 +5592,7 @@ GameObject:
   - component: {fileID: 19807986}
   - component: {fileID: 19918966}
   - component: {fileID: 11426186}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrailsCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10521,7 +10521,7 @@ GameObject:
   - component: {fileID: 462424}
   - component: {fileID: 114192037596662480}
   - component: {fileID: 8135332472961957589}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VenomStrike
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 11451372}
   - component: {fileID: 11488100}
   - component: {fileID: 2500280692401224153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5011,6 +5011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 0}
   player: {fileID: 0}
+  isHitted: 0
 --- !u!1 &132796
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,7 +5024,7 @@ GameObject:
   - component: {fileID: 10864082}
   - component: {fileID: 11402328}
   - component: {fileID: 5501382696669567085}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5227,7 +5228,7 @@ GameObject:
   - component: {fileID: 11433774}
   - component: {fileID: 11430000}
   - component: {fileID: 1846982355758768615}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10224,6 +10225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 0}
   player: {fileID: 0}
+  isHitted: 0
 --- !u!1 &142622
 GameObject:
   m_ObjectHideFlags: 0
@@ -10233,7 +10235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 440822}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10268,7 +10270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 429414}
   - component: {fileID: 11453720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CamShake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10316,7 +10318,7 @@ GameObject:
   - component: {fileID: 11436540}
   - component: {fileID: 11465394}
   - component: {fileID: 120504107095418181}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15313,6 +15315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 0}
   player: {fileID: 0}
+  isHitted: 0
 --- !u!1 &153358
 GameObject:
   m_ObjectHideFlags: 0
@@ -15324,7 +15327,7 @@ GameObject:
   - component: {fileID: 452902}
   - component: {fileID: 19876178}
   - component: {fileID: 19966824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20060,7 +20063,7 @@ GameObject:
   - component: {fileID: 10878694}
   - component: {fileID: 11439236}
   - component: {fileID: 4689962676785746590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightStart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20281,7 +20284,7 @@ GameObject:
   - component: {fileID: 11475576}
   - component: {fileID: 114817053542657028}
   - component: {fileID: 114241627238322214}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20374,7 +20377,7 @@ GameObject:
   - component: {fileID: 440280}
   - component: {fileID: 19834902}
   - component: {fileID: 19999706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightningExplosion (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25073,7 +25076,7 @@ GameObject:
   - component: {fileID: 457144}
   - component: {fileID: 8227630}
   - component: {fileID: 11407662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25241,7 +25244,7 @@ GameObject:
   - component: {fileID: 8248738}
   - component: {fileID: 16691670}
   - component: {fileID: 11433490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PostEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25424,7 +25427,7 @@ GameObject:
   - component: {fileID: 10870664}
   - component: {fileID: 11438562}
   - component: {fileID: 3557351047958526009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25607,7 +25610,7 @@ GameObject:
   - component: {fileID: 470272}
   - component: {fileID: 19873828}
   - component: {fileID: 19912390}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30454,7 +30457,7 @@ GameObject:
   - component: {fileID: 10806768}
   - component: {fileID: 11455130}
   - component: {fileID: 5059415260557316903}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightStart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30636,7 +30639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411090}
   - component: {fileID: 11477292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LazyLoad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30683,7 +30686,7 @@ GameObject:
   - component: {fileID: 460076}
   - component: {fileID: 114306783369080566}
   - component: {fileID: -6530901004701833991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightningCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30766,7 +30769,7 @@ GameObject:
   - component: {fileID: 19840390}
   - component: {fileID: 19999656}
   - component: {fileID: 114326397430444640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DistortionCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35478,7 +35481,7 @@ GameObject:
   - component: {fileID: 409640}
   - component: {fileID: 8207620}
   - component: {fileID: 11488168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4293025825734958}
   - component: {fileID: 82809368221682970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 198122001129687002}
   - component: {fileID: 199571096741762526}
   - component: {fileID: 114334435064723726}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5037,7 +5037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4603751601419666}
   - component: {fileID: 114961797788074866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5084,7 +5084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4648631272463244}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PostEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5121,7 +5121,7 @@ GameObject:
   - component: {fileID: 4544899476085192}
   - component: {fileID: 198669055946721800}
   - component: {fileID: 199198738949836788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lighrning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9998,7 +9998,7 @@ GameObject:
   - component: {fileID: 108633912218137430}
   - component: {fileID: 114723380592457306}
   - component: {fileID: 1820255747744296095}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10325,7 +10325,7 @@ GameObject:
   - component: {fileID: 4122592583671806}
   - component: {fileID: 114508699848664216}
   - component: {fileID: 4828017932679518390}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10386,6 +10386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 0}
   player: {fileID: 0}
+  hitTime: 0
 --- !u!1 &1474956352316964
 GameObject:
   m_ObjectHideFlags: 0
@@ -10398,7 +10399,7 @@ GameObject:
   - component: {fileID: 198058957085063950}
   - component: {fileID: 199393559891431516}
   - component: {fileID: 114931094244326098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CoreLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15413,7 +15414,7 @@ GameObject:
   - component: {fileID: 4845165193064222}
   - component: {fileID: 182079324767563630}
   - component: {fileID: 114850613200499858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WindZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15500,7 +15501,7 @@ GameObject:
   - component: {fileID: 114700718958349322}
   - component: {fileID: 199758839708828896}
   - component: {fileID: 198651082252317864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20244,7 +20245,7 @@ GameObject:
   - component: {fileID: 4714248611113532}
   - component: {fileID: 114977647362050882}
   - component: {fileID: -6139808074013355259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightningBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20321,7 +20322,7 @@ GameObject:
   - component: {fileID: 4986207505673600}
   - component: {fileID: 198984339440576690}
   - component: {fileID: 199306696465969434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lighrning (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25137,7 +25138,7 @@ GameObject:
   - component: {fileID: 4978464344113946}
   - component: {fileID: 198369112556604160}
   - component: {fileID: 199085777615487654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lighrningShot_Distance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30048,7 +30049,7 @@ GameObject:
   - component: {fileID: 4296474130404556}
   - component: {fileID: 82286531783218858}
   - component: {fileID: 114017263725840462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FadeIn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30224,7 +30225,7 @@ GameObject:
   - component: {fileID: 4668540610378682}
   - component: {fileID: 198874967602384478}
   - component: {fileID: 199395779161481754}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

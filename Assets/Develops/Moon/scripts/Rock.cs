@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Rock : DestroyObject
@@ -10,21 +11,20 @@ public class Rock : DestroyObject
     [SerializeField] public ParticleSystem hiteffect;
     [SerializeField] public GameObject rockfragment;
     [SerializeField] public int hitcount;
+    [SerializeField] public string recipe;
     public void Awake()
     {
         hitcount = 0;
         hitafter.SetActive(false);
     }
-    public void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetKey(KeyCode.Z))
+        //skill ¸ÂÀ¸¸é
+      if(collision.gameObject.layer==9)
         {
-
-            DestroyObject();
-            
+            skillHitObject();
         }
     }
-
     public override void skillHitObject()
     {
         DestroyObject();
@@ -49,6 +49,9 @@ public class Rock : DestroyObject
         StartCoroutine(rockcreatRoutin());
         ParticleSystem effect = Instantiate(hiteffect, transform.position, Quaternion.identity);
         Destroy(effect.gameObject, 0.5f);
+    
+        GameObject recipeResource = GameManager.Resource.Instantiate<GameObject>($"Prefabs/Recipe/{recipe}", transform.position + transform.up * 1.5f, Quaternion.identity);
+
     }
 
 

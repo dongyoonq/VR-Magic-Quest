@@ -22,13 +22,13 @@ public class QuestManager : MonoBehaviour
 
     public void AddQuest(QuestData quest)   
     {
-        Debug.Log($"{quest.questtitle} 퀘스트 추가");
+        
         questList.Add(quest);
         OnQuestAdded?.Invoke(quest);
     }
     public void RemoveQuest(QuestData quest)
     {
-        Debug.Log($"{quest.questtitle} 퀘스트 삭제");
+        
         questList.Remove(quest);
         OnQuestRemoved?.Invoke(quest);
     }
@@ -44,7 +44,7 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuest(QuestData quest)
     {
-        Debug.Log("퀘스트 업데이트");
+       
         OnQuestUpdated?.Invoke(quest);
     }
 
@@ -54,17 +54,17 @@ public class QuestManager : MonoBehaviour
    
         foreach (QuestData questData in questList)
         {
-            Debug.Log("들어감");
+           
             if (questData.monster!= monsterName)
             {
-                Debug.Log("이상한데들어감");
+                Debug.Log("no");
             }
             else
             {
                
                 questData.value++;
                 questData.CheckClear();
-                Debug.Log("올림");
+             
                 UpdateQuest(questData);
                 break;
             }
@@ -77,7 +77,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach (QuestData questData in questList)
         {
-            Debug.Log("들어감");
+            
             if (questData.item != item.Name)
             {
                 Debug.Log("이상한데들어감");
@@ -87,7 +87,6 @@ public class QuestManager : MonoBehaviour
             {
                 questData.value++;
                 questData.CheckClear();
-                Debug.Log("올림");
                 UpdateQuest(questData);
                 return;
             }

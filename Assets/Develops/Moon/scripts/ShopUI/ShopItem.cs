@@ -37,16 +37,17 @@ public class ShopItem : MonoBehaviour
 
         shop.isOpenShopItem = true;
         shop.shopUI = shuopui;
-        Debug.Log("닿음");
+      
     
     }
     public void Buy()
     {
-        Debug.Log("샵아이템으로 들어감");
+     
         player.AddItemToInventory(itemData);
         shop.isOpenShopItem = false;
         Destroy(shuopui.gameObject);
         Destroy(gameObject);
+        GameManager.Sound.PlaySFX("shopbuysound");
  
     }
     public void Cancel()

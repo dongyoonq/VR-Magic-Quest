@@ -38,6 +38,12 @@ public class SpellHitbox : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        spell.ContinuousHit(other);
+        if (spell != null)
+        {
+            if (spell.activate)
+            {
+                spell.ContinuousHit(other);
+            }
+        }   
     }
 }

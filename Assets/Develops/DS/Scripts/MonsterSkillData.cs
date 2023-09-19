@@ -19,7 +19,7 @@ public class MonsterSkillData : ScriptableObject
         public string skillName;
         public GameObject skillPrefab;
         public HitTag[] hitType;
-        public int damage;
+        public float damageMultiplier;
         public float castingTime;
         public ActivateTiming activateTiming;
         public float delayTime;

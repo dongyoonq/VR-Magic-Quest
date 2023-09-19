@@ -19,22 +19,22 @@ MonoBehaviour:
     monsterTag: 0100000008000000050000000600000009000000
     dropItems:
     - {fileID: 2036955768169506492, guid: f1292d8118a95e8469060c025b72eb3d, type: 3}
-    healthPoint: 3000
-    attackPoint: 100
+    healthPoint: 1000
+    attackPoint: 20
     detectRange: 60
-    attackRange: 7
-    attackSpeed: 0.7
+    attackRange: 20
+    attackSpeed: 0.2
     moveSpeed: 3
   - monsterName: Skeleton
     monsterPrefab: {fileID: 556618687143294978, guid: 8ab76b6f38bb220488a1298be16c6c8f,
       type: 3}
     monsterTag: 03000000
     dropItems: []
-    healthPoint: 700
-    attackPoint: 100
+    healthPoint: 50
+    attackPoint: 5
     detectRange: 30
     attackRange: 3
-    attackSpeed: 2
+    attackSpeed: 1
     moveSpeed: 0
   - monsterName: GiantWorm
     monsterPrefab: {fileID: 5491683244567550782, guid: da488cbcf09082d4fa120b721953ac3a,
@@ -45,7 +45,7 @@ MonoBehaviour:
     attackPoint: 100000
     detectRange: 60
     attackRange: 4
-    attackSpeed: 2
+    attackSpeed: 0.7
     moveSpeed: 30
   - monsterName: Golem
     monsterPrefab: {fileID: 4563906618266966602, guid: 8076e361ca6fb3e4e90421d773efe49f,
@@ -53,9 +53,8 @@ MonoBehaviour:
     monsterTag: 0000000001000000
     dropItems:
     - {fileID: 0}
-    - {fileID: 0}
-    healthPoint: 7500
-    attackPoint: 300
+    healthPoint: 750
+    attackPoint: 50
     detectRange: 30
     attackRange: 3
     attackSpeed: 0.5
@@ -66,20 +65,21 @@ MonoBehaviour:
     monsterTag: 010000000500000004000000
     dropItems:
     - {fileID: 0}
-    healthPoint: 5000
-    attackPoint: 600
+    healthPoint: 500
+    attackPoint: 40
     detectRange: 30
     attackRange: 5
     attackSpeed: 0.5
     moveSpeed: 2
   - monsterName: Zombie
-    monsterPrefab: {fileID: 0}
+    monsterPrefab: {fileID: 5003808017304090975, guid: 35ce8372e76cdb047bd2cf474f07c4ed,
+      type: 3}
     monsterTag: 0200000003000000
     dropItems:
     - {fileID: 0}
-    healthPoint: 100
-    attackPoint: 50
-    detectRange: 30
+    healthPoint: 30
+    attackPoint: 5
+    detectRange: 50
     attackRange: 2
-    attackSpeed: 1.5
+    attackSpeed: 0.8
     moveSpeed: 4

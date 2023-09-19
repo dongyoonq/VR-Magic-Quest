@@ -73,6 +73,10 @@ public class MonsterPerception : MonoBehaviour
     public void LoseSightOfTarget()
     {
         currentState = State.Idle;
+        if (controller == null)
+        {
+            return;
+        }
         controller.transform.parent = null;
         controller.transform.position = transform.position + transform.forward * 5f;
     }

@@ -18,9 +18,9 @@ MonoBehaviour:
   monster: Lich
   item: 
   clearValue: 1
-  clearitem: {fileID: 11400000, guid: c76044d8a642b6341882e805becf92df, type: 2}
+  clearRecipe: {fileID: 11400000, guid: b8d508c1e61e62e41856c9103bf1b001, type: 2}
   quest: 'Lich 1kill
 
 
 
-    clear: Hp potion'
+    clear: Lightning Bolt Skill Recipe'

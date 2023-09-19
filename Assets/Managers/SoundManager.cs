@@ -7,13 +7,14 @@ public class SoundManager : MonoBehaviour
 {
     public List<Sound> musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    public AudioSource ReferenceSource;
 
     private void Start()
     {
         musicSounds = new List<Sound>()
         {
             // Add Sounds
-            // CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Bgm/TitleSceneBgm"), "Title1"),
+            //CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Bgm/TitleSceneBgm"), "Title1"),
         };
 
         sfxSounds = new List<Sound>
@@ -67,12 +68,33 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlaySFX(AudioClip audioClip)
+    {
+        Sound sound = sfxSounds.Find(x => x.name == audioClip.name);
+
+        if (sound == null)
+        {
+            sound = CreateSound(audioClip, audioClip.name);
+            sfxSounds.Add(sound);
+            sfxSource.PlayOneShot(sound.clip);
+        }
+        else
+        {
+            sfxSource.PlayOneShot(sound.clip);
+        }
+    }
+
     Sound CreateSound(AudioClip clip, string name)
     {
         Sound sound = new Sound();
         sound.clip = clip;
         sound.name = name;
         return sound;
+    }
+
+    public AudioSource GetNewSource()
+    {
+        return Instantiate(ReferenceSource);
     }
 
     public void ToggleMusic()

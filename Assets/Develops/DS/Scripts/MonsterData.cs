@@ -210,7 +210,10 @@ public class MonsterData : ScriptableObject
 
     private void LastBossTypeMonsterBehaviour(MonsterPerception monsterPerception)
     {
+        if (monsterPerception.Combat.rageMode)
+        {
 
+        }
     }
 
     [Serializable]

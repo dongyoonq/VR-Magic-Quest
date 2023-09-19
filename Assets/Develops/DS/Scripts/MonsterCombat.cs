@@ -36,7 +36,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private Skill[] conditionalPatern;
     private List<Skill> skillPriority;
     private float delayTime;
-    private bool rageMode;
+    public bool rageMode;
     [SerializeField]
     private HitTag[] basicAttackType;
 
@@ -406,7 +406,9 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                 case HitTag.Invincible:
                     perception.SendCommand(InvincibleHitReactRoutine());
                     break;
-
+                case HitTag.Rage:
+                    perception.SendCommand(RageHitReactRoutine());
+                    break;
             }
         }
     }
@@ -482,6 +484,16 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         float duration = statusDuration;
         StartCoroutine(InvincibleRoutine(duration));
         yield return null;
+    }
+
+    private IEnumerator RageHitReactRoutine()
+    {
+        foreach (Skill patern in attackPatern)
+        {
+            patern.energyCost /= 2;
+            yield return null;
+        }
+        rageMode = true;
     }
 
     private IEnumerator InvincibleRoutine(float duration)

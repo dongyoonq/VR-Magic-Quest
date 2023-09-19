@@ -590,18 +590,27 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void TakeDamaged(int damage)
     {
+        int prevHp;
+        int currHp;
+
         if (perception.CurrentCondition == Condition.Weak)
         {
             damage += damage / 2;
         }
+
+        prevHp = stat.healthPoint;
         stat.healthPoint += -damage;
+        currHp = stat.healthPoint;
+
+        Debug.Log(stat.healthPoint);
+
         if (stat.healthPoint <= 0)
         {
             perception.CurrentState = State.Collapse;
         }
         else
         {
-            if (getDamageSound != null)
+            if (getDamageSound != null && (currHp - prevHp) < 0)
             {
                 GameManager.Sound.PlaySFX(getDamageSound);
             }

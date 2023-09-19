@@ -38,7 +38,7 @@ public class SettingUI : BookUI
     IEnumerator ReturnRoutine()
     {
         player.ActiveLocomotion(false);
-        GetComponentInParent<BookCanvasUI>().ActiveBookUI(false);
+        bookCanvasUI.ActiveBookUI(false);
 
         Color startColor = fadeScreen.color;
         Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 1f);

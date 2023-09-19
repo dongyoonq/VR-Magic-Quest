@@ -8,6 +8,7 @@ public class GravityDistortionCollider : MonoBehaviour
 {
     public Skill skillSource;
     public Player source;
+    public bool isHitted = false;
 
     private Vector3 createPositon;
 
@@ -77,16 +78,22 @@ public class GravityDistortionCollider : MonoBehaviour
         while (time < duration)
         {
             time += Time.deltaTime;
-            hitIntervalTime += Time.deltaTime;
 
-            if (hitIntervalTime >= (duration / 4f))
+            if (!isHitted)
             {
                 hitMonster.TakeDamaged(skillSource.skillData.damage);
-                hitIntervalTime = 0f;
+                isHitted = true;
+                StartCoroutine(HitRoutine(hitIntervalTime));
             }
 
             yield return null;
         }
+    }
+
+    IEnumerator HitRoutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isHitted = false;
     }
 
     private void OnDrawGizmos()

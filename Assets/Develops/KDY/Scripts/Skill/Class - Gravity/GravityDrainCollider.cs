@@ -10,7 +10,7 @@ public class GravityDrainCollider : MonoBehaviour
 
     private List<Vector3> dirList = new List<Vector3>()
     {
-        Vector3.up, Vector3.down, Vector3.left, Vector3.right,
+        Vector3.left, Vector3.right,
         (Vector3.up + Vector3.left) / 2, (Vector3.up + Vector3.right) / 2, (Vector3.down + Vector3.left) / 2, (Vector3.down + Vector3.right) / 2,
     };
 
@@ -64,7 +64,7 @@ public class GravityDrainCollider : MonoBehaviour
         Vector3 end = createPositon;
 
         int randomDir = Random.Range(0, dirList.Count);
-        float randomPos = Random.Range(2f, 6f);
+        float randomPos = Random.Range(1f, 4f);
 
         Vector3 center = ((start + end) / 2) + (dirList[randomDir] * randomPos);
 

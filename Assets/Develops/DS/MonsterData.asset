@@ -18,8 +18,8 @@ MonoBehaviour:
       type: 3}
     monsterTag: 0100000008000000050000000600000009000000
     dropItems:
-    - {fileID: 2036955768169506492, guid: f1292d8118a95e8469060c025b72eb3d, type: 3}
-    healthPoint: 1000
+    - {fileID: 2086314831383206047, guid: 3d507279253fd04498b59413514dd230, type: 3}
+    healthPoint: 2000
     attackPoint: 20
     detectRange: 60
     attackRange: 20
@@ -55,7 +55,7 @@ MonoBehaviour:
     - {fileID: 8271105284216808224, guid: b3474549bf908024081408fcf03afaeb, type: 3}
     - {fileID: 4411924971584530800, guid: e672f7d376d51c746b7a3dd23ae3f343, type: 3}
     - {fileID: 3798244049454182368, guid: f1cf0b77d901f65419160af376bb97ec, type: 3}
-    healthPoint: 750
+    healthPoint: 1000
     attackPoint: 50
     detectRange: 30
     attackRange: 3
@@ -69,7 +69,7 @@ MonoBehaviour:
     - {fileID: 2691189183381618993, guid: f4f35f38e9d17a84e90fd88892bd1d31, type: 3}
     - {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33, type: 3}
     - {fileID: 5985286338083887649, guid: 7ce458dff8ea2c54d95186d5ddccfc8b, type: 3}
-    healthPoint: 500
+    healthPoint: 800
     attackPoint: 40
     detectRange: 30
     attackRange: 15

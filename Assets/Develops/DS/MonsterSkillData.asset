@@ -68,7 +68,7 @@ MonoBehaviour:
     - skillName: IceField
       skillPrefab: {fileID: 4997148756193024449, guid: 2057bde927c46ca419b8b5a3b2d4f032,
         type: 3}
-      hitType: 0200000000000000
+      hitType: 0100000000000000
       damageMultiplier: 1.5
       castingTime: 0
       activateTiming: 0

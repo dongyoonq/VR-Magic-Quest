@@ -304,7 +304,7 @@ public class MonsterPerception : MonoBehaviour
 
     public void Enable(bool enable)
     {
-        // controller.enabled = enable;
+        controller.enabled = enable;
         locomotion.enabled = enable;
         combat.enabled = enable;
         vision.enabled = enable;

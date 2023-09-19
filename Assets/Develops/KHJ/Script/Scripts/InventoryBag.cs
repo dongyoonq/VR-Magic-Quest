@@ -25,11 +25,13 @@ public class InventoryBag : MonoBehaviour
             Debug.Log(item.Data);
             player.AddItemToInventory(item.Data);
             GameManager.Resource.Destroy(item.gameObject);
+            GameManager.Sound.PlaySFX("ItemBagIn");
         }
         else if (recipe != null)
         {
             player.UnlockRecipe(recipe.recipeData);
             GameManager.Resource.Destroy(recipe.gameObject);
+            GameManager.Sound.PlaySFX("ItemBagIn");
         }
     }
 }

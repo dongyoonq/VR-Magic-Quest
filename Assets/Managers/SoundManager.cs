@@ -52,6 +52,7 @@ public class SoundManager : MonoBehaviour
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/shopbuysound"), "shopbuysound"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/boxopen"), "boxopen"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/PlayerDie"), "PlayerDie"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/stonehit"), "stonehit"),
         };
 
         GameObject _musicSource = new GameObject();

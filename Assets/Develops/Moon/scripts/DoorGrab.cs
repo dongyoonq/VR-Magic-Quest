@@ -22,6 +22,7 @@ public class DoorGrab : XRBaseInteractable
     [SerializeField] public Door door;
     [SerializeField] public float ydis;
 
+    [SerializeField] public float pos;
 
 
     public void Reset()
@@ -101,7 +102,7 @@ public class DoorGrab : XRBaseInteractable
             rotateobj.transform.Rotate(0, 0, -ydis);
             door.UpDoor(1.5f);
         }
-        if (door.feDoor.transform.position.y > door.fedoorpos.y + 10)
+        if (door.feDoor.transform.position.y > door.fedoorpos.y + pos)
         {
       
             door.enddoor();

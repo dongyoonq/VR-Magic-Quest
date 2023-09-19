@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public class potal : MonoBehaviour
 {
+    [SerializeField] MonsterSpawnerHelper monsterSpawnerHelper;
     [SerializeField] GameObject potalstart;
     [SerializeField] GameObject potalend;
     [SerializeField] GameObject potalUI;
@@ -38,6 +39,8 @@ public class potal : MonoBehaviour
 
     public void  potalMove()
     {
+        monsterSpawnerHelper.RespawnAll();
+        GameManager.Sound.PlayBGM("DungeonBGM");
         playerobj.transform.position = potalend.transform.position+ potalend.transform.up*1.5f;
     }
 }

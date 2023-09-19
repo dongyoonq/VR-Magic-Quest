@@ -33,7 +33,7 @@ public class PortionItem : CountableItem
 
     int m_UniqueId;
 
-    AudioSource m_AudioSource;
+    public AudioSource audioSource;
     float m_StartingFillAmount;
 
     void OnEnable()
@@ -54,22 +54,22 @@ public class PortionItem : CountableItem
 
     void Start()
     {
-        //m_AudioSource = SFXPlayer.Instance.GetNewSource();
-        m_AudioSource = GameManager.Sound.GetNewSource();
-        m_AudioSource.gameObject.transform.SetParent(particleSystemLiquid.transform, false);
-        m_AudioSource.gameObject.SetActive(true);
+        AudioSource m_AudioSource = GameManager.Resource.Load<AudioSource>("ReferenceSource");
+        audioSource = Instantiate(m_AudioSource);
+        audioSource.gameObject.transform.SetParent(particleSystemLiquid.transform, false);
+        audioSource.gameObject.SetActive(true);
 
-        m_AudioSource.clip = PouringClip;
-        m_AudioSource.maxDistance = 2.0f;
-        m_AudioSource.minDistance = 0.2f;
-        m_AudioSource.loop = true;
+        audioSource.clip = PouringClip;
+        audioSource.maxDistance = 2.0f;
+        audioSource.minDistance = 0.2f;
+        audioSource.loop = true;
 
         m_UniqueId = NextFreeUniqueId++;
     }
 
     void OnDestroy()
     {
-        Destroy(m_AudioSource.gameObject);
+        Destroy(audioSource.gameObject);
     }
 
     void Update()
@@ -80,14 +80,14 @@ public class PortionItem : CountableItem
             if (particleSystemLiquid.isStopped)
             {
                 particleSystemLiquid.Play();
-                m_AudioSource.Play();
+                audioSource.Play();
             }
 
             fillAmount -= 0.1f * Time.deltaTime;
 
             float fillRatio = fillAmount / m_StartingFillAmount;
 
-            m_AudioSource.pitch = Mathf.Lerp(1.0f, 1.4f, 1.0f - fillRatio);
+            audioSource.pitch = Mathf.Lerp(1.0f, 1.4f, 1.0f - fillRatio);
 
             //포션을 이미 마신 상태가 아니고, 포션 아래쪽에 포션 리시버가 있다면 포션 리시버안의 함수를 실행
             if (!isPortionDrink)
@@ -103,13 +103,11 @@ public class PortionItem : CountableItem
                             SkillPortionItemData skillPortion = Data as SkillPortionItemData;
                             if (player.skillList.Contains(skillPortion.SkillData))
                             {
-                                Debug.Log(skillPortion.Name + "스킬포션 마심");
                                 isPortionDrink = true;
                             }
                             else
                             {
                                 player.skillList.Add(skillPortion.SkillData);
-                                Debug.Log(skillPortion.Name + "스킬포션 마심");
                                 isPortionDrink = true;
                             }
                         }
@@ -118,12 +116,11 @@ public class PortionItem : CountableItem
                             HillingPortionItemData hillPortion = Data as HillingPortionItemData;
                             player.currHp += hillPortion.HillHpValue;
                             player.currMp += hillPortion.HillMpValue;
-                            Debug.Log(hillPortion.Name + "회복포션 마심");
                             isPortionDrink = true;
                         }
                         else
                         {
-                            Debug.Log("그것 마심");
+
                         }
                     }
                 }                   
@@ -132,7 +129,7 @@ public class PortionItem : CountableItem
         else
         {
             particleSystemLiquid.Stop();
-            m_AudioSource.Stop();
+            audioSource.Stop();
         }
 
         MeshRenderer.GetPropertyBlock(m_MaterialPropertyBlock);

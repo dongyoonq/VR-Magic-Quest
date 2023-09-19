@@ -5002,6 +5002,7 @@ GameObject:
   - component: {fileID: 6813787578293581183}
   - component: {fileID: 6813787578293581182}
   - component: {fileID: 6813787578293581181}
+  - component: {fileID: 4753392805636601437}
   m_Layer: 0
   m_Name: Potion Gravity Falling
   m_TagString: Untagged
@@ -5323,6 +5324,20 @@ MonoBehaviour:
   PoppingPlugAudioClip:
   - {fileID: 8300000, guid: 6a98e81ed6ddd014297d709a3a596565, type: 3}
   - {fileID: 8300000, guid: bf3b6017f75ddfa41a9d9510453f637e, type: 3}
+  audioSource: {fileID: 0}
+--- !u!65 &4753392805636601437
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813787578293581180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.18, z: -0.01}
 --- !u!1 &6813787578555561393
 GameObject:
   m_ObjectHideFlags: 0

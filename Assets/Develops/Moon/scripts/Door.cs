@@ -2,43 +2,84 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] GameObject feDoor;
+    [SerializeField] public GameObject feDoor;
     public bool interaction;
     [SerializeField] Quaternion angle;
+    [SerializeField] public float sped;
+    [SerializeField] public bool isend = false;
+    [SerializeField] public Vector3 fedoorpos;
 
+    public void Awake()
+    {
+        fedoorpos = feDoor.transform.position;
+    }
     public void Update()
     {
         angle = transform.rotation;
     }
-    public void UpDoor()
+    public void UpDoor(float sped)
     {
-        interaction = true;
-        StartCoroutine(uproutin());
+     //   interaction = true;
+     //   StartCoroutine(uproutin(sped));
+         if (!isend)
+          {
+              interaction = true;
+              StartCoroutine(uproutin(sped));
+          }
+          else
+          {
+              enddoor();
+          }
     }
     public void DownDoor()
     {
         interaction = false;
         StartCoroutine(downroutin());
+        if (!isend)
+        {
+            interaction = false;
+            StartCoroutine(downroutin());
+        }
+       else
+        {
+            enddoor();
+        }
     }
 
-    IEnumerator uproutin()
+    IEnumerator uproutin(float sped)
     {
-        while (interaction)
+        if (!isend)
         {
-            feDoor.GetComponent<Rigidbody>().velocity = new Vector3(0, 3, 0);
-            yield return null;
+            while (interaction)
+            {
+                feDoor.GetComponent<Rigidbody>().velocity = new Vector3(0, sped, 0);
+                yield return null;
+            }
         }
+           
     }
     IEnumerator downroutin()
     {
-        while (angle.z>0)
+        if (!isend)
         {
-            transform.Rotate(0, 0, -30 * Time.deltaTime);
-            yield return null;
+            while (angle.z > 0)
+            {
+                transform.Rotate(0, 0, -30 * Time.deltaTime);
+                yield return null;
+            }
         }
+
+    }
+    public void enddoor()
+    {
+        Debug.Log("enddoor");
+        isend = true;
+        feDoor.GetComponent<Rigidbody>().useGravity = false;
+        feDoor.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
 }

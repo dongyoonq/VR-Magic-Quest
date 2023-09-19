@@ -49,7 +49,7 @@ public class Rock : DestroyObject
         StartCoroutine(rockcreatRoutin());
         ParticleSystem effect = Instantiate(hiteffect, transform.position, Quaternion.identity);
         Destroy(effect.gameObject, 0.5f);
-    
+        GameManager.Sound.PlaySFX("BreakStone");
         GameObject recipeResource = GameManager.Resource.Instantiate<GameObject>($"Prefabs/Recipe/{recipe}", transform.position + transform.up * 1.5f, Quaternion.identity);
 
     }

@@ -26970,7 +26970,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -38611,6 +38611,7 @@ MonoBehaviour:
   OnRemoveItemInventory:
     m_PersistentCalls:
       m_Calls: []
+  settingUI: {fileID: 0}
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
   - {fileID: 11400000, guid: 45bc49f98a3fae648b3c2cc8071db58f, type: 2}
@@ -46141,7 +46142,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:

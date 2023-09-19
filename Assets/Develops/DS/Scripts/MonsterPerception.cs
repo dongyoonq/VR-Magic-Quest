@@ -43,6 +43,7 @@ public class MonsterPerception : MonoBehaviour
 
     private void OnEnable()
     {
+        Enable(true);
         currentState = State.Idle;
         currentCondition = Condition.Normal;
     }
@@ -82,7 +83,7 @@ public class MonsterPerception : MonoBehaviour
         }
         Player player = controller.transform.GetComponentInParent<Player>();
         controller.transform.parent = null;
-        player.PlayerEndBattle();
+        player?.PlayerEndBattle();
         controller.transform.position = transform.position + transform.forward * 5f;
     }
 
@@ -184,7 +185,8 @@ public class MonsterPerception : MonoBehaviour
         if (deathSound != null)
         {
             GameManager.Sound.PlaySFX(deathSound);
-        }       
+        }
+        Enable(false);
         CurrentState = State.Idle;
         LoseSightOfTarget();
         controller.UnlockNextArea();
@@ -298,5 +300,13 @@ public class MonsterPerception : MonoBehaviour
                 controller.transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * 60f);
             }
         }
+    }
+
+    public void Enable(bool enable)
+    {
+        // controller.enabled = enable;
+        locomotion.enabled = enable;
+        combat.enabled = enable;
+        vision.enabled = enable;
     }
 }

@@ -17312,6 +17312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertMoveSpeed: 0
   chaseMoveSpeed: 0
+  deathSound: GhostDeath
 --- !u!114 &319386489268729417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17406,6 +17407,8 @@ MonoBehaviour:
     priority: 0
   rageMode: 0
   basicAttackType: 
+  attackSound: GhostAttack
+  getDamageSound: GhostDamaged
 --- !u!95 &3687047946168558115
 Animator:
   serializedVersion: 5

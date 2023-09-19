@@ -41,6 +41,7 @@ public class intractionObject : DestroyObject
         {
 
             skillHitObject();
+            GameManager.Sound.PlaySFX("BreakStone");
         }
     }
     //바닥에 닿으면서 크기가 줄어들면서 아래로 내려가게끔수정

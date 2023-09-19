@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Gravity Basic
   skillTooltip: This is Gravity Basic Skill
   recognizeGestureName: 
-  damage: 50
+  damage: 80
   useMp: 0
   skillType: 3
   hitTags: 

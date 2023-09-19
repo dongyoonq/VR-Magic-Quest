@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Fire Basic
   skillTooltip: This is Fire Basic Skill
   recognizeGestureName: 
-  damage: 50
+  damage: 80
   useMp: 0
   skillType: 0
   hitTags: 

@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Fire Tornado
   skillTooltip: This is Fire Tornado Skill
   recognizeGestureName: 
-  damage: 30
+  damage: 50
   useMp: 0
   skillType: 0
   hitTags: 

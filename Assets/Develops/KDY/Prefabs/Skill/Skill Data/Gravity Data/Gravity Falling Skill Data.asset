@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Gravity Falling
   skillTooltip: This is Gravity Rock Falling Skill
   recognizeGestureName: 
-  damage: 90
+  damage: 140
   useMp: 0
   skillType: 3
   hitTags: 

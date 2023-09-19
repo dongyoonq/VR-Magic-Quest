@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Venom Strike
   skillTooltip: This is Venom Strike Skill
   recognizeGestureName: S
-  damage: 70
+  damage: 120
   useMp: 0
   skillType: 2
   hitTags: 

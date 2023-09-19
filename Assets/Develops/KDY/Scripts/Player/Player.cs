@@ -17,12 +17,14 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     public InventoryUI inventoryUI { get; set; }
     public Inventory inventory { get; private set; }
+    public SettingUI settingUI;
 
     public List<SkillData> skillList;
     public List<PortionRecipeData> unlockRecipeList;
     public List<Gesture> trainingSet = new List<Gesture>();
 
     [SerializeField] Image hitScreen;
+    [SerializeField] Transform home;
 
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
@@ -171,6 +173,20 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         currHp -= damage;
 
         StartCoroutine(GotHurtRoutine());
+
+        if (currHp < 0)
+        {
+            StartCoroutine(DieRoutine());
+        }
+    }
+
+    IEnumerator DieRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+        GameManager.Sound.PlaySFX("PlayerDie");
+        settingUI.ReturnHome();
+        yield return new WaitForSeconds(1f);
+        currHp = maxHp;
     }
 
     IEnumerator GotHurtRoutine()

@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Fire Beam
   skillTooltip: This is Fire Beam Skill
   recognizeGestureName: 
-  damage: 10
+  damage: 20
   useMp: 0
   skillType: 0
   hitTags: 

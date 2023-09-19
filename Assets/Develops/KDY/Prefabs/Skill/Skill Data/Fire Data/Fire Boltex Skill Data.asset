@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Fire Boltex
   skillTooltip: This is Fire Boltex Skill
   recognizeGestureName: 
-  damage: 10
+  damage: 20
   useMp: 0
   skillType: 0
   hitTags: 

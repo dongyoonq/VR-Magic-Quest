@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Ice Dragon
   skillTooltip: This is Ice Dragon Skill
   recognizeGestureName: 
-  damage: 80
+  damage: 140
   useMp: 0
   skillType: 1
   hitTags: 

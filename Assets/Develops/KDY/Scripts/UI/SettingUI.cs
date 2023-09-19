@@ -12,6 +12,14 @@ public class SettingUI : BookUI
 
     [SerializeField] Image fadeScreen;
     [SerializeField] Transform returnTransform;
+    [SerializeField] Slider bgmSlider;
+    [SerializeField] Slider sfxSlider;
+
+    private void Awake()
+    {
+        bgmSlider.onValueChanged.AddListener(x => MusicValueChanged(x));
+        sfxSlider.onValueChanged.AddListener(x => SFXValueChanged(x));
+    }
 
     public void CreateWand()
     {
@@ -73,5 +81,15 @@ public class SettingUI : BookUI
         player.ActiveLocomotion(true);
 
         GameManager.Sound.PlayBGM("TownBGM");
+    }
+
+    public void MusicValueChanged(float value)
+    {
+        GameManager.Sound.MusicVolume(value);
+    }
+
+    public void SFXValueChanged(float value)
+    {
+        GameManager.Sound.SFXVolume(value);
     }
 }

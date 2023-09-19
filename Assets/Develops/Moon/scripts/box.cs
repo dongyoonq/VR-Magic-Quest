@@ -8,11 +8,14 @@ public class box : MonoBehaviour
     [SerializeField] public GameObject openobj;
     [SerializeField] private Transform itempos;
 
+    [SerializeField] private List<Recipe> recipes;
+
     public void Open()
     {
         openobj.transform.Rotate(-50f, 0, 0);
-     GameObject obj= GameManager.Resource.Instantiate<GameObject>($"Prefabs/Recipe/Gravity Rock Recipe", itempos.position, Quaternion.identity);
-        GameObject obj2=GameManager.Resource.Instantiate<GameObject>($"Prefabs/Recipe/Gravity Distortion Recipe", itempos.position, Quaternion.identity);
+        int random = Random.Range(0, recipes.Count);
+        GameManager.Resource.Instantiate(recipes[random], itempos.position, Quaternion.identity);
+
         GameManager.Sound.PlaySFX("boxopen");
     }
 }

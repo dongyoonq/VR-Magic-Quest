@@ -7,12 +7,14 @@ using static UnityEditor.PlayerSettings;
 
 public class boxInteraction : XRSocketInteractor
 {
-
     public string keytype;
-    public bool acces= false;
+    public bool access = false;
+    private box box;
+    private key key;
 
     protected override void Awake()
     {
+        box = GetComponentInParent<box>();
         base.Awake();
     }
 
@@ -24,7 +26,19 @@ public class boxInteraction : XRSocketInteractor
         if (key == null)
             return false;
 
-  
+        this.key = key;
+        access = base.CanSelect(interactable) && (key.keytype == keytype);
+
         return base.CanSelect(interactable) && (key.keytype == keytype);
+    }
+
+    
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        if (access)
+        {
+            box.Open();
+            key.Use();
+        }
     }
 }

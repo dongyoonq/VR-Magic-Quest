@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     public List<Sound> musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-
+    bool bossDamaged;
     private void Start()
     {
         musicSounds = new List<Sound>()
@@ -19,7 +19,8 @@ public class SoundManager : MonoBehaviour
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/DungeonBGM"), "DungeonBGM"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/EnemyBGM"), "EnemyBGM"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/BossBGM1"), "BossBGM1"),
-            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/BossBGM2"), "BossBGM2")
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/BossBGM2"), "BossBGM2"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/BGM/VictoryBgm"), "VictoryBGM")
         };
 
         sfxSounds = new List<Sound>
@@ -95,6 +96,15 @@ public class SoundManager : MonoBehaviour
 
         }
         else
+        {
+            sfxSource.PlayOneShot(sound.clip);
+        }
+    }
+
+    public void PlayBossDamaged()
+    {
+        Sound sound = sfxSounds.Find(x => x.name == "GhostDamaged");
+        if (!bossDamaged)
         {
             sfxSource.PlayOneShot(sound.clip);
         }

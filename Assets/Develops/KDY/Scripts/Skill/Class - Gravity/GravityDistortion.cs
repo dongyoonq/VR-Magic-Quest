@@ -15,6 +15,7 @@ public class GravityDistortion : Skill
         GravityDistortionCollider g_Collider = skill.GetComponentInChildren<GravityDistortionCollider>();
         g_Collider.skillSource = skill;
         g_Collider.source = player;
+        g_Collider.isHitted = false;
 
         skill.StartCoroutine(SkillRoutine(player, skill));
     }

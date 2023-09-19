@@ -88,29 +88,24 @@ public class AlchemyPot : MonoBehaviour
 
     public void Brew()
     {
-        if (!m_CanBrew)
+        if (m_CurrentIngredientsIn.Count < 1)
             return;
-        if (m_CurrentIngredientsIn.Count < 3)
-            return;
-
-        m_CanBrew = false;
 
         PortionRecipeData brewRecipe = null;
 
         foreach (PortionRecipeData recipe in recipes)
         {
-            int cnt = 0;
-
+            PortionRecipeData makerecipe = recipe;
             foreach (RuneItemData data in m_CurrentIngredientsIn)
             {
-                if (data == recipe.ingredientRune1)
-                    cnt++;
-                else if (data == recipe.ingredientRune2)
-                    cnt++;
-                else if (data == recipe.ingredientRune3)
-                    cnt++;
+                if (data == makerecipe.ingredientRune1)
+                    makerecipe.ingredientRune1 = null;
+                else if (data == makerecipe.ingredientRune2)
+                    makerecipe.ingredientRune2 = null;
+                else if (data == makerecipe.ingredientRune3)
+                    makerecipe.ingredientRune3 = null;
 
-                if (cnt == 3)
+                if (makerecipe.ingredientRune1 == null && makerecipe.ingredientRune2 == null && makerecipe.ingredientRune3 == null)
                 {
                     brewRecipe = recipe;
 

@@ -43,7 +43,6 @@ public class MonsterPerception : MonoBehaviour
 
     private void OnEnable()
     {
-        Enable(true);
         currentState = State.Idle;
         currentCondition = Condition.Normal;
     }
@@ -76,6 +75,7 @@ public class MonsterPerception : MonoBehaviour
     // guard 타입은 놓치면 원래 자리로 복귀 aggressive는 적을 놓쳐도 해당 방향으로 일정 거리만큼 더 전진
     public void LoseSightOfTarget()
     {
+        vision.TargetTransform = null;
         currentState = State.Idle;
         if (controller == null)
         {
@@ -186,7 +186,6 @@ public class MonsterPerception : MonoBehaviour
         {
             GameManager.Sound.PlaySFX(deathSound);
         }
-        Enable(false);
         CurrentState = State.Idle;
         LoseSightOfTarget();
         controller.UnlockNextArea();
@@ -300,13 +299,5 @@ public class MonsterPerception : MonoBehaviour
                 controller.transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * 60f);
             }
         }
-    }
-
-    public void Enable(bool enable)
-    {
-        controller.enabled = enable;
-        locomotion.enabled = enable;
-        combat.enabled = enable;
-        vision.enabled = enable;
     }
 }

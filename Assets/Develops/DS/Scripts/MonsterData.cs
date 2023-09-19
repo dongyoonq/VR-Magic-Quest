@@ -81,14 +81,14 @@ public class MonsterData : ScriptableObject
     private IEnumerator AdvancedMonsterBehaviourRoutine(MonsterInfo monsterInfo, MonsterPerception monsterPerception)
     {
         UnityEvent<MonsterPerception> advancedAI = new UnityEvent<MonsterPerception>();
-        WaitForSeconds waitForMakeDecision = new WaitForSeconds(10f);
+        WaitForSeconds waitForMakeDecision = new WaitForSeconds(15f);
         foreach (MonsterTag tag in monsterInfo.monsterTag)
         {
             monsterAdvancedAI.TryGetValue(tag, out UnityAction<MonsterPerception> action);
             advancedAI.AddListener(action);
             if (tag == MonsterTag.Elite)
             {
-                waitForMakeDecision = new WaitForSeconds(5f);
+                waitForMakeDecision = new WaitForSeconds(10f);
                 monsterPerception.Locomotion.EliteMonster = true;
             }
             else if (tag == MonsterTag.Guard)
@@ -168,11 +168,10 @@ public class MonsterData : ScriptableObject
     {
         if (monsterPerception.CurrentState == EnumType.State.Combat)
         {
-            monsterPerception.StartCoroutine(monsterPerception.Locomotion.KeepDistanceRoutine(monsterPerception.alertMoveSpeed));
-            if (monsterPerception.CurrentCondition < Condition.Tired)
-            {
-                monsterPerception.Combat.Meditation();
-            }
+            monsterPerception.Locomotion.StartCoroutine
+                (monsterPerception.Locomotion.KeepDistanceRoutine
+                (monsterPerception.alertMoveSpeed, monsterPerception.CompareDistanceWithoutHeight
+                (monsterPerception.transform.position, monsterPerception.Vision.TargetTransform.position, 7f)));
         }
     }
 

@@ -52,7 +52,9 @@ MonoBehaviour:
       type: 3}
     monsterTag: 0000000001000000
     dropItems:
-    - {fileID: 0}
+    - {fileID: 8271105284216808224, guid: b3474549bf908024081408fcf03afaeb, type: 3}
+    - {fileID: 4411924971584530800, guid: e672f7d376d51c746b7a3dd23ae3f343, type: 3}
+    - {fileID: 3798244049454182368, guid: f1cf0b77d901f65419160af376bb97ec, type: 3}
     healthPoint: 750
     attackPoint: 50
     detectRange: 30
@@ -64,11 +66,13 @@ MonoBehaviour:
       type: 3}
     monsterTag: 010000000500000004000000
     dropItems:
-    - {fileID: 0}
+    - {fileID: 2691189183381618993, guid: f4f35f38e9d17a84e90fd88892bd1d31, type: 3}
+    - {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33, type: 3}
+    - {fileID: 5985286338083887649, guid: 7ce458dff8ea2c54d95186d5ddccfc8b, type: 3}
     healthPoint: 500
     attackPoint: 40
     detectRange: 30
-    attackRange: 5
+    attackRange: 15
     attackSpeed: 0.5
     moveSpeed: 2
   - monsterName: Zombie
@@ -76,7 +80,29 @@ MonoBehaviour:
       type: 3}
     monsterTag: 0200000003000000
     dropItems:
-    - {fileID: 0}
+    - {fileID: 2691189183381618993, guid: f4f35f38e9d17a84e90fd88892bd1d31, type: 3}
+    - {fileID: 1975965898072653462, guid: fa9139d17ef43944cba36c6db6259d33, type: 3}
+    - {fileID: 5985286338083887649, guid: 7ce458dff8ea2c54d95186d5ddccfc8b, type: 3}
+    - {fileID: 8271105284216808224, guid: b3474549bf908024081408fcf03afaeb, type: 3}
+    - {fileID: 4411924971584530800, guid: e672f7d376d51c746b7a3dd23ae3f343, type: 3}
+    - {fileID: 893915794915811787, guid: a3c1287ec52956d409896c00dccf0ca3, type: 3}
+    - {fileID: 5002723904040131852, guid: 8beb717cffe2d684bb1fbe40ed1eb320, type: 3}
+    - {fileID: 8486933861224104557, guid: b1b79c74eb521d248b4252294e650c63, type: 3}
+    - {fileID: 5933577049611559985, guid: f60ea0a823af71d4d991ab082c7e7286, type: 3}
+    - {fileID: 376091706614973621, guid: f9f68c26883bb964ab03e945d76b608c, type: 3}
+    - {fileID: 1136599556549260822, guid: caa7977738fd83f4fafdc1d118912198, type: 3}
+    - {fileID: 2972636702054205246, guid: 06282f5e887ab1e4489114baeba8dac8, type: 3}
+    - {fileID: 1301645522222705994, guid: a5586cb77481c00468106b6ccd00c2bb, type: 3}
+    - {fileID: 3900512688034396307, guid: e4cb8e0b3d0812442a83b9f64e555634, type: 3}
+    - {fileID: 7904323106012796332, guid: f920a3752877f094cb25bce65856668b, type: 3}
+    - {fileID: 3926859739586314843, guid: 604666ea57ca30d4081cdc9afa1859c9, type: 3}
+    - {fileID: 3361998661835854535, guid: 422842a180944174facd0eb4859a5a49, type: 3}
+    - {fileID: 8339877788973011948, guid: dc50bedfaa57d994ba4a6076cb648a00, type: 3}
+    - {fileID: 6914735933583471331, guid: 4cf185c6dcb835946bda7bf7d74accd6, type: 3}
+    - {fileID: 3066446662878091441, guid: 97d083945e8e7ad4db8fc5b02f6210ea, type: 3}
+    - {fileID: 1445941700141921562, guid: 68aa3cca2b727c5448fbcf700deaad00, type: 3}
+    - {fileID: 2764883456244745302, guid: 293c2800384edaa489c62fdcee82a788, type: 3}
+    - {fileID: 5759688999190141145, guid: ace09ff72b2cd80499e2ed3d2838c97d, type: 3}
     healthPoint: 30
     attackPoint: 5
     detectRange: 50

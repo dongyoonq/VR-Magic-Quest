@@ -17364,34 +17364,48 @@ MonoBehaviour:
   - skill: 0
     energyCost: 1
     limit: 10
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   - skill: 2
     energyCost: 2
     limit: 5
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   - skill: 6
     energyCost: 1
     limit: 30
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   - skill: 5
     energyCost: 3
     limit: 10
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   conditionalPatern:
   - skill: 1
     energyCost: 0
     limit: 1
+    castingMotion: 0
     conditionHP: 400
+    conditionDistance: 0
     priority: 0
   - skill: 3
     energyCost: 0
     limit: 1
+    castingMotion: 0
     conditionHP: 200
+    conditionDistance: 0
     priority: 0
+  rageMode: 0
+  basicAttackType: 
 --- !u!95 &3687047946168558115
 Animator:
   serializedVersion: 5
@@ -17402,7 +17416,7 @@ Animator:
   m_GameObject: {fileID: 8933015472649207977}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 58e93ab0ef60b71409cb316f759b0d28, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6f113b35a1fa0d740847fa11097bfd40, type: 2}
+  m_Controller: {fileID: 9100000, guid: f66a41845694c20418dcf2222104c811, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

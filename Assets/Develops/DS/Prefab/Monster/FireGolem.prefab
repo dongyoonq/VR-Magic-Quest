@@ -1102,22 +1102,22 @@ MonoBehaviour:
   concentrateObject: {fileID: 1524873787337556228, guid: 65366c3dded368445979866ca088ea1a,
     type: 3}
   attackPatern:
-  - skill: -1
-    energyCost: 0
-    limit: -1
-    conditionHP: 0
-    priority: 0
-  - skill: 4
-    energyCost: 1
-    limit: 10
-    conditionHP: 0
-    priority: 0
   - skill: 6
     energyCost: 1
     limit: 20
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
-  conditionalPatern: []
+  conditionalPatern:
+  - skill: 4
+    energyCost: 1
+    limit: 10
+    castingMotion: 1
+    conditionHP: 0
+    conditionDistance: 7
+    priority: 0
+  rageMode: 0
   basicAttackType: 00000000
 --- !u!95 &7152240933048437332
 Animator:

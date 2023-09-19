@@ -5183,6 +5183,7 @@ GameObject:
   - component: {fileID: 5035383947506378186}
   - component: {fileID: 1581741291671385116}
   - component: {fileID: 2391919676397386279}
+  - component: {fileID: 1319239050420577094}
   m_Layer: 0
   m_Name: Potion Fire beam
   m_TagString: Untagged
@@ -5504,6 +5505,20 @@ MonoBehaviour:
   PoppingPlugAudioClip:
   - {fileID: 8300000, guid: 6a98e81ed6ddd014297d709a3a596565, type: 3}
   - {fileID: 8300000, guid: bf3b6017f75ddfa41a9d9510453f637e, type: 3}
+  audioSource: {fileID: 0}
+--- !u!65 &1319239050420577094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415464551099168433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.18, z: -0.01}
 --- !u!1 &6728358115865682624
 GameObject:
   m_ObjectHideFlags: 0

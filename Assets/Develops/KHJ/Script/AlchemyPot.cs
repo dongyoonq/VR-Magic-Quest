@@ -28,7 +28,7 @@ public class AlchemyPot : MonoBehaviour
     private void Start()
     {
         m_StartingVolume = AmbientSoundSource.volume;
-        AmbientSoundSource.volume = m_StartingVolume * 0.2f;
+        AmbientSoundSource.volume = m_StartingVolume * 0.5f;
         AmbientSoundSource.Play();
     }
 
@@ -93,8 +93,6 @@ public class AlchemyPot : MonoBehaviour
             return;
 
         m_CanBrew = false;
-
-        Debug.Log("Brew");
 
         PortionRecipeData brewRecipe = null;
 

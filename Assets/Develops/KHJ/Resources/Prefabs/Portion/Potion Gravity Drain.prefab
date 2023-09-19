@@ -5508,6 +5508,7 @@ GameObject:
   - component: {fileID: 1614186378292423719}
   - component: {fileID: 1614186378292423712}
   - component: {fileID: 1614186378292423713}
+  - component: {fileID: 1486360613867634839}
   m_Layer: 0
   m_Name: Potion Gravity Drain
   m_TagString: Untagged
@@ -5829,3 +5830,17 @@ MonoBehaviour:
   PoppingPlugAudioClip:
   - {fileID: 8300000, guid: 6a98e81ed6ddd014297d709a3a596565, type: 3}
   - {fileID: 8300000, guid: bf3b6017f75ddfa41a9d9510453f637e, type: 3}
+  audioSource: {fileID: 0}
+--- !u!65 &1486360613867634839
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614186378292423714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.18, z: -0.01}

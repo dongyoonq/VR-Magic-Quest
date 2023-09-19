@@ -20,10 +20,11 @@ public class ha : XRGrabInteractable
     public void SetParentToXRRig()
     {
         transform.SetParent(selectingInteractor.transform);
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void SetParentToWorld()
     {
-        transform.SetParent(null);
+        transform.localScale = new Vector3(1, 1, 1);
     }
 }

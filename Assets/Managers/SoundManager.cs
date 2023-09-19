@@ -48,7 +48,11 @@ public class SoundManager : MonoBehaviour
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/WalkSound1"), "WalkSound1"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/WalkSound2"), "WalkSound2"),
             CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/ZombieAttack"), "ZombieAttack"),
-            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/ZombieClassic"), "ZombieClassic")
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/ZombieClassic"), "ZombieClassic"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/shopbuysound"), "shopbuysound"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/boxopen"), "boxopen"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/PlayerDie"), "PlayerDie"),
+            CreateSound(GameManager.Resource.Load<AudioClip>("Sound/Item/stonehit"), "stonehit"),
         };
 
         GameObject _musicSource = new GameObject();

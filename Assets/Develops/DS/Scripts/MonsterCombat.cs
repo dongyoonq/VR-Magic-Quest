@@ -62,7 +62,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         perception = GetComponent<MonsterPerception>();
         animator = GetComponent<Animator>();
         hitTargetLayerMask = LayerMask.GetMask("Player");
-        getHit = false;
         concentrateObject = GameManager.Resource.Instantiate(concentrateObject, transform.position + Vector3.up * 2f, transform.rotation);
         concentrateObject.transform.SetParent(transform);
         concentrateObject.SetActive(false);
@@ -70,6 +69,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private void OnEnable()
     {
+        getHit = false;
         channelling = false;
         delayTime = 2f;
         skillPriority = new List<Skill>();
@@ -88,7 +88,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     IEnumerator Test()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         TakeDamaged(100000);
     }
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
+  m_Name: Fire Dragon Skill Recipe
+  m_EditorClassIdentifier: 
+  RecipeSprite: {fileID: 21300000, guid: 55874b6c00c5a554c9d01afd010a32f5, type: 3}
+  ingredientRune1: {fileID: 11400000, guid: bea514166b4028940a281b8c2470d789, type: 2}
+  ingredientRune2: {fileID: 11400000, guid: 5fa4cd47b29379e4cb4e633a6b257ecb, type: 2}
+  ingredientRune3: {fileID: 11400000, guid: f44143c7deeaef84fb25015a8b6ca1b8, type: 2}
+  madePortion: {fileID: 11400000, guid: 612f7117e69dc26449e39d9146b55cd1, type: 2}

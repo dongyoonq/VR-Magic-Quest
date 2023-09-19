@@ -25,11 +25,17 @@ public class VenomRage : Skill
     {
         yield return new WaitForSeconds(0.1f);
 
-        Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 6f);
+        Collider[] colliders = Physics.OverlapSphere(skill.transform.position, 6f, LayerMask.GetMask("Monster"));
 
         foreach (Collider collider in colliders)
         {
             IHittable hitMonster = collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+
+            if (hitReactor != null)
+            {
+                hitReactor.HitReact(skillData.hitTags, 0.2f);
+            }
 
             if (hitMonster != null)
             {

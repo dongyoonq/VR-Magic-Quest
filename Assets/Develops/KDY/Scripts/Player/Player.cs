@@ -20,30 +20,32 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
     public List<Gesture> trainingSet = new List<Gesture>();
 
     [SerializeField] Image hitScreen;
+
     [SerializeField] public int maxHp;
     [SerializeField] public int maxMp;
+    
     public int currHp;
     public int currMp;
 
     [NonSerialized] public bool isSkillUsed;
+
+    private void Awake()
+    {
+        inventory = GetComponent<Inventory>();
+    }
 
     private void Start()
     {
         currHp = maxHp;
         currMp = maxMp;
 
-        inventory = GetComponent<Inventory>();
         trainingSet = GameManager.Load.LoadGestures();
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.K))
-        {
-            TakeDamaged(5);
-        }
-    }
 
+    }
 
     // 인벤토리 추가 메서드
     public void AddItemToInventory(ItemData item)
@@ -74,6 +76,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
             }
 
             OnAddItemInventory?.Invoke(item, index, 1);
+            GameManager.Quest.GatherItem(item);
             return;
         }
 
@@ -89,6 +92,7 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
         }
 
         OnAddItemInventory?.Invoke(item, index, 1);
+        GameManager.Quest.GatherItem(item);
     }
 
     public void AddItemToInventory(ItemData item, int index = 0)

@@ -9,18 +9,29 @@ public class MonsterController : MonoBehaviour
     private MonsterData monsterData;
     [SerializeField]
     private int spawnMonsterNumber;
+    [SerializeField]
+    private Wall wall;
+    [SerializeField]
+    private GimmickTrigger gimmickTrigger;
+    public GimmickTrigger GimmickTrigger { get { return gimmickTrigger; } set { gimmickTrigger = value; } }
     private MonsterPerception monsterPerception;
     public UnityEvent passiveEvent = new UnityEvent();
     public UnityEvent activeEvent = new UnityEvent();
     private Queue<IEnumerator> commandQueue = new Queue<IEnumerator>();
     public Coroutine monsterBehaviourRoutine;
+    public Coroutine monsterInvoluntaryBehaveRoutine;
     private Transform spawnPoint;
     private Collider spawnTriggerCollider;
 
     private void Awake()
     {
         spawnPoint = transform.GetChild(0).transform;
-        spawnTriggerCollider = GetComponentInChildren<Collider>();
+        spawnTriggerCollider = GetComponent<Collider>();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator MonsterBehaveRoutine()
@@ -28,12 +39,22 @@ public class MonsterController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while (true)
         {
-            passiveEvent?.Invoke();
             if (commandQueue.Count > 0)
             {
+                Debug.Log(commandQueue.Peek());
                 yield return StartCoroutine(commandQueue.Dequeue());
             }
             activeEvent?.Invoke();
+            yield return null;
+        }
+    }
+
+    private IEnumerator MonsterInvoluntaryBehaveRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        while (true)
+        {
+            passiveEvent?.Invoke();
             yield return null;
         }
     }
@@ -43,19 +64,27 @@ public class MonsterController : MonoBehaviour
         commandQueue.Enqueue(command);
     }
 
-    public void SpawnMonster(int monsterNumber, Vector3 spawnPosition)
+    public void SpawnMonster(int monsterNumber, Transform spawnPoint)
     {
         MonsterData.MonsterInfo monsterInfo = monsterData.MonsterType[monsterNumber];
-        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPosition + Vector3.up * 0.5f, Quaternion.identity, true).GetComponent<MonsterPerception>();
+        monsterPerception = GameManager.Resource.Instantiate(monsterInfo.monsterPrefab, spawnPoint.position + Vector3.up * 0.5f, spawnPoint.rotation, true).GetComponent<MonsterPerception>();
+        monsterInvoluntaryBehaveRoutine = StartCoroutine(MonsterInvoluntaryBehaveRoutine());
         monsterData.SynchronizeAI(ref monsterInfo, monsterPerception);
         monsterPerception.ActivateMonster(this, monsterInfo);
         monsterBehaviourRoutine = StartCoroutine(MonsterBehaveRoutine());
     }
 
-    //TODO: 플레이어 레이어를 제외한 다른 콜리더들은 아예 무시하도록 projectsetting
+    public void UnlockNextArea()
+    {
+        if (wall != null)
+        {
+            wall.Unlock();
+        }  
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        SpawnMonster(spawnMonsterNumber, spawnPoint.position);
+        SpawnMonster(spawnMonsterNumber, spawnPoint);
         spawnTriggerCollider.enabled = false;
     }
 }

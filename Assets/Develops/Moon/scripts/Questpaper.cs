@@ -21,7 +21,7 @@ public class Questpaper : MonoBehaviour
     public void Accept()
     {
     
-        Debug.Log("Äù½ºÆ® ¹Þ±â");
+      
         QuestData quest = ScriptableObject.CreateInstance<QuestData>();
         quest.name = questdata.name;
         quest.questtitle = questdata.questtitle;
@@ -31,8 +31,9 @@ public class Questpaper : MonoBehaviour
         quest.monster = questdata.monster;
         quest.item = questdata.item;
         quest.clearValue = questdata.clearValue;
-        quest.clearitem = questdata.clearitem;
+        quest.clearRecipe = questdata.clearRecipe;
         GameManager.Quest.AddQuest(quest);
         Destroy(gameObject);
+        GameManager.Sound.PlaySFX("questaccept");
     }
 }

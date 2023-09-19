@@ -14,10 +14,13 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private WaitForSeconds waitRecoverTime;
     public WaitForSeconds WaitRecoverTime { get { return waitRecoverTime; } set { waitRecoverTime = value; } }
     private float statusDuration;
-    private Dictionary<HitTag, IEnumerator> hitReactions = new Dictionary<HitTag, IEnumerator>();
     private LayerMask hitTargetLayerMask;
     private Coroutine attackRoutine;
+    private bool getHit;
     private float attackDelayTime;
+    private bool meleeType;
+    public bool MeleeType { get { return meleeType; } set {  meleeType = value; } }
+    private bool channelling;
     [SerializeField]
     private HitTag[] basicAttackType;
     [SerializeField]
@@ -31,37 +34,76 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     {
         perception = GetComponent<MonsterPerception>();
         animator = GetComponent<Animator>();
-        hitReactions.Add(HitTag.Impact, ImpactHitReactRoutine());
-        hitReactions.Add(HitTag.Buff, BuffHitReactRoutine());
-        hitReactions.Add(HitTag.Debuff, DeBuffHitReactRoutine());
-        hitReactions.Add(HitTag.Mez, MezHitReactRoutine());
         hitTargetLayerMask = LayerMask.GetMask("Player");
+        getHit = false;
     }
 
-    private IEnumerator TestRoutine()
+    private void OnEnable()
     {
-        yield return new WaitForSeconds(3f);
-        perception.SendCommand(AlertRoutine());
+        meleeType = false;
+        channelling = false;
+        attackDelayTime = 0f;
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    // advanced state에 따라 다른 공격
     public void Combat()
     {
-        if (Mathf.Abs(attackDelayTime- 0f) < 0.01f)
+        if (attackDelayTime <= 0f)
         {
-            attackRoutine = StartCoroutine(BasicAttackRoutine());
-            attackDelayTime = -1f;
+            if (perception.CurrentCondition <= Condition.Good)
+            {
+                attackRoutine = StartCoroutine(BasicAttackRoutine());
+            }
+            else if (perception.CurrentCondition > Condition.Good)
+            {
+                attackRoutine = StartCoroutine(HeavytAttackRoutine());
+                perception.CurrentCondition--;
+            }
+            StartCoroutine(CountAttackDelayTimeRoutine());
         }
-        if (attackDelayTime < 0.01f)
+
+    }
+
+    private IEnumerator CountAttackDelayTimeRoutine()
+    {
+        while (attackDelayTime <= 0f)
         {
-            perception.Vision.AvertEye();
-            perception.Vision.AvertEye();
+            if (perception.CurrentCondition <= Condition.Exhausted)
+            {
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+            }
+            else if (perception.CurrentCondition > Condition.Energetic)
+            {
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+            }
+            else
+            {
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+                attackDelayTime -= Time.deltaTime * stat.attackSpeed;
+            }
+            if (attackDelayTime < 0.01f)
+            {
+                perception.Vision.AvertEye();
+                perception.Vision.AvertEye();
+            }
+            yield return null;
         }
-        attackDelayTime -= Time.deltaTime * stat.attackSpeed;
     }
 
     private void Attack(int damage, HitTag[] attackType)
     {
         Collider[] hitObjects = Physics.OverlapSphere(Camera.main.transform.position, 1f, hitTargetLayerMask);
+        if (perception.CurrentCondition == Condition.TopForm)
+        {
+            damage += damage / 2;
+        }
         foreach (Collider hitObject in hitObjects)
         {
             hitObject.GetComponent<IHittable>()?.TakeDamaged(damage);
@@ -75,69 +117,96 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
         Attack(stat.attackPoint, basicAttackType);
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsTag("AttackFinish"));
-        attackDelayTime = 3f;
     }
 
-    public void MeleeAttack()
+    private IEnumerator HeavytAttackRoutine()
     {
-        perception.SendCommand(MeleeAttackRoutine());
-    }
-
-    // TODO: 애니메이터 태그 수정 필요할 듯
-    private IEnumerator MeleeAttackRoutine()
-    {
-        Debug.Log(gameObject.name);
-        animator.SetBool("MeleeAttack", true);
-        animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
-        yield return StartCoroutine(perception.Locomotion.RushRoutine(15f, 3f));
-        Debug.Log(gameObject.name);
-        animator.SetBool("MeleeAttack", false);
-        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("MeleeAttack"))
-        {
-            Collider[] hitObjects;
-            foreach (Transform attackPoint in meleeAttackPoints)
-            {
-                hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
-                foreach (Collider hitObject in hitObjects)
-                {
-                    hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint);
-                    hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
-                }
-            }
-        }      
+        channelling = true;
+        yield return null;
+        //animator.SetBool("MeleeAttack", true);
+        //animator.SetTrigger("Attack");
+        //yield return new WaitForSeconds(1f);
+        //yield return StartCoroutine(perception.Locomotion.RushRoutine(15f, 3f));
+        //Debug.Log(gameObject.name);
+        //animator.SetBool("MeleeAttack", false);
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsTag("MeleeAttack"))
+        //{
+        //    Collider[] hitObjects;
+        //    foreach (Transform attackPoint in meleeAttackPoints)
+        //    {
+        //        hitObjects = Physics.OverlapSphere(attackPoint.position, 1f, hitTargetLayerMask);
+        //        foreach (Collider hitObject in hitObjects)
+        //        {
+        //            hitObject.GetComponent<IHittable>()?.TakeDamaged(stat.attackPoint * 2);
+        //            hitObject.GetComponent<IHitReactor>()?.HitReact(basicAttackType, 1f);
+        //        }
+        //    }
+        //}      
+        channelling = false;
     }
 
     private IEnumerator RangedAttackRoutine()
     {
-        animator.SetBool("RangedAttack", true);
-        animator.SetTrigger("Attack");
-
         yield return null;
-        animator.SetBool("RangedAttack", false);
+        //animator.SetBool("RangedAttack", true);
+        //animator.SetTrigger("Attack");
+
+        //yield return null;
+        //animator.SetBool("RangedAttack", false);
+    }
+
+    private IEnumerator CastSpellRoutine()
+    {
+        channelling = true;
+        // 캐스팅 시간 딜레이 monsterSkillInfo.SpellCastingTime
+        yield return null;
+        channelling = false;
     }
 
     public void HitReact(HitTag[] hitType, float duration)
     {
+        getHit = true;
         foreach (HitTag hitTag in hitType)
         {
-            hitReactions.TryGetValue(hitTag, out IEnumerator hitReactRoutine);
             statusDuration = duration;
-            perception.SendCommand(hitReactRoutine);
+            switch (hitTag)
+            {
+                case HitTag.Impact:
+                    perception.SendCommand(ImpactHitReactRoutine());
+                    break;
+                case HitTag.Debuff:
+                    perception.SendCommand(DeBuffHitReactRoutine());
+                    break;
+                case HitTag.Buff:
+                    perception.SendCommand(BuffHitReactRoutine());
+                    break;
+                case HitTag.Mez:
+                    perception.SendCommand(MezHitReactRoutine());
+                    break;
+            }
         }
     }
 
     private IEnumerator ImpactHitReactRoutine()
     {
+        yield return null;
         if (attackRoutine != null)
         {
             StopCoroutine(attackRoutine);
+            if (channelling)
+            {
+                perception.CurrentCondition--;
+            }            
         }
         animator.SetTrigger("GetHit");
         yield return null;
         yield return StartCoroutine(perception.Locomotion.ShovedRoutine(10));
         yield return waitRecoverTime;
-        perception.SendCommand(AlertRoutine());
+        getHit = false;
+        if (perception.CurrentState == State.Idle)
+        {
+            perception.SendCommand(AlertRoutine());
+        }
     }
 
     private IEnumerator BuffHitReactRoutine()
@@ -156,9 +225,14 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private IEnumerator MezHitReactRoutine()
     {
+        animator.SetFloat("MoveSpeed", 0f);
         float duration = statusDuration;
         yield return new WaitForSeconds(duration);
-        perception.SendCommand(AlertRoutine());
+        getHit = false;
+        if (perception.CurrentState == State.Idle)
+        {
+            perception.SendCommand(AlertRoutine());
+        }
     }
 
     private IEnumerator AdjustStatRoutine(float duration, bool improve)
@@ -183,25 +257,31 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     public void TakeDamaged(int damage)
     {
         // TODO: 강한 피해를 받으면 혹은 데미지 정도에 따라 밀려나는 거리를 다르게 하고 싶으면 perception.SendCommand(perception.Locomotion.ShovedRoutine(10));
+        if (perception.CurrentCondition == Condition.Weak)
+        {
+            damage += damage / 2;
+        }
         stat.healthPoint += -damage;
         if (stat.healthPoint <= 0)
         {
-            perception.CurrentState = BasicState.Collapse;
+            perception.CurrentState = State.Collapse;
         }
     }
 
     private IEnumerator AlertRoutine()
     {
-        Coroutine lookAroundRoutine = StartCoroutine(LookAroundRoutine());
-        yield return new WaitWhile(() => perception.CurrentState == BasicState.Idle);
-        StopCoroutine(lookAroundRoutine);
+        yield return StartCoroutine(LookArountRoutine());
     }
-
-    private IEnumerator LookAroundRoutine()
+    
+    private IEnumerator LookArountRoutine()
     {
         float time = 0f;
         while (time < 1.5f)
         {
+            if (perception.CurrentState != State.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(true);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -210,6 +290,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 4.5f)
         {
+            if (perception.CurrentState != State.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(false);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -218,6 +302,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 6f)
         {
+            if (perception.CurrentState != State.Idle || getHit)
+            {
+                yield break;
+            }
             perception.SpinMonsterController(true);
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
@@ -226,6 +314,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         while (time < 7.5f)
         {
+            if (perception.CurrentState != State.Idle || getHit)
+            {
+                yield break;
+            }
             perception.Locomotion.Turn();
             perception.Vision.Gaze();
             time += Time.deltaTime;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -18,6 +19,10 @@ public class DoorGrab : XRBaseInteractable
 
     [SerializeField] public bool ispos;
     [SerializeField] public Vector3 attachpos;
+    [SerializeField] public Door door;
+    [SerializeField] public float ydis;
+
+
 
     public void Reset()
     {
@@ -29,7 +34,9 @@ public class DoorGrab : XRBaseInteractable
     {
         base.Awake();
         Attachpoint = transform;
-   
+        door = transform.GetComponentInParent<Door>();
+
+
     }
     protected override void OnEnable()
     {
@@ -65,7 +72,7 @@ public class DoorGrab : XRBaseInteractable
 
         if(updatePhase== XRInteractionUpdateOrder.UpdatePhase.Dynamic)
         {
-            if (isSelected)
+            if (isSelected&&!door.isend)
             {
                 
                 RotateUpdate();
@@ -75,28 +82,31 @@ public class DoorGrab : XRBaseInteractable
                 Debug.Log("리셋");
                 Reset();
             }
+ 
         }
     }
     //갖다대기만해도 돌아감
     public void RotateUpdate()
     {
-        //rotateobj.transform.Rotate(0, 0, 30*Time.deltaTime);  //이코드는 갖다 대기만 해도돌아
-        dir();
-    }
-    public void dir()
-    {
+        //포지션 업데이트 안되게
         if (!ispos)
         {
             attachpos = interactor.GetAttachTransform(this).position;
-            ispos= true;
+            ispos = true;
         }
-        float ydis = interactor.GetAttachTransform(this).position.y - attachpos.y;
+        ydis = interactor.GetAttachTransform(this).position.y - attachpos.y;
         Debug.Log(ydis);
-        if (ydis < -0.1f)
+        if (ydis != 0)
         {
-            rotateobj.transform.Rotate(0, 0, 30 * Time.deltaTime);
+            rotateobj.transform.Rotate(0, 0, -ydis);
+            door.UpDoor(1.5f);
         }
-
+        if (door.feDoor.transform.position.y > door.fedoorpos.y + 10)
+        {
+      
+            door.enddoor();
+            transform.GetComponent<DoorGrab>().enabled = false;
+        }
     }
-  
+
 }

@@ -7,17 +7,10 @@ using Random = UnityEngine.Random;
 
 public class AlchemyPot : MonoBehaviour
 {
-    [Serializable]
-    public class Recipe
-    {
-        public string name;
-        public string[] ingredients;
-    }
-
     [System.Serializable]
-    public class BrewEvent : UnityEvent<Recipe> { };
+    public class BrewEvent : UnityEvent<PortionRecipeData> { };
 
-    public Recipe[] Recipes;
+    public PortionRecipeData[] recipes;
     public Transform respawnPosition;
 
     public BrewEvent OnBrew;
@@ -26,9 +19,9 @@ public class AlchemyPot : MonoBehaviour
     public AudioSource AmbientSoundSource;
     public AudioClip[] SplashClips;
 
-    bool m_CanBrew = false;
+    bool m_CanBrew = true;
 
-    public List<string> m_CurrentIngredientsIn = new List<string>();
+    public List<RuneItemData> m_CurrentIngredientsIn = new List<RuneItemData>();
 
     float m_StartingVolume;
 
@@ -53,22 +46,38 @@ public class AlchemyPot : MonoBehaviour
             Vector3 contactPosition = other.attachedRigidbody.gameObject.transform.position;
             contactPosition.y = gameObject.transform.position.y;
 
+            /*
             SFXPlayer.Instance.PlaySFX(SplashClips[Random.Range(0, SplashClips.Length)], contactPosition, new SFXPlayer.PlayParameters()
             {
                 Pitch = Random.Range(0.8f, 1.2f),
                 SourceID = 17624,
                 Volume = 1.0f
             }, 0.2f, true);
+            */
 
             if (Rune != null)
             {
-                m_CurrentIngredientsIn.Add(Rune.Data.Name);
+                if (m_CurrentIngredientsIn.Count > 3)
+                {
+                    Rigidbody rb = ingredient.GetComponentInParent<Rigidbody>();
+
+                    if (rb != null)
+                    {
+                        rb.transform.position = respawnPosition.position;
+                    }
+                    else
+                    {
+                        ingredient.transform.position = respawnPosition.position;
+                    }
+
+                    return;
+                }
+
+                m_CurrentIngredientsIn.Add(Rune.Data as RuneItemData);
                 Destroy(ingredient);
             }
             else
             {
-                m_CurrentIngredientsIn.Add("INVALID");
-
                 Rigidbody rb = ingredient.GetComponentInParent<Rigidbody>();
 
                 if (rb != null)
@@ -85,35 +94,43 @@ public class AlchemyPot : MonoBehaviour
 
     public void Brew()
     {
-        if (m_CanBrew)
+        if (!m_CanBrew)
             return;
-        if (m_CurrentIngredientsIn.Count == 0)
+        if (m_CurrentIngredientsIn.Count < 3)
             return;
+
+        m_CanBrew = false;
+
         Debug.Log("Brew");
 
-        Recipe recipeBewed = null;
-        foreach (Recipe recipe in Recipes)
+        PortionRecipeData brewRecipe = null;
+
+        foreach (PortionRecipeData recipe in recipes)
         {
-            List<string> copyOfIngredient = new List<string>(m_CurrentIngredientsIn);
-            int ingredientCount = 0;
-            foreach (var ing in recipe.ingredients)
+            int cnt = 0;
+
+            foreach (RuneItemData data in m_CurrentIngredientsIn)
             {
-                if (copyOfIngredient.Contains(ing))
+                if (data == recipe.ingredientRune1)
+                    cnt++;
+                else if (data == recipe.ingredientRune2)
+                    cnt++;
+                else if (data == recipe.ingredientRune3)
+                    cnt++;
+
+                if (cnt == 3)
                 {
-                    ingredientCount += 1;
-                    copyOfIngredient.Remove(ing);
+                    brewRecipe = recipe;
+
+                    ResetCauldron();
+                    OnBrew.Invoke(brewRecipe);
+                    return;
                 }
             }
-
-            if (ingredientCount == recipe.ingredients.Length && m_CurrentIngredientsIn.Count == recipe.ingredients.Length)
-            {
-                recipeBewed = recipe;
-                break;
-            }
         }
+
+        OnBrew.Invoke(brewRecipe);
         ResetCauldron();
-        
-        OnBrew.Invoke(recipeBewed);
     }
 
     void ResetCauldron()

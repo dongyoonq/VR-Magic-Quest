@@ -12,8 +12,6 @@ public class PortionItem : CountableItem
 
     static int NextFreeUniqueId = 3000;
 
-    /// <summary> 포션 리시버가 받을 string </summary>
-    public string PotionType = "Default";
     public GameObject plugObj;
     public ParticleSystem particleSystemLiquid;
     public float fillAmount = 0.8f;
@@ -90,19 +88,45 @@ public class PortionItem : CountableItem
 
             m_AudioSource.pitch = Mathf.Lerp(1.0f, 1.4f, 1.0f - fillRatio);
 
-            //포션 아래쪽에 포션 리시버가 있다면 포션 리시버안의 함수를 실행
-            RaycastHit hit;
-            if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
+            //포션을 이미 마신 상태가 아니고, 포션 아래쪽에 포션 리시버가 있다면 포션 리시버안의 함수를 실행
+            if (!isPortionDrink)
             {
-                PotionReceiver receiver = hit.collider.GetComponent<PotionReceiver>();
-
-                if (receiver != null && isPortionDrink == false)
+                RaycastHit hit;
+                if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
                 {
-                    receiver.ReceivePotion(PotionType);
-                    isPortionDrink = true;
-                }
+                    Player player = hit.collider.GetComponent<Player>();
+                    if (player != null)
+                    {
+                        if (Data is SkillPortionItemData)
+                        {
+                            SkillPortionItemData skillPortion = Data as SkillPortionItemData;
+                            if (player.skillList.Contains(skillPortion.SkillData))
+                            {
+                                Debug.Log(skillPortion.Name + "스킬포션 마심");
+                                isPortionDrink = true;
+                            }
+                            else
+                            {
+                                player.skillList.Add(skillPortion.SkillData);
+                                Debug.Log(skillPortion.Name + "스킬포션 마심");
+                                isPortionDrink = true;
+                            }
+                        }
+                        else if (Data is HillingPortionItemData)
+                        {
+                            HillingPortionItemData hillPortion = Data as HillingPortionItemData;
+                            player.currHp += hillPortion.HillHpValue;
+                            player.currMp += hillPortion.HillMpValue;
+                            Debug.Log(hillPortion.Name + "회복포션 마심");
+                            isPortionDrink = true;
+                        }
+                        else
+                        {
+                            Debug.Log("그것 마심");
+                        }
+                    }
+                }                   
             }
-
         }
         else
         {

@@ -4855,7 +4855,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5bd776f162b3a3b4fb6b7db864a68269, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4977,6 +4976,7 @@ GameObject:
   - component: {fileID: 430076}
   - component: {fileID: 10813718}
   - component: {fileID: 11453992}
+  - component: {fileID: 503568603558374919}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -5120,6 +5120,26 @@ MonoBehaviour:
   IsLoop: 0
   UseShadowsIfPossible: 0
   canUpdate: 0
+--- !u!114 &503568603558374919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &141354
 GameObject:
   m_ObjectHideFlags: 0
@@ -9724,7 +9744,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5e6be9d5389ba0b4f93ed7a470e7bb63, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14653,7 +14672,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: d90e2e3f6b63de145bfbb40e679a90b5, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14962,6 +14980,7 @@ GameObject:
   - component: {fileID: 460954}
   - component: {fileID: 10887970}
   - component: {fileID: 11469388}
+  - component: {fileID: 9202292095527553250}
   m_Layer: 0
   m_Name: StartLight
   m_TagString: Untagged
@@ -15105,3 +15124,23 @@ MonoBehaviour:
   IsLoop: 0
   UseShadowsIfPossible: 0
   canUpdate: 0
+--- !u!114 &9202292095527553250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}

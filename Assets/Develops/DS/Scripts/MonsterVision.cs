@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using static EnumType;
@@ -21,19 +20,74 @@ public class MonsterVision : MonoBehaviour
     private MultiAimConstraint upperBodyAim;
     public MultiAimConstraint UpperBodyAIm { get { return upperBodyAim; } }
     private MonsterPerception perception;
-    private SphereCollider detectRange;
-    public SphereCollider DetectRange {  get { return detectRange; } set { detectRange = value; } }
+    private float detectRange;
+    public float DetectRange {  get { return detectRange; } set { detectRange = value; } }
     private Vector3 targetDirection;
     private LayerMask detectLayerMask;
+    private (Transform targetTransform, float targetSqrDistance) target;
+    private Transform targetTransform;
+    public Transform TargetTransform { get { return targetTransform; } }
 
     private void Awake()
     {
         perception = GetComponent<MonsterPerception>();
-        detectRange = GetComponent<SphereCollider>();
         detectLayerMask = -1;
         detectLayerMask &= ~(LayerMask.GetMask("Monster") | LayerMask.GetMask("Trigger"));
         headAim.weight = 0f;
         upperBodyAim.weight = 0f;
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(VisionRoutine());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        perception.LoseSightOfTarget();
+    }
+
+    public IEnumerator VisionRoutine()
+    {
+        yield return null;      
+        while (true)
+        {
+            target = (Camera.allCameras[0].transform, Vector3.SqrMagnitude(Camera.allCameras[0].transform.position - transform.position));
+            foreach (Camera player in Camera.allCameras)
+            {
+                float sqrDistance = Vector3.SqrMagnitude(player.transform.position - transform.position);
+                if (sqrDistance < target.targetSqrDistance)
+                {
+                    target = (player.transform, sqrDistance);
+                }
+                yield return null;
+            }
+            if (target.targetSqrDistance < detectRange * detectRange)
+            {
+                targetDirection = (target.targetTransform.position - eyeTransform.position).normalized;
+                if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
+                {
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange, detectLayerMask))
+                    {
+                        if (hitInfo.collider.gameObject.layer == 7)
+                        {
+                            if (targetTransform != target.targetTransform)
+                            {
+                                targetTransform = target.targetTransform;
+                                perception.SendCommand(perception.SpotEnemyRoutine(targetTransform.parent.parent));                             
+                            }                 
+                        }
+                    }
+                }
+            }
+            else
+            {
+                perception.LoseSightOfTarget();
+            }
+            yield return null;
+        }
     }
 
     public void Gaze()
@@ -57,41 +111,6 @@ public class MonsterVision : MonoBehaviour
         if (upperBodyAim.weight > 0f)
         {
             upperBodyAim.weight = Mathf.Lerp(upperBodyAim.weight, 0f, Time.deltaTime);
-        }
-    }
-
-    //TODO: 해골 gaze 수치 조절
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.layer == 7 && perception.CurrentState == BasicState.Idle)
-        {
-            targetDirection = (Camera.main.transform.position - eyeTransform.position).normalized;
-            if (Vector3.Dot(transform.forward, targetDirection) >= Mathf.Cos(fieldOfView * 0.5f * Mathf.Deg2Rad))
-            {
-                RaycastHit hitInfo;
-                if (Physics.Raycast(eyeTransform.position, targetDirection, out hitInfo, detectRange.radius, detectLayerMask))
-                {
-                    if (hitInfo.collider.gameObject.layer == 7)
-                    {
-                        perception.SpotEnemy(other.transform);
-                    }
-                }
-            }           
-        }
-    }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    targetDirection = (Camera.main.transform.position - eyeTransform.position).normalized;
-    //    Gizmos.DrawRay(eyeTransform.position, targetDirection * detectRange.radius);
-    //}
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            perception.LoseSightOfTarget();
         }
     }
 }

@@ -181,10 +181,15 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
 
     IEnumerator DieRoutine()
     {
+        CharacterController controller = GetComponent<CharacterController>();
+        controller.enabled = false;
+
         yield return new WaitForSeconds(1f);
         GameManager.Sound.PlaySFX("PlayerDie");
         settingUI.ReturnHome();
         yield return new WaitForSeconds(1f);
+
+        controller.enabled = true;
         currHp = maxHp;
     }
 

@@ -95,21 +95,25 @@ public class AlchemyPot : MonoBehaviour
 
         foreach (PortionRecipeData recipe in recipes)
         {
-            PortionRecipeData makerecipe = recipe;
+            PortionRecipeData makeRecipe = new PortionRecipeData();
+            makeRecipe.ingredientRune1 = recipe.ingredientRune1;
+            makeRecipe.ingredientRune2 = recipe.ingredientRune2;
+            makeRecipe.ingredientRune3 = recipe.ingredientRune3;
+
             foreach (RuneItemData data in m_CurrentIngredientsIn)
             {
-                if (data == makerecipe.ingredientRune1)
-                    makerecipe.ingredientRune1 = null;
-                else if (data == makerecipe.ingredientRune2)
-                    makerecipe.ingredientRune2 = null;
-                else if (data == makerecipe.ingredientRune3)
-                    makerecipe.ingredientRune3 = null;
+                if (data == makeRecipe.ingredientRune1)
+                    makeRecipe.ingredientRune1 = null;
+                else if (data == makeRecipe.ingredientRune2)
+                    makeRecipe.ingredientRune2 = null;
+                else if (data == makeRecipe.ingredientRune3)
+                    makeRecipe.ingredientRune3 = null;
 
-                if (makerecipe.ingredientRune1 == null && makerecipe.ingredientRune2 == null && makerecipe.ingredientRune3 == null)
+                if (makeRecipe.ingredientRune1 == null && makeRecipe.ingredientRune2 == null && makeRecipe.ingredientRune3 == null)
                 {
                     brewRecipe = recipe;
-
                     ResetCauldron();
+
                     OnBrew.Invoke(brewRecipe);
                     return;
                 }

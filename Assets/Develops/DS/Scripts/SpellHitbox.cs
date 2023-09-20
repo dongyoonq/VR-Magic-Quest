@@ -7,19 +7,10 @@ using static MonsterSkillData;
 public class SpellHitbox : MonoBehaviour
 {
     private Spell spell;
-    private float time;
-    private bool hittable;
-    // TODO: 연속데미지
 
     public void SynchronizeSpell(Spell spell)
     {
         this.spell = spell;
-    }
-
-    private void OnEnable()
-    {
-        time = 0f;
-        hittable = true;
     }
 
     private void OnDisable()
@@ -32,7 +23,7 @@ public class SpellHitbox : MonoBehaviour
         if (spell != null)
         {
             spell.activate = false;
-            spell.Hit(transform.position);
+            spell.ProjectileHit(transform.position);
         }  
     }
 

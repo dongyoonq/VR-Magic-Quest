@@ -54,7 +54,6 @@ public class Spell : MonoBehaviour
 
     private IEnumerator SpellRoutine()
     {
-        activate = true;
         if (skillInfo.activateTiming == ActivateTiming.After)
         {
             yield return new WaitForSeconds(skillInfo.delayTime);
@@ -88,29 +87,69 @@ public class Spell : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(position, skillInfo.hitRange);
         foreach (Collider collider in colliders)
         {
-            if (collider.transform != casterTransform)
+            if (skillInfo.influenceSelf)
             {
-                IHittable hittable = collider.GetComponent<IHittable>();
-                IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
-                hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
-                hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration-1f);
+                if (collider.transform == casterTransform)
+                {
+                    IHittable hittable = collider.GetComponent<IHittable>();
+                    IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                    hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
+                    hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration - 1f);
+                }
             }
+            else
+            {
+                if (collider.transform != casterTransform)
+                {
+                    IHittable hittable = collider.GetComponent<IHittable>();
+                    IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                    hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
+                    hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration - 1f);
+                }
+            }
+        }
+    }
+
+    public void ProjectileHit(Vector3 position)
+    {
+        if (skillInfo.spellType == SpellType.Projectile)
+        {
+            Hit(position);
         }
     }
     
     public void ContinuousHit(Collider collider)
     {
-        if (time >= 0.2f)
+        if (skillInfo.spellType == SpellType.Area)
         {
-            IHittable hittable = collider.GetComponent<IHittable>();
-            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
-            hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
-            hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration-1f);
-            time = 0f;
-        }
-        else
-        {
-            time += Time.deltaTime;
+            if (time >= 0.5f)
+            {
+                if (skillInfo.influenceSelf)
+                {
+                    if (collider.transform == casterTransform)
+                    {
+                        IHittable hittable = collider.GetComponent<IHittable>();
+                        IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                        hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
+                        hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration - 1f);
+                    }
+                }
+                else
+                {
+                    if (collider.transform != casterTransform)
+                    {
+                        IHittable hittable = collider.GetComponent<IHittable>();
+                        IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                        hittable?.TakeDamaged(Mathf.FloorToInt(casterAttackPoint * skillInfo.damageMultiplier));
+                        hitReactor?.HitReact(skillInfo.hitType, skillInfo.spellDuration - 1f);
+                    }
+                }
+                time = 0f;
+            }
+            else
+            {
+                time += Time.deltaTime;
+            }
         }
     }
 }

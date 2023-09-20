@@ -27,6 +27,7 @@ public class MonsterSkillData : ScriptableObject
         public float hitRange;
         public Aim aim;
         public SpellType spellType;
+        public bool influenceSelf;
         public SkillInfo[] additionalSkills;
     }
     

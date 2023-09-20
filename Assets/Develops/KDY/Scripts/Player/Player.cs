@@ -156,9 +156,9 @@ public class Player : MonoBehaviour, IHittable, IHitReactor
             {
                 case HitTag.Impact:
                     break;
-                case HitTag.Debuff:
+                case HitTag.DebuffSpeed:
                     break;
-                case HitTag.Buff:
+                case HitTag.BuffSpeed:
                     break;
                 case HitTag.Mez:
                     StartCoroutine(MezRoutine(duration));

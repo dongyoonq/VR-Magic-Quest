@@ -20590,6 +20590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   runeImage1: {fileID: 2938847880624420776}
   runeImage2: {fileID: 2938847881421586742}
   runeImage3: {fileID: 2938847882032042945}
@@ -42829,6 +42830,7 @@ MonoBehaviour:
   OnRemoveItemInventory:
     m_PersistentCalls:
       m_Calls: []
+  settingUI: {fileID: 0}
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
   - {fileID: 11400000, guid: 45bc49f98a3fae648b3c2cc8071db58f, type: 2}
@@ -43311,7 +43313,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652663587ea831b4382fa628e13c3c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
+  monsterSpawnerHelper: {fileID: 0}
   wand: {fileID: 3610136665980447912, guid: 2466219d5dff49340b3c623a372b7d44, type: 3}
+  ladle: {fileID: 0}
+  hammer: {fileID: 0}
+  fadeScreen: {fileID: 0}
+  returnTransform: {fileID: 0}
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &2938847881491207045
 GameObject:
   m_ObjectHideFlags: 0
@@ -44595,6 +44606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   infoUI: {fileID: 2938847881532000018}
   commandUI: {fileID: 2938847880228292832}
   skillSlots: []
@@ -55822,7 +55834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerBookUI: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   inventoryPanel: {fileID: 2938847880275515042}
   contents: {fileID: 2938847880962797799}
   inventoryInfoUI: {fileID: 2938847881595962383}

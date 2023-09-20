@@ -23,6 +23,6 @@ public class Wall : MonoBehaviour
     {
         particle.SetActive(false);
         particle.SetActive(true);
-        particle.transform.position = other.transform.position + other.transform.up * 1.1f + other.transform.forward * 0.7f;
+        particle.transform.position = other.transform.position + other.transform.up * 1.1f + transform.forward * 1.3f;
     }
 }

@@ -54,15 +54,20 @@ public class MonsterLocomotion : MonoBehaviour
         {
             Coroutine moveRoutine = StartCoroutine(ApproachRoutine(moveSpeed));
             yield return new WaitForSeconds(5f);
-            //if (moveRoutine != null)
+            if (moveRoutine != null)
+            {
                 StopCoroutine(moveRoutine);
+            }                
             animator.SetFloat("MoveSpeed", 0f);
         }
         else
         {
             Coroutine moveRoutine = StartCoroutine(StepBackRoutine(moveSpeed));
             yield return new WaitForSeconds(5f);
-            StopCoroutine(moveRoutine);
+            if (moveRoutine != null)
+            {
+                StopCoroutine(moveRoutine);
+            }
             animator.SetFloat("MoveSpeed", 0f);
         }          
     }

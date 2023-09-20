@@ -90,4 +90,11 @@ public class EnumType
         DelayTime,
         Immediately
     }
+
+    public enum TrackDirection
+    {
+        straight,
+        Left,
+        Right
+    }
 }

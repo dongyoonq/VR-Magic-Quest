@@ -1,21 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static EnumType;
 
-public class MineCart : MonoBehaviour
+public class MineCart : MonoBehaviour, ITrainWheelHolder
 {
-    private Coroutine skidRoutine;
-    private float gradient;
-    private float currentSlope;
-    private float onSteepTime;
-    private float aceeleration;
-    private Rigidbody rigidbody;
     [SerializeField]
-    private LayerMask trackLayerMask;
+    private float speed;
+    [SerializeField]
+    private float curveRate;
+    private Coroutine skidRoutine;
+    private WheelCollider[] wheels;
+    private Rigidbody rigidbody;
+    private bool brake;
+    public bool Brake { get { return brake; } set {  brake = value; } }
+
+    private void Awake()
+    {
+        wheels = GetComponentsInChildren<WheelCollider>();
+        brake = true;
+        rigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
         Board();
     }
 
@@ -27,23 +36,47 @@ public class MineCart : MonoBehaviour
     private IEnumerator SkidRoutine()
     {
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-        RaycastHit hitInfo;
+        brake = false;
         while (true)
         {
-            if (Physics.Raycast(transform.position, -transform.up, out hitInfo ,0.1f, trackLayerMask))
+            foreach (WheelCollider wheel in wheels)
             {
-                gradient = Vector3.Dot(Vector3.up, hitInfo.normal);
-                if (gradient < 0.9f)
+                if (wheel.motorTorque > 0)
                 {
-                    onSteepTime += Time.deltaTime;
+                    wheel.motorTorque += -Time.deltaTime * speed;
                 }
-                currentSlope = Vector3.Dot(-transform.forward, hitInfo.normal);
-            }
-            else
-            {
-                onSteepTime = 0f;
+                yield return null;
             }
             yield return waitForFixedUpdate;
         }
+    }
+
+    public void Glide(Vector3 position)
+    {
+        Vector3 direction = (transform.position - position).normalized;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * curveRate);
+    }
+
+    public void Turn(Vector3 trackDirection, float turnSpeed)
+    {
+        Debug.Log(trackDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(trackDirection), turnSpeed * curveRate);
+    }
+
+    public void Accelerate()
+    {
+        if (brake)
+        {
+            return;
+        }
+        foreach (WheelCollider wheel in wheels)
+        {
+            wheel.motorTorque += Time.deltaTime * speed * 2f;
+        }
+    }
+
+    public void Decelerate()
+    {
+        
     }
 }

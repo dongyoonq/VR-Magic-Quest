@@ -80,18 +80,11 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             skillPriority.Add(skill);
             skill.priority++;
         }
-        StartCoroutine(Test());
     }
 
     private void OnDisable()
     {
         StopAllCoroutines();
-    }
-
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(5f);
-        Cast(ref attackPatern[3]);
     }
 
     //TODO: 공격 딜레이 타임 조정, 돌진, 회피

@@ -43,6 +43,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     private string attackSound;
     [SerializeField]
     private string getDamageSound;
+    private bool hitSoundPlayable;
 
     [Serializable]
     public class Skill
@@ -69,6 +70,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     private void OnEnable()
     {
+        hitSoundPlayable = true;
         getHit = false;
         channelling = false;
         delayTime = 2f;
@@ -78,7 +80,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             skillPriority.Add(skill);
             skill.priority++;
         }
-        //StartCoroutine(Test());
+        StartCoroutine(Test());
     }
 
     private void OnDisable()
@@ -88,8 +90,8 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     IEnumerator Test()
     {
-        yield return new WaitForSeconds(10f);
-        TakeDamaged(100000);
+        yield return new WaitForSeconds(5f);
+        Cast(ref attackPatern[3]);
     }
 
     //TODO: 공격 딜레이 타임 조정, 돌진, 회피
@@ -459,11 +461,17 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
                 case HitTag.Impact:
                     perception.SendCommand(ImpactHitReactRoutine());
                     break;
-                case HitTag.Debuff:
-                    perception.SendCommand(DeBuffHitReactRoutine());
+                case HitTag.DebuffSpeed:
+                    perception.SendCommand(BuffSpeedHitReactRoutine(false));
                     break;
-                case HitTag.Buff:
-                    perception.SendCommand(BuffHitReactRoutine());
+                case HitTag.BuffSpeed:
+                    perception.SendCommand(BuffSpeedHitReactRoutine(true));
+                    break;
+                case HitTag.DebuffDamage:
+                    perception.SendCommand(BuffDamageHitReactRoutine(false));
+                    break;
+                case HitTag.BuffDamage:
+                    perception.SendCommand(BuffDamageHitReactRoutine(true));
                     break;
                 case HitTag.Mez:
                     perception.SendCommand(MezHitReactRoutine());
@@ -516,17 +524,17 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
     }
 
-    private IEnumerator BuffHitReactRoutine()
+    private IEnumerator BuffSpeedHitReactRoutine(bool buff)
     {
         float duration = statusDuration;
-        StartCoroutine(AdjustStatRoutine(duration, true));
+        StartCoroutine(AdjustSpeedStatRoutine(duration, buff));
         yield return null;
     }
 
-    private IEnumerator DeBuffHitReactRoutine()
+    private IEnumerator BuffDamageHitReactRoutine(bool buff)
     {
         float duration = statusDuration;
-        StartCoroutine(AdjustStatRoutine(duration, false));
+        StartCoroutine(AdjustAttackDamageStatRoutine(duration, buff));
         yield return null;
     }
 
@@ -569,23 +577,44 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         invincible = false;
     }
 
-    private IEnumerator AdjustStatRoutine(float duration, bool improve)
+    private IEnumerator AdjustSpeedStatRoutine(float duration, bool improve)
     {
-        (int healthPoint, int attackPoint, float attackSpeed) originalStat = stat;
+        float originalAttackSpeed = stat.attackSpeed;
+        float originalAlertMoveSpeed = perception.alertMoveSpeed;
+        float originalChaseMoveSpeed = perception.chaseMoveSpeed;
         if (improve)
         {
-            stat.healthPoint *= 2;
-            stat.attackPoint *= 2;
+            perception.alertMoveSpeed *= 1.5f;
+            perception.chaseMoveSpeed *= 1.5f;
             stat.attackSpeed *= 1.2f;
         }
         else
         {
-            stat.healthPoint /= 2;
-            stat.attackPoint /= 2;
+            perception.alertMoveSpeed *= 0.5f;
+            perception.chaseMoveSpeed *= 0.5f;
             stat.attackSpeed *= 0.8f;
         }
         yield return new WaitForSeconds(duration);
-        stat = originalStat;
+        perception.alertMoveSpeed *= 0.5f;
+        perception.chaseMoveSpeed *= 0.5f;
+        stat.attackSpeed = originalAttackSpeed;
+        perception.alertMoveSpeed = originalAlertMoveSpeed;
+        perception.chaseMoveSpeed = originalChaseMoveSpeed;
+    }
+
+    private IEnumerator AdjustAttackDamageStatRoutine(float duration, bool improve)
+    {
+        int originalAttackPoint = stat.attackPoint;
+        if (improve)
+        {
+            stat.attackPoint *= 2;
+        }
+        else
+        {
+            stat.attackPoint /= 2;
+        }
+        yield return new WaitForSeconds(duration);
+        stat.attackPoint = originalAttackPoint;
     }
 
     public void TakeDamaged(int damage)
@@ -610,11 +639,19 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         }
         else
         {
-            if (getDamageSound != null && (currHp - prevHp) < 0)
+            if (getDamageSound != null && damage > 0 && hitSoundPlayable)
             {
                 GameManager.Sound.PlaySFX(getDamageSound);
+                hitSoundPlayable = false;
+                StartCoroutine(TakeDamageSoundRoutine());
             }
         }
+    }
+
+    private IEnumerator TakeDamageSoundRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+        hitSoundPlayable = true;
     }
 
     private IEnumerator AlertRoutine()

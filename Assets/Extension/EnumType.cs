@@ -12,8 +12,10 @@ public class EnumType
     public enum HitTag
     {
         Impact,
-        Buff,
-        Debuff,
+        BuffSpeed,
+        DebuffSpeed,
+        BuffDamage,
+        DebuffDamage,
         Mez,
         Invincible,
         Rage

@@ -21,4 +21,4 @@ MonoBehaviour:
   damage: 20
   useMp: 0
   skillType: 3
-  hitTags: 03000000
+  hitTags: 05000000

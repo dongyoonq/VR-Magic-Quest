@@ -17402,7 +17402,7 @@ MonoBehaviour:
     energyCost: 0
     limit: 1
     castingMotion: 0
-    conditionHP: 400
+    conditionHP: 300
     conditionDistance: 0
     priority: 0
   rageMode: 0

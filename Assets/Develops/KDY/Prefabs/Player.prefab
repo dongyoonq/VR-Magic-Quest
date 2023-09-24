@@ -961,7 +961,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 502486388739741074}
-  recipeManager: {fileID: 0}
 --- !u!65 &502486387865675203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3181,9 +3180,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 502486387977222817}
   - {fileID: 502486389438348376}
   - {fileID: 502486388915736499}
+  - {fileID: 7793595942707852528}
   - {fileID: 502486387865675200}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3284,7 +3283,7 @@ MonoBehaviour:
   OnRemoveItemInventory:
     m_PersistentCalls:
       m_Calls: []
-  inventory: {fileID: 502486388739741074}
+  settingUI: {fileID: 0}
   skillList:
   - {fileID: 11400000, guid: fff2bc502dc0353428a175080d185961, type: 2}
   - {fileID: 11400000, guid: 45bc49f98a3fae648b3c2cc8071db58f, type: 2}
@@ -3293,7 +3292,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5cbcf279c51a6d4899f4cb60ee6607e, type: 2}
   - {fileID: 11400000, guid: 259f966927e57ef41963373974589d7f, type: 2}
   - {fileID: 11400000, guid: 60578b7dcf1e5aa41978f9770ef94357, type: 2}
-  hp: 0
+  unlockRecipeList: []
+  hitScreen: {fileID: 0}
+  maxHp: 0
+  maxMp: 0
+  controllerManager: {fileID: 0}
+  currHp: 0
+  currMp: 0
 --- !u!114 &502486388739741074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411,7 +3416,7 @@ Transform:
   - {fileID: 502486388043786697}
   - {fileID: 502486387900603294}
   m_Father: {fileID: 502486388739741076}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &502486388915736498
 MonoBehaviour:
@@ -4094,7 +4099,7 @@ Transform:
   - {fileID: 502486388104511176}
   - {fileID: 502486388063336340}
   m_Father: {fileID: 502486388739741076}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502486389457393110
 GameObject:
@@ -5208,6 +5213,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 502486388739741076}
     m_Modifications:
+    - target: {fileID: 3624777181380053496, guid: 0046c6802d0c11642b2700a275b9295d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6385137966880430022, guid: 0046c6802d0c11642b2700a275b9295d,
         type: 3}
       propertyPath: recipeManager
@@ -5275,9 +5285,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0046c6802d0c11642b2700a275b9295d, type: 3}
---- !u!4 &502486387977222817 stripped
+--- !u!4 &7793595942707852528 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6385137966880556969, guid: 0046c6802d0c11642b2700a275b9295d,
+  m_CorrespondingSourceObject: {fileID: 3624777181380053496, guid: 0046c6802d0c11642b2700a275b9295d,
     type: 3}
   m_PrefabInstance: {fileID: 6802020467195477256}
   m_PrefabAsset: {fileID: 0}

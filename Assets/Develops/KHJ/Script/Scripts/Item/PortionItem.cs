@@ -31,8 +31,6 @@ public class PortionItem : CountableItem
     /// <summary> 포션이 여러번 인식되지 않게 해주는 bool값 </summary>
     private bool isPortionDrink;
 
-    int m_UniqueId;
-
     public AudioSource audioSource;
     float m_StartingFillAmount;
 

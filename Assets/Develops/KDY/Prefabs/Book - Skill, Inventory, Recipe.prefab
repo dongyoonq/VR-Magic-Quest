@@ -25808,9 +25808,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   runeImage1: {fileID: 3624777181168044626}
   runeImage2: {fileID: 3624777181445143756}
   runeImage3: {fileID: 3624777182177160763}
+  recipeName: {fileID: 0}
   runeName1: {fileID: 3624777180351941464}
   runeName2: {fileID: 3624777180670946382}
   runeName3: {fileID: 3624777182400455652}
@@ -33648,6 +33650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   infoUI: {fileID: 3624777181670832872}
   commandUI: {fileID: 3624777180759422234}
   skillSlots: []
@@ -40931,6 +40934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bookCanvasUI: {fileID: 0}
   inventoryPanel: {fileID: 3624777180410211160}
   contents: {fileID: 3624777181097610525}
   inventoryInfoUI: {fileID: 3624777181606869493}
@@ -50831,6 +50835,7 @@ MonoBehaviour:
   skillInfoCanvas: {fileID: 3624777180890475531}
   recipeInfoCanvas: {fileID: 3624777182128213933}
   settingInfoCanvas: {fileID: 3624777180748173304}
+  questInfoCanvas: {fileID: 0}
   inventorySwitchButton: {fileID: 3624777180429828594}
   skillSwitchButton: {fileID: 3624777180722131358}
   recipeSwitchButton: {fileID: 3624777181257722302}
@@ -50841,6 +50846,7 @@ MonoBehaviour:
     type: 3}
   CanvasName: {fileID: 3624777182159235771}
   skillUI: {fileID: 3624777181666321767}
+  recipeUI: {fileID: 0}
 --- !u!1 &3624777182453282836
 GameObject:
   m_ObjectHideFlags: 0

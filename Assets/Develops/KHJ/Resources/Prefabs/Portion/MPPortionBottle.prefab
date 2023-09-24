@@ -5802,8 +5802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1024a7001da4a47a4ce4ca5d2322fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 04eef8332317ca946adaf6a2a23b00ca, type: 2}
-  PotionType: MP
+  Data: {fileID: 11400000, guid: 026803c5a56c9564c9c711b823fcaa8e, type: 2}
   plugObj: {fileID: 369631385643959072}
   particleSystemLiquid: {fileID: 369631385394762654}
   fillAmount: 0.8
@@ -5813,6 +5812,7 @@ MonoBehaviour:
   PoppingPlugAudioClip:
   - {fileID: 8300000, guid: 6a98e81ed6ddd014297d709a3a596565, type: 3}
   - {fileID: 8300000, guid: bf3b6017f75ddfa41a9d9510453f637e, type: 3}
+  audioSource: {fileID: 0}
 --- !u!65 &7763791933284796146
 BoxCollider:
   m_ObjectHideFlags: 0

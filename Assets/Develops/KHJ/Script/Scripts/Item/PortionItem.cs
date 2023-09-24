@@ -61,8 +61,6 @@ public class PortionItem : CountableItem
         audioSource.maxDistance = 2.0f;
         audioSource.minDistance = 0.2f;
         audioSource.loop = true;
-
-        m_UniqueId = NextFreeUniqueId++;
     }
 
     void OnDestroy()

@@ -16,9 +16,6 @@ public abstract class CountableItemData : ItemData
     /// <summary> 수량이 가득 찼는지 여부 </summary>
     public bool IsMax => Amount >= MaxAmount;
 
-    /// <summary> 개수가 없는지 여부 </summary>
-    public bool IsEmpty => Amount <= 0;
-
     /// <summary> 개수 지정(범위 제한) </summary>
     public void SetAmount(int amount)
     {

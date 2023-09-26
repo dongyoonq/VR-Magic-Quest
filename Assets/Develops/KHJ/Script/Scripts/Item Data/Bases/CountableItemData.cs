@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary> 셀 수 있는 아이템 데이터 </summary>
 public abstract class CountableItemData : ItemData
 {
+    /// <summary> 아이템 최대 개수 </summary>
     public int MaxAmount => maxAmount;
     [SerializeField] private int maxAmount = 99;
 

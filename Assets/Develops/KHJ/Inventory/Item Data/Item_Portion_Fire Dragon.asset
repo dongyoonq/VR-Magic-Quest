@@ -20,4 +20,4 @@ MonoBehaviour:
   dropItemPrefab: {fileID: 115951902128511321, guid: ac9ff7690db2abb429c6393b13415679,
     type: 3}
   maxAmount: 99
-  skillData: {fileID: 11400000, guid: d236928510684934bb3f9cf01414251e, type: 2}
+  skillData: {fileID: 11400000, guid: baec0adf213c51641a595f162b62a052, type: 2}

@@ -9,10 +9,10 @@ using UnityEngine.UI;
 
     ItemData(abstract)
         - CountableItemData(abstract)
+            - RuneItemData
             - PortionItemData
-        - EquipmentItemData(abstract)
-            - WeaponItemData
-            - ArmorItemData
+                - SkillPortionItemData
+                - HillingPortionItemData
 
 */
 

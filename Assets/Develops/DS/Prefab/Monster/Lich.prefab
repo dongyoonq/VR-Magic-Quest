@@ -17395,14 +17395,14 @@ MonoBehaviour:
     energyCost: 0
     limit: 1
     castingMotion: 0
-    conditionHP: 400
+    conditionHP: 700
     conditionDistance: 0
     priority: 0
   - skill: 3
     energyCost: 0
     limit: 1
     castingMotion: 0
-    conditionHP: 200
+    conditionHP: 300
     conditionDistance: 0
     priority: 0
   rageMode: 0

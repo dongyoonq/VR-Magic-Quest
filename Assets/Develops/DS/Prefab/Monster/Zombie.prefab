@@ -1670,6 +1670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertMoveSpeed: 0
   chaseMoveSpeed: 0
+  deathSound: 
 --- !u!114 &8728916500006471808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1715,6 +1716,7 @@ MonoBehaviour:
   rageMode: 0
   basicAttackType: 00000000
   attackSound: ZombieAttack
+  getDamageSound: 
 --- !u!114 &5864448207502526268
 MonoBehaviour:
   m_ObjectHideFlags: 0

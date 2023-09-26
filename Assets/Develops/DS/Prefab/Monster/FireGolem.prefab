@@ -1053,6 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertMoveSpeed: 0
   chaseMoveSpeed: 0
+  deathSound: 
 --- !u!114 &1452107955037378285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,6 +1120,8 @@ MonoBehaviour:
     priority: 0
   rageMode: 0
   basicAttackType: 00000000
+  attackSound: 
+  getDamageSound: 
 --- !u!95 &7152240933048437332
 Animator:
   serializedVersion: 5

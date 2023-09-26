@@ -44,6 +44,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
     [SerializeField]
     private string getDamageSound;
     private bool hitSoundPlayable;
+    private Coroutine alertRoutine;
 
     [Serializable]
     public class Skill
@@ -441,6 +442,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void HitReact(HitTag[] hitType, float duration)
     {
+        if (perception.CurrentState == State.Collapse)
+        {
+            return;
+        }
         getHit = true;
         foreach (HitTag hitTag in hitType)
         {
@@ -513,7 +518,11 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         getHit = false;
         if (perception.CurrentState == State.Idle)
         {
-            perception.SendCommand(AlertRoutine());
+            if (alertRoutine != null)
+            {
+                StopCoroutine(alertRoutine);
+            }
+            alertRoutine = StartCoroutine(LookArountRoutine());
         }
     }
 
@@ -541,7 +550,11 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         perception.Locomotion.Binded = false;
         if (perception.CurrentState == State.Idle)
         {
-            perception.SendCommand(AlertRoutine());
+            if (alertRoutine != null)
+            {
+                StopCoroutine(alertRoutine);
+            }
+            alertRoutine = StartCoroutine(LookArountRoutine());
         }
     }
 
@@ -612,6 +625,10 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
 
     public void TakeDamaged(int damage)
     {
+        if (perception.CurrentState == State.Collapse)
+        {
+            return;
+        }
         int prevHp;
         int currHp;
 
@@ -646,11 +663,6 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
         yield return new WaitForSeconds(3f);
         hitSoundPlayable = true;
     }
-
-    private IEnumerator AlertRoutine()
-    {
-        yield return StartCoroutine(LookArountRoutine());
-    }
     
     private IEnumerator LookArountRoutine()
     {
@@ -679,7 +691,7 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             time += Time.deltaTime;
             yield return null;
         }
-        while (time < 6f)
+        while (time < 10.5f)
         {
             if (perception.CurrentState != State.Idle || getHit)
             {
@@ -691,7 +703,19 @@ public class MonsterCombat : MonoBehaviour, IHitReactor, IHittable
             time += Time.deltaTime;
             yield return null;
         }
-        while (time < 7.5f)
+        while (time < 15f)
+        {
+            if (perception.CurrentState != State.Idle || getHit)
+            {
+                yield break;
+            }
+            perception.SpinMonsterController(false);
+            perception.Locomotion.Turn();
+            perception.Vision.Gaze();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        while (time < 19.5f)
         {
             if (perception.CurrentState != State.Idle || getHit)
             {

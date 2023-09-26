@@ -919,6 +919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertMoveSpeed: 0
   chaseMoveSpeed: 0
+  deathSound: 
 --- !u!114 &4694198934677219862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,10 +972,15 @@ MonoBehaviour:
   - skill: -1
     energyCost: 0
     limit: -1
+    castingMotion: 0
     conditionHP: 0
+    conditionDistance: 0
     priority: 0
   conditionalPatern: []
+  rageMode: 0
   basicAttackType: 00000000
+  attackSound: 
+  getDamageSound: 
 --- !u!95 &3909709754832402095
 Animator:
   serializedVersion: 5

@@ -37,6 +37,8 @@ public class IceDragon : Skill
         foreach (Collider collider in colliders)
         {
             IHittable hitMonster = collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+            hitReactor.HitReact(skillData.hitTags, 0.3f);
             hitMonster.TakeDamaged(skill.skillData.damage);
         }
 

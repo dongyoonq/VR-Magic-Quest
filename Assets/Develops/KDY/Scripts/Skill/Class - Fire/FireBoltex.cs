@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using static MonsterCombat;
 
 public class FireBoltex : Skill
 {
@@ -80,6 +82,8 @@ public class FireBoltex : Skill
         if (other.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
             IHittable hitMonster = other.gameObject.GetComponent<IHittable>();
+            IHitReactor hitReactor = other.gameObject.GetComponent<IHitReactor>();
+            hitReactor.HitReact(skillData.hitTags, 0.2f);
             hitMonster.TakeDamaged(skillData.damage);
         }
     }

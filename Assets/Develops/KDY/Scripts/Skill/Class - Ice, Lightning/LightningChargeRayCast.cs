@@ -16,11 +16,13 @@ public class LightningChargeRayCast : MonoBehaviour
         if (!isHitted && Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, rayDistance))
         {
             IHittable hitMonster = hitInfo.collider.GetComponent<IHittable>();
+            IHitReactor hitReactor = hitInfo.collider.GetComponent<IHitReactor>();
 
             if (hitMonster != null)
             {
                 isHitted = true;
                 hitMonster.TakeDamaged(source.skillData.damage);
+                hitReactor.HitReact(source.skillData.hitTags, 0.3f);
                 StartCoroutine(HitActiveRoutine());
             }
         }

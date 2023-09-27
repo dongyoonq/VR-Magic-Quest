@@ -17,8 +17,8 @@ MonoBehaviour:
     type: 3}
   skillName: Lightning Bolt
   skillTooltip: This is Lightning Bolt Skill
-  recognizeGestureName: 
+  recognizeGestureName: Triangle
   damage: 100
   useMp: 0
   skillType: 1
-  hitTags: 00000000
+  hitTags: 05000000

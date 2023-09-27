@@ -17,8 +17,8 @@ MonoBehaviour:
     type: 3}
   skillName: Lightning Charge
   skillTooltip: This is Lightning Charge Skill
-  recognizeGestureName: 
+  recognizeGestureName: O
   damage: 120
   useMp: 0
   skillType: 1
-  hitTags: 
+  hitTags: 05000000

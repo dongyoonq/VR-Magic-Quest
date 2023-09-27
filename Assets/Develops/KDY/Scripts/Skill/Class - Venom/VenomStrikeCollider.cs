@@ -41,6 +41,8 @@ public class VenomStrikeCollider : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             IHittable hitMonster = collider.gameObject.GetComponent<IHittable>();
+            IHitReactor hitReactor = collider.gameObject.GetComponent<IHitReactor>();
+            hitReactor.HitReact(skillSource.skillData.hitTags, 0.5f);
             hitMonster.TakeDamaged(skillSource.skillData.damage / 2);
         }
 

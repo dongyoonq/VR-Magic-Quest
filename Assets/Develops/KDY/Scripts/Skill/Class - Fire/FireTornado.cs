@@ -34,6 +34,8 @@ public class FireTornado : Skill
                 if (!isDamaged)
                 {
                     IHittable hitMonster = collider.GetComponent<IHittable>();
+                    IHitReactor hitReactor = collider.GetComponent<IHitReactor>();
+                    hitReactor.HitReact(skillData.hitTags, 0.1f);
                     hitMonster.TakeDamaged(skill.skillData.damage);
 
                     isDamaged = true;

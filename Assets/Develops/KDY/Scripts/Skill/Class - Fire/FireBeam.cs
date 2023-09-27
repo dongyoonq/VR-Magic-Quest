@@ -25,7 +25,9 @@ public class FireBeam : Skill
             if (Physics.Raycast(createTrans.position, createTrans.up, out RaycastHit hitInfo, 15f, LayerMask.GetMask("Monster")) && hitIntervalTime >= 1f)
             {
                 IHittable hitMonster = hitInfo.collider.GetComponent<IHittable>();
+                IHitReactor hitReactor = hitInfo.collider.GetComponent<IHitReactor>();
                 hitMonster.TakeDamaged(skill.skillData.damage);
+                hitReactor.HitReact(skill.skillData.hitTags, 0.1f);
                 hitIntervalTime = 0f;
             }
 

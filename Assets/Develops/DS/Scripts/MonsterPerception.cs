@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 using static EnumType;
 using static UnityEngine.GraphicsBuffer;
 
@@ -32,6 +33,7 @@ public class MonsterPerception : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private string deathSound;
+    private XRSimpleInteractable interacteractable;
 
     private void Awake()
     {
@@ -39,6 +41,8 @@ public class MonsterPerception : MonoBehaviour
         combat = GetComponent<MonsterCombat>();
         locomotion = GetComponent<MonsterLocomotion>();
         animator = GetComponent<Animator>();
+        interacteractable = GetComponent<XRSimpleInteractable>();
+        interacteractable.enabled = false;
     }
 
     private void OnEnable()
@@ -196,11 +200,25 @@ public class MonsterPerception : MonoBehaviour
         animator.SetBool("Collapse", true);
         animator.SetTrigger("GetHit");
         yield return new WaitForSeconds(3f);
-        if(monsterInfo.dropItems.Length > 0)
+        interacteractable.enabled = true;
+        StartCoroutine(DespawnRoutine());
+        yield return new WaitWhile(() => animator.GetBool("Collapse"));
+        if (monsterInfo.dropItems.Length > 0)
         {
             GameManager.Resource.Instantiate(monsterInfo.dropItems[Random.Range(0, monsterInfo.dropItems.Length)], transform.position + Vector3.up, Quaternion.identity, true);
         }
         yield return null;
+    }
+
+    public void Looting()
+    {
+        animator.SetBool("Collapse", false);
+    }
+
+    private IEnumerator DespawnRoutine()
+    {
+        yield return new WaitForSeconds(30f);
+        animator.SetBool("Collapse", false);
     }
 
     public void ActivateMonster(MonsterController monsterController, MonsterData.MonsterInfo monsterInfo)

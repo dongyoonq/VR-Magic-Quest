@@ -99,7 +99,7 @@ public class DoorGrab : XRBaseInteractable
         Debug.Log(ydis);
         if (ydis <-0.3f)
         {
-            rotateobj.transform.Rotate(0, 0, -ydis);
+            rotateobj.transform.Rotate(0, 0, ydis);
             door.UpDoor(1.5f);
         }
         if (door.feDoor.transform.position.y > door.fedoorpos.y + pos)

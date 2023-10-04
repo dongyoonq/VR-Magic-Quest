@@ -12,7 +12,6 @@ public class Door : MonoBehaviour
     [SerializeField] public float sped;
     [SerializeField] public bool isend = false;
     [SerializeField] public Vector3 fedoorpos;
-
     public void Awake()
     {
         fedoorpos = feDoor.transform.position;
@@ -66,11 +65,12 @@ public class Door : MonoBehaviour
     {
         if (!isend)
         {
-            while (angle.z > 0)
-            {
-                transform.Rotate(0, 0, -30 * Time.deltaTime);
-                yield return null;
-            }
+           while (angle.z < 0)
+               {
+                   transform.Rotate(0, 0, 30 * Time.deltaTime);
+                   yield return null;
+               }
+
         }
 
     }

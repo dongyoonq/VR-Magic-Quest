@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535b643bec2fe8c4890a258efc6e8025, type: 3}
+  m_Name: HP Hilling Potion Recipe
+  m_EditorClassIdentifier: 
+  RecipeSprite: {fileID: 21300000, guid: 08d200ffb5bf16041b1a87f3ba69091b, type: 3}
+  ingredientRune1: {fileID: 11400000, guid: bea514166b4028940a281b8c2470d789, type: 2}
+  ingredientRune2: {fileID: 11400000, guid: bdb167eddedf01c4194acf69590561e5, type: 2}
+  ingredientRune3: {fileID: 11400000, guid: 321ef95ad1bb884459f9e4228b7988d0, type: 2}
+  madePortion: {fileID: 11400000, guid: 8cfc673ebee7a0a4d877c7959c8124ca, type: 2}

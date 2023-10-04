@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79e98218532d9c45b30e3cc024a49f0, type: 3}
+  m_Name: Venom Strike Skill Data
+  m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 4368affce1006e6438a38165b5873142, type: 3}
+  skillPrefab: {fileID: 8135332472961957589, guid: c961733f291569246ae2406f8dc14eac,
+    type: 3}
+  skillName: Venom Strike
+  skillTooltip: This is Venom Strike Skill
+  recognizeGestureName: S
+  damage: 120
+  useMp: 0
+  skillType: 2
+  hitTags: 00000000

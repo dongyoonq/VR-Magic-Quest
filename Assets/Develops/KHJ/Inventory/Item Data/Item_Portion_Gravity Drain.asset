@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c65f0683651444898e9378e23b71a9, type: 3}
+  m_Name: Item_Portion_Gravity Drain
+  m_EditorClassIdentifier: 
+  id: 28
+  itemName: Gravity Drain Portion
+  tooltip: "Gravity Drain \uB9C8\uBC95\uC744 \uC0AC\uC6A9\uD560 \uC218 \uC788\uAC8C
+    \uB418\uB294 \uD3EC\uC158"
+  iconSprite: {fileID: 21300000, guid: 5f1ec5b63c457d9429fe558222b1bfd2, type: 3}
+  dropItemPrefab: {fileID: 1614186378292423714, guid: 1cf7f378161c1484ba1f46a75f5b011b,
+    type: 3}
+  maxAmount: 99
+  skillData: {fileID: 11400000, guid: 17ec45e49e5348f47bda3b9c08bcde76, type: 2}

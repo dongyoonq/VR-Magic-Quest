@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5338b18635c50114783d04ceab68a2ac, type: 3}
+  m_Name: QuestDataMoster
+  m_EditorClassIdentifier: 
+  questtitle: Golem 1Kill
+  value: 0
+  isclear: 0
+  monster: Golem
+  item: 
+  clearValue: 1
+  clearRecipe: {fileID: 11400000, guid: 9ce0a741042060c439133711a3e01fba, type: 2}
+  quest: 'Golem 1Kill
+
+
+
+    clear : Gravity Distortion Skill Recipe'
